@@ -15,9 +15,7 @@ To make "show my model in AR" available to as many people as possible we can
 - Use a web app so that no installations is required
 - And then use QR codes to tag the model (where AR should kick in)
 
-The web app is hosted in Omnia Radix,  
-- ~~[Production](https://something.app.playground.radix.equinor.com/)~~
-- ~~[Development](https://something.playground.radix.equinor.com/)~~
+The web app is hosted in Omnia Radix, see [Security/Hosting/Where](#Security) for links 
 
 
 ## Table of contents
@@ -81,19 +79,6 @@ The web app is hosted in Omnia Radix,
   Radix configuration is mainly handled in [`radixconfiguration.yaml`](../radixconfiguration.yaml)
 
 
-### 3D Assets
-
-All 3d assets should be in [glTF](https://www.khronos.org/gltf/) binary format `glb`.  
-It is preferable to use glb binary format to avoid problems with loading textures in Safari related to CORS and/or reverse proxy and/or cookie. 
-
-An easy way to convert `glTF` to `glb` is using a command line tool provided in nodejs:
-1. Install [glTF pipeline](https://github.com/AnalyticalGraphicsInc/gltf-pipeline) command line tool globally with npm:  
-   1. `npm install -g gltf-pipeline`
-1. Convert glTF to glb  
-   1. `gltf-pipeline -i model.gltf -o model.glb`
-1. Done!
-
-
 ## Components
 
 - **frontend**  
@@ -107,7 +92,6 @@ An easy way to convert `glTF` to `glb` is using a command line tool provided in 
 
 - **aad app**  
   OAuth in Azure
-  `kitchen-demo-xr` (`d2a44400-153d-4675-9397-59fab44f8642`)
 
 
 ## Security
@@ -116,7 +100,7 @@ An easy way to convert `glTF` to `glb` is using a command line tool provided in 
   - _Who:_ All Equinor employees
   - _What:_ auth-proxy
   - _Where:_  
-    - Azure AD app `kitchen-demo-xr` (`d2a44400-153d-4675-9397-59fab44f8642`)  
+    - Azure AD app `EIT Web AR AD App`, see configfile [azure.env](./azure/azure.env) for details  
     - Auth proxy configuration in [radixconfig.yaml](../radixconfig.yaml)
     - Credentials are set as secrets in each host environment in Radix (see CICD)
 
@@ -128,19 +112,19 @@ An easy way to convert `glTF` to `glb` is using a command line tool provided in 
 
 - **Keyvault**
   - _What:_ az keyvault
-  - _Where:_ `kitchen-vault`, owned by EIT
+  - _Where:_ `eit-web-ar`, owned by EIT
 
 - **CICD**
   - _What:_ Radix Playground
-  - _Where:_ https://console.playground.radix.equinor.com/applications/kitchen-eit-web-ar
-  - _Who:_ AZ AD group `EIT Web AR` (`1c15fcc6-3f69-4db7-a8ee-b4d86c293c35`)
+  - _Where:_ https://console.playground.radix.equinor.com/applications/eit-web-ar
+  - _Who:_ AZ AD group `EIT Web AR` (`1c15fcc6-3f69-4db7-a8ee-b4d86c293c35`)  
 
-- **Hosting**
- - _What:_ Radix Playground
- - _Where:_  
-  - [Production](https://kitchen-eit-web-ar.app.playground.radix.equinor.com/), (git branch `release`)
-  - [Development](https://entrypoint-kitchen-eit-web-ar-development.playground.radix.equinor.com/), (git branch `master`)
-- _Who:_ See "CICID"
+- **Hosting**  
+  - _What:_ Radix Playground  
+  - _Where:_  
+    - [Production](https://eit-web-ar.app.playground.radix.equinor.com/), (git branch `release`)  
+    - [Development](https://entrypoint-eit-web-ar-development.playground.radix.equinor.com/), (git branch `master`)  
+  - _Who:_ See "CICID"
 
 
 ## Development
