@@ -12,10 +12,10 @@
 ENV_TEMPLATE_PATH="/app/server/env.json"
 ENV_OUTPUT_PATH="/app/www/env.json"
 envsubst < "$ENV_TEMPLATE_PATH" > "$ENV_OUTPUT_PATH"
-echo -e "\n$(date) Bootstrapped client data:"
+echo "\n$(date) Bootstrapped client data:"
 cat "$ENV_OUTPUT_PATH"
 
 ### NGINX
 # 
-echo -e "\n$(date) Starting nginx"
+echo "\n$(date) Starting nginx"
 nginx -g "daemon off;"
