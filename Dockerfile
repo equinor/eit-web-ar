@@ -1,8 +1,19 @@
-FROM node:12 as builder
+################################################
+# Build
+
+FROM node:12-alpine as builder
+RUN apk add --update \
+  git \
+  openssh-client \
+  && rm -rf /var/cache/apk/*
 WORKDIR /app
 COPY . .
 RUN npm install
 RUN npm run build
+
+
+################################################
+# Release
 
 FROM nginxinc/nginx-unprivileged:1.18
 WORKDIR /app
@@ -14,6 +25,6 @@ RUN chown -R nginx /etc/nginx/conf.d \
     && chown -R nginx /app \
     && chmod +x ./server/init_app.sh
 USER 101
-# Note that nginx use port 8080 in nginx-unprivileged
+# Note that nginx use port 8080 by default in nginx-unprivileged
 EXPOSE 8080
 CMD /bin/sh -c "./server/init_app.sh"
