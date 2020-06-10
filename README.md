@@ -126,6 +126,10 @@ The web app is hosted in Omnia Radix, see [Security/Hosting/Where](#Security) fo
     - [Development](https://entrypoint-eit-web-ar-development.playground.radix.equinor.com/), (git branch `master`)  
   - _Who:_ See "CICID"
 
+- **Docker**  
+  - _What:_  Release image does not have root privilieges
+  - _Where:_ [./Dockerfile](./Dockerfile)
+
 
 ## Development
 
@@ -269,7 +273,7 @@ Please note that webpack is set to development mode in this demo. You should add
 
 ```sh
 docker build -t eit-web-ar-release .
-docker run -it --rm -p 3000:80 --name eit-web-ar-release eit-web-ar-release
+docker run -it --rm -p 3000:8080 --name eit-web-ar-release eit-web-ar-release
 # You should now be able to access the web app from the host computer at http://localhost:3000/
 # Note that https is not available as there is no tls cert. Cert termination will be handled automatically by the host loadbalancer, in our case Radix.
 
