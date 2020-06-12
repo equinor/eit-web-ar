@@ -1,22 +1,24 @@
-# eit-web-ar
+# Emerging IT - Web AR
 
-_Summer 2020 Internship Project_
-
-R&T often print models to enable engineers and stakeholders to get a better idea of what they are working with. These models will often be used as "lego", where people can build or deconstruct installations to get a sense for how the design will work in real life. We might be able to enhance the visual aspect of the models by using augmented reality (AR).  
+_Summer 2020 Internship Project_  
 
 The challenges for the average Equinor employee to use dedicated AR devices in a office environment are
 - Devices are not easily available
 - Devices require setup on dedicated machines
-- Equinor managed pcs are a no-go
-- Management of both device setup and usage scenarios are too cumbersome for quick and easy show and tell demos
+- Equinor managed pcs are a no-go due to the way they are locked down
+- Management of both device setup and usage scenarios are too cumbersome for quick and easy show and tell demos, or simply exploration of a 3d design you are working on
 
-To make "show my model in AR" available to as many people as possible we can 
+To be able to make (a limited subset of) the possibilities of AR available to as many people as possible we can 
 - Use their mobile phone as device 
 - Use a web app so that no installations is required
-- And then use QR codes to tag the model (where AR should kick in)
+- And then help tracking by using QR codes or GPS coords for where AR should kick in
 
-The web app is hosted in Omnia Radix, see [Security/Hosting/Where](#Security) for links 
+By using WebXR we trade (advanced) device capabilities to gain user availability - both for end-users and developers.  
+By gaining easy availability we hope to be able to quickly explore use cases where "lightweight" AR can enhance the daily work experience.  
 
+![Explore AR possibilites with the user](./docs/zapp-brannigan.jpg)
+
+![alt text](./docs/lezdodis.gif)
 
 ## Table of contents
 
@@ -37,10 +39,6 @@ The web app is hosted in Omnia Radix, see [Security/Hosting/Where](#Security) fo
 
 - [User guide](./docs/user-guide.md)
 
-### For people with too much coffe
-
-- [Brainstorming](./docs/brainstorming.md)
-
 
 ## Technologies
 
@@ -53,7 +51,8 @@ The web app is hosted in Omnia Radix, see [Security/Hosting/Where](#Security) fo
   Web server  
 
 - [Docker](https://www.docker.com/)  
-  For hosting the web app anywhere
+  For hosting the web app anywhere  
+  To quickly get up to speed with docker then run through the [Learn Docker & Containers using Interactive Browser-Based Scenarios](https://www.katacoda.com/courses/docker) at katacoda
 
 - [OAuth2 proxy](https://github.com/oauth2-proxy/oauth2-proxy)  
   A reverse proxy and static file server that provides authentication using Providers (Google, GitHub, and others) to validate accounts by email, domain or group.   
