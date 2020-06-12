@@ -3,10 +3,10 @@
 ## Overview
 
 - Project board [The Board](https://github.com/equinor/eit-web-ar/projects/1)
-- MS Team ["EIT Web AR"](https://teams.microsoft.com/_#/conversations/General?threadId=19:708913ac4afa4aefb645f0096907f015@thread.tacv2&ctx=channel) (`1c15fcc6-3f69-4db7-a8ee-b4d86c293c35`)
+- Online chat, MS Team ["Virtual summer internship 2020, channel Case 09 AR"](https://teams.microsoft.com/_#/conversations/Case%2009%20AR?threadId=19:81265945d1e84f0db95af4749ee3f989@thread.tacv2&ctx=channel)
 
 
-## Idea to Code flow
+## From Idea to Code flow
 
 Kanbanish.
 
@@ -16,6 +16,7 @@ Kanbanish.
    1. Add scope (what is it supposed to do, be as exact as possible)
    1. Add Definition of Done (checklist)  
       Mandatory DoD items are
+      - Verify that the feature is completed according to scope
       - Code review done
       - Code pushed to production
    1. Review story with fellow team member
@@ -27,6 +28,8 @@ Kanbanish.
    1. Close the task (git issue)
    1. Push task into list `Done`
    1. Loop :)
+
+Work in progress (wip) should be no more than 1 task/story per developer at a time. Throughput is king, multitasking will slow you down.
 
 
 ## Development flow
@@ -40,7 +43,7 @@ Use [trunk based development](https://trunkbaseddevelopment.com/) as the main gu
 
 ### Roll forward, avoid rollback
 
-It is usually faster and less prone to errors to add a bugfix then to roll code back.
+In most small apps it is faster and less prone to errors to add a bugfix and push it through the CICD like any other feature then to roll code back in the repo. How ever, you can always roll back to a previous _deployment_ in the CICD system while working on the fix. The end-user gets a working, though older, version of the app that is available, and you get to focus on fixing the bug and not get stuck wrangling git history.
 
 ### Why squash feature branches? 
 
@@ -57,7 +60,7 @@ On the topic of commit messages...
 ### How to write a good commit message  
 
 A commit message should be concise and consistent. Look at it as a way to communicate context about a change to other developers. The details of what you changed are always available in the diff, you add _why_ you changed it in the message.  
-For great examples then read
+For great examples please read
 - [How to Write a Git Commit Message](https://chris.beams.io/posts/git-commit/)
 - [NAV - Om å skrive gode commit-meldinger](https://github.com/navikt/offentlig/blob/master/guider/commit-meldinger.md)
 
