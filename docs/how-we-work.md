@@ -63,6 +63,7 @@ A commit message should be concise and consistent. Look at it as a way to commun
 For great examples please read
 - [How to Write a Git Commit Message](https://chris.beams.io/posts/git-commit/)
 - [NAV - Om å skrive gode commit-meldinger](https://github.com/navikt/offentlig/blob/master/guider/commit-meldinger.md)
+- [A Torvald commit...](https://github.com/torvalds/linux/commit/076f14be7f)
 
 
 
