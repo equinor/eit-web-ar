@@ -49,6 +49,15 @@ module.exports = {
             }],
          },
          {
+            test: /\.mp3$/,
+            use: [{
+               loader: "file-loader",
+               options: {
+                  name: "[folder]/[name].[ext]",
+               }
+            }],
+         },
+         {
             test: /\.(woff|woff2|eot|ttf|otf)$/,
             use: [{
                loader: "file-loader",
@@ -92,7 +101,8 @@ module.exports = {
       }),
       new WebpackMd5Hash(),
       new CopyPlugin([
-         { from: './src/images', to: 'images' },
+        { from: './src/images', to: 'images' },
+        { from: './src/audio', to: 'audio' },
       ]),
    ],
 };
