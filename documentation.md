@@ -13,6 +13,16 @@ Comments:
 * With this setup, everything seems to work as it should. I can see the AR/VR buttons when I visit the app and I get no errors.
 * No workarounds.
 
+## Development Environment - Ola
+Development environment
+* Ubuntu 20.04 (Linux)
+* iPhone 11 - iOS 13.3.1
+* XRviewer/Safari
+
+Comments:
+* Need to install the app "XR viewer" from the app store to have a compatible browser for WebXR on iPhone. 
+* For only enabling camera as a background (without IMU etc.) only Safari works.
+
 ## Using devices without AR support
 
 Android devices without support for ARCore doesn't show the AR button in the browser,
