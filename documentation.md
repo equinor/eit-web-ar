@@ -46,3 +46,6 @@ Links:
 * How to use: https://aframe.io/blog/arjs/#different-type-of-markers-pattern-and-barcode
 * Info: https://github.com/artoolkitx/artoolkitx/wiki/Creating-and-using-square-barcode-markers
 * Generator: https://au.gmented.com/app/marker/marker.php 
+
+
+## Toggling the visibility of objects

@@ -9,7 +9,7 @@
 </head>
 
 <body>
-   <a-scene 
+   <a-scene
       embedded
       arjs='detectionMode: mono_and_matrix; matrixCodeType: 3x3;'>
 
@@ -24,11 +24,14 @@
       <!-- Generate here: https://au.gmented.com/app/marker/marker.php -->
       <!-- matrixCodeType: 3x3, code/number: 0 -->
       <a-marker type='barcode' value='0'>
-         <a-text mixin="text" position='0 0.5 0' wrap-count="20" rotation="-90 0 0"></a-text>
+         <a-box position='0 0.5 0' color='green' change-color-on-hover="color: blue"></a-box>
+         <!-- <a-text mixin="text" position='0 0.5 0' wrap-count="20" rotation="-90 0 0"></a-text> -->
       </a-marker>
 
       <!-- Camera -->
-      <a-entity camera></a-entity>
+      <a-entity camera>
+         <a-cursor></a-cursor>
+      </a-entity>
       <!-- /Camera -->
 
    </a-scene>
