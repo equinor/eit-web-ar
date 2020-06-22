@@ -12,6 +12,7 @@ AFRAME.registerComponent('change-color-on-hover', {
     var data = this.data;
     var el = this.el;  // <a-box>
     var defaultColor = el.getAttribute('material').color;
+    console.log("hejhipp");
 
     el.addEventListener('mouseenter', function () {
       el.setAttribute('color', data.color);
