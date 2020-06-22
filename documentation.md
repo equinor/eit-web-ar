@@ -36,13 +36,18 @@ AR.js comes with two tracking functionalities: Image Tracking and Marker Trackin
 Links:
 * https://ar-js-org.github.io/AR.js-Docs/
 
-# A note about QR-codes
+## A note about QR-codes
 QR-codes are symbols that are too complex to use as markers. The tracking is not good and you need to be very close to the qr-code in order to track it as a symbol. Therefore we are not using QR-codes as markers.
 
-# Barcodes
+## Barcodes
 Barcodes are simple symbols with good performance. Barcodes are generated symbols for a number. You don't need a symbol/pattern file, it is enough to just specify the number used for generating the barcode. For example, using 3x3 matrix code type, we have 64 standardized symbols available between 0-63. Then it is enough to specify the number in the html code.
 
 Links:
 * How to use: https://aframe.io/blog/arjs/#different-type-of-markers-pattern-and-barcode
 * Info: https://github.com/artoolkitx/artoolkitx/wiki/Creating-and-using-square-barcode-markers
-* Generator: https://au.gmented.com/app/marker/marker.php 
+* Generator: https://au.gmented.com/app/marker/marker.php
+
+### Trouble recognizing barcode with laptop
+With [Commit #26](https://github.com/equinor/eit-web-ar/commit/3c82867d0a231d38d44d794825fe564e65f36a39) we're able to show text when the app recognizes barcode `0`.
+
+All of us were able to recognize the barcode with our phones, but none of us were able to recognize the barcode using the webcam on our laptops.
