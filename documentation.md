@@ -10,10 +10,9 @@ Links:
 QR-codes is a symbol which is too complex to use as a marker. The tracking is not good and you need to be very close to the qr-code in order to track it as a symbol. Therefore we are not using QR-codes as markers.
 
 # Barcodes
-Barcodes are simple symbols with good performance. Barcodes 
-
-% TODO
+Barcodes are simple symbols with good performance. Barcodes are generated symbols for a number. You don't need a symbol/pattern file, it is enough to just specify the number used for generating the barcode. For example, using 3x3 matrix code type, we have 64 standardized symbols available between 0-63. Then it is enough to specify the number in the html code.
 
 Links:
+* How to use: https://aframe.io/blog/arjs/#different-type-of-markers-pattern-and-barcode
 * Info: https://github.com/artoolkitx/artoolkitx/wiki/Creating-and-using-square-barcode-markers
 * Generator: https://au.gmented.com/app/marker/marker.php 
