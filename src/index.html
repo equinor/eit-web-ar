@@ -6,7 +6,9 @@
 </head>
 
 <body>
-   <a-scene cursor="rayOrigin:mouse">
+   <a-scene cursor="rayOrigin:mouse" arjs='detectionMode: mono_and_matrix; matrixCodeType: 3x3;'>
+
+      <a-marker type='barcode' value='0'></a-marker>
 
       <!-- Something to look at -->
       <a-entity test-box position="0 1 -5"></a-entity>
@@ -17,6 +19,7 @@
 
       <!-- Environment -->
       <!-- /Environment -->
+
 
    </a-scene>
 
