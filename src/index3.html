@@ -1,0 +1,33 @@
+<html>
+
+<head>
+   <meta charset="UTF-8">
+   <title>EIT Web AR Demo</title>
+</head>
+
+<body>
+   <a-scene marker="rayOrigin:mouse">
+    <a-asset>
+       <audio id="audioMessageReceived" src="./audio/messageReceived.mp3" preload="auto"></audio>
+     </a-asset>
+      <a-box position="1 1 -3" sound="src: #audioMessageReceived; on: click"></a-box>
+
+      <!-- Camera -->
+      <a-camera></a-camera>
+      <!-- /Camera -->
+
+   </a-scene>
+
+   <!-- Logo row -->
+   <a href="https://radix.equinor.com/" target="_blank"
+      style="position:fixed; bottom: 20px; left: 20px;">
+      <img src="./images/omnia-radix-logo.svg" style="height: 2rem;">
+   </a>
+   <a href="https://statoilsrm.sharepoint.com/sites/DigitalTechnologyLab" target="_blank"
+      style="position:fixed; bottom: 25px; left: 120px;">
+      <img src="./images/eit-watermark.svg" style="height: 1.7rem;">
+   </a>
+   <!-- /Logo row -->
+</body>
+
+</html>
