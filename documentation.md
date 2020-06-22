@@ -29,3 +29,20 @@ It seems that at least some AR functionality can still be accessed even though t
 So far we have been able to use the following functionalities on phones without AR support:
 
 * Camera (Moto G5)
+
+## Tracking symbols
+AR.js comes with two tracking functionalities: Image Tracking and Marker Tracking. Images are like photos (very detailed), while markers are very simple symbols. After some testing and reading, it seems that using markers is better for tracking in terms of speed and stability.
+
+Links:
+* https://ar-js-org.github.io/AR.js-Docs/
+
+# A note about QR-codes
+QR-codes are symbols that are too complex to use as markers. The tracking is not good and you need to be very close to the qr-code in order to track it as a symbol. Therefore we are not using QR-codes as markers.
+
+# Barcodes
+Barcodes are simple symbols with good performance. Barcodes are generated symbols for a number. You don't need a symbol/pattern file, it is enough to just specify the number used for generating the barcode. For example, using 3x3 matrix code type, we have 64 standardized symbols available between 0-63. Then it is enough to specify the number in the html code.
+
+Links:
+* How to use: https://aframe.io/blog/arjs/#different-type-of-markers-pattern-and-barcode
+* Info: https://github.com/artoolkitx/artoolkitx/wiki/Creating-and-using-square-barcode-markers
+* Generator: https://au.gmented.com/app/marker/marker.php 

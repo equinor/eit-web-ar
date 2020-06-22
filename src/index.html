@@ -3,20 +3,33 @@
 <head>
    <meta charset="UTF-8">
    <title>EIT Web AR Demo</title>
+
+   <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
+   <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
 </head>
 
 <body>
-   <a-scene cursor="rayOrigin:mouse">
+   <a-scene 
+      embedded
+      arjs='detectionMode: mono_and_matrix; matrixCodeType: 3x3;'>
 
-      <!-- Something to look at -->
-      <a-entity test-box position="0 1 -5"></a-entity>
+      <a-assets>
+         <a-mixin id="text"
+           text="align: center; 
+                 width: 6; 
+                 value: Matboks. Mye info her om denna matboksen."
+         ></a-mixin>
+      </a-assets>
+
+      <!-- Generate here: https://au.gmented.com/app/marker/marker.php -->
+      <!-- matrixCodeType: 3x3, code/number: 0 -->
+      <a-marker type='barcode' value='0'>
+         <a-text mixin="text" position='0 0.5 0' wrap-count="20" rotation="-90 0 0"></a-text>
+      </a-marker>
 
       <!-- Camera -->
-      <a-camera id="camera-1"></a-camera>
+      <a-entity camera></a-entity>
       <!-- /Camera -->
-
-      <!-- Environment -->
-      <!-- /Environment -->
 
    </a-scene>
 
