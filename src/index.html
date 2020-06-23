@@ -37,18 +37,18 @@
       </a-marker>
       <a-marker marker-sound sound="src: #audioMarkerFound" autoplay="false" type='barcode' value='1'>
       </a-marker>
-      <a-marker show-modal="modalId: longText; trigger: mouseenter" type='barcode' value='2'>
+      <a-marker show-modal="modalId: longText; trigger: mouseenter" type='barcode' value='2' class="cursor-interactive">
       </a-marker>
       <a-marker gltf-model="#penguin" type='barcode' value='3'>
       </a-marker>
       <a-marker type="barcode" value="4">
-         <a-box class="box" material="color:green" position="0 0.5 0" toggle-visibility></a-entity>
+         <a-box material="color:green" position="0 0.5 0" toggle-visibility class="cursor-interactive"</a-entity>
       </a-marker>
 
       <a-entity camera>
          <a-entity 
             cursor="fuse: false; rayOrigin: mouse;"
-            raycaster="interval: 20; objects: .box"
+            raycaster="interval: 20; objects: .cursor-interactive"
             position="0 0 -1"
             geometry="primitive: ring; radiusInner: 0.01; radiusOuter: 0.015"
             material="color: black; shader: flat"
