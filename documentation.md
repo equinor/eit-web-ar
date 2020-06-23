@@ -20,8 +20,18 @@ Development environment
 * XRviewer/Safari
 
 Comments:
-* Need to install the app "XR viewer" from the app store to have a compatible browser for WebXR on iPhone. 
+* Need to install the app "XR viewer" from the app store to have a compatible browser for WebXR on iPhone.
 * For only enabling camera as a background (without IMU etc.) only Safari works.
+
+## Development Environment - Erlend
+Development environment:
+* Linux Mint 19.1 (aka Ubuntu 18.04)
+* Chromium 83 for desktop
+* Moto G5 with Android 8.1.0
+* Chrome 83 for mobile
+
+Comments:
+* Moto G5 does not support ARCore. The AR button in Chrome for mobile is shown, but gives an error without text when clicked.
 
 ## Using devices without AR support
 
@@ -57,7 +67,10 @@ Links:
 * Info: https://github.com/artoolkitx/artoolkitx/wiki/Creating-and-using-square-barcode-markers
 * Generator: https://au.gmented.com/app/marker/marker.php
 
-### Trouble recognizing barcode with laptop
+### Trouble recognizing barcode ~~with laptop~~ with black background
 With [Commit #26](https://github.com/equinor/eit-web-ar/commit/3c82867d0a231d38d44d794825fe564e65f36a39) we're able to show text when the app recognizes barcode `0`.
 
-All of us were able to recognize the barcode with our phones, but none of us were able to recognize the barcode using the webcam on our laptops.
+~~All of us were able to recognize the barcode with our phones, but none of us were able to recognize the barcode using the webcam on our laptops.~~
+
+All of us were able to recognize the barcode with our phones. We also were able to recognize the barcode using the webcam on our laptops,
+but only when the barcode marker had a white background - not a black one.
