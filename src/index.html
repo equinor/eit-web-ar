@@ -28,6 +28,7 @@
                <p>Trykk på tekstvinduet for å lukke det :)))</p>
              </div>
           </a-asset>
+          <a-asset-item id="penguin" src="./gltf/scene.gltf" preload="auto"></a-asset-item>
         </a-assets>
 
       <!-- Generate here: https://au.gmented.com/app/marker/marker.php -->
@@ -38,6 +39,8 @@
       <a-marker marker-sound sound="src: #audioMarkerFound" autoplay="false" type='barcode' value='1'>
       </a-marker>
       <a-marker show-modal="modalId: longText; trigger: mouseenter" type='barcode' value='2'>
+      </a-marker>
+      <a-marker gltf-model="#penguin" type='barcode' value='3'>
       </a-marker>
 
       <!-- Camera -->

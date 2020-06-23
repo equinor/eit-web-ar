@@ -102,6 +102,7 @@ module.exports = {
       new WebpackMd5Hash(),
       new CopyPlugin([
         { from: './src/images', to: 'images' },
+        { from: './src/gltf', to: 'gltf' },
         { from: './src/audio', to: 'audio' }
       ]),
    ],
