@@ -105,10 +105,7 @@ module.exports = {
         { from: './src/audio', to: 'audio' }
       ]),
    ],
-<<<<<<< HEAD
    externals: {
      fs: 'fs'
    }
-=======
->>>>>>> master
 };
