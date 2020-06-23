@@ -18,11 +18,14 @@
 
       <a-assets>
          <a-mixin id="text"
-           text="align: center; 
-                 width: 6; 
+           text="align: center;
+                 width: 6;
                  value: Matboks. Mye info her om denna matboksen."
          ></a-mixin>
-      </a-assets>
+          <a-asset>
+             <audio id="audioMessageReceived" src="./audio/messageReceived.mp3" preload="auto"></audio>
+           </a-asset>
+        </a-assets>
 
       <!-- Generate here: https://au.gmented.com/app/marker/marker.php -->
       <!-- matrixCodeType: 3x3, code/number: 0 -->
@@ -32,6 +35,11 @@
          
          <!-- <a-text mixin="text" position='0 0.5 0' wrap-count="20" rotation="-90 0 0"></a-text> -->
       </a-marker>
+      <a-marker type='barcode' value='1'>
+            <a-box sound="src: #audioMessageReceived"></a-box>
+      </a-marker>
+
+
 
       <!-- Camera -->
       <a-entity camera>
@@ -40,13 +48,25 @@
       <!-- /Camera -->
 
    </a-scene>
+   <script>
+    scene = document.getElementById("scene")
+    scene.addEventListener("markerFound", (e) => {
+      console.log('marker found');
+      audio = new Audio('./audio/messageReceived.mp3');
+      audio.play();
+    })
+   </script>
 
    <!-- Logo row -->
-   <a href="https://radix.equinor.com/" target="_blank" 
+   <a href="#"
+     style="position:fixed; bottom: 25px; left: 220px;">
+     <span>Enable audio</span>
+   </a>
+   <a href="https://radix.equinor.com/" target="_blank"
       style="position:fixed; bottom: 20px; left: 20px;">
       <img src="./images/omnia-radix-logo.svg" style="height: 2rem;">
    </a>
-   <a href="https://statoilsrm.sharepoint.com/sites/DigitalTechnologyLab" target="_blank" 
+   <a href="https://statoilsrm.sharepoint.com/sites/DigitalTechnologyLab" target="_blank"
       style="position:fixed; bottom: 25px; left: 120px;">
       <img src="./images/eit-watermark.svg" style="height: 1.7rem;">
    </a>
