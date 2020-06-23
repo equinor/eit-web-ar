@@ -12,7 +12,6 @@ AFRAME.registerComponent('toggle-visibility', {
     const data = this.data; // schema properties
     const el = this.el; // <a-entity>
     const hoverOpacity = '0.9';
-    const hoverOpacityString = hoverOpacity.toString();
     let currentOpacity = el.getAttribute('material').opacity;
 
     el.setAttribute('material', 'transparent', 'false');
@@ -32,7 +31,7 @@ AFRAME.registerComponent('toggle-visibility', {
 
     el.addEventListener('mouseenter', function () {
       if (currentOpacity !== 0.0) {
-        el.setAttribute('material', 'opacity', hoverOpacityString);
+        el.setAttribute('material', 'opacity', hoverOpacity);
       }
     });
 
