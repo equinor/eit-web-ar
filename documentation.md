@@ -79,6 +79,9 @@ Links:
 
 ## Toggling the visibility of objects
 * Generator: https://au.gmented.com/app/marker/marker.php
+* Use code:2 and matrix:3x3
+
+You can toggle an object on and off by first adding the component toggle-visibility to an entity. Then when you click on the entity it will toggle it's visibility on and off.
 
 ### Trouble recognizing barcode ~~with laptop~~ with black background
 With [Commit #26](https://github.com/equinor/eit-web-ar/commit/3c82867d0a231d38d44d794825fe564e65f36a39) we're able to show text when the app recognizes barcode `0`.
