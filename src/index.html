@@ -21,7 +21,7 @@
                  value: Matboks. Mye info her om denna matboksen."
          ></a-mixin>
           <a-asset>
-             <audio id="audioMessageReceived" src="./audio/messageReceived.mp3" preload="auto"></audio>
+             <audio id="audioMarkerFound" src="./audio/markerFound.mp3" preload="auto"></audio>
            </a-asset>
         </a-assets>
 
@@ -30,7 +30,7 @@
       <a-marker type='barcode' value='0'>
          <a-text mixin="text" position='0 0.5 0' wrap-count="20" rotation="-90 0 0"></a-text>
       </a-marker>
-      <a-marker play-sound type='barcode' value='1'>
+      <a-marker marker-sound sound="src: #audioMarkerFound" autoplay="false" type='barcode' value='1'>
       </a-marker>
 
       <a-entity test-box position="0 1 -5"></a-entity>
