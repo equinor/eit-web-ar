@@ -20,6 +20,7 @@
           <a-asset>
              <audio id="audioMarkerFound" src="./audio/markerFound.mp3" preload="auto"></audio>
            </a-asset>
+         <a-asset-item id="penguin" src="./gltf/scene.gltf" preload="auto"></a-asset-item>
         </a-assets>
 
       <!-- Generate here: https://au.gmented.com/app/marker/marker.php -->
@@ -28,6 +29,8 @@
          <a-text mixin="text" position='0 0.5 0' wrap-count="20" rotation="-90 0 0"></a-text>
       </a-marker>
       <a-marker marker-sound sound="src: #audioMarkerFound" autoplay="false" type='barcode' value='1'>
+      </a-marker>
+      <a-marker gltf-model="#penguin" type='barcode' value='3'>
       </a-marker>
 
       <!-- Camera -->
