@@ -37,20 +37,18 @@
       </a-marker>
       <a-marker marker-sound sound="src: #audioMarkerFound" autoplay="false" type='barcode' value='1'>
       </a-marker>
-      <a-marker show-modal="modalId: longText" type='barcode' value='2'>
+      <a-marker show-modal="modalId: longText; trigger: mouseenter" type='barcode' value='2'>
       </a-marker>
 
       <!-- Camera -->
-      <a-entity camera></a-entity>
+      <a-entity camera>
+        <a-cursor></a-cursor>
+      </a-entity>
       <!-- /Camera -->
 
    </a-scene>
 
    <!-- Logo row -->
-   <a href="#"
-     style="position:fixed; bottom: 25px; left: 220px;">
-     <span>Enable audio</span>
-   </a>
    <a href="https://radix.equinor.com/" target="_blank"
       style="position:fixed; bottom: 20px; left: 20px;">
       <img src="./images/omnia-radix-logo.svg" style="height: 2rem;">
