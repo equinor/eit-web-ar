@@ -35,15 +35,14 @@
       <a-marker type='barcode' value='0'>
          <a-text mixin="text" position='0 0.5 0' wrap-count="20" rotation="-90 0 0"></a-text>
       </a-marker>
-      <a-marker type='barcode' value='1'>
-            <a-box sound="src: #audioMessageReceived"></a-box>
-      </a-marker>
-      <a-marker type="barcode" value="2">
-         <a-box class="box" material="color:green" position="0 0.5 0" toggle-visibility></a-entity>
+      <a-marker marker-sound sound="src: #audioMarkerFound" autoplay="false" type='barcode' value='1'>
       </a-marker>
       <a-marker show-modal="modalId: longText; trigger: mouseenter" type='barcode' value='2'>
       </a-marker>
       <a-marker gltf-model="#penguin" type='barcode' value='3'>
+      </a-marker>
+      <a-marker type="barcode" value="4">
+         <a-box class="box" material="color:green" position="0 0.5 0" toggle-visibility></a-entity>
       </a-marker>
 
       <a-entity camera>
