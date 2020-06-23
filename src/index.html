@@ -11,14 +11,14 @@
       cursor="rayOrigin: mouse"
       arjs='detectionMode: mono_and_matrix; matrixCodeType: 3x3;'
       gesture-detector
+      embedded
       >
-      
 
       <a-assets>
          <a-mixin id="text"
-           text="align: center;
-                 width: 6;
-                 value: Matboks. Mye info her om denna matboksen."
+         text="align: center;
+               width: 6;
+               value: Matboks. Mye info her om denna matboksen."
          ></a-mixin>
           <a-asset>
              <audio id="audioMarkerFound" src="./audio/markerFound.mp3" preload="auto"></audio>
@@ -41,7 +41,7 @@
       </a-marker>
       <a-marker marker-sound sound="src: #audioMarkerFound" autoplay="false" type='barcode' value='1'>
       </a-marker>
-      <a-marker show-modal="modalId: longText; trigger: mouseenter" type='barcode' value='2'>
+      <a-marker show-modal="modalId: longText; trigger: mouseenter" type='barcode' value='2' class="cursor-interactive">
       </a-marker>
       <a-marker raycaster="objects: .clickable" type='barcode' value='3' emitevents="true" cursor="fuse: false; rayOrigin: mouse;" id="markerA">
          <a-entity
@@ -51,12 +51,19 @@
          >
          </a-entity>
       </a-marker>
+      <a-marker type="barcode" value="4">
+         <a-box material="color:green" position="0 0.5 0" toggle-visibility class="cursor-interactive"></a-box>
+      </a-marker>
 
-      <!-- Camera -->
       <a-entity camera>
-        <a-cursor></a-cursor>
+         <a-entity 
+            cursor="fuse: false; rayOrigin: mouse;"
+            raycaster="interval: 20; objects: .cursor-interactive"
+            position="0 0 -1"
+            geometry="primitive: ring; radiusInner: 0.01; radiusOuter: 0.015"
+            material="color: black; shader: flat"
+         ></a-entity>
       </a-entity>
-      <!-- /Camera -->
 
    </a-scene>
 
