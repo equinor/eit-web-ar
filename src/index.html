@@ -3,12 +3,15 @@
 <head>
    <meta charset="UTF-8">
    <title>EIT Web AR Demo</title>
+<<<<<<< HEAD
 
    <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
    <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
    <script>
       
    </script>
+=======
+>>>>>>> master
 </head>
 
 <body>
@@ -22,16 +25,10 @@
                width: 6;
                value: Matboks. Mye info her om denna matboksen."
          ></a-mixin>
-        <a-asset>
-           <audio id="audioMessageReceived" src="./audio/messageReceived.mp3" preload="auto"></audio>
-         </a-asset>
-         <!-- <a-asset-item 
-            id="animated-asset" 
-            src="https://raw.githubusercontent.com/nicolocarpignoli/nicolocarpignoli.github.io/master/ar-click-events/models/CesiumMan.gltf"
-         ></a-asset-item> -->
-      </a-assets>
-
-      
+          <a-asset>
+             <audio id="audioMarkerFound" src="./audio/markerFound.mp3" preload="auto"></audio>
+           </a-asset>
+        </a-assets>
 
       <!-- Generate here: https://au.gmented.com/app/marker/marker.php -->
       <!-- matrixCodeType: 3x3, code/number: 0 -->
@@ -56,14 +53,6 @@
       <!-- /Camera -->
 
    </a-scene>
-   <script>
-    scene = document.getElementById("scene")
-    scene.addEventListener("markerFound", (e) => {
-      console.log('marker found');
-      audio = new Audio('./audio/messageReceived.mp3');
-      audio.play();
-    })
-   </script>
 
    <!-- Logo row -->
    <a href="#"

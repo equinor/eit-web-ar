@@ -4,3 +4,4 @@
 import "./test-box";
 import "./change-color-on-hover";
 import "./events";
+import "./marker-sound";
