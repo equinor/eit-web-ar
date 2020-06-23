@@ -14,7 +14,7 @@ Comments:
 * No workarounds.
 
 ## Development Environment - Ola
-Development environment
+Development environment:
 * Ubuntu 20.04 (Linux)
 * iPhone 11 - iOS 13.3.1
 * XRviewer/Safari
@@ -32,6 +32,15 @@ Development environment:
 
 Comments:
 * Moto G5 does not support ARCore. The AR button in Chrome for mobile is shown, but gives an error without text when clicked.
+
+## Development Environment - Jonas
+Development environment:
+* MacOS Catalina 10.15.2
+* iPhone XR - iOS 13.5.1
+* Safari
+
+Comments:
+* For now safari is sufficient for the web application, but XRViewer may be necessary later on.
 
 ## Using devices without AR support
 
