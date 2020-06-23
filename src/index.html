@@ -18,28 +18,39 @@
 
       <a-assets>
          <a-mixin id="text"
-           text="align: center;
-                 width: 6;
-                 value: Matboks. Mye info her om denna matboksen."
+         text="align: center;
+               width: 6;
+               value: Matboks. Mye info her om denna matboksen."
          ></a-mixin>
-          <a-asset>
-             <audio id="audioMessageReceived" src="./audio/messageReceived.mp3" preload="auto"></audio>
-           </a-asset>
-        </a-assets>
+        <a-asset>
+           <audio id="audioMessageReceived" src="./audio/messageReceived.mp3" preload="auto"></audio>
+         </a-asset>
+         <a-asset-item 
+            id="animated-asset" 
+            src="https://raw.githubusercontent.com/nicolocarpignoli/nicolocarpignoli.github.io/master/ar-click-events/models/CesiumMan.gltf"
+         ></a-asset-item>
+      </a-assets>
+
+      
 
       <!-- Generate here: https://au.gmented.com/app/marker/marker.php -->
       <!-- matrixCodeType: 3x3, code/number: 0 -->
-      <a-marker type='barcode' value='0'>
-         <a-box position='0 0.5 0' color='green' change-color-on-hover></a-box>
-         <!-- <a-entity test-box position='0 0.5 0'></a-entity> -->
-         
-         <!-- <a-text mixin="text" position='0 0.5 0' wrap-count="20" rotation="-90 0 0"></a-text> -->
+      <!-- <a-marker type='barcode' value='0'>
+         <a-text mixin="text" position='0 0.5 0' wrap-count="20" rotation="-90 0 0"></a-text>
       </a-marker>
       <a-marker type='barcode' value='1'>
             <a-box sound="src: #audioMessageReceived"></a-box>
+      </a-marker> -->
+      <a-marker type="barcode" value="2" markerhandler emitevents="true" raycaster="objects: .box" cursor="rayOrigin: mouse" id="animated-marker">
+         <!-- <a-box id="animated-model" class="box" position="0 0.5 0" color="pink" scale="1"></a-box> -->
+         <a-entity test-box position="0 0.5 0" id="animated-model"></a-entity>
+         <!-- <a-box class="box" position="0 0.5 0" color="pink"></a-box>
+         <a-entity class="box" test-box position="0 0.5 0"></a-entity>
+         <a-entity 
+            id="animated-model"
+            gltf-model="#animated-asset"
+            scale="2"></a-entity> -->
       </a-marker>
-
-
 
       <!-- Camera -->
       <a-entity camera>
