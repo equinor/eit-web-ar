@@ -3,15 +3,6 @@
 <head>
    <meta charset="UTF-8">
    <title>EIT Web AR Demo</title>
-<<<<<<< HEAD
-
-   <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
-   <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
-   <script>
-      
-   </script>
-=======
->>>>>>> master
 </head>
 
 <body>
@@ -32,25 +23,25 @@
 
       <!-- Generate here: https://au.gmented.com/app/marker/marker.php -->
       <!-- matrixCodeType: 3x3, code/number: 0 -->
-      <!-- <a-marker type='barcode' value='0'>
+      <a-marker type='barcode' value='0'>
          <a-text mixin="text" position='0 0.5 0' wrap-count="20" rotation="-90 0 0"></a-text>
       </a-marker>
       <a-marker type='barcode' value='1'>
             <a-box sound="src: #audioMessageReceived"></a-box>
-      </a-marker> -->
-      <a-marker type="barcode" value="2" markerhandler emitevents="true" raycaster="objects: .box" cursor="rayOrigin: mouse" id="animated-marker">
-         <a-entity test-box position="0 0.5 0" id="animated-model"></a-entity>
-         <!-- <a-entity 
-            id="animated-model"
-            gltf-model="#animated-asset"
-            scale="2"></a-entity> -->
+      </a-marker>
+      <a-marker type="barcode" value="2">
+         <a-box class="box" material="color:green" position="0 0.5 0" toggle-visibility></a-entity>
       </a-marker>
 
-      <!-- Camera -->
       <a-entity camera>
-         <a-cursor></a-cursor>
+         <a-entity 
+            cursor="fuse: false; rayOrigin: mouse;"
+            raycaster="interval: 20; objects: .box"
+            position="0 0 -1"
+            geometry="primitive: ring; radiusInner: 0.01; radiusOuter: 0.015"
+            material="color: black; shader: flat"
+         ></a-entity>
       </a-entity>
-      <!-- /Camera -->
 
    </a-scene>
 
