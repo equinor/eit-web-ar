@@ -1,15 +1,13 @@
 {
     "env": {
         "browser": true,
-        "es6": true
+        "es2020": true
     },
-    "extends": "eslint:recommended",
-    "globals": {
-        "Atomics": "readonly",
-        "SharedArrayBuffer": "readonly"
-    },
+    "extends": [
+        "airbnb-base"
+    ],
     "parserOptions": {
-        "ecmaVersion": 2018,
+        "ecmaVersion": 11,
         "sourceType": "module"
     },
     "rules": {
