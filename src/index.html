@@ -10,9 +10,9 @@
     <a-scene
         vr-mode-ui="enabled: false"
         embedded
-        arjs
+        arjs='detectionMode: mono_and_matrix; matrixCodeType: 3x3;'
         location-based='place: {"name": "Magnemite", "asset": "#magnemite", "location": {"lat": 59.964967, "lng":10.730272}}; numberOfDistanceMsgs: 10; loadPlacesInsideComponent: false'>
-    
+
         <a-assets>
             <a-mixin id="text"
                      text="align: center;
@@ -30,14 +30,14 @@
                <p> ( Touch to close this window )</p>
              </div>
             </a-asset>
-            <a-asset-item 
-                id="penguin" 
-                src="./gltf/scene.gltf" 
+            <a-asset-item
+                id="penguin"
+                src="./gltf/scene.gltf"
                 preload="auto">
             </a-asset-item>
-            <a-asset-item 
-                id="magnemite" 
-                src="./gltf/magnemite/scene.gltf" 
+            <a-asset-item
+                id="magnemite"
+                src="./gltf/magnemite/scene.gltf"
                 preload="auto">
             </a-asset-item>
         </a-assets>
