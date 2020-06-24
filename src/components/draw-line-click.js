@@ -45,6 +45,13 @@ AFRAME.registerComponent('draw-line-click', {
   },
   tick: function () {
     for (var i = 0; i < this.linesInfo.length; i++) {
+      // If one of the markers are not visible, remove the line
+      if (!document.getElementById(this.linesInfo[i].startMarkerId).object3D.visible || !this.el.object3D.visible) {
+        this.el.sceneEl.object3D.remove(this.el.sceneEl.object3D.getObjectByName('draw-line-click-' + this.el.id + '-' + i));
+        console.log('remove');
+        break;
+      }
+
       var points = [
         document.getElementById(this.linesInfo[i].startMarkerId).getAttribute('position'),
         this.el.getAttribute('position')
