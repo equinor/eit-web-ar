@@ -66,7 +66,7 @@ AFRAME.registerComponent('draw-line-click', {
           var line = new THREE.Line(geometry, this.linesInfo[i].material);
           line.name = 'draw-line-click-' + this.el.id + '-' + i;
           this.el.sceneEl.object3D.add(line);
-          this.el.sceneEl.renderer.render(this.el.sceneEl, this.el.sceneEl.querySelector('a-camera').object3D);
+          this.el.sceneEl.renderer.render(this.el.sceneEl.object3D, this.el.sceneEl.camera);
         } else {
           // Update old line if it exists
           line.geometry = geometry;
