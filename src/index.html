@@ -3,35 +3,43 @@
 <head>
    <meta charset="UTF-8">
    <title>EIT Web AR Demo</title>
+
 </head>
 
-<body>
-   <a-scene
-      id="scene"
-      cursor="rayOrigin: mouse"
-      arjs='detectionMode: mono_and_matrix; matrixCodeType: 3x3;'
-      gesture-detector
-      embedded
-      >
-
-      <a-assets>
-         <a-mixin id="text"
-         text="align: center;
-               width: 6;
-               value: Model: AD30VT XL. Dimensions: 18 x 17 x 9. Weight: 27LBS"
-         ></a-mixin>
-          <a-asset>
+<body style='margin: 0; overflow: hidden;'>
+    <a-scene
+        vr-mode-ui="enabled: false"
+        embedded
+        arjs
+        location-based='place: {"name": "Magnemite", "asset": "#magnemite", "location": {"lat": 59.964967, "lng":10.730272}}; numberOfDistanceMsgs: 10; loadPlacesInsideComponent: false'>
+    
+        <a-assets>
+            <a-mixin id="text"
+                     text="align: center;
+                           width: 6;
+                           value: Model: AD30VT XL. Dimensions: 18 x 17 x 9. Weight: 27LBS"
+            ></a-mixin>
+            <a-asset>
              <audio id="audioMarkerFound" src="./audio/markerFound.mp3" preload="auto"></audio>
-           </a-asset>
-           <a-asset>
+            </a-asset>
+            <a-asset>
              <div id="longText">
                <p>Vox is a musical equipment manufacturer founded in 1957 by Thomas Walter Jennings in Dartford, Kent, England. </p>
                <p>The company is most famous for making the Vox AC30 guitar amplifier, used by The Beatles, The Rolling Stones, The Kinks, The Yardbirds,</p>
                <p> Queen, Dire Straits, U2 and Radiohead, the Vox Continental electric organ, the Vox wah-wah pedal used by Jimi Hendrix, and a series of innovative bass guitars.</p>
                <p> ( Touch to close this window )</p>
              </div>
-          </a-asset>
-          <a-asset-item id="penguin" src="./gltf/scene.gltf" preload="auto"></a-asset-item>
+            </a-asset>
+            <a-asset-item 
+                id="penguin" 
+                src="./gltf/scene.gltf" 
+                preload="auto">
+            </a-asset-item>
+            <a-asset-item 
+                id="magnemite" 
+                src="./gltf/magnemite/scene.gltf" 
+                preload="auto">
+            </a-asset-item>
         </a-assets>
 
       <!-- Generate here: https://au.gmented.com/app/marker/marker.php -->
@@ -65,7 +73,7 @@
 
       <!-- Camera -->
 
-      <a-camera position="0 0 0">
+      <a-camera gps-camera rotation-reader position="0 0 0">
         <a-entity
          cursor="fuse: false"
          raycaster="interval: 20; objects: .cursor-interactive"
