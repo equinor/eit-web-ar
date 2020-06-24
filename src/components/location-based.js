@@ -67,7 +67,7 @@ AFRAME.registerComponent('location-based', {
 
   // Generate an entity which can be seen at the place's coordinates
   renderPlaces(places, data) {
-    let scene = document.querySelector('a-scene');
+    let scene = this.el.sceneEl;
 
     places.forEach((place) => {
       let latitude = place.location.lat;
@@ -77,10 +77,6 @@ AFRAME.registerComponent('location-based', {
       model.setAttribute('gps-entity-place', `latitude: ${latitude}; longitude: ${longitude};`);
       model.setAttribute('gltf-model', place.asset);
       model.setAttribute('scale', '0.15 0.15 0.15');
-
-      model.addEventListener('loaded', () => {
-        window.dispatchEvent(new CustomEvent('gps-entity-place-loaded'));
-      });
 
       scene.appendChild(model);
     });
