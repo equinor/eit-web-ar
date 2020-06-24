@@ -3,80 +3,26 @@
 <head>
    <meta charset="UTF-8">
    <title>EIT Web AR Demo</title>
+
 </head>
 
-<body>
-   <a-scene
-      id="scene"
-      cursor="rayOrigin: mouse"
-      arjs='detectionMode: mono_and_matrix; matrixCodeType: 3x3;'
-      gesture-detector
-      embedded
-      >
-
-      <a-assets>
-         <a-mixin id="text"
-         text="align: center;
-               width: 6;
-               value: Matboks. Mye info her om denna matboksen."
-         ></a-mixin>
-          <a-asset>
-             <audio id="audioMarkerFound" src="./audio/markerFound.mp3" preload="auto"></audio>
-           </a-asset>
-           <a-asset>
-             <div id="longText">
-               <p>Norsk lokalhistorisk institutt (NLI) er en del av Nasjonalbiblioteket, der det utgjør en seksjon under Avdeling for fag og forskning. Instituttet ble opprettet i 1955 og var fra 1978 et statlig institutt under Kulturdepartementet. Det ble innlemmet i Nasjonalbiblioteket 1. januar 2017.[3]</p>
-               <p>NLI arbeider for å fremme det lokal- og regionalhistoriske feltet. Instituttet gir råd og veiledning til forfattere av og oppdragsgivere for lokalhistorisk litteratur. Sammen med Landslaget for lokalhistorie utgav instituttet tidsskriftet Lokalhistorisk magasin. NLI har også gitt ut en rekke bøker innen lokalhistoriske temaer og kildeskrifter og arrangerer kurs og seminarer.[4][5]</p>
-               <p>Professor Andreas Holmsen var i perioden 1955-73 styremedlem og i enkelte perioder styreformann i Norsk lokalhistorisk institutt</p>
-               <p>Trykk på tekstvinduet for å lukke det :)))</p>
-             </div>
-          </a-asset>
-          <a-asset-item id="penguin" src="./gltf/scene.gltf" preload="auto"></a-asset-item>
+<body style='margin: 0; overflow: hidden;'>
+    <a-scene
+        vr-mode-ui="enabled: false"
+		embedded
+        arjs
+        location-based='place: {"name": "Magnemite", "asset": "#magnemite", "location": {"lat": 59.964967, "lng":10.730272}}; numberOfDistanceMsgs: 10; loadPlacesInsideComponent: false'>
+        <a-assets>
+            <a-asset-item 
+                id="magnemite" 
+                src="./gltf/magnemite/scene.gltf" 
+                preload="auto">
+            </a-asset-item>
         </a-assets>
 
-      <!-- Generate here: https://au.gmented.com/app/marker/marker.php -->
-      <!-- matrixCodeType: 3x3, code/number: 0 -->
-      <a-marker type='barcode' value='0'>
-         <a-text mixin="text" position='0 0.5 0' wrap-count="20" rotation="-90 0 0"></a-text>
-      </a-marker>
-      <a-marker marker-sound sound="src: #audioMarkerFound" autoplay="false" type='barcode' value='1'>
-      </a-marker>
-      <a-marker show-modal="modalId: longText; trigger: mouseenter" type='barcode' value='2' class="cursor-interactive">
-      </a-marker>
-      <a-marker raycaster="objects: .clickable" type='barcode' value='3' emitevents="true" id="markerA">
-         <a-entity
-            gltf-model="#penguin" 
-            class="clickable"
-            gesture-handler
-         >
-         </a-entity>
-      </a-marker>
-      <a-marker type="barcode" value="4">
-         <a-box material="color:green" position="0 0.5 0" toggle-visibility class="cursor-interactive"></a-box>
-      </a-marker>
-
-      <a-entity camera>
-         <a-entity 
-            cursor="fuse: false; rayOrigin: mouse;"
-            raycaster="interval: 20; objects: .cursor-interactive"
-            position="0 0 -1"
-            geometry="primitive: ring; radiusInner: 0.01; radiusOuter: 0.015"
-            material="color: black; shader: flat"
-         ></a-entity>
-      </a-entity>
-
-   </a-scene>
-
-   <!-- Logo row -->
-   <a href="https://radix.equinor.com/" target="_blank"
-      style="position:fixed; bottom: 20px; left: 20px;">
-      <img src="./images/omnia-radix-logo.svg" style="height: 2rem;">
-   </a>
-   <a href="https://statoilsrm.sharepoint.com/sites/DigitalTechnologyLab" target="_blank"
-      style="position:fixed; bottom: 25px; left: 120px;">
-      <img src="./images/eit-watermark.svg" style="height: 1.7rem;">
-   </a>
-   <!-- /Logo row -->
+        <!-- <a-camera></a-camera> -->
+        <a-camera gps-camera rotation-reader></a-camera>
+    </a-scene>
 </body>
 
 </html>
