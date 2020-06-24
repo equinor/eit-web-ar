@@ -51,7 +51,6 @@ AFRAME.registerComponent('draw-line-click', {
       if (!document.getElementById(this.linesInfo[i].startMarkerId).object3D.visible || !this.el.object3D.visible) {
         if (line) {
           this.el.sceneEl.object3D.remove(line);
-          console.log('remove');
           continue;
         }
       } else  {
