@@ -5,7 +5,6 @@
   "main": "index.js",
   "dependencies": {
     "aframe": "^1.0.4",
-    "aframe-extras": "^6.1.0",
     "fs": "0.0.1-security"
   },
   "devDependencies": {
