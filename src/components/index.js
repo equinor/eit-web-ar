@@ -5,6 +5,8 @@ import "./test-box";
 import "./toggle-visibility";
 import "./marker-sound";
 import "./show-modal";
-import "./gesture-detector";
-import "./gesture-handler";
 import "./location-based"
+import "./gesture-detector"
+import "./gesture-handler"
+import "./draw-line";
+import "./draw-line-click";
