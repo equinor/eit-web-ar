@@ -19,7 +19,7 @@ AFRAME.registerComponent('draw-line-click', {
     // Listen for clicks on all draw-line-click-markers
     var emitters = this.el.sceneEl.querySelectorAll('[draw-line-click]');
     for (var i = 0; i < emitters.length; i++) {
-      emitters[i].addEventListener('mousedown', (e) => {
+      emitters[i].addEventListener('click', (e) => {
         if (e.detail.cursorEl == this.el.sceneEl) {
           // Click event called twice, do nothing.
         } else if (!this.startMarkerId) {
@@ -49,26 +49,29 @@ AFRAME.registerComponent('draw-line-click', {
       var line = this.el.sceneEl.object3D.getObjectByName('draw-line-click-' + this.el.id + '-' + i);
       // If one of the markers are not visible, remove the line
       if (!document.getElementById(this.linesInfo[i].startMarkerId).object3D.visible || !this.el.object3D.visible) {
-        this.el.sceneEl.object3D.remove(this.el.sceneEl.object3D.getObjectByName('draw-line-click-' + this.el.id + '-' + i));
-        console.log('remove');
-        break;
-      }
+        if (line) {
+          this.el.sceneEl.object3D.remove(line);
+          console.log('remove');
+          continue;
+        }
+      } else  {
+        // If all markers are visible, draw/update the line
+        var points = [
+          document.getElementById(this.linesInfo[i].startMarkerId).getAttribute('position'),
+          this.el.getAttribute('position')
+        ];
+        var geometry = new THREE.BufferGeometry().setFromPoints(points);
 
-      var points = [
-        document.getElementById(this.linesInfo[i].startMarkerId).getAttribute('position'),
-        this.el.getAttribute('position')
-      ];
-      var geometry = new THREE.BufferGeometry().setFromPoints(points);
-
-      if (!line) {
-        // Draw new lines if they don't exist
-        var line = new THREE.Line(geometry, this.linesInfo[i].material);
-        line.name = 'draw-line-click-' + this.el.id + '-' + i;
-        this.el.sceneEl.object3D.add(line);
-        this.el.sceneEl.renderer.render(this.el.sceneEl, this.el.sceneEl.querySelector('a-camera').object3D);
-      } else {
-        // Update old lines if they exist
-        line.geometry = geometry;
+        if (!line) {
+          // Draw new line if it doesn't exist
+          var line = new THREE.Line(geometry, this.linesInfo[i].material);
+          line.name = 'draw-line-click-' + this.el.id + '-' + i;
+          this.el.sceneEl.object3D.add(line);
+          this.el.sceneEl.renderer.render(this.el.sceneEl, this.el.sceneEl.querySelector('a-camera').object3D);
+        } else {
+          // Update old line if it exists
+          line.geometry = geometry;
+        }
       }
     }
   }
