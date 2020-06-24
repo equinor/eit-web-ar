@@ -14,7 +14,7 @@ Comments:
 * No workarounds.
 
 ## Development Environment - Ola
-Development environment
+Development environment:
 * Ubuntu 20.04 (Linux)
 * iPhone 11 - iOS 13.3.1
 * XRviewer/Safari
@@ -32,6 +32,15 @@ Development environment:
 
 Comments:
 * Moto G5 does not support ARCore. The AR button in Chrome for mobile is shown, but gives an error without text when clicked.
+
+## Development Environment - Jonas
+Development environment:
+* MacOS Catalina 10.15.2
+* iPhone XR - iOS 13.5.1
+* Safari
+
+Comments:
+* For now safari is sufficient for the web application, but XRViewer may be necessary later on.
 
 ## Using devices without AR support
 
@@ -65,7 +74,14 @@ Barcodes are simple symbols with good performance. Barcodes are generated symbol
 Links:
 * How to use: https://aframe.io/blog/arjs/#different-type-of-markers-pattern-and-barcode
 * Info: https://github.com/artoolkitx/artoolkitx/wiki/Creating-and-using-square-barcode-markers
+* Generator: https://au.gmented.com/app/marker/marker.php 
+
+
+## Toggling the visibility of objects
 * Generator: https://au.gmented.com/app/marker/marker.php
+* Use code:2 and matrix:3x3
+
+You can toggle an object on and off by first adding the component toggle-visibility to an entity. Then when you click on the entity it will toggle it's visibility on and off.
 
 ### Trouble recognizing barcode ~~with laptop~~ with black background
 With [Commit #26](https://github.com/equinor/eit-web-ar/commit/3c82867d0a231d38d44d794825fe564e65f36a39) we're able to show text when the app recognizes barcode `0`.

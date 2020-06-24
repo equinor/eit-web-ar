@@ -12,6 +12,7 @@ AFRAME.registerComponent('draw-line-click', {
     var planeEl = document.createElement('a-plane');
     planeEl.setAttribute('rotation', '-90 0 0');
     planeEl.setAttribute('material', 'opacity: 0.0');
+    planeEl.classList.add('cursor-interactive');
     //planeEl.addClass('cursor-interactive'); //?
     this.el.appendChild(planeEl);
 
@@ -45,6 +46,7 @@ AFRAME.registerComponent('draw-line-click', {
   },
   tick: function () {
     for (var i = 0; i < this.linesInfo.length; i++) {
+      var line = this.el.sceneEl.object3D.getObjectByName('draw-line-click-' + this.el.id + '-' + i);
       // If one of the markers are not visible, remove the line
       if (!document.getElementById(this.linesInfo[i].startMarkerId).object3D.visible || !this.el.object3D.visible) {
         this.el.sceneEl.object3D.remove(this.el.sceneEl.object3D.getObjectByName('draw-line-click-' + this.el.id + '-' + i));
@@ -57,7 +59,6 @@ AFRAME.registerComponent('draw-line-click', {
         this.el.getAttribute('position')
       ];
       var geometry = new THREE.BufferGeometry().setFromPoints(points);
-      var line = this.el.sceneEl.object3D.getObjectByName('draw-line-click-' + this.el.id + '-' + i);
 
       if (!line) {
         // Draw new lines if they don't exist
