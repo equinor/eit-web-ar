@@ -27,3 +27,25 @@ Make sure to add your model as an asset:
         preload="auto">
     </a-asset-item>
 </a-assets>
+
+
+### COMPONENT: get-avg-gps-location
+
+* Put get-avg-gps-location in the camera tag, like this:
+<a-camera gps-camera rotation-reader get-avg-gps-location>
+    <a-entity
+        cursor="fuse: false"
+        raycaster="interval: 20; objects: .cursor-interactive"
+        position="0 0 -1"
+        geometry="primitive: ring; radiusInner: 0.01; radiusOuter: 0.015"
+        material="color: black; shader: flat"
+    ></a-entity>
+</a-camera>
+
+* Available options (with default values): 
+<a-camera ... get-avg-gps-location="gpsPointsCount: 15; logConsole: true">
+
+* Get current average position:
+<script>
+ document.querySelector('[get-avg-gps-location]').getAttribute('get-avg-gps-location').positionAverage
+</script>

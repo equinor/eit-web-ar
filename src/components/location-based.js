@@ -80,13 +80,6 @@ AFRAME.registerComponent('location-based', {
 
       scene.appendChild(model);
 
-      let gpsCameraEntity = this.el.sceneEl.querySelector('[gps-camera]');
-
-      gpsCameraEntity.addEventListener('gps-camera-update-position', (e) => {
-        console.log('////////');
-        console.log(e);
-        console.log('////////');
-      });
     });
   },
 

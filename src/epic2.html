@@ -3,7 +3,6 @@
 <head>
    <meta charset="UTF-8">
    <title>Epic 2</title>
-
 </head>
 
 <body style='margin: 0; overflow: hidden;'>
@@ -11,7 +10,6 @@
       vr-mode-ui="enabled: false"
       embedded
       arjs='detectionMode: mono_and_matrix; matrixCodeType: 3x3;'
-      location-based='place: {"name": "Magnemite", "asset": "#magnemite", "location": {"lat": 59.964967, "lng":10.730272}}; numberOfDistanceMsgs: 10; loadPlacesInsideComponent: false'
     >
 
         <a-assets>
@@ -22,15 +20,20 @@
             </a-asset-item>
         </a-assets>
 
-        <!-- <a-box position="0 0 -5" color="green" gps-projected-entity-place="latitude: 59.964967; longitude: 10.730272"></a-box> -->
+        <a-marker type="barcode" value="4">
+            <a-box material="color:green" position="0 0.5 0" toggle-visibility class="cursor-interactive"></a-box>
+         </a-marker>
 
-        <a-camera gps-camera rotation-reader>
+        <a-entity location-based='place: {"name": "Magnemite", "asset": "#magnemite", "location": {"lat": 59.964967, "lng":10.730272}}; numberOfDistanceMsgs: 10; loadPlacesInsideComponent: false'></a-entity>
+        <!-- <a-box color="green" gps-entity-place="latitude: 59.964967; longitude: 10.730272"></a-box> -->
+
+        <a-camera gps-camera rotation-reader get-avg-gps-location>
             <a-entity
-            cursor="fuse: false"
-            raycaster="interval: 20; objects: .cursor-interactive"
-            position="0 0 -1"
-            geometry="primitive: ring; radiusInner: 0.01; radiusOuter: 0.015"
-            material="color: black; shader: flat"
+                cursor="fuse: false"
+                raycaster="interval: 20; objects: .cursor-interactive"
+                position="0 0 -1"
+                geometry="primitive: ring; radiusInner: 0.01; radiusOuter: 0.015"
+                material="color: black; shader: flat"
             ></a-entity>
         </a-camera>
 
@@ -47,5 +50,6 @@
    </a> -->
    <!-- /Logo row -->
 </body>
+
 
 </html>
