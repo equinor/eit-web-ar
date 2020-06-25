@@ -11,7 +11,7 @@ const log = utils.getLogger("components:location-based");
 AFRAME.registerComponent('location-based', {
   schema: {
     place: { type: 'string', default: '{}' },
-    numberOfDistanceMsgs: { type: 'number', default: '10' },
+    numberOfDistanceMsgs: { type: 'number', default: 10 },
     loadPlacesInsideComponent: { type: 'string', default: 'false' },
   },
 
@@ -38,11 +38,11 @@ AFRAME.registerComponent('location-based', {
   staticLoadPlaces() {
     return [
       {
-        name: 'Magnemite',
+        name: 'Eric',
         asset: '#magnemite',
         location: {
-          lat: 59.964967,
-          lng: 10.730272,
+          lat: 59.965020,
+          lng: 10.730031,
         },
       },
     ];
@@ -76,9 +76,17 @@ AFRAME.registerComponent('location-based', {
       let model = document.createElement('a-entity');
       model.setAttribute('gps-entity-place', `latitude: ${latitude}; longitude: ${longitude};`);
       model.setAttribute('gltf-model', place.asset);
-      model.setAttribute('scale', '0.15 0.15 0.15');
+      model.setAttribute('scale', '1 1 1');
 
       scene.appendChild(model);
+
+      let gpsCameraEntity = this.el.sceneEl.querySelector('[gps-camera]');
+
+      gpsCameraEntity.addEventListener('gps-camera-update-position', (e) => {
+        console.log('////////');
+        console.log(e);
+        console.log('////////');
+      });
     });
   },
 
