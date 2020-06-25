@@ -99,6 +99,33 @@ module.exports = {
          chunks: ["app", "vendor"],
          chunksSortMode: "dependency"
       }),
+      new HtmlWebpackPlugin({
+         hash: true,
+         favicon: "./src/favicon.ico",
+         template: "./src/epic1.html",
+         filename: "epic1.html",
+         inject: "head",
+         chunks: ["app", "vendor"],
+         chunksSortMode: "dependency"
+      }),
+      new HtmlWebpackPlugin({
+         hash: true,
+         favicon: "./src/favicon.ico",
+         template: "./src/epic2.html",
+         filename: "epic2.html",
+         inject: "head",
+         chunks: ["app", "vendor"],
+         chunksSortMode: "dependency"
+      }),
+      new HtmlWebpackPlugin({
+         hash: true,
+         favicon: "./src/favicon.ico",
+         template: "./src/epic3.html",
+         filename: "epic3.html",
+         inject: "head",
+         chunks: ["app", "vendor"],
+         chunksSortMode: "dependency"
+      }),
       new WebpackMd5Hash(),
       new CopyPlugin([
         { from: './src/images', to: 'images' },

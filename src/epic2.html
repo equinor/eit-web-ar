@@ -1,0 +1,48 @@
+<html>
+
+<head>
+   <meta charset="UTF-8">
+   <title>EIT Web AR Demo</title>
+
+</head>
+
+<body style='margin: 0; overflow: hidden;'>
+    <a-scene
+      vr-mode-ui="enabled: false"
+      embedded
+      arjs='detectionMode: mono_and_matrix; matrixCodeType: 3x3;'
+      location-based='place: {"name": "Magnemite", "asset": "#magnemite", "location": {"lat": 59.964967, "lng":10.730272}}; numberOfDistanceMsgs: 10; loadPlacesInsideComponent: false'>
+
+        <a-assets>
+            <a-asset-item
+                id="magnemite"
+                src="./gltf/magnemite/scene.gltf"
+                preload="auto">
+            </a-asset-item>
+        </a-assets>
+
+        <a-camera gps-camera rotation-reader position="0 0 0">
+            <a-entity
+            cursor="fuse: false"
+            raycaster="interval: 20; objects: .cursor-interactive"
+            position="0 0 -1"
+            geometry="primitive: ring; radiusInner: 0.01; radiusOuter: 0.015"
+            material="color: black; shader: flat"
+            ></a-entity>
+        </a-camera>
+
+    </a-scene>
+
+   <!-- Logo row -->
+   <a href="https://radix.equinor.com/" target="_blank"
+      style="position:fixed; bottom: 20px; left: 20px;">
+      <img src="./images/omnia-radix-logo.svg" style="height: 2rem;">
+   </a>
+   <a href="https://statoilsrm.sharepoint.com/sites/DigitalTechnologyLab" target="_blank"
+      style="position:fixed; bottom: 25px; left: 120px;">
+      <img src="./images/eit-watermark.svg" style="height: 1.7rem;">
+   </a>
+   <!-- /Logo row -->
+</body>
+
+</html>
