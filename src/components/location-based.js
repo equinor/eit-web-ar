@@ -76,7 +76,7 @@ AFRAME.registerComponent('location-based', {
       let model = document.createElement('a-entity');
       model.setAttribute('gps-entity-place', `latitude: ${latitude}; longitude: ${longitude};`);
       model.setAttribute('gltf-model', place.asset);
-      model.setAttribute('scale', '1 1 1');
+      model.setAttribute('scale', '1.5 1.5 1.5');
 
       scene.appendChild(model);
 
