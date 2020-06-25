@@ -27,7 +27,7 @@
         <a-entity location-based='place: {"name": "Magnemite", "asset": "#magnemite", "location": {"lat": 59.964967, "lng":10.730272}}; numberOfDistanceMsgs: 10; loadPlacesInsideComponent: false'></a-entity>
         <!-- <a-box color="green" gps-entity-place="latitude: 59.964967; longitude: 10.730272"></a-box> -->
 
-        <a-camera gps-camera rotation-reader get-avg-gps-location>
+        <a-camera gps-camera rotation-reader get-avg-gps-location position="0 0 0">
             <a-entity
                 cursor="fuse: false"
                 raycaster="interval: 20; objects: .cursor-interactive"
