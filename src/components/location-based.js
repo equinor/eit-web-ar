@@ -11,7 +11,7 @@ const log = utils.getLogger("components:location-based");
 AFRAME.registerComponent('location-based', {
   schema: {
     place: { type: 'string', default: '{}' },
-    numberOfDistanceMsgs: { type: 'number', default: '10' },
+    numberOfDistanceMsgs: { type: 'number', default: 10 },
     loadPlacesInsideComponent: { type: 'string', default: 'false' },
   },
 
@@ -38,11 +38,11 @@ AFRAME.registerComponent('location-based', {
   staticLoadPlaces() {
     return [
       {
-        name: 'Magnemite',
+        name: 'Eric',
         asset: '#magnemite',
         location: {
-          lat: 59.964967,
-          lng: 10.730272,
+          lat: 59.965020,
+          lng: 10.730031,
         },
       },
     ];
@@ -79,6 +79,7 @@ AFRAME.registerComponent('location-based', {
       model.setAttribute('scale', '1.5 1.5 1.5');
 
       scene.appendChild(model);
+
     });
   },
 
