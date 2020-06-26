@@ -11,3 +11,4 @@ import "./gesture-handler"
 import "./draw-line";
 import "./draw-line-click";
 import "./get-avg-gps-location";
+import "./gps-intersection";
