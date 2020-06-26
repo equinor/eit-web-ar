@@ -2,3 +2,35 @@ body {
    background-color: #cccccc;
    font-family: "Verdana";
 }
+
+#button_doubleup {
+   position:fixed; 
+   bottom: 20px; 
+   right: 5%;
+}
+
+.button_img{
+   height: 15vw; 
+   max-height: 100px;
+}
+
+#button_one{
+   position:fixed;
+   bottom: 20px;
+   right: 56%;
+   display: none;
+}
+
+#button_two{
+   position:fixed;
+   bottom: 20px;
+   right: 39%;
+   display: none;
+}
+
+#button_three{
+   position:fixed;
+   bottom: 20px;
+   right: 22%;
+   display: none;
+}
