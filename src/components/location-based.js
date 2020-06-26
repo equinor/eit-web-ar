@@ -1,51 +1,27 @@
 import AFRAME from "aframe";
 import * as utils from "../modules/utils";
 
-const log = utils.getLogger("components:location-based");
+const log = utils.getLogger("components:gps-object");
 
 // How to use: read user-guide.md
 
-// TODO:
-// * Add functionality to multiple places
-
-AFRAME.registerComponent('location-based', {
+AFRAME.registerComponent('gps-object', {
   schema: {
-    place: { type: 'string', default: '{}' },
+    object: { type: 'string', default: '' },
+    location: { type: 'string', default: '{}' },
+    scale: { type: 'string', default: '1' },
     numberOfDistanceMsgs: { type: 'number', default: 10 },
-    loadPlacesInsideComponent: { type: 'string', default: 'false' },
   },
 
   init() {
     let data = this.data;
-
-    // Use a place from staticLoadPlaces (see below) or from the component properties (from index.html)
-    if (data.loadPlacesInsideComponent === 'true') {
-      const places = this.staticLoadPlaces();
-      this.renderPlaces(places, data);
-    } else {
-      const places = [JSON.parse(data.place)];
-      this.renderPlaces(places, data);
-    }
+    const object = data.object;
+    const location = JSON.parse(data.location);
+    const scale = data.scale;
+    this.renderObject(object, location, scale);
 
     // logs the distance to the place/model in the console
     this.logDistance(data.numberOfDistanceMsgs);
-
-    log.info('init done');
-  },
-
-  // Load one a place from inside this component, instead of entering it in index.html
-  // To use, set loadPlacesInsideComponent to 'true'. 
-  staticLoadPlaces() {
-    return [
-      {
-        name: 'Eric',
-        asset: '#magnemite',
-        location: {
-          lat: 59.965020,
-          lng: 10.730031,
-        },
-      },
-    ];
   },
 
   // For logDistance function
@@ -56,31 +32,30 @@ AFRAME.registerComponent('location-based', {
   // Logs distance to place
   async logDistance(maxMsgs) {
     await this.sleep(5000)
-    let distanceMsg;
+    let distance;
+    const id = this.el.id;
+
     for (let i = 0; i < maxMsgs; i++) {
-      distanceMsg = document.querySelector('[gps-entity-place]').getAttribute('distancemsg');
-      console.log(distanceMsg);
+      distance = this.el.querySelector('[gps-entity-place]').getAttribute('distanceMsg');
+      log.info(`${distance} to object with id ${id}.`);
 
       await this.sleep(2000);
     }
   },
 
   // Generate an entity which can be seen at the place's coordinates
-  renderPlaces(places, data) {
+  renderObject(object, location, scale) {
     let scene = this.el.sceneEl;
 
-    places.forEach((place) => {
-      let latitude = place.location.lat;
-      let longitude = place.location.lng;
+    let latitude = location.lat;
+    let longitude = location.lng;
 
-      let model = document.createElement('a-entity');
-      model.setAttribute('gps-entity-place', `latitude: ${latitude}; longitude: ${longitude};`);
-      model.setAttribute('gltf-model', place.asset);
-      model.setAttribute('scale', '1.5 1.5 1.5');
+    let model = document.createElement('a-entity');
+    model.setAttribute('gps-entity-place', `latitude: ${latitude}; longitude: ${longitude};`);
+    model.setAttribute('gltf-model', object);
+    model.setAttribute('scale', `${scale} ${scale} ${scale}`);
 
-      scene.appendChild(model);
-
-    });
+    this.el.appendChild(model);
   },
 
   update: function () {

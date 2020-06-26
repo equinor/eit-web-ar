@@ -9,13 +9,16 @@
     <a-scene
       vr-mode-ui="enabled: false"
       embedded
-      arjs='detectionMode: mono_and_matrix; matrixCodeType: 3x3;'
-      location-based='place: {"name": "Magnemite", "asset": "#magnemite", "location": {"lat": 68.679093, "lng": 16.796552}}; numberOfDistanceMsgs: 10; loadPlacesInsideComponent: false'>
-
+      arjs='detectionMode: mono_and_matrix; matrixCodeType: 3x3;'>
         <a-assets>
             <a-asset-item
-                id="magnemite"
+                id="castle"
                 src="./gltf/castle/scene.gltf"
+                preload="auto">
+            </a-asset-item>
+            <a-asset-item
+                id="magnemite"
+                src="./gltf/magnemite/scene.gltf"
                 preload="auto">
             </a-asset-item>
         </a-assets>
@@ -24,10 +27,16 @@
             <a-box material="color:green" position="0 0.5 0" toggle-visibility class="cursor-interactive"></a-box>
          </a-marker>
 
-        <a-entity location-based='place: {"name": "Magnemite", "asset": "#magnemite", "location": {"lat": 59.964967, "lng":10.730272}}; numberOfDistanceMsgs: 10; loadPlacesInsideComponent: false'></a-entity>
-        <!-- <a-box color="green" gps-entity-place="latitude: 59.964967; longitude: 10.730272"></a-box> -->
+        <a-entity
+          id='magnemite1'
+          gps-object='object: #magnemite; location: { "lat": 59.959762, "lng": 10.701238 }; scale: 1'>
+        </a-entity>
+        <a-entity
+          id="magnemite2"
+          gps-object='object: #magnemite; location: { "lat": 59.959941, "lng": 10.701367 }; scale: 0.6'>
+        </a-entity>
 
-        <a-camera gps-camera rotation-reader get-avg-gps-location position="0 0 0">
+        <a-camera gps-camera rotation-reader position="0 0 0">
             <a-entity
                 cursor="fuse: false"
                 raycaster="interval: 20; objects: .cursor-interactive"
