@@ -7,7 +7,8 @@ const CopyPlugin = require("copy-webpack-plugin");
 module.exports = {
    mode: "development",
    entry: {
-      app: "./src/index.js"
+      app: "./src/index.js",
+      ui: "./src/modules/ui.js"
    },
    output: {
       filename: "[name].[hash].js",
@@ -114,7 +115,7 @@ module.exports = {
          template: "./src/epic2.html",
          filename: "epic2.html",
          inject: "head",
-         chunks: ["app", "vendor"],
+         chunks: ["app", "vendor", "ui"],
          chunksSortMode: "dependency"
       }),
       new HtmlWebpackPlugin({
