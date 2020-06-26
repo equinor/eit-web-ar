@@ -1,4 +1,4 @@
-import AFRAME, { THREE } from "aframe"
+import AFRAME from "aframe"
 import * as utils from "../modules/utils";
 const log = utils.getLogger("components:gps-intersection");
 
