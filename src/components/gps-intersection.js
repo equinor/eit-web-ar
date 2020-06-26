@@ -17,7 +17,7 @@ AFRAME.registerComponent('gps-intersection', {
   tick: function() {
     const distance = this.el.getAttribute('distance');
     var direction = '';
-    log.info(`${distance}`);
+    //log.info(`${distance}`);
 
     // Discard if gps can't return distance
     if (distance === null) {
