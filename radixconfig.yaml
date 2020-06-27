@@ -68,7 +68,7 @@ spec:
             OAUTH2_PROXY_REDIS_CONNECTION_URL: "redis://auth-state:6379"
             OAUTH2_PROXY_SESSION_STORE_TYPE: "redis"
             OAUTH2_PROXY_SKIP_PROVIDER_BUTTON: "true"
-            OAUTH2_PROXY_UPSTREAMS: "http://web"
+            OAUTH2_PROXY_UPSTREAMS: "http://web:8080"
 
     - name: auth-state
       image: redis:5-alpine
