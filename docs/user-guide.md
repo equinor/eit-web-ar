@@ -24,47 +24,4 @@ Be aware that the markers do not work well on black/dark background. White backg
 
 ## Epic 3
 
-<<<<<<< HEAD
-* Put get-avg-gps-location in the camera tag, like this:
-<a-camera gps-camera rotation-reader get-avg-gps-location>
-    <a-entity
-        cursor="fuse: false"
-        raycaster="interval: 20; objects: .cursor-interactive"
-        position="0 0 -1"
-        geometry="primitive: ring; radiusInner: 0.01; radiusOuter: 0.015"
-        material="color: black; shader: flat"
-    ></a-entity>
-</a-camera>
-
-* Available options (with default values): 
-<a-camera ... get-avg-gps-location="gpsPointsCount: 15; logConsole: true">
-
-* Get current average position:
-<script>
- document.querySelector('[get-avg-gps-location]').getAttribute('get-avg-gps-location').positionAverage
-</script>
-
-### COMPONENT: gesture-detector
-
-* Emit events for detected gestures
-Add to a-scene tag: <a-scene gesture-detector>
-
-* For making your own gesture-components catch events with:
-sceneEl.addEventListener("onefingermove".. 
-sceneEl.addEventListener("twofingermove"..
-sceneEl.addEventListener("threefingermove"..
-
-### COMPONENT: gesture-rotation
-
-* Add this gesture to an entity to be able to rotate it with a one-finger gesture
-
-Inputs: 
-- rotationAxis: choose what axis the object is able to rotate about, valid inputs: x, y, xy
-
-### COMPONENT: gesture-scale
-
-* Add this gesture to an entity to be able to scale it with a two-finger gesture
-
-=======
 *epic3.html*
->>>>>>> master
