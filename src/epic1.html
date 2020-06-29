@@ -31,7 +31,7 @@
                <p> ( Touch to close this window )</p>
              </div>
           </a-asset>
-          <a-asset-item id="penguin" src="./gltf/scene.gltf" preload="auto"></a-asset-item>
+          <a-asset-item id="penguin" src="./gltf/penguin/scene.gltf" preload="auto"></a-asset-item>
         </a-assets>
 
       <!-- Generate here: https://au.gmented.com/app/marker/marker.php -->
@@ -41,13 +41,14 @@
       </a-marker>
       <a-marker marker-sound sound="src: #audioMarkerFound" autoplay="false" type='barcode' value='1'>
       </a-marker>
-      <a-marker show-modal="modalId: longText; trigger: mouseenter" type='barcode' value='2'>
+         <a-marker show-modal="modalId: longText; trigger: mouseenter" type='barcode' value='2'>
       </a-marker>
       <a-marker raycaster="objects: .clickable" type='barcode' value='3' emitevents="true" id="markerA">
          <a-entity
             gltf-model="#penguin"
             class="clickable"
-            gesture-handler
+            gesture-scale
+            gesture-rotation
             scale="0.5 0.5 0.5"
          >
          </a-entity>
@@ -58,6 +59,7 @@
       <a-marker draw-line-click class='cursor-interactive' type='barcode' value='5' id='5'></a-marker>
       <a-marker draw-line-click class='cursor-interactive' type='barcode' value='6' id='6'></a-marker>
       <a-marker draw-line-click class='cursor-interactive' type='barcode' value='7' id='7'></a-marker>
+
 
       <a-entity camera>
          <a-entity
