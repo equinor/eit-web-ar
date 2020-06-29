@@ -6,7 +6,7 @@ AFRAME.registerComponent('cursor-interactive', { 
 
     this.el.classList.add(interactiveClass);
     var childEntities = this.el.getElementsByTagName('a-entity');
-    for (i = 0; i < childEntities.length; i++) {
+    for (var i = 0; i < childEntities.length; i++) {
       childEntities[i].classList.add(interactiveClass);
     }
   }
