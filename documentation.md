@@ -93,4 +93,4 @@ but only when the barcode marker had a white background - not a black one.
 
 ## Add gestures to objects
 
-You can add gestures to object, such that you can scale and rotate the object in runtime using gestures on the touchscreen. To add gestures, add gesture-detector component to the a-scene tag. Then add the gesture-scale and/or gesture-rotation components to the 3D-model you wish to manipulate.  
+You can add gestures to object, such that you can scale and rotate the object in runtime using gestures on the touchscreen. 
