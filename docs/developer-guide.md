@@ -62,7 +62,3 @@ Inputs:
 ### COMPONENT: gesture-scale
 
 * Add this gesture to an entity to be able to scale it with a two-finger gesture
-
-## COMPONENT: cursor-interactive
-Adds the `cursor-interactive` class to itself (`this.el`) and all child entities.
-.
