@@ -1,51 +1,27 @@
 # User guide
 
-(Document how the user can interact with the app)
+## Epic 1
 
-_Examples:_  
-Do _not_ press the red button!
+*epic1.html*
 
+The app reacts on barcode markers (can be generated [here](https://au.gmented.com/app/marker/marker.php). 2D barcode markers, dimensions 3*3. Use "Generate a single marker image with code ___" with the codes specified below).
 
-## For Development
+We printed the markers and put them on a guitar amplifier, but any box will do. For simple testing you can just point the camera at the markers without printing them and putting them on a box.
 
-### COMPONENT: location-based.js
-Add the location-based tag to the scene element, together with its properties. For example:
+Be aware that the markers does not work well on black/dark background. White background works fine.
 
-<a-scene arjs location-based='place: {"name": "Magnemite", "asset": "#magnemite", "location": {"lat": 59.964967, "lng":10.730272}}; numberOfDistanceMsgs: 10; loadPlacesInsideComponent: false'>> 
+* *Marker 0*: text will show over the marker as long as the app can see the marker
+* *Marker 1*: a sound will play once when the app recognizes the marker. The sound will then play each time the marker is lost and then found again.
+* *Marker 2*: a text will show as an overlay when the cursor (ring in the middle of the screen) "touches" the marker. Click the overlay to close it. (The overlay might sometimes show when it's not supposed to. This is probably due to the app falsely recognizes the marker.)
+* *Marker 3*: a 3d model (penguin) will show over the marker as long as the marker is seen by the app.
+* *Marker 4*: a 3d model (simple box) will show over the marker as long as the marker is seen by the app.
+* *Marker 5, 6, 7*: a line will be drawn between two markers when two markers are clicked. To click a marker, you will have to click it while the cursor (ring in middle of the screen) is over the marker. The line is shown as long as the two markers are seen by the app. The line will reappear if the markers are lost and then found.
 
-* name: just enter a title for the place you want to add.
-* asset: write the asset id code for your model.
-* location: enter lat and lng coordinates.
-* numberOfDistanceMsgs: how many times you will see the distance to the entity with coordinates you added.
-* loadPlacesInsideComponent: You can enter your place(s) inside the components javascript file instead of in the scene tag.
+## Epic 2
 
-Make sure to add your model as an asset:
-<a-assets>
-    <a-asset-item 
-        id="magnemite" 
-        src="./gltf/magnemite/scene.gltf" 
-        preload="auto">
-    </a-asset-item>
-</a-assets>
+*epic2.html*
 
 
-### COMPONENT: get-avg-gps-location
+## Epic 3
 
-* Put get-avg-gps-location in the camera tag, like this:
-<a-camera gps-camera rotation-reader get-avg-gps-location>
-    <a-entity
-        cursor="fuse: false"
-        raycaster="interval: 20; objects: .cursor-interactive"
-        position="0 0 -1"
-        geometry="primitive: ring; radiusInner: 0.01; radiusOuter: 0.015"
-        material="color: black; shader: flat"
-    ></a-entity>
-</a-camera>
-
-* Available options (with default values): 
-<a-camera ... get-avg-gps-location="gpsPointsCount: 15; logConsole: true">
-
-* Get current average position:
-<script>
- document.querySelector('[get-avg-gps-location]').getAttribute('get-avg-gps-location').positionAverage
-</script>
+*epic3.html*
