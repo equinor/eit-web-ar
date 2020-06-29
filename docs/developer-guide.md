@@ -55,3 +55,24 @@ Make sure to add your model as an asset:
  document.querySelector('[get-avg-gps-location]').getAttribute('get-avg-gps-location').positionAverage
 </script>
 ```
+
+## COMPONENT: gesture-detector
+
+* Emit events for detected gestures
+Add to a-scene tag: <a-scene gesture-detector>
+
+* For making your own gesture-components catch events with:
+sceneEl.addEventListener("onefingermove"..
+sceneEl.addEventListener("twofingermove"..
+sceneEl.addEventListener("threefingermove"..
+
+## COMPONENT: gesture-rotation
+
+* Add this gesture to an entity to be able to rotate it with a one-finger gesture
+
+Inputs:
+- rotationAxis: choose what axis the object is able to rotate about, valid inputs: x, y, xy
+
+## COMPONENT: gesture-scale
+
+* Add this gesture to an entity to be able to scale it with a two-finger gesture

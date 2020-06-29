@@ -90,3 +90,7 @@ With [Commit #26](https://github.com/equinor/eit-web-ar/commit/3c82867d0a231d38d
 
 All of us were able to recognize the barcode with our phones. We also were able to recognize the barcode using the webcam on our laptops,
 but only when the barcode marker had a white background - not a black one.
+
+## Add gestures to objects
+
+You can add gestures to object, such that you can scale and rotate the object in runtime using gestures on the touchscreen. 
