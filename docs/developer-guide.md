@@ -48,7 +48,7 @@ Make sure to add your model as an asset:
 Add to a-scene tag: <a-scene gesture-detector>
 
 * For making your own gesture-components catch events with:
-sceneEl.addEventListener("onefingermove".. 
+sceneEl.addEventListener("onefingermove"..
 sceneEl.addEventListener("twofingermove"..
 sceneEl.addEventListener("threefingermove"..
 
@@ -56,9 +56,12 @@ sceneEl.addEventListener("threefingermove"..
 
 * Add this gesture to an entity to be able to rotate it with a one-finger gesture
 
-Inputs: 
+Inputs:
 - rotationAxis: choose what axis the object is able to rotate about, valid inputs: x, y, xy
 
 ### COMPONENT: gesture-scale
 
 * Add this gesture to an entity to be able to scale it with a two-finger gesture
+
+## COMPONENT: cursor-interactive
+Adds the `cursor-interactive` class to itself (`this.el`) and all child entities.
