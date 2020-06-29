@@ -4,7 +4,7 @@
 Development environment:
 * MacOS Catalina
 * Android v. 10
-* Chrome for mobile v. 83
+* Chrome for mobile v. 83 
 
 Settings:
 * I had to enable the webxr-ar-module flag in chrome://flags (As per 22 june 2020)
