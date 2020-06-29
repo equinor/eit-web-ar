@@ -12,7 +12,7 @@ const log = utils.getLogger("components:get-avg-gps-location");
 AFRAME.registerComponent('get-avg-gps-location', {
   schema: {
     gpsPointsCount: { type: 'number', default: 15 },
-    positionAverage: { type: 'array', default: [] },
+    positionAverage: { type: 'vec2', default: {latitude: 0, longitude: 0} },
     positionArray: { type: 'array', default: [] },
     logConsole: { type: 'string', default: 'true' },
   },
@@ -20,7 +20,7 @@ AFRAME.registerComponent('get-avg-gps-location', {
   init() {
     this.positionCount = 0;
     this.data.positionArray = [];
-    this.data.positionAverage = [];
+    this.data.positionAverage = {};
 
     // Add event listener
     window.addEventListener('gps-camera-update-position', (e) => {
@@ -49,7 +49,8 @@ AFRAME.registerComponent('get-avg-gps-location', {
     }
 
     // lage en array med average positions, nøyaktig til 6 desimaler
-    this.data.positionAverage = [latAvg.toFixed(6), lngAvg.toFixed(6)];
+    this.data.positionAverage.latitude = latAvg.toFixed(6);
+    this.data.positionAverage.longitude = lngAvg.toFixed(6);
     this.positionCount += 1;
 
     // Log to console if setting is set to true
