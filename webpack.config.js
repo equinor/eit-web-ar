@@ -1,3 +1,4 @@
+/* eslint-disable */
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin"); // https://github.com/jantimon/html-webpack-plugin
 const RemovePlugin = require("remove-files-webpack-plugin"); // https://github.com/Amaimersion/remove-files-webpack-plugin
