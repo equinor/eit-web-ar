@@ -10,7 +10,7 @@ AFRAME.registerComponent('gps-object', {
     object: { type: 'string', default: '' },
     location: { type: 'string', default: '{}' },
     scale: { type: 'string', default: '1' },
-    numberOfDistanceMsgs: { type: 'number', default: 10 },
+    printDistance: { type: 'string', default: 'false' },
   },
 
   init() {
@@ -21,7 +21,9 @@ AFRAME.registerComponent('gps-object', {
     this.renderObject(object, location, scale);
 
     // logs the distance to the place/model in the console
-    this.logDistance(data.numberOfDistanceMsgs);
+    if (data.printDistance === 'true') {
+      this.logDistance();
+    }
   },
 
   // For logDistance function
@@ -30,12 +32,12 @@ AFRAME.registerComponent('gps-object', {
   },
 
   // Logs distance to place
-  async logDistance(maxMsgs) {
+  async logDistance() {
     await this.sleep(5000)
     let distance;
     const id = this.el.id;
 
-    for (let i = 0; i < maxMsgs; i++) {
+    while (true) {
       distance = this.el.querySelector('[gps-entity-place]').getAttribute('distanceMsg');
       log.info(`${distance} to object with id ${id}.`);
 
