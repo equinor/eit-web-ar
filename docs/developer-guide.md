@@ -175,8 +175,7 @@ When this component is added to a marker, a modal with specified content will sh
   </div>
 </a-asset>
 
-</a-marker>
-   <a-marker show-modal="modalId: longText; trigger: mouseenter" type='barcode' value='2'>
+<a-marker show-modal="modalId: longText; trigger: mouseenter" type='barcode' value='2'>
 </a-marker>
 ```
 
