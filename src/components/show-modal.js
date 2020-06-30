@@ -3,11 +3,15 @@ import * as utils from "../modules/utils";
 const log = utils.getLogger("components:show-modal");
 
 AFRAME.registerComponent('show-modal', {
+  dependencies: [
+    'cursor-interactive'
+  ],
   schema: {
     modalId: { type: 'string', default: '' },
     trigger: { type: 'string', default: 'markerFound' }
   },
   init: function () {
+    log.info('s-m init');
     // Create invisible plane for cursor events
     var planeEl = document.createElement('a-plane');
     planeEl.setAttribute('rotation', '-90 0 0');
@@ -44,5 +48,6 @@ AFRAME.registerComponent('show-modal', {
         modalShown = true;
       }
     });
+    log.info('s-m init done');
   }
 });

@@ -1,6 +1,9 @@
 import AFRAME, { THREE } from "aframe";
 
 AFRAME.registerComponent('draw-line-click', {
+  dependencies: [
+    'cursor-interactive'
+  ],
   schema: {
     color: { type: 'string', default: '#f00' }
   },
