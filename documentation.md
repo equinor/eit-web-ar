@@ -115,3 +115,7 @@ In aframe-ar.js:2. Happens very often on Erlends' phone (old) and sometimes on t
 Seems to be related to RAM usage (although not 100% sure).
 
 Quickfix to make it less irritating might be to force reload of the page when this error occurs.
+
+Todo:
+* find out exactly why the error occurs.
+* if due to RAM usage: how to use less RAM?
