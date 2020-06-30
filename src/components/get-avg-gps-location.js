@@ -11,10 +11,10 @@ const log = utils.getLogger("components:get-avg-gps-location");
 
 AFRAME.registerComponent('get-avg-gps-location', {
   schema: {
-    gpsPointsCount: { type: 'number', default: 15 },
+    gpsPointsCount: { type: 'number', default: 1 },
     positionAverage: { type: 'array', default: [] },
     positionArray: { type: 'array', default: [] },
-    logConsole: { type: 'string', default: 'true' },
+    logConsole: { type: 'string', default: 'false' },
   },
 
   init() {
@@ -26,6 +26,8 @@ AFRAME.registerComponent('get-avg-gps-location', {
     window.addEventListener('gps-device-location-update', (e) => {
       if (this.positionCount < this.data.gpsPointsCount) {
         this.storeGpsPosition(e.detail.position);
+      } else {
+        log.info("Average position set.")
       }
     });
 

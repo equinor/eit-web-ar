@@ -11,11 +11,11 @@
       embedded
       arjs='detectionMode: mono_and_matrix; matrixCodeType: 3x3;'>
         <a-assets>
-            <!-- <a-asset-item
+            <a-asset-item
                 id="castle"
                 src="./gltf/castle/scene.gltf"
                 preload="auto">
-            </a-asset-item> -->
+            </a-asset-item>
             <a-asset-item
                 id="magnemite"
                 src="./gltf/magnemite/scene.gltf"
@@ -23,22 +23,22 @@
             </a-asset-item>
         </a-assets>
 
-        <!-- <a-marker type="barcode" value="4">
-            <a-box material="color:green" position="0 0.5 0" toggle-visibility class="cursor-interactive"></a-box>
+        <a-marker type="barcode" value="4">
+            <a-box material="color:green" position="0 0.5 0" toggle-visibility cursor-interactive></a-box>
          </a-marker>
 
+         <a-entity
+            gps-entity-place="latitude: 59.959941; longitude: 10.701367"
+            gps-intersection='radius: 40'
+         ></a-entity>
+
         <a-entity
-          id='magnemite1'
-          gps-object='object: #magnemite; location: { "lat": 59.959762, "lng": 10.701238 }; scale: 1'>
-        </a-entity>-->
-        <a-entity
-          id="magnemite2" 
-          gps-object='object: #magnemite; location: { "lat": 59.965004, "lng": 10.730195 }; scale: 0.6'>
-        </a-entity> 
-        <!-- <a-box position="0 0 -5"></a-box> -->
+          id="magnemite"
+          gps-object='object: #magnemite; location: { "lat": 59.965006, "lng": 10.730164 }; scale: 0.1; printDistance: true'>
+        </a-entity>
 
         <!-- a-camera har look-controls -->
-        <a-camera standstill-gps-camera rotation-reader position="0 0 0" get-avg-gps-location="logConsole: false; gpsPointsCount: 20">
+        <a-camera standstill-gps-camera rotation-reader position="0 0 0">
             <a-entity
                 cursor="fuse: false"
                 raycaster="interval: 20; objects: .cursor-interactive"
@@ -60,6 +60,22 @@
       <img src="./images/eit-watermark.svg" style="height: 1.7rem;">
    </a> -->
    <!-- /Logo row -->
+
+    <div id="button_doubleup">
+        <img src="./images/doubleup.svg" class="button_img">
+    </div>
+    <div id="button_one">
+        <img src="./images/one.svg" class="button_img">
+    </div>
+    <div id="button_two">
+        <img src="./images/two.svg" class="button_img">
+    </div>
+    <div id="button_three">
+        <img src="./images/three.svg" class="button_img">
+    </div>
+
+
+
 </body>
 
 

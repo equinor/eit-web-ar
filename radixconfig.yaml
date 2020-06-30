@@ -15,7 +15,7 @@ spec:
       src: .
       ports:
        - name: http
-         port: 80
+         port: 8080
       public: false
       environmentConfig:
         - environment: development
@@ -51,7 +51,7 @@ spec:
             OAUTH2_PROXY_REDIS_CONNECTION_URL: "redis://auth-state:6379" # Where to store session info (the auth-state component)
             OAUTH2_PROXY_SESSION_STORE_TYPE: "redis" # We're using Redis for storing session info instead of cookies (cookies would get too big)
             OAUTH2_PROXY_SKIP_PROVIDER_BUTTON: "true" # We don't want a "click to login" page; just issue a redirect
-            OAUTH2_PROXY_UPSTREAMS: "http://web" # Where authenticated requests are routed to: the web component (nginx)
+            OAUTH2_PROXY_UPSTREAMS: "http://web:8080" # Where authenticated requests are routed to: the web component (nginx)
         - environment: development
           variables:
             OAUTH2_PROXY_CLIENT_ID: "72f7ddbd-9967-40d1-b655-095c60108f3f" # ID of the AD app
@@ -68,7 +68,7 @@ spec:
             OAUTH2_PROXY_REDIS_CONNECTION_URL: "redis://auth-state:6379"
             OAUTH2_PROXY_SESSION_STORE_TYPE: "redis"
             OAUTH2_PROXY_SKIP_PROVIDER_BUTTON: "true"
-            OAUTH2_PROXY_UPSTREAMS: "http://web"
+            OAUTH2_PROXY_UPSTREAMS: "http://web:8080"
 
     - name: auth-state
       image: redis:5-alpine

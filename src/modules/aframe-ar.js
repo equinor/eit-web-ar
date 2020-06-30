@@ -5699,7 +5699,7 @@ AFRAME.registerComponent('gps-entity-place', {
                 }
                 this._cameraGps = camera.components['gps-camera'];
             }
-            this._updatePosition();
+			this._updatePosition()
         };
 
         this.updatePositionListener = (ev) => {
@@ -5719,8 +5719,8 @@ AFRAME.registerComponent('gps-entity-place', {
             this.el.setAttribute('distanceMsg', formatDistance(distanceForMsg));
             this.el.dispatchEvent(new CustomEvent('gps-entity-place-update-positon', { detail: { distance: distanceForMsg } }));
 
-            var actualDistance = this._cameraGps.computeDistanceMeters(ev.detail.position, dstCoords, true);
-
+			var actualDistance = this._cameraGps.computeDistanceMeters(ev.detail.position, dstCoords, true);
+			
             if (actualDistance === Number.MAX_SAFE_INTEGER) {
                 this.hideForMinDistance(this.el, true);
             } else {
