@@ -1,13 +1,16 @@
 import AFRAME from "aframe";
 
-AFRAME.registerComponent('cursor-interactive', { 
+AFRAME.registerComponent('cursor-interactive', {
   init: function () {
+    console.log('init');
     const interactiveClass = 'cursor-interactive';
 
     this.el.classList.add(interactiveClass);
-    var childEntities = this.el.getElementsByTagName('a-entity');
-    for (var i = 0; i < childEntities.length; i++) {
-      childEntities[i].classList.add(interactiveClass);
+
+    var children = this.el.children;
+    for (var i = 0; i < children.length; i++) {
+      children[i].classList.add(interactiveClass);
     }
   }
+
 });

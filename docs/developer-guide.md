@@ -180,4 +180,20 @@ When this component is added to a marker, a modal with specified content will sh
 ```
 
 ## COMPONENT: cursor-interactive
-Adds the `cursor-interactive` class to itself (`this.el`) and all child entities.
+Adds the `cursor-interactive` class to itself (`this.el`) and all child ~~entities~~ elements.
+
+No attributes.
+
+### Example of implementation
+
+As a property on an entity:
+
+```html
+<a-marker
+  draw-line-click
+  cursor-interactive
+  type='barcode'
+  value='5'
+  id='5'>
+</a-marker>
+```
