@@ -21,6 +21,16 @@
                 src="./gltf/magnemite/scene.gltf"
                 preload="auto">
             </a-asset-item>
+            <a-asset-item
+                id="circus"
+                src="./gltf/circus/scene.gltf"
+                preload="auto">
+            </a-asset-item>
+            <a-asset-item
+                id="circus_0"
+                src="./gltf/circus_0/scene.gltf"
+                preload="auto">
+            </a-asset-item>
         </a-assets>
 
         <a-marker type="barcode" value="4">
@@ -35,6 +45,18 @@
         <a-entity
           id="magnemite"
           gps-object='object: #magnemite; location: { "lat": 59.959941, "lng": 10.701367 }; scale: 0.1'>
+        </a-entity>
+
+        <a-entity
+          id="circus_ent"
+          animation-mixer
+          gps-object='object: #circus; location: { "lat": 68.679019, "lng": 16.796625 }; scale: 0.8'>
+        </a-entity>
+        <a-entity
+          id="circus_ent_0"
+          gps-object='object: #circus_0; location: { "lat": 68.679019, "lng": 16.796625 }; scale: 0.8'
+          toggle-visibility
+          class="cursor-interactive">
         </a-entity>
 
         <a-camera gps-camera rotation-reader position="0 0 0">
