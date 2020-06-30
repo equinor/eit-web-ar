@@ -1,6 +1,9 @@
 import AFRAME, { THREE } from "aframe";
 
 AFRAME.registerComponent('draw-line-click', {
+  dependencies: [
+    'cursor-interactive'
+  ],
   schema: {
     color: { type: 'string', default: '#f00' }
   },
@@ -12,8 +15,6 @@ AFRAME.registerComponent('draw-line-click', {
     var planeEl = document.createElement('a-plane');
     planeEl.setAttribute('rotation', '-90 0 0');
     planeEl.setAttribute('material', 'opacity: 0.0');
-    planeEl.classList.add('cursor-interactive');
-    //planeEl.addClass('cursor-interactive'); //?
     this.el.appendChild(planeEl);
 
     // Listen for clicks on all draw-line-click-markers

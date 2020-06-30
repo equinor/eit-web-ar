@@ -13,3 +13,4 @@ import "./get-avg-gps-location";
 import "./gps-intersection";
 import "./gesture-rotation";
 import "./gesture-scale";
+import "./cursor-interactive";
