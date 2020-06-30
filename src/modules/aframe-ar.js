@@ -5699,7 +5699,7 @@ AFRAME.registerComponent('gps-entity-place', {
                 }
                 this._cameraGps = camera.components['gps-camera'];
             }
-			this._updatePosition()
+			this._updatePosition();
         };
 
         this.updatePositionListener = (ev) => {

@@ -233,10 +233,7 @@ AFRAME.registerComponent('standstill-gps-camera', {
       if (loader) {
         loader.remove();
       }
-      // *****
-      // MODIFICATION: Commented out dispatch event:
       window.dispatchEvent(new CustomEvent('gps-camera-origin-coord-set'));
-      // *****
     } else {
       this._setPosition();
     }

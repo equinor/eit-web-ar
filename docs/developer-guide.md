@@ -229,6 +229,6 @@ This provides a camera position that does not jump around. Giving you a more sta
 This is for standing still. Not much will happen if you try to move around (physically).
 
 ### How to use:
-* REPLACE **gps-camera** with **standstill-gps-camera** in the <a-cursor> entity:
+* REPLACE **gps-camera** with **standstill-gps-camera** in the <a-camera> entity:
     e.g: <a-camera standstill-gps-camera rotation-reader position="0 0 0">
 * **standstill-gps-camera** depends on the **get-avg-gps-location** component. But it is generated automatically. So just add **standstill-gps-camera**.
