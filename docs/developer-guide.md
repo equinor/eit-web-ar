@@ -211,3 +211,24 @@ AFRAME.registerComponent('show-modal', {
   },
   ...
 ```
+
+
+## COMPONENT: standstill-gps-camera
+### What:
+**Two things:**
+1) Calculates the device's average gps position based on 20 datapoints (can be adjusted in the get-avg-gps-location component) and uses this to set the cameras position in the scene. The position is set at every added datapoint, until the average position is not changing anymore.
+
+2) Removes the rotation feature which updates where our device is pointing. I THINK that using this feature makes the camera recognize which way we are rotating our camera in relation to the compass north direction. However, using this feature also makes the object vibrate/jump around a bit (which is why we remove it).
+
+Note: The majority of this component is copied from gps-camera.
+
+### Why:
+This provides a camera position that does not jump around. Giving you a more stable AR experience when looking at a gps generated object.
+
+### Caveats:
+This is for standing still. Not much will happen if you try to move around (physically).
+
+### How to use:
+* REPLACE **gps-camera** with **standstill-gps-camera** in the <a-camera> entity:
+    e.g: <a-camera standstill-gps-camera rotation-reader position="0 0 0">
+* **standstill-gps-camera** depends on the **get-avg-gps-location** component. But it is generated automatically. So just add **standstill-gps-camera**.
