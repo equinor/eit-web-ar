@@ -6,12 +6,13 @@ import * as utils from "../modules/utils";
 const log = utils.getLogger("components:standstill-gps-camera");
 
 AFRAME.registerComponent('standstill-gps-camera', {
+  dependencies: ['get-avg-gps-location'], // Modification: added dependency
+  // Modification: Har tatt bort variabel for lat/lng
   _watchPositionId: null,
   originCoords: null,
   currentCoords: null,
   lookControls: null,
   heading: null,
-  dependencies: ['get-avg-gps-location'],
   schema: {
     positionMinAccuracy: {
       type: 'int',
@@ -41,9 +42,34 @@ AFRAME.registerComponent('standstill-gps-camera', {
     this.loader.classList.add('arjs-loader');
     document.body.appendChild(this.loader);
 
+    // *****
+    // MODIFICATION: Har tatt bort simulation of lat/lon
+    // *****
+
+    // ***** 
+    // MODIFICATION: Sette riktig kamera komponent til alle gps-entity-places._cameraGps
+    let gpsEntityPlaces = this.el.sceneEl.querySelectorAll('[gps-entity-place]');
+    let standStillGpsCamera = this.el;
+    
+    for (var i = 0; i < gpsEntityPlaces.length; ++i) {
+      let gpsComponent = gpsEntityPlaces[i].components['gps-entity-place'];
+      gpsComponent._cameraGps = standStillGpsCamera.components['standstill-gps-camera'];
+    }
+    // *****
+
     window.addEventListener('gps-entity-place-added', function () {
       // if places are added after camera initialization is finished
       if (this.originCoords) {
+        // ***** 
+        // MODIFICATION: Sette riktig kamera komponent til added gps-entity-place
+        let gpsEntityPlaces = this.el.sceneEl.querySelectorAll('[gps-entity-place]');
+        let standStillGpsCamera = this.el;
+        
+        for (var i = 0; i < gpsEntityPlaces.length; ++i) {
+          let gpsComponent = gpsEntityPlaces[i].components['gps-entity-place'];
+          gpsComponent._cameraGps = standStillGpsCamera.components['standstill-gps-camera'];
+        }
+        // *****
         window.dispatchEvent(new CustomEvent('gps-camera-origin-coord-set'));
       }
       if (this.loader && this.loader.parentElement) {
@@ -83,9 +109,22 @@ AFRAME.registerComponent('standstill-gps-camera', {
     window.addEventListener(eventName, this._onDeviceOrientation, false);
 
     this._watchPositionId = this._initWatchGPS(function (position) {
-      window.dispatchEvent(new CustomEvent('gps-camera-update-position', { detail: { position: position.coords, origin: this.originCoords } }));
-      this.currentCoords = this.el.getAttribute('get-avg-gps-location').positionAverage;
-      this._updatePosition();
+      // *****
+      // MODIFICATION: Endret for å:
+      // * Sende gps signal til get-avg-gps-location
+      // * Oppdatere posisjon i scenen med gps posisjon fra get-avg-gps-location
+      if (this.currentCoords != null) {
+        window.dispatchEvent(new CustomEvent('gps-camera-update-position', { detail: { position: position.coords, origin: this.originCoords } }));
+      }
+      window.dispatchEvent(new CustomEvent('gps-device-location-update', { detail: { position: position.coords } }));
+
+      this.getAvgGpsPos = this.el.getAttribute('get-avg-gps-location').positionAverage[0];
+
+      if (this.currentCoords == null || this.currentCoords.latitude !== this.getAvgGpsPos.latitude || this.currentCoords.longitude !== this.getAvgGpsPos.longitude) {
+        this.currentCoords = this.getAvgGpsPos;
+        this._updatePosition();
+      }
+      // *****
     }.bind(this));
 
     log.info("init done");
@@ -194,7 +233,7 @@ AFRAME.registerComponent('standstill-gps-camera', {
       if (loader) {
         loader.remove();
       }
-      window.dispatchEvent(new CustomEvent('gps-camera-origin-coord-set'));
+      // window.dispatchEvent(new CustomEvent('gps-camera-origin-coord-set'));
     } else {
       this._setPosition();
     }
@@ -223,8 +262,11 @@ AFRAME.registerComponent('standstill-gps-camera', {
 
     // update position
     this.el.setAttribute('position', position);
-
+    
+    // *****
+    // MODIFICATION: Commented out dispatch event:
     // window.dispatchEvent(new CustomEvent('gps-camera-update-position', { detail: { position: this.currentCoords, origin: this.originCoords } }));
+    // *****
   },
   /**
    * Returns distance in meters between source and destination inputs.
