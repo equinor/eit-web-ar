@@ -180,9 +180,11 @@ When this component is added to a marker, a modal with specified content will sh
 ```
 
 ## COMPONENT: cursor-interactive
-Adds the `cursor-interactive` class to itself (`this.el`) and all child ~~entities~~ elements.
+Adds the `cursor-interactive` class to itself (`this.el`) and all child ~~entities~~ elements. The classes are added after the scene is rendered. The class is therefore also added to elements that other components add to the scene in their `init`.
 
-No attributes.
+### Attributes
+
+* addToChildren: Whether the component should add the `cursor-interactive` class to child elements. Default is true.
 
 ### Example of implementation
 
@@ -196,4 +198,16 @@ As a property on an entity:
   value='5'
   id='5'>
 </a-marker>
+```
+
+As a dependency in a component:
+
+```javascript
+AFRAME.registerComponent('show-modal', {
+  dependencies: [
+    'cursor-interactive'
+  ],
+  schema: {
+  },
+  ...
 ```
