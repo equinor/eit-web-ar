@@ -74,7 +74,7 @@ Barcodes are simple symbols with good performance. Barcodes are generated symbol
 Links:
 * How to use: https://aframe.io/blog/arjs/#different-type-of-markers-pattern-and-barcode
 * Info: https://github.com/artoolkitx/artoolkitx/wiki/Creating-and-using-square-barcode-markers
-* Generator: https://au.gmented.com/app/marker/marker.php 
+* Generator: https://au.gmented.com/app/marker/marker.php
 
 
 ## Toggling the visibility of objects
@@ -93,4 +93,18 @@ but only when the barcode marker had a white background - not a black one.
 
 ## Add gestures to objects
 
-You can add gestures to object, such that you can scale and rotate the object in runtime using gestures on the touchscreen. 
+You can add gestures to object, such that you can scale and rotate the object in runtime using gestures on the touchscreen.
+
+## Marker confidence
+
+We've experienced some problems with markers being detected when they shouldn't be detected.
+We looked into setting some minimum detection confidence level to ensure that the detected markers were "real".
+
+It seems that there is a `minConfidence` property on the three.js object that deals with marker recognition.
+There is also a `min-confidence` attribute to the `a-marker` in AR.js, although not documented and not fully implemented.
+It seems simple enough to finish the implementation of this (see line 5090 in aframe-ar.js).
+
+Even with the `min-confidence` things implemented, a confidence check can't be (easily) implemented at this time.
+The reasen is that the barcode marker check in three.js seems to be binary (true/false).
+When three.js recognizes a barcode marker, it simply tells us that is has found the marker with confidence 1.
+A `min-confidence` property won't make much sense as long as three.js can't give us their confidence.
