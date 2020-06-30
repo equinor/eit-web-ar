@@ -12,14 +12,13 @@ AFRAME.registerComponent('draw-line-click', {
     var planeEl = document.createElement('a-plane');
     planeEl.setAttribute('rotation', '-90 0 0');
     planeEl.setAttribute('material', 'opacity: 0.0');
-    planeEl.classList.add('cursor-interactive');
-    //planeEl.addClass('cursor-interactive'); //?
     this.el.appendChild(planeEl);
 
     // Listen for clicks on all draw-line-click-markers
     var emitters = this.el.sceneEl.querySelectorAll('[draw-line-click]');
     for (var i = 0; i < emitters.length; i++) {
       emitters[i].addEventListener('click', (e) => {
+        console.log(e);
         if (e.detail.cursorEl == this.el.sceneEl) {
           // Click event called twice, do nothing.
         } else if (!this.startMarkerId) {

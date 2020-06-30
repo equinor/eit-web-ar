@@ -12,7 +12,6 @@ AFRAME.registerComponent('show-modal', {
     var planeEl = document.createElement('a-plane');
     planeEl.setAttribute('rotation', '-90 0 0');
     planeEl.setAttribute('material', 'opacity: 0.0');
-    planeEl.classList.add('cursor-interactive');
     this.el.appendChild(planeEl);
 
     var modalShown = false;
