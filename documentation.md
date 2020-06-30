@@ -108,3 +108,10 @@ Even with the `min-confidence` things implemented, a confidence check can't be (
 The reasen is that the barcode marker check in three.js seems to be binary (true/false).
 When three.js recognizes a barcode marker, it simply tells us that is has found the marker with confidence 1.
 A `min-confidence` property won't make much sense as long as three.js can't give us their confidence.
+
+## Uncaught RangeError: Array buffer allocation failed
+In aframe-ar.js:2. Happens very often on Erlends' phone (old) and sometimes on the other phones.
+
+Seems to be related to RAM usage (although not 100% sure).
+
+Quickfix to make it less irritating might be to force reload of the page when this error occurs.
