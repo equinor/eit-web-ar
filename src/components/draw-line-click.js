@@ -21,7 +21,6 @@ AFRAME.registerComponent('draw-line-click', {
     var emitters = this.el.sceneEl.querySelectorAll('[draw-line-click]');
     for (var i = 0; i < emitters.length; i++) {
       emitters[i].addEventListener('click', (e) => {
-        console.log(e);
         if (e.detail.cursorEl == this.el.sceneEl) {
           // Click event called twice, do nothing.
         } else if (!this.startMarkerId) {
