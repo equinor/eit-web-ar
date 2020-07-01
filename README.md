@@ -1,6 +1,6 @@
 # Emerging IT - Web AR
 
-_Summer 2020 Internship Project_  
+_Summer 2020 Internship Project_
 
 The challenges for the average Equinor employee to use dedicated AR devices in a office environment are
 - Devices are not easily available
@@ -8,13 +8,13 @@ The challenges for the average Equinor employee to use dedicated AR devices in a
 - Equinor managed pcs are a no-go due to the way they are locked down
 - Management of both device setup and usage scenarios are too cumbersome for quick and easy show and tell demos, or simply exploration of a 3d design you are working on
 
-To be able to make (a limited subset of) the possibilities of AR available to as many people as possible we can 
-- Use their mobile phone as device 
+To be able to make (a limited subset of) the possibilities of AR available to as many people as possible we can
+- Use their mobile phone as device
 - Use a web app so that no installations is required
 - And then help tracking by using QR codes or GPS coords for where AR should kick in
 
-By using WebXR we trade (advanced) device capabilities to gain user availability - both for end-users and developers.  
-By gaining easy availability we hope to be able to quickly explore use cases where "lightweight" AR can enhance the daily work experience.  
+By using WebXR we trade (advanced) device capabilities to gain user availability - both for end-users and developers.
+By gaining easy availability we hope to be able to quickly explore use cases where "lightweight" AR can enhance the daily work experience.
 
 ![Explore AR possibilites with the user](./docs/zapp-brannigan.jpg)
 
@@ -34,6 +34,7 @@ By gaining easy availability we hope to be able to quickly explore use cases whe
   - [Starting from scratch](./README.md#starting-from-scratch)
 - [Build and run release image](./README.md#build-and-run-release-image)
 - [How we work](./docs/how-we-work.md)
+- [Documentation](./docs/index.md)
 
 ### For users
 
@@ -42,23 +43,23 @@ By gaining easy availability we hope to be able to quickly explore use cases whe
 
 ## Technologies
 
-- [A-Frame JS](https://aframe.io/)  
-   Web VR library  
+- [A-Frame JS](https://aframe.io/)
+   Web VR library
    - [Experiment with AR and A-Frame](https://aframe.io/blog/webxr-ar-module/)
    - [Image Tracking and Location-Based AR with A-Frame and AR.js 3](https://aframe.io/blog/arjs3/)
 
-- [nginx](https://www.nginx.com/)  
-  Web server  
+- [nginx](https://www.nginx.com/)
+  Web server
 
-- [Docker](https://www.docker.com/)  
-  For hosting the web app anywhere  
+- [Docker](https://www.docker.com/)
+  For hosting the web app anywhere
   To quickly get up to speed with docker then run through the [Learn Docker & Containers using Interactive Browser-Based Scenarios](https://www.katacoda.com/courses/docker) at katacoda
 
-- [OAuth2 proxy](https://github.com/oauth2-proxy/oauth2-proxy)  
-  A reverse proxy and static file server that provides authentication using Providers (Google, GitHub, and others) to validate accounts by email, domain or group.   
+- [OAuth2 proxy](https://github.com/oauth2-proxy/oauth2-proxy)
+  A reverse proxy and static file server that provides authentication using Providers (Google, GitHub, and others) to validate accounts by email, domain or group.
   We use it as a proxy container in front of the app container to simplify integration with an Azure AD app.
 
-- [Omnia Radix](https://www.radix.equinor.com/)  
+- [Omnia Radix](https://www.radix.equinor.com/)
    CICD and hosting
 
 
@@ -66,40 +67,40 @@ By gaining easy availability we hope to be able to quickly explore use cases whe
 
 - nodejs
 
-- [webpack](https://webpack.js.org/guides/)  
+- [webpack](https://webpack.js.org/guides/)
   Build and bundle the web components of the app
 
-- [Docker](https://www.docker.com/)  
-  We use a multistage dockerfile to build the images.  
+- [Docker](https://www.docker.com/)
+  We use a multistage dockerfile to build the images.
   `docker-compose` is used for development purposes only.
 
-- [Omnia Radix](https://www.radix.equinor.com/)  
-  CICD and hosting in the [playground](https://console.playground.radix.equinor.com/) environment.  
+- [Omnia Radix](https://www.radix.equinor.com/)
+  CICD and hosting in the [playground](https://console.playground.radix.equinor.com/) environment.
   Radix configuration is mainly handled in [`radixconfiguration.yaml`](../radixconfiguration.yaml)
 
 
 ## Components
 
-- **frontend**  
-  A pure client side app that handle all business logic. nginx acts as a backend in that it serves the inital js/css/html to the client.  
+- **frontend**
+  A pure client side app that handle all business logic. nginx acts as a backend in that it serves the inital js/css/html to the client.
   All traffic is routed through the `auth-proxy` component.
 
-- **auth-proxy**  
-  Main entry point for the app.  
-  It allows traffic to the `frontend` component if the `aad app` authenticate the user.  
-  Based on [radix auth proxy example](https://github.com/equinor/radix-example-front-proxy)  
+- **auth-proxy**
+  Main entry point for the app.
+  It allows traffic to the `frontend` component if the `aad app` authenticate the user.
+  Based on [radix auth proxy example](https://github.com/equinor/radix-example-front-proxy)
 
-- **aad app**  
+- **aad app**
   OAuth in Azure
 
 
 ## Security
 
-- **Authentication**  
+- **Authentication**
   - _Who:_ All Equinor employees
   - _What:_ auth-proxy
-  - _Where:_  
-    - Azure AD app `EIT Web AR AD App`, see configfile [azure.env](./azure/azure.env) for details  
+  - _Where:_
+    - Azure AD app `EIT Web AR AD App`, see configfile [azure.env](./azure/azure.env) for details
     - Auth proxy configuration in [radixconfig.yaml](../radixconfig.yaml)
     - Credentials are set as secrets in each host environment in Radix (see CICD)
 
@@ -116,16 +117,16 @@ By gaining easy availability we hope to be able to quickly explore use cases whe
 - **CICD**
   - _What:_ Radix Playground
   - _Where:_ https://console.playground.radix.equinor.com/applications/eit-web-ar
-  - _Who:_ AZ AD group `EIT Web AR` (`1c15fcc6-3f69-4db7-a8ee-b4d86c293c35`)  
+  - _Who:_ AZ AD group `EIT Web AR` (`1c15fcc6-3f69-4db7-a8ee-b4d86c293c35`)
 
-- **Hosting**  
-  - _What:_ Radix Playground  
-  - _Where:_  
-    - [Production](https://eit-web-ar.app.playground.radix.equinor.com/), (git branch `release`)  
-    - [Development](https://entrypoint-eit-web-ar-development.playground.radix.equinor.com/), (git branch `master`)  
+- **Hosting**
+  - _What:_ Radix Playground
+  - _Where:_
+    - [Production](https://eit-web-ar.app.playground.radix.equinor.com/), (git branch `release`)
+    - [Development](https://entrypoint-eit-web-ar-development.playground.radix.equinor.com/), (git branch `master`)
   - _Who:_ See "CICID"
 
-- **Docker**  
+- **Docker**
   - _What:_  Release image does not have root privilieges
   - _Where:_ [./Dockerfile](./Dockerfile)
 
@@ -138,14 +139,14 @@ The [`./docker-compose.yaml`](./docker-compose.yaml) contains everything we need
 
 You will want to use 2-3 terminal sessions for this as it is easier to see what is going on where.
 
-#### _Session 1: Build and start the webpack container_  
+#### _Session 1: Build and start the webpack container_
 
 If you are using WSL then this session should be in windows `cmd`
 ```sh
 docker-compose up --build
 ```
 
-#### _Session 2: Run commands inside the webpack container_  
+#### _Session 2: Run commands inside the webpack container_
 
 ```sh
 # Open a bash session into the webpack container
@@ -157,9 +158,9 @@ npm install
 # Then start the webpack-dev-server
 npm run start
 ```
-You should now be able to access the webpack server from the host at https://localhost:3000/  
-Please note that webpack is serving selfsigned tls cert as `https` is required for browsers to handle `WebXR`.  
-See `webpack.config.js`  
+You should now be able to access the webpack server from the host at https://localhost:3000/
+Please note that webpack is serving selfsigned tls cert as `https` is required for browsers to handle `WebXR`.
+See `webpack.config.js`
 ```
    devServer: {
       contentBase: "./dist",
@@ -168,10 +169,10 @@ See `webpack.config.js`
    },
 ```
 
-#### _Session 3: Access the files in host_  
+#### _Session 3: Access the files in host_
 
 ```sh
-# Bring up your IDE and start hacking away. 
+# Bring up your IDE and start hacking away.
 # Please note that template files will not be hot reloaded, see "Notes" down below
 code .
 
@@ -198,12 +199,12 @@ docker-compose down -v
 
 #### Template files are not hot reloaded
 
-This is a bug in `webpack-dev-server`, and hopefully it will be resolved in the next major versions.  
+This is a bug in `webpack-dev-server`, and hopefully it will be resolved in the next major versions.
 See [git issue 1271](https://github.com/webpack/webpack-dev-server/issues/1271)
 
 #### Exposing webpack-dev-server
 
-To make the webpack-dev-server accessible outside the container then you must set the `--host` option when starting the server.  
+To make the webpack-dev-server accessible outside the container then you must set the `--host` option when starting the server.
 
 Example `package.json`:
 ```js
@@ -236,13 +237,13 @@ Example `webpack.config.js`:
 
 #### npm scripts
 
-Remember that your nodejs development environment is in the context of the docker container. To be able to successfully run npm scripts like `eslint` then you must run them in context of the docker container. If you try to call on scripts outside the container, even if the files are shared by mounting, will most likely fail and npm will complain that it cannot find the resources.  
+Remember that your nodejs development environment is in the context of the docker container. To be able to successfully run npm scripts like `eslint` then you must run them in context of the docker container. If you try to call on scripts outside the container, even if the files are shared by mounting, will most likely fail and npm will complain that it cannot find the resources.
 
-Example:  
-I want to eslint to watch changes so can can track of any errors while working in vs code.  
-I have added the script `"lint:watch": "esw -w src"` to `package.json`.  
-The solution is to  
-1. open a terminal in vscode, 
+Example:
+I want to eslint to watch changes so can can track of any errors while working in vs code.
+I have added the script `"lint:watch": "esw -w src"` to `package.json`.
+The solution is to
+1. open a terminal in vscode,
 1. open a bash session in the container `docker exec -it eit-web-ar-development_container bash`
 1. and in this session I can then run the npm script `npm run lint:watch`
 Now I can code and watch changes at the same time.
@@ -250,7 +251,7 @@ Now I can code and watch changes at the same time.
 
 ### Starting from scratch
 
-Say you want to start a new nodejs project and build up `package.js` and `webpack.config.js` from scratch.  
+Say you want to start a new nodejs project and build up `package.js` and `webpack.config.js` from scratch.
 
 All you have to do is to remove those files from this demo and simply start building them using the tools availble in the eit-web-ar-development_container.
 
@@ -266,7 +267,7 @@ npm install --save-dev webpack webpack-cli webpack-dev-server
 
 ## Build and run release image
 
-The [`./Dockerfile`](./Dockerfile) is a multistage build that will produce a minimal release image.  
+The [`./Dockerfile`](./Dockerfile) is a multistage build that will produce a minimal release image.
 Please note that webpack is set to development mode in this demo. You should add your own configuration for webpack production mode (mine tend to differ from project to project).
 
 
