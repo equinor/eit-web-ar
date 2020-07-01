@@ -34,7 +34,7 @@ By gaining easy availability we hope to be able to quickly explore use cases whe
   - [Starting from scratch](./README.md#starting-from-scratch)
 - [Build and run release image](./README.md#build-and-run-release-image)
 - [How we work](./docs/how-we-work.md)
-- [Documentation](./docs/index.md)
+- [Documentation](./docs/documentation.md)
 
 ### For users
 
