@@ -12,7 +12,7 @@ The group had different levels of experience with web development, Javascript, D
 
 During epic 1 we started getting to know the AR libraries three.js, A-frame, and AR.js. We spent a lot of time trying to understand how they work and how they interact with each other.
 
-Already in the very beginning we encountered compability issues with laptops and phones that seemed to not be AR compatible, but these problems were solved (see [Notes](notes.md)) or simply ignored, as it is possible to use a lot of the AR technology even if the phone does not officially support it.
+Already in the very beginning we encountered compatibility issues with laptops and phones that seemed to not be AR compatible, but these problems were solved (see [Notes](notes.md)) or simply ignored, as it is possible to use a lot of the AR technology even if the phone does not officially support it.
 
 ## Pros and cons with the approach
 
