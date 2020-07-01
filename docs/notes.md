@@ -105,8 +105,8 @@ There is also a `min-confidence` attribute to the `a-marker` in AR.js, although 
 It seems simple enough to finish the implementation of this (see line 5090 in aframe-ar.js).
 
 Even with the `min-confidence` things implemented, a confidence check can't be (easily) implemented at this time.
-The reasen is that the barcode marker check in three.js seems to be binary (true/false).
-When three.js recognizes a barcode marker, it simply tells us that is has found the marker with confidence 1.
+The reason is that the barcode marker check in three.js seems to be binary (true/false).
+When three.js recognizes a barcode marker, it simply tells us that it has found the marker with confidence 1.
 A `min-confidence` property won't make much sense as long as three.js can't give us their confidence.
 
 ## Uncaught RangeError: Array buffer allocation failed
