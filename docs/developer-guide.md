@@ -289,3 +289,37 @@ animation="property: rotation; to: 0 360 0; loop: true; dur: 3000"
 cursor-interactive
 ></a-entity>
 ```
+
+## COMPONENT: gps-animation
+
+The `gps-animation` component makes it possible to animate the position of a gps placed entity (entity with the `gps-entity-place` component).
+The animation is initiated with the `animation` component. Use the usual attributes on `animation`.
+
+`gps-animation` has one property directly on the `el.data` object.
+This property expects a string with latitude and longitude seperated by space, e.g. `59.959825 10.701532`.
+Each time the `data` object in the `gps-animation` component is updated, the position of the `gps-entity-place` is also updated.
+
+The gps position animation happens by using `animation` to update the `data` object in `gps-animation`, and then the `gps-animation` component pushes the update to `gps-entity-place`.
+
+You will need to set `gps-animation` as the animation property, as well as the coordinated the object is supposed to move between. As mentioned, the coordinates are on the form `latitude longitude`, seperated with space.
+
+### Example of implementation
+
+```html
+ <a-entity
+   gps-entity-place='latitude: 59.959941; longitude: 10.701367'
+   gps-animation
+   animation="property: gps-animation; from: 59.959941 10.701367; to: 59.959825 10.701532; loop: false; dur: 30000; startEvents: click;"
+   gltf-model='#magnemite'
+   cursor-interactive
+ ></a-entity>
+```
+
+The gps position animation can be combined with other animations by separating two `animation` instances with double underscore:
+
+```html
+animation__gps="property: gps-animation; from: 59.959941 10.701367; to: 59.959725 10.701832; loop: false; dur: 10000; startEvents: click;"
+animation__rotation="property: rotation; from: 0 0 0; to: 0 360 0; loop: false; dur: 10000; startEvents: click;"
+```
+
+Adding the attributes above to an entity will make it move and rotate at the same time.
