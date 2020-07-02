@@ -15,3 +15,4 @@ import "./gps-intersection";
 import "./gesture-rotation";
 import "./gesture-scale";
 import "./cursor-interactive";
+import "./gps-animation";

@@ -255,3 +255,5 @@ animation="property: rotation; to: 0 360 0; loop: true; dur: 3000"
 cursor-interactive
 ></a-entity>
 ```
+
+## COMPONENT: gps-animation
