@@ -15,10 +15,10 @@ AFRAME.registerComponent('kalman-gps-camera', {
   gpsTimestampArray: [], // MODIFICATION
   gpsVelocity: 0, // MODIFICATION
   schema: {
-    Q: { type: 'float', default: 2 },
-    R: { type: 'float', default: 0.1 },
-    B: { type: 'float', default: 1 },
-    logConsole: { type: 'string', default: 'false' },
+    Q: { type: 'float', default: 2 }, // MODIFICATION
+    R: { type: 'float', default: 0.1 }, // MODIFICATION
+    B: { type: 'float', default: 1 }, // MODIFICATION
+    logConsole: { type: 'string', default: 'false' }, // MODIFICATION
     simulateLatitude: {
       type: 'number',
       default: 0,
@@ -322,13 +322,11 @@ AFRAME.registerComponent('kalman-gps-camera', {
     }
 
     // 3) Sett måling og modell inn i kalman, og få ut x og z
-    console.log('---')
     if (this.data.logConsole === 'true') {
       console.log("---");
       console.log("kalman x (in scene): " + this.kalmanx.filter(gpsPos.x, u.x));
       console.log("kalman z (in scene): " + this.kalmanz.filter(gpsPos.z, u.z));
     }
-    
 
     position.x = this.kalmanx.filter(gpsPos.x, u.x);
     position.z = this.kalmanz.filter(gpsPos.z, u.z);
