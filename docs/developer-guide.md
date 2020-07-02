@@ -234,7 +234,6 @@ This is for standing still. Not much will happen if you try to move around (phys
 * **standstill-gps-camera** depends on the **get-avg-gps-location** component. But it is generated automatically. So just add **standstill-gps-camera**.
 
 
-<<<<<<< HEAD
 ## COMPONENT kalman-gps-camera
 
 ### STATUS:
@@ -265,9 +264,11 @@ Hopefully this will provide a more stable experience while using location-based 
 
 ### Dependencies:
 * Needs the kalman.js module, located in /src/modules/kalman.js
-=======
-## Animate (gps placed) object
 
+
+
+
+## Animate (gps placed) object
 
 ### Example
 
@@ -287,4 +288,3 @@ animation="property: rotation; to: 0 360 0; loop: true; dur: 3000"
 cursor-interactive
 ></a-entity>
 ```
->>>>>>> master
