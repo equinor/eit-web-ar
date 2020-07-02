@@ -11,17 +11,17 @@
       embedded
       arjs='detectionMode: mono_and_matrix; matrixCodeType: 3x3;'>
         <a-assets>
-            <a-asset-item
+            <!-- <a-asset-item
                 id="castle"
                 src="./gltf/castle/scene.gltf"
                 preload="auto">
-            </a-asset-item>
+            </a-asset-item> -->
             <a-asset-item
                 id="magnemite"
                 src="./gltf/magnemite/scene.gltf"
                 preload="auto">
             </a-asset-item>
-            <a-asset-item
+            <!-- <a-asset-item
                 id="circus"
                 src="./gltf/circus/scene.gltf"
                 preload="auto">
@@ -30,24 +30,24 @@
                 id="circus_box"
                 src="./gltf/circus_box/scene.gltf"
                 preload="auto">
-            </a-asset-item>
+            </a-asset-item> -->
         </a-assets>
 
-        <a-marker type="barcode" value="4">
+        <!-- <a-marker type="barcode" value="4">
             <a-box material="color:green" position="0 0.5 0" toggle-visibility cursor-interactive></a-box>
-         </a-marker>
+         </a-marker> -->
 
-         <a-entity
+         <!-- <a-entity
             gps-entity-place="latitude: 59.959941; longitude: 10.701367"
             gps-intersection='radius: 40'
-         ></a-entity>
+         ></a-entity> -->
 
         <a-entity
           id="magnemite"
-          gps-object='object: #magnemite; location: { "lat": 59.965006, "lng": 10.730164 }; scale: 0.1; printDistance: true'>
+          gps-object='object: #magnemite; location: { "lat": 59.965006, "lng": 10.730164 }; scale: 0.1; printDistance: false'>
         </a-entity>
 
-        <a-entity
+        <!-- <a-entity
           id="circus_ent"
           animation-mixer
           gps-object='object: #circus; location: { "lat": 68.679019, "lng": 16.796625 }; scale: 0.8'>
@@ -57,9 +57,9 @@
           gps-object='object: #circus_box; location: { "lat": 68.679019, "lng": 16.796625 }; scale: 0.8'
           toggle-visibility
           class="cursor-interactive">
-        </a-entity>
+        </a-entity> -->
 
-        <a-camera standstill-gps-camera rotation-reader position="0 0 0">
+        <a-camera kalman-gps-camera="R: 1; Q: 2; logConsole: true" rotation-reader position="0 0 0">
             <a-entity
                 cursor="fuse: false"
                 raycaster="interval: 20; objects: .cursor-interactive"
@@ -68,6 +68,9 @@
                 material="color: black; shader: flat"
             ></a-entity>
         </a-camera>
+
+        <!-- <a-box position="0 0 -4"></a-box> -->
+        <!-- <a-entity standstill-gps-camera look-controls></a-entity> -->
 
     </a-scene>
 

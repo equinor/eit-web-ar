@@ -232,3 +232,34 @@ This is for standing still. Not much will happen if you try to move around (phys
 * REPLACE **gps-camera** with **standstill-gps-camera** in the <a-camera> entity:
     e.g: <a-camera standstill-gps-camera rotation-reader position="0 0 0">
 * **standstill-gps-camera** depends on the **get-avg-gps-location** component. But it is generated automatically. So just add **standstill-gps-camera**.
+
+
+## COMPONENT kalman-gps-camera
+
+### STATUS:
+* Needs testing and tuning!
+
+### What:
+Uses a kalman filter to approximate your position in the scene.
+* Measurement comes from gps position, where lat/lng is converted to coordinates in the scene before getting put through the filter.
+* Model comes from using the velocity from the gps together with compass direction, to model what direction and how far the device has moved since the last measurement.
+
+### Why:
+Hopefully this will provide a more stable experience while using location-based AR while walking.
+
+### How to use:
+* REPLACE **gps-camera** with **kalman-gps-camera** in the <a-camera> entity:
+    e.g: <a-camera kalman-gps-camera="R: 1; Q: 2; logConsole: true" rotation-reader position="0 0 0">
+* Tune the kalman filter with R and Q.
+  * R: the process noise of our system (how accurate is our model? use lower R for more accurate)
+  * Q: measurement noise (how accurate is the measurement? use lower Q for more accurate)
+    * The important part is the **ratio** between R and Q. The ratio determines how much the kalman filter trusts the measure/model.
+  * B: Scaling factor for the input (B*u)
+      * u.x = dt*Math.sin(this.heading)*v; <!-- u.x is the modelled change in x position -->
+      * u.z = dt*Math.cos(this.heading)*(-v); <!-- u.z is the modelled change in z position -->
+        * dt: time between gps readings
+        * this.heading: compass direction, read as clockwise degrees from north
+        * v: speed from gps
+
+### Dependencies:
+* Needs the kalman.js module, located in /src/modules/kalman.js

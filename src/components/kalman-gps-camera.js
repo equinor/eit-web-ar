@@ -1,19 +1,36 @@
-/* eslint-disable */
 
+/* eslint-disable */
 import AFRAME from "aframe";
 import * as utils from "../modules/utils";
+import KalmanFilter from "../modules/kalman";
 
-const log = utils.getLogger("components:standstill-gps-camera");
+const log = utils.getLogger("components:kalman-gps-camera");
 
-AFRAME.registerComponent('standstill-gps-camera', {
-  dependencies: ['get-avg-gps-location'], // Modification: added dependency
-  // Modification: Har tatt bort variabel for lat/lng
+AFRAME.registerComponent('kalman-gps-camera', {
   _watchPositionId: null,
   originCoords: null,
   currentCoords: null,
   lookControls: null,
   heading: null,
+  gpsTimestampArray: [], // MODIFICATION
+  gpsVelocity: 0, // MODIFICATION
   schema: {
+    Q: { type: 'float', default: 2 },
+    R: { type: 'float', default: 0.1 },
+    B: { type: 'float', default: 1 },
+    logConsole: { type: 'string', default: 'false' },
+    simulateLatitude: {
+      type: 'number',
+      default: 0,
+    },
+    simulateLongitude: {
+      type: 'number',
+      default: 0,
+    },
+    simulateAltitude: {
+      type: 'number',
+      default: 0,
+    },
     positionMinAccuracy: {
       type: 'int',
       default: 100,
@@ -32,6 +49,17 @@ AFRAME.registerComponent('standstill-gps-camera', {
     }
   },
   update: function () {
+    if (this.data.simulateLatitude !== 0 && this.data.simulateLongitude !== 0) {
+      localPosition = Object.assign({}, this.currentCoords || {});
+      localPosition.longitude = this.data.simulateLongitude;
+      localPosition.latitude = this.data.simulateLatitude;
+      localPosition.altitude = this.data.simulateAltitude;
+      this.currentCoords = localPosition;
+
+      // re-trigger initialization for new origin
+      this.originCoords = null;
+      this._updatePosition();
+    }
   },
   init: function () {
     if (!this.el.components['look-controls']) {
@@ -42,18 +70,14 @@ AFRAME.registerComponent('standstill-gps-camera', {
     this.loader.classList.add('arjs-loader');
     document.body.appendChild(this.loader);
 
-    // *****
-    // MODIFICATION: Har tatt bort simulation of lat/lon
-    // *****
-
     // ***** 
     // MODIFICATION: Sette riktig kamera komponent til alle gps-entity-places._cameraGps
     let gpsEntityPlaces = this.el.sceneEl.querySelectorAll('[gps-entity-place]');
-    let standStillGpsCamera = this.el;
+    let KalmanGpsCamera = this.el;
     
     for (var i = 0; i < gpsEntityPlaces.length; ++i) {
       let gpsComponent = gpsEntityPlaces[i].components['gps-entity-place'];
-      gpsComponent._cameraGps = standStillGpsCamera.components['standstill-gps-camera'];
+      gpsComponent._cameraGps = KalmanGpsCamera.components['kalman-gps-camera'];
     }
     // *****
 
@@ -61,15 +85,14 @@ AFRAME.registerComponent('standstill-gps-camera', {
       // if places are added after camera initialization is finished
       if (this.originCoords) {
         // ***** 
-        // MODIFICATION: Sette riktig kamera komponent til added gps-entity-place
-        let gpsEntityPlaces = this.el.sceneEl.querySelectorAll('[gps-entity-place]');
-        let standStillGpsCamera = this.el;
-        
-        for (var i = 0; i < gpsEntityPlaces.length; ++i) {
-          let gpsComponent = gpsEntityPlaces[i].components['gps-entity-place'];
-          gpsComponent._cameraGps = standStillGpsCamera.components['standstill-gps-camera'];
-        }
-        // *****
+      // MODIFICATION: Sette riktig kamera komponent til alle gps-entity-places._cameraGps
+      let gpsEntityPlaces = this.el.sceneEl.querySelectorAll('[gps-entity-place]');
+      let KalmanGpsCamera = this.el;
+      
+      for (var i = 0; i < gpsEntityPlaces.length; ++i) {
+        let gpsComponent = gpsEntityPlaces[i].components['gps-entity-place'];
+        gpsComponent._cameraGps = KalmanGpsCamera.components['kalman-gps-camera'];
+      }
         window.dispatchEvent(new CustomEvent('gps-camera-origin-coord-set'));
       }
       if (this.loader && this.loader.parentElement) {
@@ -109,26 +132,29 @@ AFRAME.registerComponent('standstill-gps-camera', {
     window.addEventListener(eventName, this._onDeviceOrientation, false);
 
     this._watchPositionId = this._initWatchGPS(function (position) {
-      console.log("speed: " + position.coords.speed);
-      // *****
-      // MODIFICATION: Endret for å:
-      // * Sende gps signal til get-avg-gps-location
-      // * Oppdatere posisjon i scenen med gps posisjon fra get-avg-gps-location
-      if (this.currentCoords != null) {
-        window.dispatchEvent(new CustomEvent('gps-camera-update-position', { detail: { position: position.coords, origin: this.originCoords } }));
+      if (this.data.simulateLatitude !== 0 && this.data.simulateLongitude !== 0) {
+        localPosition = Object.assign({}, position.coords);
+        localPosition.longitude = this.data.simulateLongitude;
+        localPosition.latitude = this.data.simulateLatitude;
+        localPosition.altitude = this.data.simulateAltitude;
+        this.currentCoords = localPosition;
       }
-      window.dispatchEvent(new CustomEvent('gps-device-location-update', { detail: { position: position.coords } }));
-
-      this.getAvgGpsPos = this.el.getAttribute('get-avg-gps-location').positionAverage[0];
-
-      if (this.currentCoords == null || this.currentCoords.latitude !== this.getAvgGpsPos.latitude || this.currentCoords.longitude !== this.getAvgGpsPos.longitude) {
-        this.currentCoords = this.getAvgGpsPos;
-        this._updatePosition();
+      else {
+        // *** MODIFICATION
+        this.currentCoords = position.coords;
+        this.gpsVelocity = position.coords.speed;
+        
+        if (this.gpsTimestampArray.length < 2) {
+          this.gpsTimestampArray.push(position.timestamp);
+        } else {
+          this.gpsTimestampArray[0] = this.gpsTimestampArray[1];
+          this.gpsTimestampArray[1] = position.timestamp;
+        }
+        // ***
       }
-      // *****
+
+      this._updatePosition();
     }.bind(this));
-
-    log.info("init done");
   },
 
   tick: function () {
@@ -241,33 +267,78 @@ AFRAME.registerComponent('standstill-gps-camera', {
   },
   _setPosition: function () {
     var position = this.el.getAttribute('position');
+    
+    // *** KALMAN FILTER
+    if (!this.kalmanx || !this.kalmanz) {
+      let sysA = 1;
+      let sysB = this.data.B;
+      let kalmanR = this.data.R;
+      let kalmanQ = this.data.Q;
+      if (!this.kalmanx) {
+        this.kalmanx = new KalmanFilter({R: kalmanR, Q: kalmanQ, A: sysA, B: sysB});
+      }
+      if (!this.kalmanz) {
+        this.kalmanz = new KalmanFilter({R: kalmanR, Q: kalmanQ, A: sysA, B: sysB});
+      }
+    }
 
-    // compute position.x
+    // * 1) MÅLING: Position har måling på x og z i gpsPos.x gpsPos.z
+    var gpsPos = {};
+    Object.assign(gpsPos, position);
+    
+    // compute gpsPos.x
     var dstCoords = {
       longitude: this.currentCoords.longitude,
       latitude: this.originCoords.latitude,
     };
 
-    position.x = this.computeDistanceMeters(this.originCoords, dstCoords);
-    position.x *= this.currentCoords.longitude > this.originCoords.longitude ? 1 : -1;
+    gpsPos.x = this.computeDistanceMeters(this.originCoords, dstCoords);
+    gpsPos.x *= this.currentCoords.longitude > this.originCoords.longitude ? 1 : -1;
 
-
-    // compute position.z
+    // compute gpsPos.z
     var dstCoords = {
       longitude: this.originCoords.longitude,
       latitude: this.currentCoords.latitude,
     }
 
-    position.z = this.computeDistanceMeters(this.originCoords, dstCoords);
-    position.z *= this.currentCoords.latitude > this.originCoords.latitude ? -1 : 1;
+    gpsPos.z = this.computeDistanceMeters(this.originCoords, dstCoords);
+    gpsPos.z *= this.currentCoords.latitude > this.originCoords.latitude ? -1 : 1;
+
+    // * 2) Modellere position x og z
+    let dt = 0.001 * (this.gpsTimestampArray[1] - this.gpsTimestampArray[0]);
+    let v = this.gpsVelocity;
+    let u = {};
+    
+    // xM er den modellerte x posisjonen
+    u.x = dt*Math.sin(this.heading)*v;
+    if (u.x === NaN || u.x === undefined || u.x === null) {
+      u.x = position.x;
+    }
+
+    // zM er den modellerte x posisjonen
+    u.z = dt*Math.cos(this.heading)*(-v);
+    if (u.z === NaN || u.z === undefined || u.z === null) {
+      u.z = position.z;
+    }
+
+    // 3) Sett måling og modell inn i kalman, og få ut x og z
+    console.log('---')
+    if (this.data.logConsole === 'true') {
+      console.log("---");
+      console.log("kalman x (in scene): " + this.kalmanx.filter(gpsPos.x, u.x));
+      console.log("kalman z (in scene): " + this.kalmanz.filter(gpsPos.z, u.z));
+    }
+    
+
+    position.x = this.kalmanx.filter(gpsPos.x, u.x);
+    position.z = this.kalmanz.filter(gpsPos.z, u.z);
 
     // update position
     this.el.setAttribute('position', position);
-    
-    // *****
-    // MODIFICATION: Commented out dispatch event:
-    // window.dispatchEvent(new CustomEvent('gps-camera-update-position', { detail: { position: this.currentCoords, origin: this.originCoords } }));
-    // *****
+
+    // ***
+
+    window.dispatchEvent(new CustomEvent('gps-camera-update-position', { detail: { position: this.currentCoords, origin: this.originCoords } }));
   },
   /**
    * Returns distance in meters between source and destination inputs.
@@ -377,14 +448,10 @@ AFRAME.registerComponent('standstill-gps-camera', {
    * @returns {void}
    */
   _updateRotation: function () {
-    // console.log("thisHeading: " + this.heading);
-    // *****
-    // MODIFICATION: Commented out: 
-    // var heading = 360 - this.heading;
-    // var cameraRotation = this.el.getAttribute('rotation').y;
-    // var yawRotation = THREE.Math.radToDeg(this.lookControls.yawObject.rotation.y);
-    // var offset = (heading - (cameraRotation - yawRotation)) % 360;
-    // this.lookControls.yawObject.rotation.y = THREE.Math.degToRad(offset);
-    // *****
+    var heading = 360 - this.heading;
+    var cameraRotation = this.el.getAttribute('rotation').y;
+    var yawRotation = THREE.Math.radToDeg(this.lookControls.yawObject.rotation.y);
+    var offset = (heading - (cameraRotation - yawRotation)) % 360;
+    this.lookControls.yawObject.rotation.y = THREE.Math.degToRad(offset);
   },
 });
