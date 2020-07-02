@@ -238,6 +238,7 @@ This is for standing still. Not much will happen if you try to move around (phys
 
 ### STATUS:
 * Needs testing and tuning!
+* The model is based on the velocity from measurements, so the model should be improved if possible. Any ideas?
 
 ### What:
 Uses a kalman filter to approximate your position in the scene.
