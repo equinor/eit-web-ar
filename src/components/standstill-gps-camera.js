@@ -109,6 +109,7 @@ AFRAME.registerComponent('standstill-gps-camera', {
     window.addEventListener(eventName, this._onDeviceOrientation, false);
 
     this._watchPositionId = this._initWatchGPS(function (position) {
+      console.log("speed: " + position.coords.speed);
       // *****
       // MODIFICATION: Endret for å:
       // * Sende gps signal til get-avg-gps-location
@@ -376,6 +377,7 @@ AFRAME.registerComponent('standstill-gps-camera', {
    * @returns {void}
    */
   _updateRotation: function () {
+    // console.log("thisHeading: " + this.heading);
     // *****
     // MODIFICATION: Commented out: 
     // var heading = 360 - this.heading;

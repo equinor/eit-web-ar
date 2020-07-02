@@ -26,8 +26,6 @@ AFRAME.registerComponent('get-avg-gps-location', {
     window.addEventListener('gps-device-location-update', (e) => {
       if (this.positionCount < this.data.gpsPointsCount) {
         this.storeGpsPosition(e.detail.position);
-      } else {
-        log.info("Average position set.")
       }
     });
 
