@@ -119,3 +119,15 @@ Quickfix to make it less irritating might be to force reload of the page when th
 Todo:
 * find out exactly why the error occurs.
 * if due to RAM usage: how to use less RAM?
+
+
+## Infra-red notes
+* Cameras have IR filters to make what the camera sees more like what human sees.
+* IR filters in smartphones let a little bit of IR through
+* There exists IR markers, so that you can paint a symbol that will absorb IR light. Thus showing a marker when seeing it through an IR camera, but not seeing anything when seeing it with a human eye.
+* There are some research in invisible IR markers, but all the research I have found uses IR cameras or a combination IR cameras and smartphone cameras.
+
+Thoughts:
+* Does not seem feasable with only a normal smartphone camera.
+* Although the feasability can be tested by buying an IR pen and painting a marker, filming the marker it with a smartphone, and seeing if the marker can be seen/recognized in normal fashion.
+
