@@ -257,3 +257,25 @@ cursor-interactive
 ```
 
 ## COMPONENT: gps-animation
+
+The `gps-animation` component makes it possible to animate the position of a gps placed entity (entity with the gps-entity-place component).
+
+The animation is initiated with the `animation` component. Use the usual attributes of `animation`. To animate the gps position:
+
+```html
+animation="property: gps-animation; from: 59.959941 10.701367; to: 59.959825 10.701532; ... "
+```
+
+### Example of implementation
+
+```html
+ <a-entity
+   id="magnemite"
+   gps-entity-place='latitude: 59.959941; longitude: 10.701367'
+   gps-animation
+   animation="property: gps-animation; from: 59.959941 10.701367; to: 59.959825 10.701532; loop: false; dur: 30000; startEvents: click;"
+   gltf-model='#magnemite'
+   scale='0.5 0.5 0.5'
+   cursor-interactive
+ ></a-entity>
+```
