@@ -261,6 +261,7 @@ Hopefully this will provide a more stable experience while using location-based 
         * dt: time between gps readings
         * this.heading: compass direction, read as clockwise degrees from north
         * v: speed from gps
+* How kalman.js works: https://github.com/wouterbulten/kalmanjs
 
 ### Dependencies:
 * Needs the kalman.js module, located in /src/modules/kalman.js
