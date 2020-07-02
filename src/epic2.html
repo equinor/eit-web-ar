@@ -31,6 +31,11 @@
                 src="./gltf/circus_box/scene.gltf"
                 preload="auto">
             </a-asset-item>
+            <a-asset-item
+                id="circus_acrobat"
+                src="./gltf/circus_acrobat/scene.gltf"
+                preload="auto">
+            </a-asset-item>
         </a-assets>
 
         <a-marker type="barcode" value="4">
@@ -54,12 +59,16 @@
         </a-entity>
         <a-entity
           id="circus_box_ent"
-          gps-object='object: #circus_box; location: { "lat": 68.679019, "lng": 16.796625 }; scale: 0.8'
-          toggle-visibility
-          class="cursor-interactive">
+          animation-mixer
+          gps-object='object: #circus_box; location: { "lat": 68.679019, "lng": 16.796625 }; scale: 0.8'>
+        </a-entity>
+        <a-entity
+          id="circus_acrobat_ent"
+          animation-mixer
+          gps-object='object: #circus_acrobat; location: { "lat": 68.679019, "lng": 16.796625 }; scale: 0.8'>
         </a-entity>
 
-        <a-camera kalman-gps-camera="R: 1; Q: 2; logConsole: true" rotation-reader position="0 0 0">
+        <a-camera kalman-gps-camera="R: 1; Q: 0.12; logConsole: true" rotation-reader position="0 0 0">
             <a-entity
                 cursor="fuse: false"
                 raycaster="interval: 20; objects: .cursor-interactive"
