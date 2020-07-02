@@ -314,3 +314,12 @@ You will need to set `gps-animation` as the animation property, as well as the c
    cursor-interactive
  ></a-entity>
 ```
+
+The gps position animation can be combined with other animations by separating two `animation` instances with double underscore:
+
+```html
+animation__gps="property: gps-animation; from: 59.959941 10.701367; to: 59.959725 10.701832; loop: false; dur: 10000; startEvents: click;"
+animation__rotation="property: rotation; from: 0 0 0; to: 0 360 0; loop: false; dur: 10000; startEvents: click;"
+```
+
+Adding the attributes above to an entity will make it move and rotate at the same time.
