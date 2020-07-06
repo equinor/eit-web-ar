@@ -15,6 +15,7 @@ AFRAME.registerComponent('draw-line-click', {
     var planeEl = document.createElement('a-plane');
     planeEl.setAttribute('rotation', '-90 0 0');
     planeEl.setAttribute('material', 'opacity: 0.0');
+    planeEl.setAttribute('id', this.el.id); // litt jallamekk
     this.el.appendChild(planeEl);
 
     // Listen for clicks on all draw-line-click-markers
@@ -25,8 +26,8 @@ AFRAME.registerComponent('draw-line-click', {
           // Click event called twice, do nothing.
         } else if (!this.startMarkerId) {
           // Store the start point of the line
-          this.startMarkerId = e.target.parentEl.id;
-        } else if (e.target.parentEl.id != this.el.id) {
+          this.startMarkerId = e.target.id;
+        } else if (e.target.id != this.el.id) {
           // This marker is not the end marker. Another instance of the ...
           // component will draw the line. Discard start and end points.
           this.startMarkerId = false;
