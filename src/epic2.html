@@ -47,26 +47,32 @@
             gps-intersection='radius: 40'
          ></a-entity>
 
-        <a-entity
-          id="magnemite"
-          gps-object='object: #magnemite; location: { "lat": 59.965006, "lng": 10.730164 }; scale: 0.1; printDistance: false'>
-        </a-entity>
+         <a-entity
+         id="magnemite_ent"
+         gps-entity-place='latitude: 68.679019; longitude: 16.796625'
+         gltf-model='#magnemite'
+         scale='0.3 0.3 0.3'
+         animation__gps="property: gps-animation; from: 68.679019 16.796625; to: 68.678919 16.796525; loop: false; dur: 5000; startEvents: click;"
+         animation__rotation="property: rotation; from: 0 0 0; to: 720 720 720; loop: false; dur: 5000; startEvents: click;"
+         cursor-interactive
+       ></a-entity>
 
         <a-entity
           id="circus_ent"
-          animation-mixer
           gps-object='object: #circus; location: { "lat": 68.679019, "lng": 16.796625 }; scale: 0.8'>
         </a-entity>
-        <a-entity
+        <!--a-entity
           id="circus_box_ent"
           animation-mixer
           gps-object='object: #circus_box; location: { "lat": 68.679019, "lng": 16.796625 }; scale: 0.8'>
-        </a-entity>
+        </a-entity-->
         <a-entity
           id="circus_acrobat_ent"
           animation-mixer
-          gps-object='object: #circus_acrobat; location: { "lat": 68.679019, "lng": 16.796625 }; scale: 0.8'>
-        </a-entity>
+          animation-pauser
+          gps-object='object: #circus_acrobat; location: { "lat": 68.679019, "lng": 16.796625 }; scale: 1'
+          cursor-interactive
+        ></a-entity>
 
         <a-camera kalman-gps-camera="R: 1; Q: 0.12; logConsole: true" rotation-reader position="0 0 0">
             <a-entity

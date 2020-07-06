@@ -323,3 +323,29 @@ animation__rotation="property: rotation; from: 0 0 0; to: 0 360 0; loop: false; 
 ```
 
 Adding the attributes above to an entity will make it move and rotate at the same time.
+
+## COMPONENT: animation-pauser
+
+The `animation-pauser` component makes it possible to pause and unpause a built-in animation in a gltf-model. This presupposes that the `animation-mixer` component is used to construct the animation in the html entity. It also presupposes that the `cursor-interactive` component is present in the html entity. To pause/unpause the animation you need to point the cursor at the gltf-model and perform a simple click (either touch screen or mouse).
+
+### Example of implementation
+
+```html
+<a-entity
+  id="circus_acrobat_ent"
+  animation-mixer
+  animation-pauser
+  gps-object='object: #circus_acrobat; location: { "lat": 68.679019, "lng": 16.796625 }; scale: 1'
+  cursor-interactive
+></a-entity>
+```
+
+In this example the gltf-model is placed at the gps location (68.679019, 16.796625), which can easily be changed by inserting the desired location. The gltf-model is loaded earlier in the html script as an asset-item like this:
+
+```html
+<a-asset-item
+  id="circus_acrobat"
+  src="./gltf/circus_acrobat/scene.gltf"
+  preload="auto"
+></a-asset-item>
+```html
