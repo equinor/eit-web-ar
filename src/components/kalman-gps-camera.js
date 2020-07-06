@@ -18,7 +18,7 @@ AFRAME.registerComponent('kalman-gps-camera', {
     Q: { type: 'float', default: 2 }, // MODIFICATION
     R: { type: 'float', default: 0.1 }, // MODIFICATION
     B: { type: 'float', default: 1 }, // MODIFICATION
-    logConsole: { type: 'string', default: 'false' }, // MODIFICATION
+    logConsole: { type: 'boolean', default: false }, // MODIFICATION
     simulateLatitude: {
       type: 'number',
       default: 0,
@@ -70,11 +70,11 @@ AFRAME.registerComponent('kalman-gps-camera', {
     this.loader.classList.add('arjs-loader');
     document.body.appendChild(this.loader);
 
-    // ***** 
+    // *****
     // MODIFICATION: Sette riktig kamera komponent til alle gps-entity-places._cameraGps
     let gpsEntityPlaces = this.el.sceneEl.querySelectorAll('[gps-entity-place]');
     let KalmanGpsCamera = this.el;
-    
+
     for (var i = 0; i < gpsEntityPlaces.length; ++i) {
       let gpsComponent = gpsEntityPlaces[i].components['gps-entity-place'];
       gpsComponent._cameraGps = KalmanGpsCamera.components['kalman-gps-camera'];
@@ -84,11 +84,11 @@ AFRAME.registerComponent('kalman-gps-camera', {
     window.addEventListener('gps-entity-place-added', function () {
       // if places are added after camera initialization is finished
       if (this.originCoords) {
-        // ***** 
+        // *****
       // MODIFICATION: Sette riktig kamera komponent til alle gps-entity-places._cameraGps
       let gpsEntityPlaces = this.el.sceneEl.querySelectorAll('[gps-entity-place]');
       let KalmanGpsCamera = this.el;
-      
+
       for (var i = 0; i < gpsEntityPlaces.length; ++i) {
         let gpsComponent = gpsEntityPlaces[i].components['gps-entity-place'];
         gpsComponent._cameraGps = KalmanGpsCamera.components['kalman-gps-camera'];
@@ -143,7 +143,7 @@ AFRAME.registerComponent('kalman-gps-camera', {
         // *** MODIFICATION
         this.currentCoords = position.coords;
         this.gpsVelocity = position.coords.speed;
-        
+
         if (this.gpsTimestampArray.length < 2) {
           this.gpsTimestampArray.push(position.timestamp);
         } else {
@@ -267,7 +267,7 @@ AFRAME.registerComponent('kalman-gps-camera', {
   },
   _setPosition: function () {
     var position = this.el.getAttribute('position');
-    
+
     // *** KALMAN FILTER
     if (!this.kalmanx || !this.kalmanz) {
       let sysA = 1;
@@ -285,7 +285,7 @@ AFRAME.registerComponent('kalman-gps-camera', {
     // * 1) MÅLING: Position har måling på x og z i gpsPos.x gpsPos.z
     var gpsPos = {};
     Object.assign(gpsPos, position);
-    
+
     // compute gpsPos.x
     var dstCoords = {
       longitude: this.currentCoords.longitude,
@@ -308,7 +308,7 @@ AFRAME.registerComponent('kalman-gps-camera', {
     let dt = 0.001 * (this.gpsTimestampArray[1] - this.gpsTimestampArray[0]);
     let v = this.gpsVelocity;
     let u = {};
-    
+
     // xM er den modellerte x posisjonen
     u.x = dt*Math.sin(this.heading)*v;
     if (u.x === NaN || u.x === undefined || u.x === null) {
@@ -322,7 +322,7 @@ AFRAME.registerComponent('kalman-gps-camera', {
     }
 
     // 3) Sett måling og modell inn i kalman, og få ut x og z
-    if (this.data.logConsole === 'true') {
+    if (this.data.logConsole == true) {
       console.log("---");
       console.log("kalman x (in scene): " + this.kalmanx.filter(gpsPos.x, u.x));
       console.log("kalman z (in scene): " + this.kalmanz.filter(gpsPos.z, u.z));

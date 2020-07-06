@@ -10,7 +10,7 @@ AFRAME.registerComponent('gps-object', {
     object: { type: 'string', default: '' },
     location: { type: 'string', default: '{}' },
     scale: { type: 'string', default: '1' },
-    printDistance: { type: 'string', default: 'false' },
+    printDistance: { type: 'boolean', default: false },
   },
 
   init() {
@@ -21,7 +21,7 @@ AFRAME.registerComponent('gps-object', {
     this.renderObject(object, location, scale);
 
     // logs the distance to the place/model in the console
-    if (data.printDistance === 'true') {
+    if (data.printDistance == true) {
       this.logDistance();
     }
   },
