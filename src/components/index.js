@@ -17,4 +17,5 @@ import "./gesture-scale";
 import "./cursor-interactive";
 import "./kalman-gps-camera";
 import "./gps-animation";
+import "./animation-pauser"
 import "./gps-polygon-intersection";

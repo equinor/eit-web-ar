@@ -14,7 +14,7 @@ AFRAME.registerComponent('get-avg-gps-location', {
     gpsPointsCount: { type: 'number', default: 1 },
     positionAverage: { type: 'array', default: [] },
     positionArray: { type: 'array', default: [] },
-    logConsole: { type: 'string', default: 'false' },
+    logConsole: { type: 'boolean', default: false },
   },
 
   init() {
@@ -58,7 +58,7 @@ AFRAME.registerComponent('get-avg-gps-location', {
     this.positionCount += 1;
 
     // Log to console if setting is set to true
-    if (this.data.logConsole === 'true') {
+    if (this.data.logConsole == true) {
       console.log(this.el.getAttribute('get-avg-gps-location').positionAverage);
     }
   },
