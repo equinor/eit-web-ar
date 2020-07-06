@@ -323,3 +323,39 @@ animation__rotation="property: rotation; from: 0 0 0; to: 0 360 0; loop: false; 
 ```
 
 Adding the attributes above to an entity will make it move and rotate at the same time.
+
+## COMPONENT: gps-polygon-intersection
+
+This components emits the `gps-polygon-intersection` event when the user steps inside a polygon (area consisting of gps points), and when the user exits the polygon. If the `keepEmitting` property is set to `true` then the emit will keep emitting while the user is inside the polygon.
+
+### Attributes
+
+* polygon: array of the points that the polygon consists of. The format of this property is shown in the example below.
+* keepEmitting: If true, the `gps-polygon-intersection` event will be emitted as long as the user stays inside the polygon. Default is false.
+
+### Example of implementation
+
+The entity below will emit the `gps-polygin-intersection` event when the user moves outside->inside and inside->outside the polygon consisting of the four points given as the `polygon` property.
+
+```html
+<a-entity
+  gps-polygon-intersection='polygon: [
+    { "lat": 59.959364, "lng": 10.700504 },
+    { "lat": 59.960256, "lng": 10.700182 },
+    { "lat": 59.960363, "lng": 10.703025 },
+    { "lat": 59.959353, "lng": 10.703025 }
+  ]'
+  >
+</a-entity>
+```
+
+### The `gps-polygon-intersection` event
+
+This is the event emitted by the component.
+It is possible to listen to the event on the entity or on the scene.
+
+```javascript
+this.el.addEventListener('gps-polygon-intersection', function(e) {
+  console.log(e);
+})
+```
