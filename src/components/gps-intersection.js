@@ -8,11 +8,11 @@ AFRAME.registerComponent('gps-intersection', {
   ],
   schema: {
     radius: { type: 'number', default: 1 },
-    onlyInOut: { type: 'string', default: 'true' }
+    onlyInOut: { type: 'boolean', default: true }
   },
   init: function() {
     this.intersected = false;
-    this.onlyInOut = (this.data.onlyInOut === 'true');
+    this.onlyInOut = (this.data.onlyInOut == true);
   },
   tick: function() {
     const distance = this.el.getAttribute('distance');
