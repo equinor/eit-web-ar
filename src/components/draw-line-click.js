@@ -5,6 +5,7 @@ AFRAME.registerComponent('draw-line-click', {
     'cursor-interactive'
   ],
   schema: {
+    offset: { type: 'vec3', default: {x: 0, y: 0, z: 0} },
     color: { type: 'string', default: '#f00' }
   },
   init: function() {
@@ -57,9 +58,25 @@ AFRAME.registerComponent('draw-line-click', {
         }
       } else  {
         // If all markers are visible, draw/update the line
+
+        // Calculate relative offset
+        var startEl = document.getElementById(this.linesInfo[i].startMarkerId);
+        var startPosition = startEl.getAttribute('position');
+        var endPosition   = this.el.getAttribute('position');
+        var startOffset   = startEl.getAttribute('draw-line-click').offset;
+        startOffset       = new THREE.Vector3(startOffset.x, startOffset.y, startOffset.z);
+        var endOffset     = this.data.offset;
+        endOffset         = new THREE.Vector3(endOffset.x, endOffset.y, endOffset.z);
+        var startQuaternion = startEl.object3D.quaternion;
+        startOffset.applyQuaternion(startQuaternion);
+        var endQuaternion = this.el.object3D.quaternion;
+        endOffset.applyQuaternion(endQuaternion);
+
+        var startPoint = startPosition.add(startOffset);
+        var endPoint   = endPosition.add(endOffset);
         var points = [
-          document.getElementById(this.linesInfo[i].startMarkerId).getAttribute('position'),
-          this.el.getAttribute('position')
+          startPoint,
+          endPoint
         ];
         var geometry = new THREE.BufferGeometry().setFromPoints(points);
 
