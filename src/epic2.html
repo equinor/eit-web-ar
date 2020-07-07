@@ -36,6 +36,26 @@
                 src="./gltf/circus_acrobat/scene.gltf"
                 preload="auto">
             </a-asset-item>
+            <a-asset-item
+                id="mario_kart"
+                src="./gltf/mario_kart/scene.gltf"
+                preload="auto">
+            </a-asset-item>
+            <a-asset-item
+                id="banana"
+                src="./gltf/banana/scene.gltf"
+                preload="auto">
+            </a-asset-item>
+            <a-asset-item
+                id="eiffel_tower"
+                src="./gltf/eiffel_tower/scene.gltf"
+                preload="auto">
+            </a-asset-item>
+            <a-asset-item
+                id="ho_oh"
+                src="./gltf/ho_oh/scene.gltf"
+                preload="auto">
+            </a-asset-item>
         </a-assets>
 
         <a-marker type="barcode" value="4">
@@ -47,7 +67,7 @@
             gps-intersection='radius: 40'
          ></a-entity>
 
-         <a-entity
+         <!--a-entity
          id="magnemite_ent"
          gps-entity-place='latitude: 68.679019; longitude: 16.796625'
          gltf-model='#magnemite'
@@ -55,24 +75,47 @@
          animation__gps="property: gps-animation; from: 68.679019 16.796625; to: 68.678919 16.796525; loop: false; dur: 5000; startEvents: click;"
          animation__rotation="property: rotation; from: 0 0 0; to: 720 720 720; loop: false; dur: 5000; startEvents: click;"
          cursor-interactive
-       ></a-entity>
+       ></a-entity-->
 
-        <a-entity
+        <!--a-entity
           id="circus_ent"
           gps-object='object: #circus; location: { "lat": 68.679019, "lng": 16.796625 }; scale: 0.8'>
-        </a-entity>
+        </a-entity-->
         <!--a-entity
           id="circus_box_ent"
           animation-mixer
           gps-object='object: #circus_box; location: { "lat": 68.679019, "lng": 16.796625 }; scale: 0.8'>
         </a-entity-->
-        <a-entity
+        <!--a-entity
           id="circus_acrobat_ent"
           animation-mixer
           animation-pauser
           gps-object='object: #circus_acrobat; location: { "lat": 68.679019, "lng": 16.796625 }; scale: 1'
           cursor-interactive
-        ></a-entity>
+        ></a-entity-->
+
+        <a-entity
+          id="mario_kart_ent"
+          animation-mixer
+          animation_pauser
+          gps-object='object: #mario_kart; location: { "lat": 68.679019, "lng": 16.796625 }; scale: 2'>
+        </a-entity>
+        <a-entity
+          id="banana_ent"
+          gps-object='object: #banana; location: { "lat": 68.679019, "lng": 16.796625 }; scale: 2'>
+        </a-entity>
+        <a-entity
+          id="eiffel_tower_ent"
+          gps-object='object: #eiffel_tower; location: { "lat": 68.679019, "lng": 16.796625 }; scale: 2.5'>
+        </a-entity>
+        <a-entity
+          id="ho_oh_ent"
+          animation-mixer
+          animation_pauser
+          gps-object='object: #ho_oh; location: { "lat": 68.679019, "lng": 16.796625 }; scale: 2'>
+        </a-entity>
+
+
 
         <a-camera kalman-gps-camera="R: 1; Q: 0.12; logConsole: true" rotation-reader position="0 0 0">
             <a-entity
