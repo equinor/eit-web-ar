@@ -131,3 +131,13 @@ Thoughts:
 * Does not seem feasable with only a normal smartphone camera.
 * Although the feasability can be tested by buying an IR pen and painting a marker, filming the marker it with a smartphone, and seeing if the marker can be seen/recognized in normal fashion.
 
+
+## Image tracking for large scale objects
+Tested image-tracking for large scale objects. Used photo of building as a symbol and experimented with displaying different models.
+
+* Photos are easy to turn into markers. Buildings works OK, but a change in the lightning from weather will affect the performance.
+* Models are placed with an offset to the marker at a really small scale. So adjusting scaling and positioning is a must. This is very hard to get right.
+* The model is lagging if moving the camera.
+
+Conclusion:
+Image tracking is not really that good. Neither for big or small objects. Both marker-based and location-based (gps) works much better.
