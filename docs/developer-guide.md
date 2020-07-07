@@ -80,12 +80,6 @@ Inputs:
 
 ## COMPONENT: draw-line-click
 
-The draw-line-click component is supposed to be added to entities or markers like this:
-
-```html
-<a-marker draw-line-click type='barcode' value='5' id='5'></a-marker>
-```
-
 You will need at least two entities with the draw-line-click component to be able to draw a line.
 
 To draw a line between two entities, you do the following:
@@ -95,8 +89,33 @@ To draw a line between two entities, you do the following:
 The line will now be shown as long as both entities are shown. The position will be updated continously to match the position of the entities.
 
 ### Attributes:
+* offset: Offset in starting point of the line, relative to the entity that initiated the line. Default: 0,0,0.
 * color: Default is '#f00'.
 
+### Example of implementation
+The draw-line-click component is supposed to be added to entities or markers like this:
+
+```html
+<a-marker
+  draw-line-click
+  type='barcode'
+  value='5'
+  id='5'
+  >
+</a-marker>
+```
+
+With offset, color and linewidth:
+
+```html
+<a-marker
+  draw-line-click="offset:10 3 -3; color: #0f0; linewidth: 3"
+  type='barcode'
+  value='5'
+  id='5'
+  >
+</a-marker>
+```
 
 ## COMPONENT: draw-line
 
