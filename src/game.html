@@ -1,0 +1,39 @@
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>The Game</title>
+  </head>
+
+  <body>
+    <a-scene
+      id="scene"
+      cursor="rayOrigin: mouse"
+      arjs='detectionMode: mono_and_matrix; matrixCodeType: 3x3;'
+      gesture-detector
+      embedded
+      >
+
+      <a-assets>
+      </a-assets>
+
+      <a-marker type='barcode' value='0' id='0'></a-marker>
+      <a-marker type='barcode' value='1' id='1'></a-marker>
+      <a-marker type='barcode' value='2' id='2'></a-marker>
+      <a-marker type='barcode' value='3' id='3'></a-marker>
+      <a-marker type='barcode' value='4' id='4'></a-marker>
+      <a-marker type='barcode' value='5' id='5'></a-marker>
+
+      <a-entity camera>
+        <a-entity
+          cursor="fuse: false;"
+          raycaster="interval: 20; objects: .cursor-interactive"
+          position="0 0 -1"
+          geometry="primitive: ring; radiusInner: 0.01; radiusOuter: 0.015"
+          material="color: black; shader: flat"
+          >
+        </a-entity>
+      </a-entity>
+
+    </a-scene>
+  </body>
+</html>
