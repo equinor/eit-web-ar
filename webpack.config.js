@@ -128,6 +128,15 @@ module.exports = {
          chunks: ["app", "vendor"],
          chunksSortMode: "dependency"
       }),
+      new HtmlWebpackPlugin({
+         hash: true,
+         favicon: "./src/favicon.ico",
+         template: "./src/game.html",
+         filename: "game.html",
+         inject: "head",
+         chunks: ["app", "vendor"],
+         chunksSortMode: "dependency"
+      }),
       new WebpackMd5Hash(),
       new CopyPlugin([
         { from: './src/images', to: 'images' },
