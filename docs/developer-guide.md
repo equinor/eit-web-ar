@@ -96,13 +96,25 @@ The line will now be shown as long as both entities are shown. The position will
 The draw-line-click component is supposed to be added to entities or markers like this:
 
 ```html
-<a-marker draw-line-click type='barcode' value='5' id='5'></a-marker>
+<a-marker
+  draw-line-click
+  type='barcode'
+  value='5'
+  id='5'
+  >
+</a-marker>
 ```
 
-With offset:
+With offset, color and linewidth:
 
 ```html
-<a-marker draw-line-click="offset:10 3 -3" type='barcode' value='5' id='5'></a-marker>
+<a-marker
+  draw-line-click="offset:10 3 -3; color: #0f0; linewidth: 3"
+  type='barcode'
+  value='5'
+  id='5'
+  >
+</a-marker>
 ```
 
 ## COMPONENT: draw-line

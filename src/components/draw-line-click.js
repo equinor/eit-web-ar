@@ -6,11 +6,21 @@ AFRAME.registerComponent('draw-line-click', {
   ],
   schema: {
     offset: { type: 'vec3', default: {x: 0, y: 0, z: 0} },
-    color: { type: 'string', default: '#f00' }
+    color: { type: 'string', default: '#f00' },
+    linewidth: { type: 'number', default: 1 },
+    linecap: { type: 'string', default: 'round' },
+    linejoin: { type: 'string', default: 'round' }
   },
   init: function() {
     this.startMarkerId = false;
     this.linesInfo = []; // { startMarkerId, material }
+
+    this.lineMaterial = new THREE.LineBasicMaterial({
+      color: this.data.color,
+      linewidt: this.data.linewidth,
+      linecap: this.data.linecap,
+      linejoin: this.data.linejoin
+    });
 
     // Create invisible plane for cursor events
     var planeEl = document.createElement('a-plane');
@@ -37,10 +47,9 @@ AFRAME.registerComponent('draw-line-click', {
           this.startMarkerId = false;
         } else {
           // This marker is the end marker. Push the line to lines list.
-          var material = new THREE.LineBasicMaterial({ color: this.data.color });
           this.linesInfo.push({
             startMarkerId: this.startMarkerId,
-            material: material
+            material: this.lineMaterial
           });
           this.startMarkerId = false;
         }
