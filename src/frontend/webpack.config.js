@@ -141,7 +141,8 @@ module.exports = {
       new CopyPlugin([
         { from: './images', to: 'images' },
         { from: './gltf', to: 'gltf' },
-        { from: './audio', to: 'audio' }
+        { from: './audio', to: 'audio' },
+        { from: './game', to: 'game' }
       ]),
    ],
    externals: {
