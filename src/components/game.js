@@ -17,80 +17,75 @@ AFRAME.registerComponent('game', {
 
     // init player id and player name
     document.getElementById("player_id_submit").addEventListener("click", () => {
+        // Set player name and id  
         let playerName = document.getElementById("player_id_text").value;
         if (playerName != '' && typeof(playerName) == 'string') {
           data.playerName = playerName;
         }
-        let id = Math.floor(Math.random()*1000)
-        this.playerId = data.playerName + id.toString();
+        
+        // Hide image and text/submit box
         document.getElementById("game_init_container").style.display = 'none';
        
-
-        // Send register request to api
-        //this.registerPlayer(data.playerName, this.playerId);
-
-        // then get back box/entity id's: 1,2,3 eller 4,5,6 ....
-        
+        // Send register request to api, and get back player id
+        this.playerId = this.registerPlayer(data.playerName);
     });
     
     // Add event listener to click on a markers box
-    let boxes = document.querySelectorAll('.game-box');
-    boxes.forEach(item => {
+    let entities = document.querySelectorAll('.game-entity');
+    entities.forEach(item => {
       item.addEventListener('click', (e) => {
-        // * Get entity id (and player id)
-        console.log(e.target.);
-
-        // * Write to redis
-        //this.sendBox(this.playerId, entityId);
-        
+        // Get entity id (and player id from this.playerId)
+        let entityId = e.target.id;
+        // Write to redis
+        this.sendEntity(this.playerId, entityId);
       });
     });
   },
   tick: function () {
-    // Get data from redis
-      // Where "id" == "playerId"
-    // update markers value = 9/x depending on array (and playerID)
+    // Get list of entities from redis
+    this.entities = this.getEntities(this.playerId);
+    // update markers value = 9 (or just disable marker for the correct entities)
+    // TODO
+
   },
-  registerPlayer: function (playerName, playerId) {
+  registerPlayer: function (playerName) {
     //const regUrl = ... ;
+    
     let player = {
-      name: playerName,
-      id: playerId
+      name: playerName
     };
 
-    return axios({
+    return axios({ // returns playerID
       method: 'post',
       url: regUrl,
       data: {
         player
       }
     }).then(data=>console.log(data)).catch(err=>console.log(err));
-
-    // return true or false
   },
-  getPlayer: function (id) {
-    //const getPlrUrl = ... + id;
-    let params = {
-      playerId: id,
-    }
-    return axios.get(Url, params).then(data=>console.log(data)).catch(err=>console.log(err));
-  },
-  getBoxes: function () {
-    // const getBoxesUrl = ... ;
+  getEntities: function (playerId) {
+    // const getEntitiesUrl = .../entities/:playerId ;
     return axios.get()
   },
-  sendBox: function(playerId, entityId) {
-    // const sendBoxUrl = ... ;
+  sendEntity: function(playerId, entityId) {
+    // const sendEntityUrl = ... ;
     boxInfo = {
       playerId: playerId,
       entityId: entityId
     };
     return axios({
       method: 'post',
-      url: sendBoxUrl,
+      url: sendEntityUrl,
       data: {
         boxInfo
       }
     }).then(data=>console.log(data)).catch(err=>console.log(err)); 
-  }
+  },
+  // getPlayer: function (id) {
+  //   //const getPlrUrl = ... + id;
+  //   let params = {
+  //     playerId: id,
+  //   }
+  //   return axios.get(Url, params).then(data=>console.log(data)).catch(err=>console.log(err));
+  // },
 });
