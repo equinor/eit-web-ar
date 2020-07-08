@@ -1,0 +1,963 @@
+{
+    "asset" : {
+        "generator" : "Khronos glTF Blender I/O v1.2.75",
+        "version" : "2.0"
+    },
+    "scene" : 0,
+    "scenes" : [
+        {
+            "name" : "Scene",
+            "nodes" : [
+                0,
+                1,
+                2,
+                13,
+                14,
+                15,
+                16,
+                17,
+                18,
+                19,
+                20,
+                25,
+                28
+            ]
+        }
+    ],
+    "nodes" : [
+        {
+            "name" : "RootNode (gltf orientation matrix).003",
+            "rotation" : [
+                -0.7071067690849304,
+                0,
+                0,
+                0.7071067690849304
+            ],
+            "translation" : [
+                -0.022854868322610855,
+                0,
+                0
+            ]
+        },
+        {
+            "name" : "RootNode (model correction matrix).003",
+            "translation" : [
+                -0.022854868322610855,
+                0,
+                0
+            ]
+        },
+        {
+            "name" : "Root.001",
+            "translation" : [
+                -0.022854868322610855,
+                0,
+                0
+            ]
+        },
+        {
+            "mesh" : 0,
+            "name" : "Eiffel-Tower_0.008",
+            "rotation" : [
+                -0.7101258635520935,
+                0,
+                0,
+                0.7040747404098511
+            ]
+        },
+        {
+            "mesh" : 1,
+            "name" : "Eiffel-Tower_0.009",
+            "rotation" : [
+                -0.7101258635520935,
+                0,
+                0,
+                0.7040747404098511
+            ]
+        },
+        {
+            "mesh" : 2,
+            "name" : "Eiffel-Tower_0.010",
+            "rotation" : [
+                -0.7101258635520935,
+                0,
+                0,
+                0.7040747404098511
+            ]
+        },
+        {
+            "mesh" : 3,
+            "name" : "Eiffel-Tower_0.011",
+            "rotation" : [
+                -0.7101258635520935,
+                0,
+                0,
+                0.7040747404098511
+            ]
+        },
+        {
+            "mesh" : 4,
+            "name" : "Eiffel-Tower_0.012",
+            "rotation" : [
+                -0.7101258635520935,
+                0,
+                0,
+                0.7040747404098511
+            ]
+        },
+        {
+            "mesh" : 5,
+            "name" : "Eiffel-Tower_0.013",
+            "rotation" : [
+                -0.7101258635520935,
+                0,
+                0,
+                0.7040747404098511
+            ]
+        },
+        {
+            "mesh" : 6,
+            "name" : "Eiffel-Tower_0.014",
+            "rotation" : [
+                -0.7101258635520935,
+                0,
+                0,
+                0.7040747404098511
+            ]
+        },
+        {
+            "mesh" : 7,
+            "name" : "Eiffel-Tower_0.015",
+            "rotation" : [
+                -0.7101258635520935,
+                0,
+                0,
+                0.7040747404098511
+            ]
+        },
+        {
+            "mesh" : 8,
+            "name" : "Eiffel-Tower_1.001",
+            "rotation" : [
+                -0.7101258635520935,
+                0,
+                0,
+                0.7040747404098511
+            ]
+        },
+        {
+            "mesh" : 9,
+            "name" : "Eiffel-Tower_2.001",
+            "rotation" : [
+                -0.7101258635520935,
+                0,
+                0,
+                0.7040747404098511
+            ]
+        },
+        {
+            "children" : [
+                3,
+                4,
+                5,
+                6,
+                7,
+                8,
+                9,
+                10,
+                11,
+                12
+            ],
+            "name" : "Eiffel-Tower.001",
+            "translation" : [
+                -0.022774867713451385,
+                -1.9999999494757503e-05,
+                0.30223000049591064
+            ]
+        },
+        {
+            "name" : "RootNode (gltf orientation matrix).004",
+            "rotation" : [
+                -0.7071067690849304,
+                0,
+                0,
+                0.7071067690849304
+            ],
+            "translation" : [
+                -0.022854868322610855,
+                0,
+                0
+            ]
+        },
+        {
+            "name" : "RootNode (model correction matrix).004",
+            "translation" : [
+                -0.022854868322610855,
+                0,
+                0
+            ]
+        },
+        {
+            "name" : "Collada visual scene group.001",
+            "rotation" : [
+                0.7071068286895752,
+                0,
+                0,
+                0.7071068286895752
+            ],
+            "translation" : [
+                -0.022854868322610855,
+                0,
+                0
+            ]
+        },
+        {
+            "name" : "RootNode (gltf orientation matrix).005",
+            "rotation" : [
+                -0.7071067690849304,
+                0,
+                0,
+                0.7071067690849304
+            ],
+            "translation" : [
+                -0.022854868322610855,
+                0,
+                0
+            ]
+        },
+        {
+            "name" : "RootNode (model correction matrix).005",
+            "translation" : [
+                -0.022854868322610855,
+                0,
+                0
+            ]
+        },
+        {
+            "name" : "336c779f6369414bb22844db01a44ed5.fbx.001",
+            "rotation" : [
+                0.7071068286895752,
+                0,
+                0,
+                0.7071068286895752
+            ],
+            "translation" : [
+                -0.022854868322610855,
+                0,
+                0
+            ]
+        },
+        {
+            "name" : "RootNode.001",
+            "translation" : [
+                -0.022854868322610855,
+                0,
+                0
+            ]
+        },
+        {
+            "name" : "Banana Peel",
+            "rotation" : [
+                -0.7071068286895752,
+                0,
+                0,
+                0.7071068286895752
+            ],
+            "translation" : [
+                39.97343444824219,
+                -25.00634002685547,
+                -0.016741368919610977
+            ]
+        },
+        {
+            "children" : [
+                21
+            ],
+            "name" : "RootNode.002"
+        },
+        {
+            "children" : [
+                22
+            ],
+            "name" : "336c779f6369414bb22844db01a44ed5.fbx.002",
+            "rotation" : [
+                0.7071068286895752,
+                0,
+                0,
+                0.7071068286895752
+            ]
+        },
+        {
+            "children" : [
+                23
+            ],
+            "name" : "RootNode (model correction matrix).006"
+        },
+        {
+            "children" : [
+                24
+            ],
+            "name" : "RootNode (gltf orientation matrix).006",
+            "rotation" : [
+                -0.7071067690849304,
+                0,
+                0,
+                0.7071067690849304
+            ]
+        },
+        {
+            "name" : "F2_Item_Kart_Mario_S.001",
+            "translation" : [
+                -0.022854868322610855,
+                0,
+                0
+            ]
+        },
+        {
+            "name" : "Bone",
+            "rotation" : [
+                -0.7071068286895752,
+                0,
+                0,
+                0.7071068286895752
+            ]
+        },
+        {
+            "children" : [
+                26,
+                27
+            ],
+            "name" : "Armature"
+        }
+    ],
+    "materials" : [
+        {
+            "emissiveFactor" : [
+                0,
+                0,
+                0
+            ],
+            "name" : "Main.001",
+            "pbrMetallicRoughness" : {
+                "baseColorFactor" : [
+                    1,
+                    1,
+                    1,
+                    1
+                ],
+                "metallicFactor" : 1,
+                "roughnessFactor" : 1
+            }
+        },
+        {
+            "emissiveFactor" : [
+                0,
+                0,
+                0
+            ],
+            "name" : "Material.003",
+            "pbrMetallicRoughness" : {
+                "baseColorFactor" : [
+                    1,
+                    1,
+                    1,
+                    1
+                ],
+                "metallicFactor" : 1,
+                "roughnessFactor" : 1
+            }
+        },
+        {
+            "alphaMode" : "BLEND",
+            "doubleSided" : true,
+            "emissiveFactor" : [
+                0,
+                0,
+                0
+            ],
+            "name" : "Material.004",
+            "pbrMetallicRoughness" : {
+                "baseColorFactor" : [
+                    1,
+                    1,
+                    1,
+                    1
+                ],
+                "metallicFactor" : 1,
+                "roughnessFactor" : 1
+            }
+        }
+    ],
+    "meshes" : [
+        {
+            "name" : "Eiffel-Tower_0.008",
+            "primitives" : [
+                {
+                    "attributes" : {
+                        "POSITION" : 0,
+                        "NORMAL" : 1
+                    },
+                    "indices" : 2,
+                    "material" : 0
+                }
+            ]
+        },
+        {
+            "name" : "Eiffel-Tower_0.009",
+            "primitives" : [
+                {
+                    "attributes" : {
+                        "POSITION" : 3,
+                        "NORMAL" : 4
+                    },
+                    "indices" : 5,
+                    "material" : 0
+                }
+            ]
+        },
+        {
+            "name" : "Eiffel-Tower_0.010",
+            "primitives" : [
+                {
+                    "attributes" : {
+                        "POSITION" : 6,
+                        "NORMAL" : 7
+                    },
+                    "indices" : 8,
+                    "material" : 0
+                }
+            ]
+        },
+        {
+            "name" : "Eiffel-Tower_0.011",
+            "primitives" : [
+                {
+                    "attributes" : {
+                        "POSITION" : 9,
+                        "NORMAL" : 10
+                    },
+                    "indices" : 11,
+                    "material" : 0
+                }
+            ]
+        },
+        {
+            "name" : "Eiffel-Tower_0.012",
+            "primitives" : [
+                {
+                    "attributes" : {
+                        "POSITION" : 12,
+                        "NORMAL" : 13
+                    },
+                    "indices" : 14,
+                    "material" : 0
+                }
+            ]
+        },
+        {
+            "name" : "Eiffel-Tower_0.013",
+            "primitives" : [
+                {
+                    "attributes" : {
+                        "POSITION" : 15,
+                        "NORMAL" : 16
+                    },
+                    "indices" : 17,
+                    "material" : 0
+                }
+            ]
+        },
+        {
+            "name" : "Eiffel-Tower_0.014",
+            "primitives" : [
+                {
+                    "attributes" : {
+                        "POSITION" : 18,
+                        "NORMAL" : 19
+                    },
+                    "indices" : 20,
+                    "material" : 0
+                }
+            ]
+        },
+        {
+            "name" : "Eiffel-Tower_0.015",
+            "primitives" : [
+                {
+                    "attributes" : {
+                        "POSITION" : 21,
+                        "NORMAL" : 22
+                    },
+                    "indices" : 23,
+                    "material" : 0
+                }
+            ]
+        },
+        {
+            "name" : "Eiffel-Tower_1.001",
+            "primitives" : [
+                {
+                    "attributes" : {
+                        "POSITION" : 24,
+                        "NORMAL" : 25
+                    },
+                    "indices" : 26,
+                    "material" : 1
+                }
+            ]
+        },
+        {
+            "name" : "Eiffel-Tower_2.001",
+            "primitives" : [
+                {
+                    "attributes" : {
+                        "POSITION" : 27,
+                        "NORMAL" : 28
+                    },
+                    "indices" : 29,
+                    "material" : 2
+                }
+            ]
+        }
+    ],
+    "accessors" : [
+        {
+            "bufferView" : 0,
+            "componentType" : 5126,
+            "count" : 73479,
+            "max" : [
+                3.065229892730713,
+                3.0164999961853027,
+                15.632369995117188
+            ],
+            "min" : [
+                -3.065229892730713,
+                -3.0164999961853027,
+                -0.02718999981880188
+            ],
+            "type" : "VEC3"
+        },
+        {
+            "bufferView" : 1,
+            "componentType" : 5126,
+            "count" : 73479,
+            "type" : "VEC3"
+        },
+        {
+            "bufferView" : 2,
+            "componentType" : 5125,
+            "count" : 255843,
+            "type" : "SCALAR"
+        },
+        {
+            "bufferView" : 3,
+            "componentType" : 5126,
+            "count" : 67451,
+            "max" : [
+                3.065229892730713,
+                2.0651400089263916,
+                15.264969825744629
+            ],
+            "min" : [
+                -3.065229892730713,
+                -2.975559949874878,
+                -0.02718999981880188
+            ],
+            "type" : "VEC3"
+        },
+        {
+            "bufferView" : 4,
+            "componentType" : 5126,
+            "count" : 67451,
+            "type" : "VEC3"
+        },
+        {
+            "bufferView" : 5,
+            "componentType" : 5125,
+            "count" : 227391,
+            "type" : "SCALAR"
+        },
+        {
+            "bufferView" : 6,
+            "componentType" : 5126,
+            "count" : 99214,
+            "max" : [
+                2.9969499111175537,
+                2.985340118408203,
+                14.947250366210938
+            ],
+            "min" : [
+                -2.9961800575256348,
+                -2.985340118408203,
+                -0.002749999985098839
+            ],
+            "type" : "VEC3"
+        },
+        {
+            "bufferView" : 7,
+            "componentType" : 5126,
+            "count" : 99214,
+            "type" : "VEC3"
+        },
+        {
+            "bufferView" : 8,
+            "componentType" : 5125,
+            "count" : 195414,
+            "type" : "SCALAR"
+        },
+        {
+            "bufferView" : 9,
+            "componentType" : 5126,
+            "count" : 81831,
+            "max" : [
+                3.065229892730713,
+                3.0164999961853027,
+                15.630240440368652
+            ],
+            "min" : [
+                -3.065229892730713,
+                -3.0164999961853027,
+                -0.02718999981880188
+            ],
+            "type" : "VEC3"
+        },
+        {
+            "bufferView" : 10,
+            "componentType" : 5126,
+            "count" : 81831,
+            "type" : "VEC3"
+        },
+        {
+            "bufferView" : 11,
+            "componentType" : 5125,
+            "count" : 153702,
+            "type" : "SCALAR"
+        },
+        {
+            "bufferView" : 12,
+            "componentType" : 5126,
+            "count" : 76561,
+            "max" : [
+                2.985340118408203,
+                2.154510021209717,
+                14.947250366210938
+            ],
+            "min" : [
+                -2.1545000076293945,
+                -2.985340118408203,
+                -0.002749999985098839
+            ],
+            "type" : "VEC3"
+        },
+        {
+            "bufferView" : 13,
+            "componentType" : 5126,
+            "count" : 76561,
+            "type" : "VEC3"
+        },
+        {
+            "bufferView" : 14,
+            "componentType" : 5125,
+            "count" : 139419,
+            "type" : "SCALAR"
+        },
+        {
+            "bufferView" : 15,
+            "componentType" : 5126,
+            "count" : 75192,
+            "max" : [
+                2.1545000076293945,
+                2.985340118408203,
+                14.732439994812012
+            ],
+            "min" : [
+                -2.985340118408203,
+                -2.154510021209717,
+                -0.002749999985098839
+            ],
+            "type" : "VEC3"
+        },
+        {
+            "bufferView" : 16,
+            "componentType" : 5126,
+            "count" : 75192,
+            "type" : "VEC3"
+        },
+        {
+            "bufferView" : 17,
+            "componentType" : 5125,
+            "count" : 142854,
+            "type" : "SCALAR"
+        },
+        {
+            "bufferView" : 18,
+            "componentType" : 5126,
+            "count" : 67046,
+            "max" : [
+                2.126569986343384,
+                2.126569986343384,
+                15.443790435791016
+            ],
+            "min" : [
+                -2.126569986343384,
+                -2.126569986343384,
+                1.6867300271987915
+            ],
+            "type" : "VEC3"
+        },
+        {
+            "bufferView" : 19,
+            "componentType" : 5126,
+            "count" : 67046,
+            "type" : "VEC3"
+        },
+        {
+            "bufferView" : 20,
+            "componentType" : 5125,
+            "count" : 162966,
+            "type" : "SCALAR"
+        },
+        {
+            "bufferView" : 21,
+            "componentType" : 5126,
+            "count" : 45454,
+            "max" : [
+                2.126569986343384,
+                2.126569986343384,
+                15.628060340881348
+            ],
+            "min" : [
+                -2.126569986343384,
+                -2.126569986343384,
+                1.6867300271987915
+            ],
+            "type" : "VEC3"
+        },
+        {
+            "bufferView" : 22,
+            "componentType" : 5126,
+            "count" : 45454,
+            "type" : "VEC3"
+        },
+        {
+            "bufferView" : 23,
+            "componentType" : 5123,
+            "count" : 71322,
+            "type" : "SCALAR"
+        },
+        {
+            "bufferView" : 24,
+            "componentType" : 5126,
+            "count" : 1760,
+            "max" : [
+                3.3619399070739746,
+                3.311389923095703,
+                4.905980110168457
+            ],
+            "min" : [
+                -3.3619399070739746,
+                -3.311389923095703,
+                -0.2953999936580658
+            ],
+            "type" : "VEC3"
+        },
+        {
+            "bufferView" : 25,
+            "componentType" : 5126,
+            "count" : 1760,
+            "type" : "VEC3"
+        },
+        {
+            "bufferView" : 26,
+            "componentType" : 5123,
+            "count" : 3600,
+            "type" : "SCALAR"
+        },
+        {
+            "bufferView" : 27,
+            "componentType" : 5126,
+            "count" : 5736,
+            "max" : [
+                1.996899962425232,
+                1.997879981994629,
+                14.164950370788574
+            ],
+            "min" : [
+                -1.9681099653244019,
+                -1.9856599569320679,
+                2.561769962310791
+            ],
+            "type" : "VEC3"
+        },
+        {
+            "bufferView" : 28,
+            "componentType" : 5126,
+            "count" : 5736,
+            "type" : "VEC3"
+        },
+        {
+            "bufferView" : 29,
+            "componentType" : 5123,
+            "count" : 7512,
+            "type" : "SCALAR"
+        }
+    ],
+    "bufferViews" : [
+        {
+            "buffer" : 0,
+            "byteLength" : 881748,
+            "byteOffset" : 0
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 881748,
+            "byteOffset" : 881748
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 1023372,
+            "byteOffset" : 1763496
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 809412,
+            "byteOffset" : 2786868
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 809412,
+            "byteOffset" : 3596280
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 909564,
+            "byteOffset" : 4405692
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 1190568,
+            "byteOffset" : 5315256
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 1190568,
+            "byteOffset" : 6505824
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 781656,
+            "byteOffset" : 7696392
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 981972,
+            "byteOffset" : 8478048
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 981972,
+            "byteOffset" : 9460020
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 614808,
+            "byteOffset" : 10441992
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 918732,
+            "byteOffset" : 11056800
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 918732,
+            "byteOffset" : 11975532
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 557676,
+            "byteOffset" : 12894264
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 902304,
+            "byteOffset" : 13451940
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 902304,
+            "byteOffset" : 14354244
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 571416,
+            "byteOffset" : 15256548
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 804552,
+            "byteOffset" : 15827964
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 804552,
+            "byteOffset" : 16632516
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 651864,
+            "byteOffset" : 17437068
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 545448,
+            "byteOffset" : 18088932
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 545448,
+            "byteOffset" : 18634380
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 142644,
+            "byteOffset" : 19179828
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 21120,
+            "byteOffset" : 19322472
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 21120,
+            "byteOffset" : 19343592
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 7200,
+            "byteOffset" : 19364712
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 68832,
+            "byteOffset" : 19371912
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 68832,
+            "byteOffset" : 19440744
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 15024,
+            "byteOffset" : 19509576
+        }
+    ],
+    "buffers" : [
+        {
+            "byteLength" : 19524600,
+            "uri" : "scene.bin"
+        }
+    ]
+}
