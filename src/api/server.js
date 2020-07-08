@@ -41,6 +41,24 @@ app.post('/register', (req, res) => {
     const hash = 'player:' + playerId;
     db.hmset(hash, 'name', name);
 
+    // Push new entities into the player's entity list
+    const numberOfEntities = 3;
+    const numberOfMarkers = 6;
+
+    db.incrby('entityCount', numberOfEntities, function(err, newEntityCount) {
+      var entities = [];
+      for (var entityId = newEntityCount - numberOfEntities + 1; entityId < newEntityCount + 1; entityId++) {
+        entities.push(entityId);
+      }
+
+      // Todo: ensure numberOfMarkers is larger than numberOfEntities
+      for (var i = entities.length; i < numberOfMarkers; i++) {
+        entities.push(0);
+      }
+      entities = shuffle(entities);
+      db.hmset(hash, 'entities', JSON.stringify(entities));
+    });
+
     res.send({
       playerId: playerId
     });
@@ -72,3 +90,25 @@ app.post('/sendEntity', (req, res) => {
 app.listen(port, () => {
   console.log('API listening on port ' + port);
 });
+
+
+
+
+function shuffle(array) {
+  var currentIndex = array.length, temporaryValue, randomIndex;
+
+  // While there remain elements to shuffle...
+  while (0 !== currentIndex) {
+
+    // Pick a remaining element...
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex -= 1;
+
+    // And swap it with the current element.
+    temporaryValue = array[currentIndex];
+    array[currentIndex] = array[randomIndex];
+    array[randomIndex] = temporaryValue;
+  }
+
+  return array;
+}
