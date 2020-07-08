@@ -14,6 +14,12 @@ services:
         target: /app/node_modules
     ports:
       - "3000:3000"
+    links:
+      - redis:redis
+
+  redis:
+    image: "redis:alpine"
+    
   api:
     image: node:12
     container_name: eit-web-ar-development_api
