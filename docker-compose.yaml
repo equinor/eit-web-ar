@@ -7,7 +7,7 @@ services:
     working_dir: /app
     volumes:
       - type: bind
-        source: .
+        source: ./src/frontend
         target: /app
       - type: volume
         source: node-modules
