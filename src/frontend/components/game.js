@@ -12,7 +12,6 @@ AFRAME.registerComponent('game', {
     playerName: { type: 'string', default: 'LoserBoy420'}
   },
   init: function () {
-    const Url = '';
     let data = this.data;
 
     // init player id and player name
