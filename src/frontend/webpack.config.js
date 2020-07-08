@@ -139,16 +139,10 @@ module.exports = {
       }),
       new WebpackMd5Hash(),
       new CopyPlugin([
-<<<<<<< HEAD:webpack.config.js
-        { from: './src/images', to: 'images' },
-        { from: './src/gltf', to: 'gltf' },
-        { from: './src/audio', to: 'audio' },
-        { from: './src/game', to: 'game' }
-=======
-        { from: './images', to: 'images' },
-        { from: './gltf', to: 'gltf' },
-        { from: './audio', to: 'audio' }
->>>>>>> master:src/frontend/webpack.config.js
+        { from: './src/frontend/images', to: 'images' },
+        { from: './src/frontend/gltf', to: 'gltf' },
+        { from: './src/frontend/audio', to: 'audio' },
+        { from: './src/frontend/game', to: 'game' }
       ]),
    ],
    externals: {
