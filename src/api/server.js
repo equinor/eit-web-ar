@@ -20,11 +20,12 @@ app.get('/entities/:playerId', (req, res) => {
   // Check if user exists
 
   // Get the players entities from Redis
-
-  // Respond with the results from Redis
-  var entities = [1, 2, 0, 3, 0, 0];
-  res.send({
-    entities: entities
+  const hash = 'player:' + req.params.playerId;
+  db.hmget(hash, 'entities', function(err, entities) {
+    // Respond with the results from Redis
+    res.send({
+      entities: JSON.parse(entities)
+    });
   });
   // Response (entities) + status code 200 (OK) if the user exists
   // Status code 404 (Not found) if the user doesn't exist
