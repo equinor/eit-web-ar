@@ -1,8 +1,21 @@
 const express = require('express');
-const app = express();
+const redis = require('redis');
+
 const port = 3001;
 
+const app = express();
 app.use(express.json());
+
+const db = redis.createClient({
+  host: 'redis'
+});
+
+db.on('error', function(error) {
+  console.log(error);
+});
+
+db.set('playerCount', '0');
+
 
 app.get('/entities/:playerId', (req, res) => {
   // Check if user exists
@@ -24,11 +37,18 @@ app.post('/register', (req, res) => {
   // (Check if username already in use?)
 
   // Register player and respond with playerId
-  const playerId = 2;
+  const playerId = db.get('playerCount');
+  db.incr('playerCount');
+
+  const hash = 'player:' + playerId;
+  db.hmset(hash, 'name', name);
 
   res.send({
     playerId: playerId
   });
+
+  const hei = db.hmget(hash, 'name');
+  console.log(hei);
   // Response (playerId) + status code 201 (Created) if the user didn't exist before this request
   // (Status code 409 (Conflict) if the username is already in use?)
 });
