@@ -1,4 +1,4 @@
-
+/* eslint-disable */
 var toggle = true;
 
 document.addEventListener("DOMContentLoaded", function(){
