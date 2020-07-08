@@ -26,24 +26,22 @@ AFRAME.registerComponent('game', {
         document.getElementById("game_init_container").style.display = 'none';
        
 
-        // SEND REQUEST TO API
-        // * Does user exist?
-        //  * No -> create a user with array
-        //  * Yes -> reset that user
-        
+        // Send register request to api
+        //this.registerPlayer(data.playerName, this.playerId);
 
-        // Check etc.
-        this.registerPlayer();
+        // then get back box/entity id's: 1,2,3 eller 4,5,6 ....
         
     });
     
     // Add event listener to click on a markers box
     let boxes = document.querySelectorAll('.game-box');
     boxes.forEach(item => {
-      item.addEventListener('click', event => {
-        // * Get marker id (and player id)
+      item.addEventListener('click', (e) => {
+        // * Get entity id (and player id)
+        console.log(e.target.);
 
         // * Write to redis
+        //this.sendBox(this.playerId, entityId);
         
       });
     });
@@ -53,16 +51,16 @@ AFRAME.registerComponent('game', {
       // Where "id" == "playerId"
     // update markers value = 9/x depending on array (and playerID)
   },
-  registerPlayer: function () {
+  registerPlayer: function (playerName, playerId) {
     //const regUrl = ... ;
     let player = {
-      name: this.data.playerName,
-      id: this.playerId
+      name: playerName,
+      id: playerId
     };
 
-    axios({
+    return axios({
       method: 'post',
-      url: Url,
+      url: regUrl,
       data: {
         player
       }
@@ -81,7 +79,18 @@ AFRAME.registerComponent('game', {
     // const getBoxesUrl = ... ;
     return axios.get()
   },
-  sendBox: function() {
-    
+  sendBox: function(playerId, entityId) {
+    // const sendBoxUrl = ... ;
+    boxInfo = {
+      playerId: playerId,
+      entityId: entityId
+    };
+    return axios({
+      method: 'post',
+      url: sendBoxUrl,
+      data: {
+        boxInfo
+      }
+    }).then(data=>console.log(data)).catch(err=>console.log(err)); 
   }
 });
