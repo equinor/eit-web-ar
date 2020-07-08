@@ -14,19 +14,23 @@ app.get('/entities/:playerId', (req, res) => {
   res.send({
     entities: entities
   });
-  // Response + status code 200 (OK) if the user exists
+  // Response (entities) + status code 200 (OK) if the user exists
   // Status code 404 (Not found) if the user doesn't exist
 });
 
 app.post('/register', (req, res) => {
-  const playerId = req.body.playerId;
+  const name = req.body.name;
 
-  // Check if user exists
+  // (Check if username already in use?)
 
-  // If user does not exist, register the user in Redis
+  // Register player and respond with playerId
+  const playerId = 2;
 
-  // Status code 201 (Created) if the user didn't exist before this request
-  // Status code 409 (Conflict) if the user already exists
+  res.send({
+    playerId: playerId
+  });
+  // Response (playerId) + status code 201 (Created) if the user didn't exist before this request
+  // (Status code 409 (Conflict) if the username is already in use?)
 });
 
 app.post('/sendEntity', (req, res) => {
