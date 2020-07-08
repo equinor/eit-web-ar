@@ -10,6 +10,7 @@ AFRAME.registerComponent('animation-pauser', {
   init: function() {
     var play = 1;
     this.el.addEventListener('click', function(e) {
+      //console.log('clickclick:)');
       if (play == 0){
         this.setAttribute('animation-mixer', {timeScale: 1});
         play = 1;

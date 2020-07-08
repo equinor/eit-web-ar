@@ -139,10 +139,10 @@ module.exports = {
       }),
       new WebpackMd5Hash(),
       new CopyPlugin([
-        { from: './src/frontend/images', to: 'images' },
-        { from: './src/frontend/gltf', to: 'gltf' },
-        { from: './src/frontend/audio', to: 'audio' },
-        { from: './src/frontend/game', to: 'game' }
+        { from: './images', to: 'images' },
+        { from: './gltf', to: 'gltf' },
+        { from: './audio', to: 'audio' },
+        { from: './game', to: 'game' }
       ]),
    ],
    externals: {

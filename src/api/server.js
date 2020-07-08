@@ -14,8 +14,7 @@ db.on('error', function(error) {
   console.log(error);
 });
 
-db.set('playerCount', '0');
-
+db.flushall();
 
 app.get('/entities/:playerId', (req, res) => {
   // Check if user exists
@@ -37,18 +36,16 @@ app.post('/register', (req, res) => {
   // (Check if username already in use?)
 
   // Register player and respond with playerId
-  const playerId = db.get('playerCount');
-  db.incr('playerCount');
+  db.incr('playerCount', function(err, playerId) {
 
-  const hash = 'player:' + playerId;
-  db.hmset(hash, 'name', name);
+    const hash = 'player:' + playerId;
+    db.hmset(hash, 'name', name);
 
-  res.send({
-    playerId: playerId
+    res.send({
+      playerId: playerId
+    });
   });
 
-  const hei = db.hmget(hash, 'name');
-  console.log(hei);
   // Response (playerId) + status code 201 (Created) if the user didn't exist before this request
   // (Status code 409 (Conflict) if the username is already in use?)
 });
