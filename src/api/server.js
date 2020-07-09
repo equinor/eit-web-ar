@@ -16,6 +16,8 @@ db.on('error', function(error) {
 });
 db.flushall();
 
+app.options('*', cors()) // include before other routes
+
 app.get('/player/:playerId', (req, res) => {
   const playerId = req.params.playerId;
   hash = getPlayerHash(playerId);
