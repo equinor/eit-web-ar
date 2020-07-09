@@ -1,10 +1,18 @@
 const express = require('express');
+const cors = require('cors')
 const redis = require('redis');
 
 const port = 3001;
 
 const app = express();
 app.use(express.json());
+app.use(cors());
+
+
+// var corsOptions = {
+//   origin: '*',
+//   optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
+// }
 
 const db = redis.createClient({
   host: 'redis'
@@ -33,6 +41,7 @@ app.get('/entities/:playerId', (req, res) => {
 
 app.post('/register', (req, res) => {
   const name = req.body.name;
+  // const name = 'test';
 
   // (Check if username already in use?)
 

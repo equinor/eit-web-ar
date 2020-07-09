@@ -9,7 +9,7 @@ import axios from 'axios';
 
 AFRAME.registerComponent('game', {
   schema: {
-    playerName: { type: 'string', default: 'LoserBoy420'}
+    playerName: { type: 'string', default: 'LoserBoi420'}
   },
   init: function () {
     let data = this.data;
@@ -26,7 +26,13 @@ AFRAME.registerComponent('game', {
         document.getElementById("game_init_container").style.display = 'none';
        
         // Send register request to api, and get back player id
-        this.playerId = this.registerPlayer(data.playerName);
+        this.registerPlayer(data.playerName).then((data) => {
+          if (data != false) {
+            this.playerId = data.playerId;
+          } else {
+            alert("Something went wrong when registering. CONTACT CYBER SUPPORT.")
+          }
+        });
     });
     
     // Add event listener to click on a markers box
@@ -42,25 +48,37 @@ AFRAME.registerComponent('game', {
   },
   tick: function () {
     // Get list of entities from redis
-    this.entities = this.getEntities(this.playerId);
+    // this.entities = this.getEntities(this.playerId);
     // update markers value = 9 (or just disable marker for the correct entities)
     // TODO
 
   },
-  registerPlayer: function (playerName) {
-    //const regUrl = ... ;
+  registerPlayer: async function (playerName) {
+    const regUrl = 'http://localhost:3001/register';
     
     let player = {
       name: playerName
     };
-
-    return axios({ // returns playerID
-      method: 'post',
-      url: regUrl,
-      data: {
-        player
+    try {
+      let res = await axios({
+        method: 'post',
+        url: regUrl,
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        data: {
+          player
+        }
+      });
+      if (res.status == 200) {
+        return res.data
+      } else {
+        return false
       }
-    }).then(data=>console.log(data)).catch(err=>console.log(err));
+    } catch (err) {
+      console.error(err);
+    }
+    
   },
   getEntities: function (playerId) {
     // const getEntitiesUrl = .../entities/:playerId ;
