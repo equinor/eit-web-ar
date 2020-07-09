@@ -95,7 +95,6 @@ Get all available information about the given player
 #### 200 OK
 ```json
 {
-  "playerId": int,
   "name": "player-name",
   "entities": [],
 }

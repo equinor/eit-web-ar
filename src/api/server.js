@@ -104,6 +104,23 @@ app.post('/sendEntity', (req, res) => {
   });
 });
 
+app.get('/player/:playerId', (req, res) => {
+  const playerId = req.params.playerId;
+  hash = getPlayerHash(playerId);
+  db.hgetall(hash, function(err, playerInfo) {
+    console.log(playerInfo);
+    var statusCode = 404;
+    if (playerInfo === null) {
+      res.status(statusCode).send();
+      return;
+    }
+    statusCode = 200;
+    var response = playerInfo;
+    response.entities = JSON.parse(response.entities);
+    res.status(statusCode).send(response);
+  });
+});
+
 app.listen(port, () => {
   console.log('API listening on port ' + port);
 });
