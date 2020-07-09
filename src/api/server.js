@@ -6,13 +6,7 @@ const port = 3001;
 
 const app = express();
 app.use(express.json());
-app.use(cors());
-
-
-// var corsOptions = {
-//   origin: '*',
-//   optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
-// }
+app.use(cors({origin: true, credentials: true}));
 
 const db = redis.createClient({
   host: 'redis'

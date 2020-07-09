@@ -6,6 +6,9 @@ const log = utils.getLogger("components:game");
 import axios from 'axios';
 
 // TODO:
+// X * Register and get playerId
+// * Get entity setup
+// * Send boxes
 
 AFRAME.registerComponent('game', {
   schema: {
@@ -13,6 +16,15 @@ AFRAME.registerComponent('game', {
   },
   init: function () {
     let data = this.data;
+    this.playerEntities = [0,0,0,0,0,0];
+    
+    this.markerList = [];
+    this.markerEntityList = [];
+    let markers = document.querySelectorAll('.marker');
+    markers.forEach((marker) => {
+      this.markerList.push(marker);
+      this.markerEntityList.push(marker.firstElementChild);
+    });
 
     // init player id and player name
     document.getElementById("player_id_submit").addEventListener("click", () => {
@@ -27,7 +39,7 @@ AFRAME.registerComponent('game', {
        
         // Send register request to api, and get back player id
         this.registerPlayer(data.playerName).then((resData) => {
-          if (resData != false) {
+          if (resData != false && resData != undefined) {
             this.playerId = resData.playerId;
             console.log("Player registered with name: " + data.playerName + " and id: " + this.playerId);
           } else {
@@ -40,7 +52,7 @@ AFRAME.registerComponent('game', {
     let entities = document.querySelectorAll('.game-entity');
     entities.forEach(item => {
       item.addEventListener('click', (e) => {
-        // Get entity id (and player id from this.playerId)
+        // Get entity id
         let entityId = e.target.id;
         // Write to redis
         this.sendEntity(this.playerId, entityId);
@@ -50,8 +62,28 @@ AFRAME.registerComponent('game', {
   tick: function () {
     // Get list of entities from redis
     // this.entities = this.getEntities(this.playerId);
-    // update markers value = 9 (or just disable marker for the correct entities)
-    // TODO
+    if (this.playerId != undefined) {
+      this.getEntities(this.playerId).then((resData) => {
+        if (resData != false && resData != undefined) {
+          // console.log(this.playerEntities);
+          // console.log(resData.entities);
+          // console.log('---')
+          // if (this.playerEntities == resData.entities) {
+          //   // Continue
+          //   console.log("equal")
+          // } else {
+          //   this.playerEntities = resData.entities;
+          //   // console.log(this.playerEntities);
+          //   this.updateEntities(this.playerEntities);
+          // }
+          this.playerEntities = resData.entities;
+          this.updateEntities(this.playerEntities);
+          
+        } else {
+          console.error("Game: Error while requesting entities");
+        }
+      });
+    }
   },
   registerPlayer: async function (playerName) {
     const regUrl = 'http://localhost:3001/register';
@@ -69,6 +101,9 @@ AFRAME.registerComponent('game', {
         data: {
           player
         }
+      }).catch(function (error) {
+        // handle error
+        console.error(error);
       });
       if (res.status == 200) {
         return res.data
@@ -80,11 +115,39 @@ AFRAME.registerComponent('game', {
     }
     
   },
-  getEntities: function (playerId) {
-    // const getEntitiesUrl = .../entities/:playerId ;
+  getEntities: async function (playerId) {
+    const getEntitiesUrl = 'http://localhost:3001/entities/';
+
+    try {
+      let res = await axios({
+        method: 'get',
+        url: getEntitiesUrl + playerId,
+      });
+      if (res.status == 200) {
+        return res.data
+      } else {
+        return false
+      }
+    } catch (err) {
+      console.error(err);
+    }
     return axios.get()
   },
-  sendEntity: function(playerId, entityId) {
+  updateEntities: function (entities) {
+    for (let i = 0; i < entities.length; i++) {
+      if (entities[i] == 0) {
+        // this.markerList[i].setAttribute('visible', false); // Må kanskje sette den på boksen
+        this.markerEntityList[i].setAttribute('visible', false);
+      } else {
+        // this.markerList[i].setAttribute('visible', true);
+        this.markerEntityList[i].setAttribute('visible', true);
+        this.markerEntityList[i].setAttribute('data-entity-id', entities[i]);
+      }
+      console.log("updated")
+    }
+    
+  },
+  sendEntity: function (playerId, entityId) {
     // const sendEntityUrl = ... ;
     boxInfo = {
       playerId: playerId,
