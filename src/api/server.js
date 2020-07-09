@@ -16,7 +16,7 @@ db.on('error', function(error) {
 });
 db.flushall();
 
-app.options('*', cors()) // include before other routes
+app.options('*', cors()) // pre-flight cors
 
 app.get('/player/:playerId', (req, res) => {
   const playerId = req.params.playerId;

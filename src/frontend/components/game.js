@@ -41,11 +41,7 @@ AFRAME.registerComponent('game', {
         this.registerPlayer(data.playerName).then((resData) => {
           if (resData != false && resData != undefined) {
             this.playerId = resData.playerId;
-<<<<<<< HEAD
             console.log("#GAME: Player registered with playerName: " + data.playerName + " and playerId: " + this.playerId);
-=======
-            console.log("** Player registered with playerName: " + data.playerName + " and playerId: " + this.playerId);
->>>>>>> master
           } else {
             alert("Something went wrong when registering. CONTACT CYBER SUPPORT.")
           }
