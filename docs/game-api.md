@@ -121,4 +121,4 @@ Not very useful until the possibility to change color, material, gltf, etc. is i
 ```
 
 #### 404 Not found
-The entity does not exist
+The entity does not exist, or the entity exists, but there are no information about it.

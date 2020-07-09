@@ -108,7 +108,6 @@ app.get('/player/:playerId', (req, res) => {
   const playerId = req.params.playerId;
   hash = getPlayerHash(playerId);
   db.hgetall(hash, function(err, playerInfo) {
-    console.log(playerInfo);
     var statusCode = 404;
     if (playerInfo === null) {
       res.status(statusCode).send();
@@ -121,6 +120,21 @@ app.get('/player/:playerId', (req, res) => {
   });
 });
 
+app.get('/entity/:entityId', (req, res) => {
+  const entityId = req.params.entityId;
+  hash = getEntityHash(entityId);
+  db.hgetall(hash, function(err, entityInfo) {
+    var statusCode = 404;
+    if (entityInfo === null) {
+      res.status(statusCode).send();
+      return;
+    }
+    statusCode = 200;
+    var response = entityInfo;
+    res.status(statusCode).send(response);
+  });
+});
+
 app.listen(port, () => {
   console.log('API listening on port ' + port);
 });
@@ -128,6 +142,9 @@ app.listen(port, () => {
 
 function getPlayerHash(playerId) {
   return 'player:' + playerId;
+}
+function getEntityHash(entityId) {
+  return 'entityId:' + entityId;
 }
 
 function addEntityToNextPlayer(entityId, fromPlayerId) {
