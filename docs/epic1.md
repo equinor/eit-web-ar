@@ -95,7 +95,7 @@ To convert from gltf to glb the program glTF Pipeline can be used. It can be ins
 ![GitHub Logo](gltf-structure.png)
 Format: ![Alt Text](url)
 
-The gtlf/glb model can easily be loaded and used like this:
+Assuming that a-frame has already been installed, the gtlf/glb model can easily be loaded and used like this:
 
 ```html
 <a-asset-item id="penguin" src="./gltf/penguin/scene.glb" preload="auto"></a-asset-item>
