@@ -101,3 +101,5 @@ Assuming that a-frame has already been installed, the gtlf/glb model can easily 
 <a-asset-item id="penguin" src="./gltf/penguin/scene.glb" preload="auto"></a-asset-item>
 <a-entity gltf-model="#penguin"></a-entity>
 ```
+
+We added barcodes to 3D models and placed them in the AR application to investigate if it is possible to trigger events by interacting with them. This appears to be too intricate for us to solve, but it should be possible. The main challange is that the technology we are now using is based on what the camera is observing. The camera will not "see" the 3D models, they are placed on screen. So a possible solution could be to track the screen instead of (or in addition to) the camera. Then the code would have event listeners monitoring the screen instead of camera input.

@@ -398,7 +398,7 @@ In this example the gltf-model is placed at the gps location (68.679019, 16.7966
 <a-asset>
   <audio id="music" src="./audio/music.mp3" preload="auto"></audio>
 </a-asset>
-```html
+```
 
 ## COMPONENT: gps-polygon-intersection
 
