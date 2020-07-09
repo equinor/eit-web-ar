@@ -19,4 +19,5 @@ import "./kalman-gps-camera";
 import "./gps-animation";
 import "./animation-pauser"
 import "./gps-polygon-intersection";
+import "./gps-sound";
 import "./game";
