@@ -367,7 +367,7 @@ In this example the gltf-model is placed at the gps location (68.679019, 16.7966
   src="./gltf/circus_acrobat/scene.gltf"
   preload="auto"
 ></a-asset-item>
-```html
+```
 
 ## COMPONENT: gps-sound
 
