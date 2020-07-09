@@ -30,6 +30,20 @@ app.get('/player/:playerId', (req, res) => {
   });
 });
 
+app.put('/player/:playerId', (req, res) => {
+  const playerId = req.params.playerId;
+  const keys = Object.keys(req.body);
+  var args = [];
+  keys.forEach(key => {
+    args.push(key);
+    args.push(req.body[key]);
+  })
+  const hash = getPlayerHash(playerId);
+  db.hmset(hash, args);
+
+  res.status(200).send();
+});
+
 app.post('/player/add', (req, res) => {
   const name = req.body.name;
   db.incr('playerCount', function(err, playerId) {
@@ -77,6 +91,20 @@ app.get('/entity/:entityId', (req, res) => {
     var response = entityInfo;
     res.status(statusCode).send(response);
   });
+});
+
+app.put('/entity/:entityId', (req, res) => {
+  const entityId = req.params.entityId;
+  const keys = Object.keys(req.body);
+  var args = [];
+  keys.forEach(key => {
+    args.push(key);
+    args.push(req.body[key]);
+  })
+  const hash = getEntityHash(entityId);
+  db.hmset(hash, args);
+
+  res.status(200).send();
 });
 
 app.post('/entity/send', (req, res) => {

@@ -17,6 +17,21 @@ Get all available information about the given player
 #### 404 Not found
 The player does not exist
 
+
+## PUT `/player/:playerId`
+Add or update player information. Accepts all field names.
+
+### Request
+```json
+{
+  "name": "JP",
+  "place": "Narnia"
+}
+```
+
+### Responses
+#### 200 OK
+
 ## POST `/player/add`
 
 The game client should call the `/player/add` endpoint once.
@@ -66,6 +81,21 @@ Not very useful until the possibility to change color, material, gltf, etc. is i
 
 #### 404 Not found
 The entity does not exist, or the entity exists, but there are no information about it.
+
+
+## PUT `/entity/:entityId`
+Add or update entity information. Accepts all field names.
+
+### Request
+```json
+{
+  "color": "#f00",
+  "gltf": "magnemite"
+}
+```
+
+### Responses
+#### 200 OK
 
 
 ## POST `/entity/send`
