@@ -91,9 +91,7 @@ AFRAME.registerComponent('game', {
         headers: {
           'Content-Type': 'application/json'
         },
-        data: {
-          player
-        }
+        data: player
       }).catch(function (error) {
         // handle error
         console.error(error);
@@ -147,9 +145,7 @@ AFRAME.registerComponent('game', {
     // return axios({
     //   method: 'post',
     //   url: sendEntityUrl,
-    //   data: {
-    //     boxInfo
-    //   }
+    //   data: boxInfo
     // }).then(data=>console.log(data)).catch(err=>console.log(err)); 
   },
 });
