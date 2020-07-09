@@ -86,3 +86,18 @@ Even with the `min-confidence` things implemented, a confidence check can't be (
 The reason is that the barcode marker check in three.js seems to be binary (true/false).
 When three.js recognizes a barcode marker, it simply tells us that it has found the marker with confidence 1.
 A `min-confidence` property won't make much sense as long as three.js can't give us their confidence.
+
+### 3D models
+In this project we have chosen to use gltf models (.gltf files) to complement the AR application with CGI/3D models. There are a lot of already made models on the web free to download, and the ones we have used are found at https://sketchfab.com. The most common structural convention is to save every gltf model in separate folders with a unique name, and the content inside as three files with the names and filetypes scene.gltf, scene.bin and textures (folder), where the textures folder holds some graphical features used in the model. It is recommended that the binary version of the gltf model is used, .glb, to avoid problems with loading textures in Safari related to CORS and/or reverse proxy and/or cookie. So in the project we are using glb files in the implementation.
+
+To convert from gltf to glb the program glTF Pipeline can be used. It can be installed using the terminal command `npm install -g gltf-pipeline`, presupposing that Node.js is already installed. Then the file is converted by running the command `gltf-pipeline -i scene.gltf -o scene.glb` in the same directory as the gltf file is located. Now the path structure will look something like this:
+
+![GitHub Logo](gltf-structure.png)
+Format: ![Alt Text](url)
+
+Assuming that a-frame has already been installed, the gtlf/glb model can easily be loaded and used like this:
+
+```html
+<a-asset-item id="penguin" src="./gltf/penguin/scene.glb" preload="auto"></a-asset-item>
+<a-entity gltf-model="#penguin"></a-entity>
+```
