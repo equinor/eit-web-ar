@@ -39,18 +39,15 @@ app.get('/entities/:playerId', (req, res) => {
 
 app.post('/register', (req, res) => {
   const name = req.body.name;
-
-  // (Check if username already in use?)
-
-  // Register player and respond with playerId
   db.incr('playerCount', function(err, playerId) {
-
-    const hash = 'player:' + playerId;
+    // Register new player
+    const hash = getPlayerHash(playerId);
     db.hmset(hash, 'name', name);
 
-    // Push new entities into the player's entity list
+    // Make a randomized list of entities and assign them to the player
     const numberOfEntities = 3;
     const numberOfMarkers = 6;
+    if (numberOfMarkers < numberOfEntities) { numberOfMarkers = numberOfEntities; }
 
     db.incrby('entityCount', numberOfEntities, function(err, newEntityCount) {
       var entities = [];
@@ -58,7 +55,6 @@ app.post('/register', (req, res) => {
         entities.push(entityId);
       }
 
-      // Todo: ensure numberOfMarkers is larger than numberOfEntities
       for (var i = entities.length; i < numberOfMarkers; i++) {
         entities.push(0);
       }
@@ -66,13 +62,13 @@ app.post('/register', (req, res) => {
       db.hmset(hash, 'entities', JSON.stringify(entities));
     });
 
-    res.send({
+    const statusCode = 201;
+    const response = {
       playerId: playerId
-    });
-  });
+    };
 
-  // Response (playerId) + status code 201 (Created) if the user didn't exist before this request
-  // (Status code 409 (Conflict) if the username is already in use?)
+    res.status(statusCode).send(response);
+  });
 });
 
 app.post('/sendEntity', (req, res) => {

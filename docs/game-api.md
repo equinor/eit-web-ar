@@ -23,8 +23,11 @@ The user was created, return the new playerId
 }
 ```
 
-#### 409 Conflict
+#### 409 Conflict (not implemented)
 Username already in use
+
+#### 406 Not acceptable (not implemented)
+Username is an empty string
 
 
 ## GET `/entities/:playerId`
