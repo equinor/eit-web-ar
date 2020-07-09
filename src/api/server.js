@@ -118,8 +118,9 @@ app.post('/entity/send', (req, res) => {
   // Update the entity list for this player
   const fromHash = getPlayerHash(fromPlayerId);
   db.hmget(fromHash, 'entities', function(err, entities) {
+    console.log("hmget entities: " + entities)
     // Return if user not found
-    var statusCode = 404;
+    var statusCode = 400;
     if (entities[0] === null) {
       res.status(statusCode).send();
       return;

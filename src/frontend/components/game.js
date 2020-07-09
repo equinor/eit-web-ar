@@ -41,7 +41,7 @@ AFRAME.registerComponent('game', {
         this.registerPlayer(data.playerName).then((resData) => {
           if (resData != false && resData != undefined) {
             this.playerId = resData.playerId;
-            console.log("** Player registered with playerName: " + data.playerName + " and playerId: " + this.playerId);
+            console.log("#GAME: Player registered with playerName: " + data.playerName + " and playerId: " + this.playerId);
           } else {
             alert("Something went wrong when registering. CONTACT CYBER SUPPORT.")
           }
@@ -53,9 +53,15 @@ AFRAME.registerComponent('game', {
     entities.forEach(item => {
       item.addEventListener('click', (e) => {
         // Get entity id
-        let entityId = e.target.id;
-        // Write to redis
-        this.sendEntity(this.playerId, entityId);
+        let entityId = parseInt(e.target.dataset.entityId, 10);
+        // Send to redis
+        this.sendEntity(this.playerId, entityId, (result) => {
+          if (!result) {
+            console.log("#GAME: Could not send box.")
+          } else {
+            console.log("#GAME: Sent box.")
+          }
+        });
       });
     });
   },
@@ -73,7 +79,7 @@ AFRAME.registerComponent('game', {
           // Update the a-frame scene to display entities according to the entity array
           this.updateEntities(this.playerEntities);
         } else {
-          console.error("Game: Error while requesting entities");
+          console.error("#GAME: Error while requesting entities");
         }
       });
     }
@@ -123,30 +129,44 @@ AFRAME.registerComponent('game', {
     } catch (err) {
       console.error(err);
     }
-    return axios.get()
   },
   updateEntities: function (entities) {
     for (let i = 0; i < entities.length; i++) {
       if (entities[i] == 0) {
         this.markerEntityList[i].setAttribute('visible', false);
         this.markerEntityList[i].setAttribute('data-entity-id', '');
+        this.markerEntityList[i].classList.remove('cursor-interactive');
       } else {
         this.markerEntityList[i].setAttribute('visible', true);
         this.markerEntityList[i].setAttribute('data-entity-id', entities[i]);
+        this.markerEntityList[i].classList.add('cursor-interactive');
       }
     }
     
   },
-  sendEntity: function (playerId, entityId) {
-    // const sendEntityUrl = ... ;
-    // boxInfo = {
-    //   playerId: playerId,
-    //   entityId: entityId
-    // };
-    // return axios({
-    //   method: 'post',
-    //   url: sendEntityUrl,
-    //   data: boxInfo
-    // }).then(data=>console.log(data)).catch(err=>console.log(err)); 
+  sendEntity: function (playerId, entityId, callback) {
+    const sendEntityUrl = 'http://localhost:3001/entity/send';
+    
+    let entityInfo = {
+      playerId: playerId,
+      entityId: entityId
+    };
+
+    axios({
+      method: 'post',
+      url: sendEntityUrl,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      data: entityInfo
+    }).then(function (response) {
+      if (response.status == 200) {
+        callback(true);
+      } else {
+        callback(false);
+      }
+    }).catch(function (error) {
+      console.error(error);
+    });
   },
 });
