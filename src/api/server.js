@@ -134,7 +134,7 @@ app.post('/entity/send', (req, res) => {
     db.hmset(fromHash, 'entities', JSON.stringify(entities));
 
     // Add entity to another player
-    addEntityToNextPlayer(entityId, fromPlayerId);
+    addEntityToNextPlayer(db, entityId, fromPlayerId);
     statusCode = 200;
     res.status(200).send();
   });
@@ -175,7 +175,7 @@ function getEntityHash(entityId) {
   return 'entityId:' + entityId;
 }
 
-function addEntityToNextPlayer(entityId, fromPlayerId) {
+function addEntityToNextPlayer(db, entityId, fromPlayerId) {
   db.get('playerCount', function(err, playerCount) {
     toPlayerId = (fromPlayerId) % (playerCount) + 1;
     const toHash = getPlayerHash(toPlayerId);
