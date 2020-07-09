@@ -7,20 +7,20 @@ import axios from 'axios';
 
 // TODO:
 // X * Register and get playerId
-// * Get entity setup
-// * Send boxes
+// X * Get entity setup
+// X * Send boxes
 
 AFRAME.registerComponent('game', {
   schema: {
     playerName: { type: 'string', default: 'LoserBoi420'}
   },
   init: function () {
-    let data = this.data;
+    const data = this.data;
     this.playerEntities = [];
-    
     this.markerList = [];
     this.markerEntityList = [];
-    let markers = document.querySelectorAll('.marker');
+
+    const markers = document.querySelectorAll('.marker');
     markers.forEach((marker) => {
       this.markerList.push(marker);
       this.markerEntityList.push(marker.firstElementChild);
@@ -37,15 +37,8 @@ AFRAME.registerComponent('game', {
         // Hide image and text/submit box
         document.getElementById("game_init_container").style.display = 'none';
        
-        // Send register request to api, and get back player id
-        this.registerPlayer(data.playerName).then((resData) => {
-          if (resData != false && resData != undefined) {
-            this.playerId = resData.playerId;
-            console.log("#GAME: Player registered with playerName: " + data.playerName + " and playerId: " + this.playerId);
-          } else {
-            alert("Something went wrong when registering. CONTACT CYBER SUPPORT.")
-          }
-        });
+        // Send a /register request to api, and get back player id
+        this.registerPlayer(data.playerName); // HOW TO REFACTOR THIS
     });
     
     // Add event listener to click on a markers box
@@ -83,6 +76,38 @@ AFRAME.registerComponent('game', {
         }
       });
     }
+  },
+  registerPlayer: function (playerName) {
+
+    //REFACTOR
+    // * CALLBACK FUNCTION?
+
+    const regUrl = 'http://localhost:3001/player/add';
+    
+    let player = {
+      name: playerName
+    };
+    
+    axios({
+      method: 'post',
+      url: regUrl,
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      data: player
+    }).then((response) => {
+      if (response.status == 200 || response.status == 201) {
+        this.playerId = response.data.playerId;
+        console.log("#GAME: Player registered with playerName: " + data.playerName + " and playerId: " + this.playerId);
+        return true
+      } else {
+        alert("Something went wrong when registering. See console.");
+        return false
+      }
+    }).catch((error) => {
+      console.error(error);
+    });
   },
   registerPlayer: async function (playerName) {
     const regUrl = 'http://localhost:3001/player/add';
