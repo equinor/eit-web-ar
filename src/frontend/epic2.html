@@ -11,7 +11,7 @@
       embedded
       arjs='detectionMode: mono_and_matrix; matrixCodeType: 3x3;'>
         <a-assets>
-            <a-asset-item
+            <!--a-asset-item
                 id="castle"
                 src="./gltf/castle/scene.gltf"
                 preload="auto">
@@ -35,8 +35,40 @@
                 id="circus_acrobat"
                 src="./gltf/circus_acrobat/scene.gltf"
                 preload="auto">
+            </a-asset-item-->
+            <a-asset-item
+                id="mario_kart"
+                src="./gltf/mario_kart/scene.gltf"
+                preload="auto">
             </a-asset-item>
             <a-asset-item
+                id="banana"
+                src="./gltf/banana/scene.gltf"
+                preload="auto">
+            </a-asset-item>
+            <a-asset-item
+                id="eiffel_tower"
+                src="./gltf/eiffel_tower/scene.gltf"
+                preload="auto">
+            </a-asset-item>
+            <a-asset-item
+                id="ho_oh"
+                src="./gltf/ho_oh/scene.gltf"
+                preload="auto">
+            </a-asset-item>
+            <a-asset-item
+                id="disco_ball"
+                src="./gltf/disco_ball/scene.gltf"
+                preload="auto">
+            </a-asset-item>
+            <a-asset-item
+                id="sphere"
+                src="./gltf/sphere/scene.gltf"
+                preload="auto">
+            </a-asset-item>
+            <a-asset>
+                <audio id="music" src="./audio/music.mp3" preload="auto"></audio>
+            </a-asset>
                 id="mario_kart"
                 src="./gltf/mario_kart/scene.gltf"
                 preload="auto">
@@ -97,8 +129,9 @@
         <a-entity
           id="mario_kart_ent"
           animation-mixer
-          animation_pauser
-          gps-object='object: #mario_kart; location: { "lat": 68.679019, "lng": 16.796625 }; scale: 0.55'>
+          animation-pauser
+          gps-object='object: #mario_kart; location: { "lat": 68.679019, "lng": 16.796625 }; scale: 0.55'
+          cursor-interactive>
         </a-entity>
         <a-entity
           id="banana_ent"
@@ -111,8 +144,55 @@
         <a-entity
           id="ho_oh_ent"
           animation-mixer
-          animation_pauser
           gps-object='object: #ho_oh; location: { "lat": 68.679019, "lng": 16.796625 }; scale: 0.03'>
+        </a-entity>
+        <a-entity
+          id="disco_ball_ent"
+          animation-mixer
+          animation-pauser
+          gps-object='object: #disco_ball; location: { "lat": 68.679019, "lng": 16.796625 }; scale: 0.0495'
+          gps-sound 
+          sound="src: #music" 
+          autoplay="false"
+          cursor-interactive>
+        </a-entity>
+
+        <a-entity
+          id="sphere_ent_0"
+          gps-entity-place='latitude: 68.679137; longitude: 16.796575'
+          gltf-model='#sphere'
+          scale='0.004 0.004 0.004'
+          animation="property: gps-animation; from: 68.679137 16.796545; to: 68.679207 16.796645; loop: false; dur: 12000; startEvents: click;"
+          draw-line-click
+          cursor-interactive>
+        </a-entity>
+        <a-entity
+          id="sphere_ent_1"
+          gps-entity-place='latitude: 68.679107; longitude: 16.796575'
+          gltf-model='#sphere'
+          scale='0.004 0.004 0.004'
+          animation="property: gps-animation; from: 68.679107 16.796575; to: 68.679807 16.796575; loop: false; dur: 12000; startEvents: click;"
+          draw-line-click
+          cursor-interactive>
+        </a-entity>
+        <a-entity
+          id="sphere_ent_2"
+          gps-entity-place='latitude: 68.679107; longitude: 16.796545'
+          gltf-model='#sphere'
+          scale='0.004 0.004 0.004'
+          animation="property: gps-animation; from: 68.679107 16.796545; to: 68.679107 16.7945; loop: false; dur: 12000; startEvents: click;"
+          draw-line-click
+          cursor-interactive>
+        </a-entity>
+        <a-entity
+          id="sphere_ent_3"
+          gps-entity-place='latitude: 68.679137; longitude: 16.796545'
+          gps-animation
+          gltf-model='#sphere'
+          scale='0.004 0.004 0.004'
+          animation="property: gps-animation; from: 68.679137 16.796545; to: 68.679837 16.796945; loop: false; dur: 12000; startEvents: click;"
+          draw-line-click
+          cursor-interactive>
         </a-entity>
 
 
