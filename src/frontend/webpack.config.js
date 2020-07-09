@@ -8,8 +8,8 @@ const CopyPlugin = require("copy-webpack-plugin");
 module.exports = {
    mode: "development",
    entry: {
-      app: "./src/index.js",
-      ui: "./src/modules/ui.js"
+      app: "./index.js",
+      ui: "./modules/ui.js"
    },
    output: {
       filename: "[name].[hash].js",
@@ -94,8 +94,8 @@ module.exports = {
       }),
       new HtmlWebpackPlugin({
          hash: true,
-         favicon: "./src/favicon.ico",
-         template: "./src/index.html",
+         favicon: "./favicon.ico",
+         template: "./index.html",
          filename: "index.html",
          inject: "head",
          chunks: ["app", "vendor"],
@@ -103,8 +103,8 @@ module.exports = {
       }),
       new HtmlWebpackPlugin({
          hash: true,
-         favicon: "./src/favicon.ico",
-         template: "./src/epic1.html",
+         favicon: "./favicon.ico",
+         template: "./epic1.html",
          filename: "epic1.html",
          inject: "head",
          chunks: ["app", "vendor"],
@@ -112,8 +112,8 @@ module.exports = {
       }),
       new HtmlWebpackPlugin({
          hash: true,
-         favicon: "./src/favicon.ico",
-         template: "./src/epic2.html",
+         favicon: "./favicon.ico",
+         template: "./epic2.html",
          filename: "epic2.html",
          inject: "head",
          chunks: ["app", "vendor", "ui"],
@@ -121,18 +121,28 @@ module.exports = {
       }),
       new HtmlWebpackPlugin({
          hash: true,
-         favicon: "./src/favicon.ico",
-         template: "./src/epic3.html",
+         favicon: "./favicon.ico",
+         template: "./epic3.html",
          filename: "epic3.html",
+         inject: "head",
+         chunks: ["app", "vendor"],
+         chunksSortMode: "dependency"
+      }),
+      new HtmlWebpackPlugin({
+         hash: true,
+         favicon: "./favicon.ico",
+         template: "./game.html",
+         filename: "game.html",
          inject: "head",
          chunks: ["app", "vendor"],
          chunksSortMode: "dependency"
       }),
       new WebpackMd5Hash(),
       new CopyPlugin([
-        { from: './src/images', to: 'images' },
-        { from: './src/gltf', to: 'gltf' },
-        { from: './src/audio', to: 'audio' }
+        { from: './images', to: 'images' },
+        { from: './gltf', to: 'gltf' },
+        { from: './audio', to: 'audio' },
+        { from: './game', to: 'game' }
       ]),
    ],
    externals: {
