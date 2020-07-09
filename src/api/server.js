@@ -72,60 +72,36 @@ app.post('/register', (req, res) => {
 });
 
 app.post('/sendEntity', (req, res) => {
-  // Get parameters from request json
-  const playerId = req.body.playerId;
+  const fromPlayerId = req.body.playerId;
   const entityId = req.body.entityId;
 
-  // Check with Redis the information is correct
-
   // Update the entity list for this player
-  const fromHash = 'player:' + playerId;
+  const fromHash = getPlayerHash(fromPlayerId);
   db.hmget(fromHash, 'entities', function(err, entities) {
+    // Return if user not found
+    var statusCode = 404;
+    if (entities[0] === null) {
+      res.status(statusCode).send();
+      return;
+    }
     entities = JSON.parse(entities);
     const entityIndex = entities.indexOf(entityId);
-    if (entityIndex != -1) {
-      // Remove from player
-      entities[entityIndex] = 0;
-
-      db.hmset(fromHash, 'entities', JSON.stringify(entities));
-
-      // Add to player
-      db.get('playerCount', function(err, playerCount) {
-        addToPlayerId = (playerId) % (playerCount) + 1; // Player with id + 1
-
-        const toHash = 'player:' + addToPlayerId;
-
-        // Insert entity into random empty space
-        db.hmget(toHash, 'entities', function(err, entities) {
-          entities = JSON.parse(entities);
-          var spaces = [];
-          for (var i = 0; i < entities.length; i++) {
-            if (entities[i] == 0) {
-              spaces.push(i);
-            }
-          }
-          spaces = shuffle(spaces);
-          const space = spaces[0];
-          entities[space] = entityId;
-
-          db.hmset(toHash, 'entities', JSON.stringify(entities));
-
-          // Response
-
-        });
-
-      });
+    // Return if entity not found on user
+    if (entityIndex == -1) {
+      statusCode = 409;
+      res.status(statusCode).send();
+      return;
     }
-  });
-  // Add the entity to another player
 
-  // testing
-  res.send({
-    playerId: playerId,
-    entityId: entityId
+    // Remove entity from player
+    entities[entityIndex] = 0;
+    db.hmset(fromHash, 'entities', JSON.stringify(entities));
+
+    // Add entity to another player
+    addEntityToNextPlayer(entityId, fromPlayerId);
+    statusCode = 200;
+    res.status(200).send();
   });
-  // Status code 200 (OK) when the entity is added to another player
-  // Status code 409 (Conflict) if the information in the request does not match the information in Redis
 });
 
 app.listen(port, () => {
@@ -135,6 +111,29 @@ app.listen(port, () => {
 
 function getPlayerHash(playerId) {
   return 'player:' + playerId;
+}
+
+function addEntityToNextPlayer(entityId, fromPlayerId) {
+  db.get('playerCount', function(err, playerCount) {
+    toPlayerId = (fromPlayerId) % (playerCount) + 1;
+    const toHash = getPlayerHash(toPlayerId);
+
+    // Insert entity into random empty space on the receiving player
+    db.hmget(toHash, 'entities', function(err, entities) {
+      entities = JSON.parse(entities);
+      var spaces = [];
+      for (var i = 0; i < entities.length; i++) {
+        if (entities[i] == 0) {
+          spaces.push(i);
+        }
+      }
+      spaces = shuffle(spaces);
+      const space = spaces[0];
+      entities[space] = entityId;
+
+      db.hmset(toHash, 'entities', JSON.stringify(entities));
+    });
+  });
 }
 
 function shuffle(array) {

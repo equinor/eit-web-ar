@@ -80,8 +80,11 @@ The entity was removed from you and assigned to another player
 
 Might be implemented: Returning the player who got the entity.
 
+#### 404 Not found
+The user does not exist.
+
 #### 409 Conflict
-You don't own the specified entity. Discarded sending.
+You don't own the specified entity (or the entity does not exist).
 
 ## GET `/player/:playerId`
 
