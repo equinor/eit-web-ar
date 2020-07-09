@@ -16,7 +16,7 @@ AFRAME.registerComponent('game', {
   },
   init: function () {
     let data = this.data;
-    this.playerEntities = [0,0,0,0,0,0];
+    this.playerEntities = [];
     
     this.markerList = [];
     this.markerEntityList = [];
@@ -41,7 +41,7 @@ AFRAME.registerComponent('game', {
         this.registerPlayer(data.playerName).then((resData) => {
           if (resData != false && resData != undefined) {
             this.playerId = resData.playerId;
-            console.log("Player registered with name: " + data.playerName + " and id: " + this.playerId);
+            console.log("** Player registered with playerName: " + data.playerName + " and playerId: " + this.playerId);
           } else {
             alert("Something went wrong when registering. CONTACT CYBER SUPPORT.")
           }
@@ -60,25 +60,18 @@ AFRAME.registerComponent('game', {
     });
   },
   tick: function () {
-    // Get list of entities from redis
-    // this.entities = this.getEntities(this.playerId);
+    // If the player is registered
     if (this.playerId != undefined) {
+      // Get list of entities for this playerId
       this.getEntities(this.playerId).then((resData) => {
+        // If entities were recieved from the server
         if (resData != false && resData != undefined) {
-          // console.log(this.playerEntities);
-          // console.log(resData.entities);
-          // console.log('---')
-          // if (this.playerEntities == resData.entities) {
-          //   // Continue
-          //   console.log("equal")
-          // } else {
-          //   this.playerEntities = resData.entities;
-          //   // console.log(this.playerEntities);
-          //   this.updateEntities(this.playerEntities);
-          // }
+          // TODO: Check if the new array is different (in backend)
+
+          // Update the players entity array
           this.playerEntities = resData.entities;
+          // Update the a-frame scene to display entities according to the entity array
           this.updateEntities(this.playerEntities);
-          
         } else {
           console.error("Game: Error while requesting entities");
         }
@@ -86,7 +79,7 @@ AFRAME.registerComponent('game', {
     }
   },
   registerPlayer: async function (playerName) {
-    const regUrl = 'http://localhost:3001/register';
+    const regUrl = 'http://localhost:3001/player/add';
     
     let player = {
       name: playerName
@@ -105,7 +98,7 @@ AFRAME.registerComponent('game', {
         // handle error
         console.error(error);
       });
-      if (res.status == 200) {
+      if (res.status == 200 || res.status == 201) {
         return res.data
       } else {
         return false
@@ -136,36 +129,27 @@ AFRAME.registerComponent('game', {
   updateEntities: function (entities) {
     for (let i = 0; i < entities.length; i++) {
       if (entities[i] == 0) {
-        // this.markerList[i].setAttribute('visible', false); // Må kanskje sette den på boksen
         this.markerEntityList[i].setAttribute('visible', false);
+        this.markerEntityList[i].setAttribute('data-entity-id', '');
       } else {
-        // this.markerList[i].setAttribute('visible', true);
         this.markerEntityList[i].setAttribute('visible', true);
         this.markerEntityList[i].setAttribute('data-entity-id', entities[i]);
       }
-      console.log("updated")
     }
     
   },
   sendEntity: function (playerId, entityId) {
     // const sendEntityUrl = ... ;
-    boxInfo = {
-      playerId: playerId,
-      entityId: entityId
-    };
-    return axios({
-      method: 'post',
-      url: sendEntityUrl,
-      data: {
-        boxInfo
-      }
-    }).then(data=>console.log(data)).catch(err=>console.log(err)); 
+    // boxInfo = {
+    //   playerId: playerId,
+    //   entityId: entityId
+    // };
+    // return axios({
+    //   method: 'post',
+    //   url: sendEntityUrl,
+    //   data: {
+    //     boxInfo
+    //   }
+    // }).then(data=>console.log(data)).catch(err=>console.log(err)); 
   },
-  // getPlayer: function (id) {
-  //   //const getPlrUrl = ... + id;
-  //   let params = {
-  //     playerId: id,
-  //   }
-  //   return axios.get(Url, params).then(data=>console.log(data)).catch(err=>console.log(err));
-  // },
 });
