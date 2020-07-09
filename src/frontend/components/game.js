@@ -26,9 +26,10 @@ AFRAME.registerComponent('game', {
         document.getElementById("game_init_container").style.display = 'none';
        
         // Send register request to api, and get back player id
-        this.registerPlayer(data.playerName).then((data) => {
-          if (data != false) {
-            this.playerId = data.playerId;
+        this.registerPlayer(data.playerName).then((resData) => {
+          if (resData != false) {
+            this.playerId = resData.playerId;
+            console.log("Player registered with name: " + data.playerName + " and id: " + this.playerId);
           } else {
             alert("Something went wrong when registering. CONTACT CYBER SUPPORT.")
           }
@@ -51,7 +52,6 @@ AFRAME.registerComponent('game', {
     // this.entities = this.getEntities(this.playerId);
     // update markers value = 9 (or just disable marker for the correct entities)
     // TODO
-
   },
   registerPlayer: async function (playerName) {
     const regUrl = 'http://localhost:3001/register';
