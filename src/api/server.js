@@ -9,26 +9,32 @@ app.use(express.json());
 const db = redis.createClient({
   host: 'redis'
 });
-
 db.on('error', function(error) {
   console.log(error);
 });
-
 db.flushall();
 
 app.get('/entities/:playerId', (req, res) => {
-  // Check if user exists
-
-  // Get the players entities from Redis
-  const hash = 'player:' + req.params.playerId;
+  const hash = getPlayerHash(req.params.playerId);
   db.hmget(hash, 'entities', function(err, entities) {
-    // Respond with the results from Redis
-    res.send({
-      entities: JSON.parse(entities)
-    });
+    var statusCode = 404;
+    if (entities[0] !== null) {
+      statusCode = 200;
+    }
+
+    var response;
+    switch (statusCode) {
+      case 200:
+        response = {
+          entities: JSON.parse(entities)
+        }
+        break;
+      default:
+      case 404:
+        break;
+    }
+      res.status(statusCode).send(response);
   });
-  // Response (entities) + status code 200 (OK) if the user exists
-  // Status code 404 (Not found) if the user doesn't exist
 });
 
 app.post('/register', (req, res) => {
@@ -131,7 +137,9 @@ app.listen(port, () => {
 });
 
 
-
+function getPlayerHash(playerId) {
+  return 'player:' + playerId;
+}
 
 function shuffle(array) {
   var currentIndex = array.length, temporaryValue, randomIndex;
