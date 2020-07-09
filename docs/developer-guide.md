@@ -368,6 +368,38 @@ In this example the gltf-model is placed at the gps location (68.679019, 16.7966
   preload="auto"
 ></a-asset-item>
 ```html
+
+## COMPONENT: gps-sound
+
+The `gps-sound` component makes it possible to play mp3-sounds when clicking on gltf-models placed with gps coordinates. 
+
+### Example of implementation
+
+```html
+<a-entity
+  id="disco_ball_ent"
+  animation-mixer
+  animation-pauser
+  gps-object='object: #disco_ball; location: { "lat": 68.679019, "lng": 16.796625 }; scale: 0.0495'
+  gps-sound 
+  sound="src: #music" 
+  autoplay="false">
+</a-entity>
+```
+
+In this example the gltf-model is placed at the gps location (68.679019, 16.796625), which can easily be changed by inserting the desired location. The gltf-model and sound are loaded earlier in the html script as asset/asset-items like this:
+
+```html
+<a-asset-item
+  id="circus_acrobat"
+  src="./gltf/circus_acrobat/scene.gltf"
+  preload="auto"
+></a-asset-item>
+<a-asset>
+  <audio id="music" src="./audio/music.mp3" preload="auto"></audio>
+</a-asset>
+```html
+
 ## COMPONENT: gps-polygon-intersection
 
 This components emits the `gps-polygon-intersection` event when the user steps inside a polygon (area consisting of gps points), and when the user exits the polygon. If the `keepEmitting` property is set to `true` then the emit will keep emitting while the user is inside the polygon.
