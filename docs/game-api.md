@@ -1,8 +1,25 @@
 # The Game API
 
-## POST `/register`
+## GET `/player/:playerId`
 
-The game client should call the `/register` endpoint once.
+Get all available information about the given player
+
+### Responses
+
+#### 200 OK
+```json
+{
+  "name": "player-name",
+  "entities": [],
+}
+```
+
+#### 404 Not found
+The player does not exist
+
+## POST `/player/add`
+
+The game client should call the `/player/add` endpoint once.
 The desired username is passed in the request body, and then the assigned unique playerId is returned.
 
 ### Request
@@ -30,33 +47,28 @@ Username already in use
 Username is an empty string
 
 
-## GET `/entities/:playerId`
+## GET `/entity/:entityId`
 
-Get the entities assigned to a given player
+Get all available information about the given entity.
+Not very useful until the possibility to change color, material, gltf, etc. is implemented.
 
 ### Responses
 
 #### 200 OK
-The user exists, return entities.
 
 ```json
 {
-    "entities": [
-        3,
-        0,
-        2,
-        0,
-        4,
-        5
-    ]
+  "entityId": int,
+  "color": "#f00",
+  "glft": "magnemite"
 }
 ```
 
 #### 404 Not found
-User does not exist.
+The entity does not exist, or the entity exists, but there are no information about it.
 
 
-## POST `/sendEntity`
+## POST `/entity/send`
 
 Send an entity from yourself to another player.
 
@@ -86,39 +98,28 @@ The user does not exist.
 #### 409 Conflict
 You don't own the specified entity (or the entity does not exist).
 
-## GET `/player/:playerId`
 
-Get all available information about the given player
+## GET `/entities/:playerId`
 
-### Responses
-
-#### 200 OK
-```json
-{
-  "name": "player-name",
-  "entities": [],
-}
-```
-
-#### 404 Not found
-The player does not exist
-
-## GET `/entity/:entityId`
-
-Get all available information about the given entity.
-Not very useful until the possibility to change color, material, gltf, etc. is implemented.
+Get the entities assigned to a given player
 
 ### Responses
 
 #### 200 OK
+The user exists, return entities.
 
 ```json
 {
-  "entityId": int,
-  "color": "#f00",
-  "glft": "magnemite"
+    "entities": [
+        3,
+        0,
+        2,
+        0,
+        4,
+        5
+    ]
 }
 ```
 
 #### 404 Not found
-The entity does not exist, or the entity exists, but there are no information about it.
+User does not exist.

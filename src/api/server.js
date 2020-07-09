@@ -14,30 +14,23 @@ db.on('error', function(error) {
 });
 db.flushall();
 
-app.get('/entities/:playerId', (req, res) => {
-  const hash = getPlayerHash(req.params.playerId);
-  db.hmget(hash, 'entities', function(err, entities) {
+app.get('/player/:playerId', (req, res) => {
+  const playerId = req.params.playerId;
+  hash = getPlayerHash(playerId);
+  db.hgetall(hash, function(err, playerInfo) {
     var statusCode = 404;
-    if (entities[0] !== null) {
-      statusCode = 200;
+    if (playerInfo === null) {
+      res.status(statusCode).send();
+      return;
     }
-
-    var response;
-    switch (statusCode) {
-      case 200:
-        response = {
-          entities: JSON.parse(entities)
-        }
-        break;
-      default:
-      case 404:
-        break;
-    }
-      res.status(statusCode).send(response);
+    statusCode = 200;
+    var response = playerInfo;
+    response.entities = JSON.parse(response.entities);
+    res.status(statusCode).send(response);
   });
 });
 
-app.post('/register', (req, res) => {
+app.post('/player/add', (req, res) => {
   const name = req.body.name;
   db.incr('playerCount', function(err, playerId) {
     // Register new player
@@ -71,7 +64,22 @@ app.post('/register', (req, res) => {
   });
 });
 
-app.post('/sendEntity', (req, res) => {
+app.get('/entity/:entityId', (req, res) => {
+  const entityId = req.params.entityId;
+  hash = getEntityHash(entityId);
+  db.hgetall(hash, function(err, entityInfo) {
+    var statusCode = 404;
+    if (entityInfo === null) {
+      res.status(statusCode).send();
+      return;
+    }
+    statusCode = 200;
+    var response = entityInfo;
+    res.status(statusCode).send(response);
+  });
+});
+
+app.post('/entity/send', (req, res) => {
   const fromPlayerId = req.body.playerId;
   const entityId = req.body.entityId;
 
@@ -104,34 +112,26 @@ app.post('/sendEntity', (req, res) => {
   });
 });
 
-app.get('/player/:playerId', (req, res) => {
-  const playerId = req.params.playerId;
-  hash = getPlayerHash(playerId);
-  db.hgetall(hash, function(err, playerInfo) {
+app.get('/entities/:playerId', (req, res) => {
+  const hash = getPlayerHash(req.params.playerId);
+  db.hmget(hash, 'entities', function(err, entities) {
     var statusCode = 404;
-    if (playerInfo === null) {
-      res.status(statusCode).send();
-      return;
+    if (entities[0] !== null) {
+      statusCode = 200;
     }
-    statusCode = 200;
-    var response = playerInfo;
-    response.entities = JSON.parse(response.entities);
-    res.status(statusCode).send(response);
-  });
-});
 
-app.get('/entity/:entityId', (req, res) => {
-  const entityId = req.params.entityId;
-  hash = getEntityHash(entityId);
-  db.hgetall(hash, function(err, entityInfo) {
-    var statusCode = 404;
-    if (entityInfo === null) {
-      res.status(statusCode).send();
-      return;
+    var response;
+    switch (statusCode) {
+      case 200:
+        response = {
+          entities: JSON.parse(entities)
+        }
+        break;
+      default:
+      case 404:
+        break;
     }
-    statusCode = 200;
-    var response = entityInfo;
-    res.status(statusCode).send(response);
+      res.status(statusCode).send(response);
   });
 });
 
