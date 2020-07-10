@@ -6,146 +6,149 @@ const log = utils.getLogger("components:game");
 import axios from 'axios';
 
 // TODO:
-// X * Register and get playerId
-// * Get entity setup
-// * Send boxes
+// * Check if the new array is different (in backend), when updating entitites in tick()
+// * Implement sockets.io instead of requesting entities list every tick
 
 AFRAME.registerComponent('game', {
   schema: {
     playerName: { type: 'string', default: 'LoserBoi420'}
   },
   init: function () {
-    let data = this.data;
-    this.playerEntities = [];
-    
+    const data = this.data;
     this.markerList = [];
     this.markerEntityList = [];
-    let markers = document.querySelectorAll('.marker');
+
+    const markers = document.querySelectorAll('.marker');
     markers.forEach((marker) => {
       this.markerList.push(marker);
       this.markerEntityList.push(marker.firstElementChild);
     });
 
-    // init player id and player name
+    // Register player
     document.getElementById("player_id_submit").addEventListener("click", () => {
-        // Set player name and id  
-        let playerName = document.getElementById("player_id_text").value;
-        if (playerName != '' && typeof(playerName) == 'string') {
+        const playerName = document.getElementById("player_id_text").value;
+        if (playerName && typeof(playerName) == 'string') {
           data.playerName = playerName;
         }
-        
-        // Hide image and text/submit box
         document.getElementById("game_init_container").style.display = 'none';
-       
-        // Send register request to api, and get back player id
-        this.registerPlayer(data.playerName).then((resData) => {
-          if (resData != false && resData != undefined) {
-            this.playerId = resData.playerId;
-            console.log("** Player registered with playerName: " + data.playerName + " and playerId: " + this.playerId);
-          } else {
-            alert("Something went wrong when registering. CONTACT CYBER SUPPORT.")
-          }
-        });
+        this.registerPlayer(data.playerName);
     });
     
-    // Add event listener to click on a markers box
-    let entities = document.querySelectorAll('.game-entity');
+    // Send entity when clicking on it
+    const entities = document.querySelectorAll('.game-entity');
     entities.forEach(item => {
       item.addEventListener('click', (e) => {
-        // Get entity id
-        let entityId = e.target.id;
-        // Write to redis
+        const entityId = parseInt(e.target.dataset.entityId, 10);
         this.sendEntity(this.playerId, entityId);
       });
     });
   },
   tick: function () {
-    // If the player is registered
-    if (this.playerId != undefined) {
-      // Get list of entities for this playerId
-      this.getEntities(this.playerId).then((resData) => {
-        // If entities were recieved from the server
-        if (resData != false && resData != undefined) {
-          // TODO: Check if the new array is different (in backend)
-
-          // Update the players entity array
-          this.playerEntities = resData.entities;
-          // Update the a-frame scene to display entities according to the entity array
-          this.updateEntities(this.playerEntities);
-        } else {
-          console.error("Game: Error while requesting entities");
+    // If the player is registered, get the new list of entities
+    if (typeof(this.playerId) == 'number') {
+      this.getEntities(this.playerId, this.playerEntities).then((newEntities) => {
+        if (newEntities) {
+          this.playerEntities = data.entities;
+          this.updateSceneEntities(this.playerEntities);
         }
+      }).catch((error) => {
+        console.log(error);
       });
     }
   },
-  registerPlayer: async function (playerName) {
+  registerPlayer: function (playerName) {
     const regUrl = 'http://localhost:3001/player/add';
     
-    let player = {
+    const payload = {
       name: playerName
     };
-    try {
-      let res = await axios({
-        method: 'post',
-        url: regUrl,
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        data: player
-      }).catch(function (error) {
-        // handle error
+    
+    axios({
+      method: 'post',
+      url: regUrl,
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      data: payload
+    })
+      .then((response) => {
+        if (response.status == 200 || response.status == 201) {
+          this.playerId = response.data.playerId;
+          console.log("#GAME: Player registered with playerName: " + this.data.playerName + " and playerId: " + this.playerId);
+          return true
+        } else {
+          alert("Something went wrong when registering. See console.");
+          return false
+        }
+      })
+      .catch((error) => {
         console.error(error);
       });
-      if (res.status == 200 || res.status == 201) {
-        return res.data
-      } else {
-        return false
-      }
-    } catch (err) {
-      console.error(err);
-    }
-    
   },
-  getEntities: async function (playerId) {
-    const getEntitiesUrl = 'http://localhost:3001/entities/';
+  getEntities: async function (playerId, playerEntities) {
+    const getEntitiesUrl = 'http://localhost:3001/entities/compare';
 
-    try {
-      let res = await axios({
-        method: 'get',
-        url: getEntitiesUrl + playerId,
-      });
-      if (res.status == 200) {
-        return res.data
-      } else {
-        return false
-      }
-    } catch (err) {
-      console.error(err);
+    const payload = {
+      playerId: playerId,
+      entities: playerEntities
     }
-    return axios.get()
+
+    const response = await axios({
+        method: 'post',
+        url: getEntitiesUrl,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        data: payload
+    });
+    if (response.status == 200) {
+      if (response.data.match == true) {
+        return false
+      } else {
+        return response.data;
+      }
+    } else {
+      throw '#GAME: Something went wrong when requesting list of entities (not 200 response)'
+    }
   },
-  updateEntities: function (entities) {
+  updateSceneEntities: function (entities) {
     for (let i = 0; i < entities.length; i++) {
       if (entities[i] == 0) {
         this.markerEntityList[i].setAttribute('visible', false);
         this.markerEntityList[i].setAttribute('data-entity-id', '');
+        this.markerEntityList[i].classList.remove('cursor-interactive');
       } else {
         this.markerEntityList[i].setAttribute('visible', true);
         this.markerEntityList[i].setAttribute('data-entity-id', entities[i]);
+        this.markerEntityList[i].classList.add('cursor-interactive');
       }
     }
     
   },
   sendEntity: function (playerId, entityId) {
-    // const sendEntityUrl = ... ;
-    // boxInfo = {
-    //   playerId: playerId,
-    //   entityId: entityId
-    // };
-    // return axios({
-    //   method: 'post',
-    //   url: sendEntityUrl,
-    //   data: boxInfo
-    // }).then(data=>console.log(data)).catch(err=>console.log(err)); 
+    const sendEntityUrl = 'http://localhost:3001/entity/send';
+    
+    const payload = {
+      playerId: playerId,
+      entityId: entityId
+    };
+
+    axios({
+      method: 'post',
+      url: sendEntityUrl,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      data: payload
+    }).then((response) => {
+      if (response.status == 200) {
+        console.log("#GAME: Sent box.");
+      } else {
+        console.log("#GAME: Could not send box.");
+      }
+    }).catch(function (error) {
+      console.error(error);
+    });
   },
 });

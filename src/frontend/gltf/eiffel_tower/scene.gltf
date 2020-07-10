@@ -8,94 +8,13 @@
         {
             "name" : "Scene",
             "nodes" : [
-                0,
-                1,
-                2,
-                13,
-                14,
-                15,
-                16,
-                17,
-                18,
-                19,
-                20,
-                25,
-<<<<<<< HEAD
-                28,
-                34
-=======
-                28
->>>>>>> master
+                10,
+                11,
+                17
             ]
         }
     ],
     "nodes" : [
-        {
-            "name" : "RootNode (gltf orientation matrix).003",
-            "rotation" : [
-                -0.7071067690849304,
-                0,
-                0,
-                0.7071067690849304
-            ],
-<<<<<<< HEAD
-            "scale" : [
-                30,
-                30,
-                30
-            ],
-            "translation" : [
-                -0.12500117719173431,
-                4.4615386286750436e-05,
-                -0.6742054224014282
-=======
-            "translation" : [
-                -0.022854868322610855,
-                0,
-                0
->>>>>>> master
-            ]
-        },
-        {
-            "name" : "RootNode (model correction matrix).003",
-<<<<<<< HEAD
-            "scale" : [
-                30,
-                30,
-                30
-            ],
-            "translation" : [
-                -0.12500117719173431,
-                4.4615386286750436e-05,
-                -0.6742054224014282
-=======
-            "translation" : [
-                -0.022854868322610855,
-                0,
-                0
->>>>>>> master
-            ]
-        },
-        {
-            "name" : "Root.001",
-<<<<<<< HEAD
-            "scale" : [
-                30,
-                30,
-                30
-            ],
-            "translation" : [
-                -0.12500117719173431,
-                4.4615386286750436e-05,
-                -0.6742054224014282
-=======
-            "translation" : [
-                -0.022854868322610855,
-                0,
-                0
->>>>>>> master
-            ]
-        },
         {
             "mesh" : 0,
             "name" : "Eiffel-Tower_0.008",
@@ -198,19 +117,18 @@
         },
         {
             "children" : [
+                0,
+                1,
+                2,
                 3,
                 4,
                 5,
                 6,
                 7,
                 8,
-                9,
-                10,
-                11,
-                12
+                9
             ],
             "name" : "Eiffel-Tower.001",
-<<<<<<< HEAD
             "scale" : [
                 30,
                 30,
@@ -220,176 +138,6 @@
                 -0.12260114401578903,
                 -0.0005553846131078899,
                 8.392694473266602
-=======
-            "translation" : [
-                -0.022774867713451385,
-                -1.9999999494757503e-05,
-                0.30223000049591064
->>>>>>> master
-            ]
-        },
-        {
-            "name" : "RootNode (gltf orientation matrix).004",
-            "rotation" : [
-                -0.7071067690849304,
-                0,
-                0,
-                0.7071067690849304
-            ],
-<<<<<<< HEAD
-            "scale" : [
-                30,
-                30,
-                30
-            ],
-            "translation" : [
-                -0.12500117719173431,
-                4.4615386286750436e-05,
-                -0.6742054224014282
-=======
-            "translation" : [
-                -0.022854868322610855,
-                0,
-                0
->>>>>>> master
-            ]
-        },
-        {
-            "name" : "RootNode (model correction matrix).004",
-<<<<<<< HEAD
-            "scale" : [
-                30,
-                30,
-                30
-            ],
-            "translation" : [
-                -0.12500117719173431,
-                4.4615386286750436e-05,
-                -0.6742054224014282
-=======
-            "translation" : [
-                -0.022854868322610855,
-                0,
-                0
->>>>>>> master
-            ]
-        },
-        {
-            "name" : "Collada visual scene group.001",
-            "rotation" : [
-                0.7071068286895752,
-                0,
-                0,
-                0.7071068286895752
-            ],
-<<<<<<< HEAD
-            "scale" : [
-                30,
-                30,
-                30
-            ],
-            "translation" : [
-                -0.12500117719173431,
-                4.4615386286750436e-05,
-                -0.6742054224014282
-=======
-            "translation" : [
-                -0.022854868322610855,
-                0,
-                0
->>>>>>> master
-            ]
-        },
-        {
-            "name" : "RootNode (gltf orientation matrix).005",
-            "rotation" : [
-                -0.7071067690849304,
-                0,
-                0,
-                0.7071067690849304
-            ],
-<<<<<<< HEAD
-            "scale" : [
-                30,
-                30,
-                30
-            ],
-            "translation" : [
-                -0.12500117719173431,
-                4.4615386286750436e-05,
-                -0.6742054224014282
-=======
-            "translation" : [
-                -0.022854868322610855,
-                0,
-                0
->>>>>>> master
-            ]
-        },
-        {
-            "name" : "RootNode (model correction matrix).005",
-<<<<<<< HEAD
-            "scale" : [
-                30,
-                30,
-                30
-            ],
-            "translation" : [
-                -0.12500117719173431,
-                4.4615386286750436e-05,
-                -0.6742054224014282
-=======
-            "translation" : [
-                -0.022854868322610855,
-                0,
-                0
->>>>>>> master
-            ]
-        },
-        {
-            "name" : "336c779f6369414bb22844db01a44ed5.fbx.001",
-            "rotation" : [
-                0.7071068286895752,
-                0,
-                0,
-                0.7071068286895752
-            ],
-<<<<<<< HEAD
-            "scale" : [
-                30,
-                30,
-                30
-            ],
-            "translation" : [
-                -0.12500117719173431,
-                4.4615386286750436e-05,
-                -0.6742054224014282
-=======
-            "translation" : [
-                -0.022854868322610855,
-                0,
-                0
->>>>>>> master
-            ]
-        },
-        {
-            "name" : "RootNode.001",
-<<<<<<< HEAD
-            "scale" : [
-                30,
-                30,
-                30
-            ],
-            "translation" : [
-                -0.12500117719173431,
-                4.4615386286750436e-05,
-                -0.6742054224014282
-=======
-            "translation" : [
-                -0.022854868322610855,
-                0,
-                0
->>>>>>> master
             ]
         },
         {
@@ -407,116 +155,27 @@
             ]
         },
         {
-            "children" : [
-                21
-            ],
-            "name" : "RootNode.002"
-        },
-        {
-            "children" : [
-                22
-            ],
-            "name" : "336c779f6369414bb22844db01a44ed5.fbx.002",
-            "rotation" : [
-                0.7071068286895752,
-                0,
-                0,
-                0.7071068286895752
-            ]
-        },
-        {
-            "children" : [
-                23
-            ],
-            "name" : "RootNode (model correction matrix).006"
-        },
-        {
-            "children" : [
-                24
-            ],
-            "name" : "RootNode (gltf orientation matrix).006",
-            "rotation" : [
-                -0.7071067690849304,
-                0,
-                0,
-                0.7071067690849304
-<<<<<<< HEAD
-            ],
-            "scale" : [
-                30,
-                30,
-                30
-            ],
-            "translation" : [
-                0.5606448650360107,
-                4.4615386286750436e-05,
-                -0.6742054224014282
-            ]
-        },
-        {
-            "name" : "Bone",
-            "rotation" : [
-                -0.7071068286895752,
-                0,
-                0,
-                0.7071068286895752
-=======
->>>>>>> master
-            ]
-        },
-        {
-            "name" : "F2_Item_Kart_Mario_S.001",
-            "translation" : [
-                -0.022854868322610855,
-                0,
-                0
-            ]
-        },
-        {
-<<<<<<< HEAD
-            "children" : [
-                26,
-                27
-            ],
-            "name" : "Armature",
-            "scale" : [
-                30,
-                30,
-                30
-            ],
-            "translation" : [
-                0.5606448650360107,
-                4.4615386286750436e-05,
-                -0.6742054224014282
-            ]
-        },
-        {
             "name" : "DiscoBall"
         },
         {
             "children" : [
-                29
+                12
             ],
             "name" : "RootNode.003"
         },
         {
             "children" : [
-                30
+                13
             ],
             "name" : "Node_3"
         },
         {
             "children" : [
-                31
+                14
             ],
             "name" : "afbef698da0848eda397b08d9734c84f.fbx",
             "rotation" : [
                 0.7071068286895752,
-=======
-            "name" : "Bone",
-            "rotation" : [
-                -0.7071068286895752,
->>>>>>> master
                 0,
                 0,
                 0.7071068286895752
@@ -524,14 +183,13 @@
         },
         {
             "children" : [
-<<<<<<< HEAD
-                32
+                15
             ],
             "name" : "RootNode (model correction matrix).007"
         },
         {
             "children" : [
-                33
+                16
             ],
             "name" : "RootNode (gltf orientation matrix).007",
             "rotation" : [
@@ -548,26 +206,26 @@
                 {
                     "sampler" : 0,
                     "target" : {
-                        "node" : 0,
+                        "node" : 10,
                         "path" : "translation"
                     }
                 },
                 {
                     "sampler" : 1,
                     "target" : {
-                        "node" : 0,
+                        "node" : 10,
                         "path" : "rotation"
                     }
                 },
                 {
                     "sampler" : 2,
                     "target" : {
-                        "node" : 0,
+                        "node" : 10,
                         "path" : "scale"
                     }
                 }
             ],
-            "name" : "RootNode (gltf orientation matrix).003Action.003",
+            "name" : "Eiffel-Tower.001Action.003",
             "samplers" : [
                 {
                     "input" : 30,
@@ -591,523 +249,7 @@
                 {
                     "sampler" : 0,
                     "target" : {
-                        "node" : 1,
-                        "path" : "translation"
-                    }
-                },
-                {
-                    "sampler" : 1,
-                    "target" : {
-                        "node" : 1,
-                        "path" : "rotation"
-                    }
-                },
-                {
-                    "sampler" : 2,
-                    "target" : {
-                        "node" : 1,
-                        "path" : "scale"
-                    }
-                }
-            ],
-            "name" : "RootNode (model correction matrix).003Action.003",
-            "samplers" : [
-                {
-                    "input" : 30,
-                    "interpolation" : "STEP",
-                    "output" : 34
-                },
-                {
-                    "input" : 30,
-                    "interpolation" : "STEP",
-                    "output" : 35
-                },
-                {
-                    "input" : 30,
-                    "interpolation" : "STEP",
-                    "output" : 36
-                }
-            ]
-        },
-        {
-            "channels" : [
-                {
-                    "sampler" : 0,
-                    "target" : {
-                        "node" : 2,
-                        "path" : "translation"
-                    }
-                },
-                {
-                    "sampler" : 1,
-                    "target" : {
-                        "node" : 2,
-                        "path" : "rotation"
-                    }
-                },
-                {
-                    "sampler" : 2,
-                    "target" : {
-                        "node" : 2,
-                        "path" : "scale"
-                    }
-                }
-            ],
-            "name" : "Root.001Action.003",
-            "samplers" : [
-                {
-                    "input" : 30,
-                    "interpolation" : "STEP",
-                    "output" : 37
-                },
-                {
-                    "input" : 30,
-                    "interpolation" : "STEP",
-                    "output" : 38
-                },
-                {
-                    "input" : 30,
-                    "interpolation" : "STEP",
-                    "output" : 39
-                }
-            ]
-        },
-        {
-            "channels" : [
-                {
-                    "sampler" : 0,
-                    "target" : {
-                        "node" : 13,
-                        "path" : "translation"
-                    }
-                },
-                {
-                    "sampler" : 1,
-                    "target" : {
-                        "node" : 13,
-                        "path" : "rotation"
-                    }
-                },
-                {
-                    "sampler" : 2,
-                    "target" : {
-                        "node" : 13,
-                        "path" : "scale"
-                    }
-                }
-            ],
-            "name" : "Eiffel-Tower.001Action.003",
-            "samplers" : [
-                {
-                    "input" : 30,
-                    "interpolation" : "STEP",
-                    "output" : 40
-                },
-                {
-                    "input" : 30,
-                    "interpolation" : "STEP",
-                    "output" : 41
-                },
-                {
-                    "input" : 30,
-                    "interpolation" : "STEP",
-                    "output" : 42
-                }
-            ]
-        },
-        {
-            "channels" : [
-                {
-                    "sampler" : 0,
-                    "target" : {
-                        "node" : 14,
-                        "path" : "translation"
-                    }
-                },
-                {
-                    "sampler" : 1,
-                    "target" : {
-                        "node" : 14,
-                        "path" : "rotation"
-                    }
-                },
-                {
-                    "sampler" : 2,
-                    "target" : {
-                        "node" : 14,
-                        "path" : "scale"
-                    }
-                }
-            ],
-            "name" : "RootNode (gltf orientation matrix).004Action.003",
-            "samplers" : [
-                {
-                    "input" : 30,
-                    "interpolation" : "STEP",
-                    "output" : 43
-                },
-                {
-                    "input" : 30,
-                    "interpolation" : "STEP",
-                    "output" : 44
-                },
-                {
-                    "input" : 30,
-                    "interpolation" : "STEP",
-                    "output" : 45
-                }
-            ]
-        },
-        {
-            "channels" : [
-                {
-                    "sampler" : 0,
-                    "target" : {
-                        "node" : 15,
-                        "path" : "translation"
-                    }
-                },
-                {
-                    "sampler" : 1,
-                    "target" : {
-                        "node" : 15,
-                        "path" : "rotation"
-                    }
-                },
-                {
-                    "sampler" : 2,
-                    "target" : {
-                        "node" : 15,
-                        "path" : "scale"
-                    }
-                }
-            ],
-            "name" : "RootNode (model correction matrix).004Action.003",
-            "samplers" : [
-                {
-                    "input" : 30,
-                    "interpolation" : "STEP",
-                    "output" : 46
-                },
-                {
-                    "input" : 30,
-                    "interpolation" : "STEP",
-                    "output" : 47
-                },
-                {
-                    "input" : 30,
-                    "interpolation" : "STEP",
-                    "output" : 48
-                }
-            ]
-        },
-        {
-            "channels" : [
-                {
-                    "sampler" : 0,
-                    "target" : {
-                        "node" : 16,
-                        "path" : "translation"
-                    }
-                },
-                {
-                    "sampler" : 1,
-                    "target" : {
-                        "node" : 16,
-                        "path" : "rotation"
-                    }
-                },
-                {
-                    "sampler" : 2,
-                    "target" : {
-                        "node" : 16,
-                        "path" : "scale"
-                    }
-                }
-            ],
-            "name" : "Collada visual scene group.001Action.003",
-            "samplers" : [
-                {
-                    "input" : 30,
-                    "interpolation" : "STEP",
-                    "output" : 49
-                },
-                {
-                    "input" : 30,
-                    "interpolation" : "STEP",
-                    "output" : 50
-                },
-                {
-                    "input" : 30,
-                    "interpolation" : "STEP",
-                    "output" : 51
-                }
-            ]
-        },
-        {
-            "channels" : [
-                {
-                    "sampler" : 0,
-                    "target" : {
-                        "node" : 17,
-                        "path" : "translation"
-                    }
-                },
-                {
-                    "sampler" : 1,
-                    "target" : {
-                        "node" : 17,
-                        "path" : "rotation"
-                    }
-                },
-                {
-                    "sampler" : 2,
-                    "target" : {
-                        "node" : 17,
-                        "path" : "scale"
-                    }
-                }
-            ],
-            "name" : "RootNode (gltf orientation matrix).005Action.003",
-            "samplers" : [
-                {
-                    "input" : 30,
-                    "interpolation" : "STEP",
-                    "output" : 52
-                },
-                {
-                    "input" : 30,
-                    "interpolation" : "STEP",
-                    "output" : 53
-                },
-                {
-                    "input" : 30,
-                    "interpolation" : "STEP",
-                    "output" : 54
-                }
-            ]
-        },
-        {
-            "channels" : [
-                {
-                    "sampler" : 0,
-                    "target" : {
-                        "node" : 18,
-                        "path" : "translation"
-                    }
-                },
-                {
-                    "sampler" : 1,
-                    "target" : {
-                        "node" : 18,
-                        "path" : "rotation"
-                    }
-                },
-                {
-                    "sampler" : 2,
-                    "target" : {
-                        "node" : 18,
-                        "path" : "scale"
-                    }
-                }
-            ],
-            "name" : "RootNode (model correction matrix).005Action.003",
-            "samplers" : [
-                {
-                    "input" : 30,
-                    "interpolation" : "STEP",
-                    "output" : 55
-                },
-                {
-                    "input" : 30,
-                    "interpolation" : "STEP",
-                    "output" : 56
-                },
-                {
-                    "input" : 30,
-                    "interpolation" : "STEP",
-                    "output" : 57
-                }
-            ]
-        },
-        {
-            "channels" : [
-                {
-                    "sampler" : 0,
-                    "target" : {
-                        "node" : 19,
-                        "path" : "translation"
-                    }
-                },
-                {
-                    "sampler" : 1,
-                    "target" : {
-                        "node" : 19,
-                        "path" : "rotation"
-                    }
-                },
-                {
-                    "sampler" : 2,
-                    "target" : {
-                        "node" : 19,
-                        "path" : "scale"
-                    }
-                }
-            ],
-            "name" : "336c779f6369414bb22844db01a44ed5.fbx.001Action.003",
-            "samplers" : [
-                {
-                    "input" : 30,
-                    "interpolation" : "STEP",
-                    "output" : 58
-                },
-                {
-                    "input" : 30,
-                    "interpolation" : "STEP",
-                    "output" : 59
-                },
-                {
-                    "input" : 30,
-                    "interpolation" : "STEP",
-                    "output" : 60
-                }
-            ]
-        },
-        {
-            "channels" : [
-                {
-                    "sampler" : 0,
-                    "target" : {
-                        "node" : 20,
-                        "path" : "translation"
-                    }
-                },
-                {
-                    "sampler" : 1,
-                    "target" : {
-                        "node" : 20,
-                        "path" : "rotation"
-                    }
-                },
-                {
-                    "sampler" : 2,
-                    "target" : {
-                        "node" : 20,
-                        "path" : "scale"
-                    }
-                }
-            ],
-            "name" : "RootNode.001Action.003",
-            "samplers" : [
-                {
-                    "input" : 30,
-                    "interpolation" : "STEP",
-                    "output" : 61
-                },
-                {
-                    "input" : 30,
-                    "interpolation" : "STEP",
-                    "output" : 62
-                },
-                {
-                    "input" : 30,
-                    "interpolation" : "STEP",
-                    "output" : 63
-                }
-            ]
-        },
-        {
-            "channels" : [
-                {
-                    "sampler" : 0,
-                    "target" : {
-                        "node" : 25,
-                        "path" : "translation"
-                    }
-                },
-                {
-                    "sampler" : 1,
-                    "target" : {
-                        "node" : 25,
-                        "path" : "rotation"
-                    }
-                },
-                {
-                    "sampler" : 2,
-                    "target" : {
-                        "node" : 25,
-                        "path" : "scale"
-                    }
-                }
-            ],
-            "name" : "RootNode (gltf orientation matrix).006Action.003",
-            "samplers" : [
-                {
-                    "input" : 30,
-                    "interpolation" : "STEP",
-                    "output" : 64
-                },
-                {
-                    "input" : 30,
-                    "interpolation" : "STEP",
-                    "output" : 65
-                },
-                {
-                    "input" : 30,
-                    "interpolation" : "STEP",
-                    "output" : 66
-                }
-            ]
-        },
-        {
-            "channels" : [
-                {
-                    "sampler" : 0,
-                    "target" : {
-                        "node" : 28,
-                        "path" : "translation"
-                    }
-                },
-                {
-                    "sampler" : 1,
-                    "target" : {
-                        "node" : 28,
-                        "path" : "rotation"
-                    }
-                },
-                {
-                    "sampler" : 2,
-                    "target" : {
-                        "node" : 28,
-                        "path" : "scale"
-                    }
-                }
-            ],
-            "name" : "ArmatureAction.003",
-            "samplers" : [
-                {
-                    "input" : 30,
-                    "interpolation" : "STEP",
-                    "output" : 67
-                },
-                {
-                    "input" : 30,
-                    "interpolation" : "STEP",
-                    "output" : 68
-                },
-                {
-                    "input" : 30,
-                    "interpolation" : "STEP",
-                    "output" : 69
-                }
-            ]
-        },
-        {
-            "channels" : [
-                {
-                    "sampler" : 0,
-                    "target" : {
-                        "node" : 29,
+                        "node" : 12,
                         "path" : "rotation"
                     }
                 }
@@ -1115,17 +257,11 @@
             "name" : "Take 001",
             "samplers" : [
                 {
-                    "input" : 70,
+                    "input" : 34,
                     "interpolation" : "LINEAR",
-                    "output" : 71
+                    "output" : 35
                 }
             ]
-=======
-                26,
-                27
-            ],
-            "name" : "Armature"
->>>>>>> master
         }
     ],
     "materials" : [
@@ -1135,11 +271,7 @@
                 0,
                 0
             ],
-<<<<<<< HEAD
             "name" : "Main.005",
-=======
-            "name" : "Main.001",
->>>>>>> master
             "pbrMetallicRoughness" : {
                 "baseColorFactor" : [
                     1,
@@ -1157,11 +289,7 @@
                 0,
                 0
             ],
-<<<<<<< HEAD
             "name" : "Material.011",
-=======
-            "name" : "Material.003",
->>>>>>> master
             "pbrMetallicRoughness" : {
                 "baseColorFactor" : [
                     1,
@@ -1181,11 +309,7 @@
                 0,
                 0
             ],
-<<<<<<< HEAD
             "name" : "Material.012",
-=======
-            "name" : "Material.004",
->>>>>>> master
             "pbrMetallicRoughness" : {
                 "baseColorFactor" : [
                     1,
@@ -1200,11 +324,7 @@
     ],
     "meshes" : [
         {
-<<<<<<< HEAD
             "name" : "Eiffel-Tower_0.040",
-=======
-            "name" : "Eiffel-Tower_0.008",
->>>>>>> master
             "primitives" : [
                 {
                     "attributes" : {
@@ -1217,11 +337,7 @@
             ]
         },
         {
-<<<<<<< HEAD
             "name" : "Eiffel-Tower_0.041",
-=======
-            "name" : "Eiffel-Tower_0.009",
->>>>>>> master
             "primitives" : [
                 {
                     "attributes" : {
@@ -1234,11 +350,7 @@
             ]
         },
         {
-<<<<<<< HEAD
             "name" : "Eiffel-Tower_0.042",
-=======
-            "name" : "Eiffel-Tower_0.010",
->>>>>>> master
             "primitives" : [
                 {
                     "attributes" : {
@@ -1251,11 +363,7 @@
             ]
         },
         {
-<<<<<<< HEAD
             "name" : "Eiffel-Tower_0.043",
-=======
-            "name" : "Eiffel-Tower_0.011",
->>>>>>> master
             "primitives" : [
                 {
                     "attributes" : {
@@ -1268,11 +376,7 @@
             ]
         },
         {
-<<<<<<< HEAD
             "name" : "Eiffel-Tower_0.044",
-=======
-            "name" : "Eiffel-Tower_0.012",
->>>>>>> master
             "primitives" : [
                 {
                     "attributes" : {
@@ -1285,11 +389,7 @@
             ]
         },
         {
-<<<<<<< HEAD
             "name" : "Eiffel-Tower_0.045",
-=======
-            "name" : "Eiffel-Tower_0.013",
->>>>>>> master
             "primitives" : [
                 {
                     "attributes" : {
@@ -1302,11 +402,7 @@
             ]
         },
         {
-<<<<<<< HEAD
             "name" : "Eiffel-Tower_0.046",
-=======
-            "name" : "Eiffel-Tower_0.014",
->>>>>>> master
             "primitives" : [
                 {
                     "attributes" : {
@@ -1319,11 +415,7 @@
             ]
         },
         {
-<<<<<<< HEAD
             "name" : "Eiffel-Tower_0.047",
-=======
-            "name" : "Eiffel-Tower_0.015",
->>>>>>> master
             "primitives" : [
                 {
                     "attributes" : {
@@ -1336,11 +428,7 @@
             ]
         },
         {
-<<<<<<< HEAD
             "name" : "Eiffel-Tower_1.005",
-=======
-            "name" : "Eiffel-Tower_1.001",
->>>>>>> master
             "primitives" : [
                 {
                     "attributes" : {
@@ -1353,11 +441,7 @@
             ]
         },
         {
-<<<<<<< HEAD
             "name" : "Eiffel-Tower_2.005",
-=======
-            "name" : "Eiffel-Tower_2.001",
->>>>>>> master
             "primitives" : [
                 {
                     "attributes" : {
@@ -1374,11 +458,7 @@
         {
             "bufferView" : 0,
             "componentType" : 5126,
-<<<<<<< HEAD
             "count" : 73507,
-=======
-            "count" : 73479,
->>>>>>> master
             "max" : [
                 3.065229892730713,
                 3.0164999961853027,
@@ -1394,11 +474,7 @@
         {
             "bufferView" : 1,
             "componentType" : 5126,
-<<<<<<< HEAD
             "count" : 73507,
-=======
-            "count" : 73479,
->>>>>>> master
             "type" : "VEC3"
         },
         {
@@ -1438,11 +514,7 @@
         {
             "bufferView" : 6,
             "componentType" : 5126,
-<<<<<<< HEAD
             "count" : 100398,
-=======
-            "count" : 99214,
->>>>>>> master
             "max" : [
                 2.9969499111175537,
                 2.985340118408203,
@@ -1458,11 +530,7 @@
         {
             "bufferView" : 7,
             "componentType" : 5126,
-<<<<<<< HEAD
             "count" : 100398,
-=======
-            "count" : 99214,
->>>>>>> master
             "type" : "VEC3"
         },
         {
@@ -1474,11 +542,7 @@
         {
             "bufferView" : 9,
             "componentType" : 5126,
-<<<<<<< HEAD
             "count" : 82235,
-=======
-            "count" : 81831,
->>>>>>> master
             "max" : [
                 3.065229892730713,
                 3.0164999961853027,
@@ -1494,11 +558,7 @@
         {
             "bufferView" : 10,
             "componentType" : 5126,
-<<<<<<< HEAD
             "count" : 82235,
-=======
-            "count" : 81831,
->>>>>>> master
             "type" : "VEC3"
         },
         {
@@ -1510,11 +570,7 @@
         {
             "bufferView" : 12,
             "componentType" : 5126,
-<<<<<<< HEAD
             "count" : 76825,
-=======
-            "count" : 76561,
->>>>>>> master
             "max" : [
                 2.985340118408203,
                 2.154510021209717,
@@ -1530,11 +586,7 @@
         {
             "bufferView" : 13,
             "componentType" : 5126,
-<<<<<<< HEAD
             "count" : 76825,
-=======
-            "count" : 76561,
->>>>>>> master
             "type" : "VEC3"
         },
         {
@@ -1546,11 +598,7 @@
         {
             "bufferView" : 15,
             "componentType" : 5126,
-<<<<<<< HEAD
             "count" : 75458,
-=======
-            "count" : 75192,
->>>>>>> master
             "max" : [
                 2.1545000076293945,
                 2.985340118408203,
@@ -1566,11 +614,7 @@
         {
             "bufferView" : 16,
             "componentType" : 5126,
-<<<<<<< HEAD
             "count" : 75458,
-=======
-            "count" : 75192,
->>>>>>> master
             "type" : "VEC3"
         },
         {
@@ -1582,11 +626,7 @@
         {
             "bufferView" : 18,
             "componentType" : 5126,
-<<<<<<< HEAD
             "count" : 67050,
-=======
-            "count" : 67046,
->>>>>>> master
             "max" : [
                 2.126569986343384,
                 2.126569986343384,
@@ -1602,11 +642,7 @@
         {
             "bufferView" : 19,
             "componentType" : 5126,
-<<<<<<< HEAD
             "count" : 67050,
-=======
-            "count" : 67046,
->>>>>>> master
             "type" : "VEC3"
         },
         {
@@ -1618,11 +654,7 @@
         {
             "bufferView" : 21,
             "componentType" : 5126,
-<<<<<<< HEAD
             "count" : 45486,
-=======
-            "count" : 45454,
->>>>>>> master
             "max" : [
                 2.126569986343384,
                 2.126569986343384,
@@ -1638,11 +670,7 @@
         {
             "bufferView" : 22,
             "componentType" : 5126,
-<<<<<<< HEAD
             "count" : 45486,
-=======
-            "count" : 45454,
->>>>>>> master
             "type" : "VEC3"
         },
         {
@@ -1706,7 +734,6 @@
             "componentType" : 5123,
             "count" : 7512,
             "type" : "SCALAR"
-<<<<<<< HEAD
         },
         {
             "bufferView" : 30,
@@ -1741,222 +768,6 @@
         {
             "bufferView" : 34,
             "componentType" : 5126,
-            "count" : 1,
-            "type" : "VEC3"
-        },
-        {
-            "bufferView" : 35,
-            "componentType" : 5126,
-            "count" : 1,
-            "type" : "VEC4"
-        },
-        {
-            "bufferView" : 36,
-            "componentType" : 5126,
-            "count" : 1,
-            "type" : "VEC3"
-        },
-        {
-            "bufferView" : 37,
-            "componentType" : 5126,
-            "count" : 1,
-            "type" : "VEC3"
-        },
-        {
-            "bufferView" : 38,
-            "componentType" : 5126,
-            "count" : 1,
-            "type" : "VEC4"
-        },
-        {
-            "bufferView" : 39,
-            "componentType" : 5126,
-            "count" : 1,
-            "type" : "VEC3"
-        },
-        {
-            "bufferView" : 40,
-            "componentType" : 5126,
-            "count" : 1,
-            "type" : "VEC3"
-        },
-        {
-            "bufferView" : 41,
-            "componentType" : 5126,
-            "count" : 1,
-            "type" : "VEC4"
-        },
-        {
-            "bufferView" : 42,
-            "componentType" : 5126,
-            "count" : 1,
-            "type" : "VEC3"
-        },
-        {
-            "bufferView" : 43,
-            "componentType" : 5126,
-            "count" : 1,
-            "type" : "VEC3"
-        },
-        {
-            "bufferView" : 44,
-            "componentType" : 5126,
-            "count" : 1,
-            "type" : "VEC4"
-        },
-        {
-            "bufferView" : 45,
-            "componentType" : 5126,
-            "count" : 1,
-            "type" : "VEC3"
-        },
-        {
-            "bufferView" : 46,
-            "componentType" : 5126,
-            "count" : 1,
-            "type" : "VEC3"
-        },
-        {
-            "bufferView" : 47,
-            "componentType" : 5126,
-            "count" : 1,
-            "type" : "VEC4"
-        },
-        {
-            "bufferView" : 48,
-            "componentType" : 5126,
-            "count" : 1,
-            "type" : "VEC3"
-        },
-        {
-            "bufferView" : 49,
-            "componentType" : 5126,
-            "count" : 1,
-            "type" : "VEC3"
-        },
-        {
-            "bufferView" : 50,
-            "componentType" : 5126,
-            "count" : 1,
-            "type" : "VEC4"
-        },
-        {
-            "bufferView" : 51,
-            "componentType" : 5126,
-            "count" : 1,
-            "type" : "VEC3"
-        },
-        {
-            "bufferView" : 52,
-            "componentType" : 5126,
-            "count" : 1,
-            "type" : "VEC3"
-        },
-        {
-            "bufferView" : 53,
-            "componentType" : 5126,
-            "count" : 1,
-            "type" : "VEC4"
-        },
-        {
-            "bufferView" : 54,
-            "componentType" : 5126,
-            "count" : 1,
-            "type" : "VEC3"
-        },
-        {
-            "bufferView" : 55,
-            "componentType" : 5126,
-            "count" : 1,
-            "type" : "VEC3"
-        },
-        {
-            "bufferView" : 56,
-            "componentType" : 5126,
-            "count" : 1,
-            "type" : "VEC4"
-        },
-        {
-            "bufferView" : 57,
-            "componentType" : 5126,
-            "count" : 1,
-            "type" : "VEC3"
-        },
-        {
-            "bufferView" : 58,
-            "componentType" : 5126,
-            "count" : 1,
-            "type" : "VEC3"
-        },
-        {
-            "bufferView" : 59,
-            "componentType" : 5126,
-            "count" : 1,
-            "type" : "VEC4"
-        },
-        {
-            "bufferView" : 60,
-            "componentType" : 5126,
-            "count" : 1,
-            "type" : "VEC3"
-        },
-        {
-            "bufferView" : 61,
-            "componentType" : 5126,
-            "count" : 1,
-            "type" : "VEC3"
-        },
-        {
-            "bufferView" : 62,
-            "componentType" : 5126,
-            "count" : 1,
-            "type" : "VEC4"
-        },
-        {
-            "bufferView" : 63,
-            "componentType" : 5126,
-            "count" : 1,
-            "type" : "VEC3"
-        },
-        {
-            "bufferView" : 64,
-            "componentType" : 5126,
-            "count" : 1,
-            "type" : "VEC3"
-        },
-        {
-            "bufferView" : 65,
-            "componentType" : 5126,
-            "count" : 1,
-            "type" : "VEC4"
-        },
-        {
-            "bufferView" : 66,
-            "componentType" : 5126,
-            "count" : 1,
-            "type" : "VEC3"
-        },
-        {
-            "bufferView" : 67,
-            "componentType" : 5126,
-            "count" : 1,
-            "type" : "VEC3"
-        },
-        {
-            "bufferView" : 68,
-            "componentType" : 5126,
-            "count" : 1,
-            "type" : "VEC4"
-        },
-        {
-            "bufferView" : 69,
-            "componentType" : 5126,
-            "count" : 1,
-            "type" : "VEC3"
-        },
-        {
-            "bufferView" : 70,
-            "componentType" : 5126,
             "count" : 144,
             "max" : [
                 6
@@ -1967,65 +778,41 @@
             "type" : "SCALAR"
         },
         {
-            "bufferView" : 71,
+            "bufferView" : 35,
             "componentType" : 5126,
             "count" : 144,
             "type" : "VEC4"
-=======
->>>>>>> master
         }
     ],
     "bufferViews" : [
         {
             "buffer" : 0,
-<<<<<<< HEAD
             "byteLength" : 882084,
-=======
-            "byteLength" : 881748,
->>>>>>> master
             "byteOffset" : 0
         },
         {
             "buffer" : 0,
-<<<<<<< HEAD
             "byteLength" : 882084,
             "byteOffset" : 882084
-=======
-            "byteLength" : 881748,
-            "byteOffset" : 881748
->>>>>>> master
         },
         {
             "buffer" : 0,
             "byteLength" : 1023372,
-<<<<<<< HEAD
             "byteOffset" : 1764168
-=======
-            "byteOffset" : 1763496
->>>>>>> master
         },
         {
             "buffer" : 0,
             "byteLength" : 809412,
-<<<<<<< HEAD
             "byteOffset" : 2787540
-=======
-            "byteOffset" : 2786868
->>>>>>> master
         },
         {
             "buffer" : 0,
             "byteLength" : 809412,
-<<<<<<< HEAD
             "byteOffset" : 3596952
-=======
-            "byteOffset" : 3596280
->>>>>>> master
         },
         {
             "buffer" : 0,
             "byteLength" : 909564,
-<<<<<<< HEAD
             "byteOffset" : 4406364
         },
         {
@@ -2037,24 +824,10 @@
             "buffer" : 0,
             "byteLength" : 1204776,
             "byteOffset" : 6520704
-=======
-            "byteOffset" : 4405692
-        },
-        {
-            "buffer" : 0,
-            "byteLength" : 1190568,
-            "byteOffset" : 5315256
-        },
-        {
-            "buffer" : 0,
-            "byteLength" : 1190568,
-            "byteOffset" : 6505824
->>>>>>> master
         },
         {
             "buffer" : 0,
             "byteLength" : 781656,
-<<<<<<< HEAD
             "byteOffset" : 7725480
         },
         {
@@ -2066,24 +839,10 @@
             "buffer" : 0,
             "byteLength" : 986820,
             "byteOffset" : 9493956
-=======
-            "byteOffset" : 7696392
-        },
-        {
-            "buffer" : 0,
-            "byteLength" : 981972,
-            "byteOffset" : 8478048
-        },
-        {
-            "buffer" : 0,
-            "byteLength" : 981972,
-            "byteOffset" : 9460020
->>>>>>> master
         },
         {
             "buffer" : 0,
             "byteLength" : 614808,
-<<<<<<< HEAD
             "byteOffset" : 10480776
         },
         {
@@ -2095,24 +854,10 @@
             "buffer" : 0,
             "byteLength" : 921900,
             "byteOffset" : 12017484
-=======
-            "byteOffset" : 10441992
-        },
-        {
-            "buffer" : 0,
-            "byteLength" : 918732,
-            "byteOffset" : 11056800
-        },
-        {
-            "buffer" : 0,
-            "byteLength" : 918732,
-            "byteOffset" : 11975532
->>>>>>> master
         },
         {
             "buffer" : 0,
             "byteLength" : 557676,
-<<<<<<< HEAD
             "byteOffset" : 12939384
         },
         {
@@ -2124,24 +869,10 @@
             "buffer" : 0,
             "byteLength" : 905496,
             "byteOffset" : 14402556
-=======
-            "byteOffset" : 12894264
-        },
-        {
-            "buffer" : 0,
-            "byteLength" : 902304,
-            "byteOffset" : 13451940
-        },
-        {
-            "buffer" : 0,
-            "byteLength" : 902304,
-            "byteOffset" : 14354244
->>>>>>> master
         },
         {
             "buffer" : 0,
             "byteLength" : 571416,
-<<<<<<< HEAD
             "byteOffset" : 15308052
         },
         {
@@ -2153,24 +884,10 @@
             "buffer" : 0,
             "byteLength" : 804600,
             "byteOffset" : 16684068
-=======
-            "byteOffset" : 15256548
-        },
-        {
-            "buffer" : 0,
-            "byteLength" : 804552,
-            "byteOffset" : 15827964
-        },
-        {
-            "buffer" : 0,
-            "byteLength" : 804552,
-            "byteOffset" : 16632516
->>>>>>> master
         },
         {
             "buffer" : 0,
             "byteLength" : 651864,
-<<<<<<< HEAD
             "byteOffset" : 17488668
         },
         {
@@ -2182,78 +899,40 @@
             "buffer" : 0,
             "byteLength" : 545832,
             "byteOffset" : 18686364
-=======
-            "byteOffset" : 17437068
-        },
-        {
-            "buffer" : 0,
-            "byteLength" : 545448,
-            "byteOffset" : 18088932
-        },
-        {
-            "buffer" : 0,
-            "byteLength" : 545448,
-            "byteOffset" : 18634380
->>>>>>> master
         },
         {
             "buffer" : 0,
             "byteLength" : 142644,
-<<<<<<< HEAD
             "byteOffset" : 19232196
-=======
-            "byteOffset" : 19179828
->>>>>>> master
         },
         {
             "buffer" : 0,
             "byteLength" : 21120,
-<<<<<<< HEAD
             "byteOffset" : 19374840
-=======
-            "byteOffset" : 19322472
->>>>>>> master
         },
         {
             "buffer" : 0,
             "byteLength" : 21120,
-<<<<<<< HEAD
             "byteOffset" : 19395960
-=======
-            "byteOffset" : 19343592
->>>>>>> master
         },
         {
             "buffer" : 0,
             "byteLength" : 7200,
-<<<<<<< HEAD
             "byteOffset" : 19417080
-=======
-            "byteOffset" : 19364712
->>>>>>> master
         },
         {
             "buffer" : 0,
             "byteLength" : 68832,
-<<<<<<< HEAD
             "byteOffset" : 19424280
-=======
-            "byteOffset" : 19371912
->>>>>>> master
         },
         {
             "buffer" : 0,
             "byteLength" : 68832,
-<<<<<<< HEAD
             "byteOffset" : 19493112
-=======
-            "byteOffset" : 19440744
->>>>>>> master
         },
         {
             "buffer" : 0,
             "byteLength" : 15024,
-<<<<<<< HEAD
             "byteOffset" : 19561944
         },
         {
@@ -2278,205 +957,18 @@
         },
         {
             "buffer" : 0,
-            "byteLength" : 12,
+            "byteLength" : 576,
             "byteOffset" : 19577012
         },
         {
             "buffer" : 0,
-            "byteLength" : 16,
-            "byteOffset" : 19577024
-        },
-        {
-            "buffer" : 0,
-            "byteLength" : 12,
-            "byteOffset" : 19577040
-        },
-        {
-            "buffer" : 0,
-            "byteLength" : 12,
-            "byteOffset" : 19577052
-        },
-        {
-            "buffer" : 0,
-            "byteLength" : 16,
-            "byteOffset" : 19577064
-        },
-        {
-            "buffer" : 0,
-            "byteLength" : 12,
-            "byteOffset" : 19577080
-        },
-        {
-            "buffer" : 0,
-            "byteLength" : 12,
-            "byteOffset" : 19577092
-        },
-        {
-            "buffer" : 0,
-            "byteLength" : 16,
-            "byteOffset" : 19577104
-        },
-        {
-            "buffer" : 0,
-            "byteLength" : 12,
-            "byteOffset" : 19577120
-        },
-        {
-            "buffer" : 0,
-            "byteLength" : 12,
-            "byteOffset" : 19577132
-        },
-        {
-            "buffer" : 0,
-            "byteLength" : 16,
-            "byteOffset" : 19577144
-        },
-        {
-            "buffer" : 0,
-            "byteLength" : 12,
-            "byteOffset" : 19577160
-        },
-        {
-            "buffer" : 0,
-            "byteLength" : 12,
-            "byteOffset" : 19577172
-        },
-        {
-            "buffer" : 0,
-            "byteLength" : 16,
-            "byteOffset" : 19577184
-        },
-        {
-            "buffer" : 0,
-            "byteLength" : 12,
-            "byteOffset" : 19577200
-        },
-        {
-            "buffer" : 0,
-            "byteLength" : 12,
-            "byteOffset" : 19577212
-        },
-        {
-            "buffer" : 0,
-            "byteLength" : 16,
-            "byteOffset" : 19577224
-        },
-        {
-            "buffer" : 0,
-            "byteLength" : 12,
-            "byteOffset" : 19577240
-        },
-        {
-            "buffer" : 0,
-            "byteLength" : 12,
-            "byteOffset" : 19577252
-        },
-        {
-            "buffer" : 0,
-            "byteLength" : 16,
-            "byteOffset" : 19577264
-        },
-        {
-            "buffer" : 0,
-            "byteLength" : 12,
-            "byteOffset" : 19577280
-        },
-        {
-            "buffer" : 0,
-            "byteLength" : 12,
-            "byteOffset" : 19577292
-        },
-        {
-            "buffer" : 0,
-            "byteLength" : 16,
-            "byteOffset" : 19577304
-        },
-        {
-            "buffer" : 0,
-            "byteLength" : 12,
-            "byteOffset" : 19577320
-        },
-        {
-            "buffer" : 0,
-            "byteLength" : 12,
-            "byteOffset" : 19577332
-        },
-        {
-            "buffer" : 0,
-            "byteLength" : 16,
-            "byteOffset" : 19577344
-        },
-        {
-            "buffer" : 0,
-            "byteLength" : 12,
-            "byteOffset" : 19577360
-        },
-        {
-            "buffer" : 0,
-            "byteLength" : 12,
-            "byteOffset" : 19577372
-        },
-        {
-            "buffer" : 0,
-            "byteLength" : 16,
-            "byteOffset" : 19577384
-        },
-        {
-            "buffer" : 0,
-            "byteLength" : 12,
-            "byteOffset" : 19577400
-        },
-        {
-            "buffer" : 0,
-            "byteLength" : 12,
-            "byteOffset" : 19577412
-        },
-        {
-            "buffer" : 0,
-            "byteLength" : 16,
-            "byteOffset" : 19577424
-        },
-        {
-            "buffer" : 0,
-            "byteLength" : 12,
-            "byteOffset" : 19577440
-        },
-        {
-            "buffer" : 0,
-            "byteLength" : 12,
-            "byteOffset" : 19577452
-        },
-        {
-            "buffer" : 0,
-            "byteLength" : 16,
-            "byteOffset" : 19577464
-        },
-        {
-            "buffer" : 0,
-            "byteLength" : 12,
-            "byteOffset" : 19577480
-        },
-        {
-            "buffer" : 0,
-            "byteLength" : 576,
-            "byteOffset" : 19577492
-        },
-        {
-            "buffer" : 0,
             "byteLength" : 2304,
-            "byteOffset" : 19578068
-=======
-            "byteOffset" : 19509576
->>>>>>> master
+            "byteOffset" : 19577588
         }
     ],
     "buffers" : [
         {
-<<<<<<< HEAD
-            "byteLength" : 19580372,
-=======
-            "byteLength" : 19524600,
->>>>>>> master
+            "byteLength" : 19579892,
             "uri" : "scene.bin"
         }
     ]
