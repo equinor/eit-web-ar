@@ -5,10 +5,13 @@ exports.getEntityHash = function(entityId) {
   return 'entityId:' + entityId;
 }
 
-exports.addEntityToNextPlayer = function(db, entityId, fromPlayerId) {
-  db.get('playerCount', function(err, playerCount) {
-    toPlayerId = (fromPlayerId) % (playerCount) + 1;
-    const toHash = getPlayerHash(toPlayerId);
+exports.addEntityToRandomPlayer = function(db, entityId, fromPlayerId) {
+  db.smembers('playersAvailable', function(err, playersAvailable) {
+    // Get random playerId of available players except self
+    const myIndex = playersAvailable.indexOf(String(fromPlayerId));
+    playersAvailable.splice(myIndex, 1);
+    const toPlayerId = playersAvailable[Math.floor(Math.random()*playersAvailable.length)];
+    const toHash = exports.getPlayerHash(toPlayerId);
 
     // Insert entity into random empty space on the receiving player
     db.hmget(toHash, 'entities', function(err, entities) {
@@ -19,7 +22,7 @@ exports.addEntityToNextPlayer = function(db, entityId, fromPlayerId) {
           spaces.push(i);
         }
       }
-      spaces = shuffle(spaces);
+      spaces = exports.shuffle(spaces);
       const space = spaces[0];
       entities[space] = entityId;
 

@@ -59,7 +59,8 @@ app.post('/player/add', (req, res) => {
     // Register new player
     const hash = utils.getPlayerHash(playerId);
     db.hmset(hash, 'name', name);
-    db.sadd('users', playerId);
+    db.sadd('players', playerId);
+    db.sadd('playersAvailable', playerId);
 
     // Make a randomized list of entities and assign them to the player
     const numberOfEntities = 3;
