@@ -54,3 +54,13 @@ exports.shuffle = function(array) {
 
   return array;
 }
+
+exports.getScore = function(entities) {
+  var score = 0;
+  for (var i = 0; i < entities.length; i++) {
+    if (entities[i] != 0) {
+      score--;
+    }
+  }
+  return score;
+}

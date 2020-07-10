@@ -23,6 +23,9 @@ db.flushall();
 
 app.options('*', cors()) // pre-flight cors
 
+const numberOfEntities = 3;
+const numberOfMarkers = 6;
+
 app.get('/player/:playerId', (req, res) => {
   const playerId = req.params.playerId;
   hash = utils.getPlayerHash(playerId);
@@ -73,8 +76,6 @@ app.post('/player/add', (req, res) => {
     db.sadd('playersAvailable', playerId);
 
     // Make a randomized list of entities and assign them to the player
-    const numberOfEntities = 3;
-    const numberOfMarkers = 6;
     if (numberOfMarkers < numberOfEntities) { numberOfMarkers = numberOfEntities; }
 
     db.scard('entities', function(err, entityCount) {
@@ -224,5 +225,36 @@ app.post('/entities/compare', (req, res) => {
     }
     
     res.status(statusCode).send(response);
+  });
+});
+
+app.get('/scores', (req, res) => {
+  db.smembers('players', function(err, players) {
+    var multi = [];
+    for (var i = 0; i < players.length; i++) {
+      multi.push([
+        'hget',
+        utils.getPlayerHash(players[i]),
+        'entities'
+      ]);
+    }
+    db.multi(multi).exec(function(err, entitiesFromAll) {
+      var scores = [];
+      for (var i = 0; i < players.length; i++) {
+        var playerId = players[i];
+        var entities = JSON.parse(entitiesFromAll[i]);
+        var score = utils.getScore(entities);
+        scores.push({
+          playerId: playerId,
+          score:    score,
+          entities: entities
+        })
+      }
+      const response = {
+        scores: scores
+      };
+      const statusCode = 200;
+      res.status(statusCode).send(response);
+    })
   });
 });

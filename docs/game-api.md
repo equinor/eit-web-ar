@@ -201,3 +201,30 @@ If the `entities` from the client *does not* match the `entities` on the server,
 
 #### 410 Gone
 Player does not exist
+
+
+## GET `scores`
+Get the current scores from all registered players
+
+### Responses
+
+### 200 OK
+```json
+{
+    "scores": [
+        {
+            "playerId": "1",
+            "score": -2,
+            "entities": [
+                0,
+                0,
+                1,
+                3,
+                0,
+                0
+            ]
+        },
+        ...
+    ]
+}
+```
