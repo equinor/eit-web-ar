@@ -23,8 +23,7 @@
                 18,
                 25,
                 26,
-                27,
-                28
+                27
             ]
         }
     ],
@@ -381,25 +380,6 @@
             "translation" : [
                 0,
                 10.470917701721191,
-                0
-            ]
-        },
-        {
-            "name" : "Spot",
-            "rotation" : [
-                -0.19400645792484283,
-                -0.16538973152637482,
-                0.6943130493164062,
-                0.673005998134613
-            ],
-            "scale" : [
-                -5.850809097290039,
-                -5.850809097290039,
-                -5.850809097290039
-            ],
-            "translation" : [
-                45.58409118652344,
-                44.20999526977539,
                 0
             ]
         }
@@ -1111,49 +1091,6 @@
                     "output" : 54
                 }
             ]
-        },
-        {
-            "channels" : [
-                {
-                    "sampler" : 0,
-                    "target" : {
-                        "node" : 28,
-                        "path" : "translation"
-                    }
-                },
-                {
-                    "sampler" : 1,
-                    "target" : {
-                        "node" : 28,
-                        "path" : "rotation"
-                    }
-                },
-                {
-                    "sampler" : 2,
-                    "target" : {
-                        "node" : 28,
-                        "path" : "scale"
-                    }
-                }
-            ],
-            "name" : "SpotAction",
-            "samplers" : [
-                {
-                    "input" : 4,
-                    "interpolation" : "STEP",
-                    "output" : 55
-                },
-                {
-                    "input" : 4,
-                    "interpolation" : "STEP",
-                    "output" : 56
-                },
-                {
-                    "input" : 4,
-                    "interpolation" : "STEP",
-                    "output" : 57
-                }
-            ]
         }
     ],
     "materials" : [
@@ -1211,17 +1148,17 @@
         {
             "mimeType" : "image/png",
             "name" : "lambert1_normal",
-            "uri" : "lambert1_normal.png"
+            "uri" : "textures/lambert1_normal.png"
         },
         {
             "mimeType" : "image/jpeg",
             "name" : "lambert1_baseColor",
-            "uri" : "lambert1_baseColor.jpg"
+            "uri" : "textures/lambert1_baseColor.jpg"
         },
         {
             "mimeType" : "image/png",
             "name" : "lambert1_metallicRoughness",
-            "uri" : "lambert1_metallicRoughness.png"
+            "uri" : "textures/lambert1_metallicRoughness.png"
         }
     ],
     "accessors" : [
@@ -1576,24 +1513,6 @@
             "componentType" : 5126,
             "count" : 1,
             "type" : "VEC3"
-        },
-        {
-            "bufferView" : 55,
-            "componentType" : 5126,
-            "count" : 1,
-            "type" : "VEC3"
-        },
-        {
-            "bufferView" : 56,
-            "componentType" : 5126,
-            "count" : 1,
-            "type" : "VEC4"
-        },
-        {
-            "bufferView" : 57,
-            "componentType" : 5126,
-            "count" : 1,
-            "type" : "VEC3"
         }
     ],
     "bufferViews" : [
@@ -1871,26 +1790,11 @@
             "buffer" : 0,
             "byteLength" : 12,
             "byteOffset" : 9464
-        },
-        {
-            "buffer" : 0,
-            "byteLength" : 12,
-            "byteOffset" : 9476
-        },
-        {
-            "buffer" : 0,
-            "byteLength" : 16,
-            "byteOffset" : 9488
-        },
-        {
-            "buffer" : 0,
-            "byteLength" : 12,
-            "byteOffset" : 9504
         }
     ],
     "buffers" : [
         {
-            "byteLength" : 9516,
+            "byteLength" : 9476,
             "uri" : "scene.bin"
         }
     ]

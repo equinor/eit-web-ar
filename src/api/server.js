@@ -21,6 +21,8 @@ db.on('error', function(error) {
 });
 db.flushall();
 
+app.options('*', cors()) // pre-flight cors
+
 app.get('/player/:playerId', (req, res) => {
   const playerId = req.params.playerId;
   hash = utils.getPlayerHash(playerId);
@@ -121,8 +123,9 @@ app.post('/entity/send', (req, res) => {
   // Update the entity list for this player
   const fromHash = utils.getPlayerHash(fromPlayerId);
   db.hmget(fromHash, 'entities', function(err, entities) {
+    console.log("hmget entities: " + entities)
     // Return if user not found
-    var statusCode = 404;
+    var statusCode = 400;
     if (entities[0] === null) {
       res.status(statusCode).send();
       return;
