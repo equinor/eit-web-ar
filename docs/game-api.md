@@ -14,6 +14,9 @@ Get all available information about the given player
 }
 ```
 
+#### 400 Bad request
+`name` was not provided.
+
 #### 410 Gone
 The player does not exist
 

@@ -64,6 +64,10 @@ app.put('/player/:playerId', (req, res) => {
 
 app.post('/player/add', (req, res) => {
   const name = req.body.name;
+  if (name === undefined) {
+    res.status(400).send();
+    return;
+  }
   db.scard('players', function(err, lastPlayerId) {
     var playerId = 1;
     if (lastPlayerId !== null) {
