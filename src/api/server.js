@@ -137,15 +137,21 @@ app.get('/entity/:entityId', (req, res) => {
 app.put('/entity/:entityId', (req, res) => {
   const entityId = req.params.entityId;
   const keys = Object.keys(req.body);
-  var args = [];
-  keys.forEach(key => {
-    args.push(key);
-    args.push(req.body[key]);
-  })
-  const hash = utils.getEntityHash(entityId);
-  db.hmset(hash, args);
+  db.sismember('entities', entityId, function(err, entityExists) {
+    if (!entityExists) {
+      res.status(410).send();
+      return;
+    }
+    var args = [];
+    keys.forEach(key => {
+      args.push(key);
+      args.push(req.body[key]);
+    })
+    const hash = utils.getEntityHash(entityId);
+    db.hmset(hash, args);
 
-  res.status(200).send();
+    res.status(200).send();
+  });
 });
 
 app.post('/entity/send', (req, res) => {

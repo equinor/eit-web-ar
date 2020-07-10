@@ -100,6 +100,7 @@ Add or update entity information. Accepts all field names.
 
 ### Responses
 #### 200 OK
+#### 410 Entity does not exist
 
 
 ## POST `/entity/send`
