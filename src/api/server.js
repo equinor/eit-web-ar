@@ -59,6 +59,7 @@ app.post('/player/add', (req, res) => {
     // Register new player
     const hash = utils.getPlayerHash(playerId);
     db.hmset(hash, 'name', name);
+    db.sadd('users', playerId);
 
     // Make a randomized list of entities and assign them to the player
     const numberOfEntities = 3;
@@ -123,7 +124,6 @@ app.post('/entity/send', (req, res) => {
   // Update the entity list for this player
   const fromHash = utils.getPlayerHash(fromPlayerId);
   db.hmget(fromHash, 'entities', function(err, entities) {
-    console.log("hmget entities: " + entities)
     // Return if user not found
     var statusCode = 400;
     if (entities[0] === null) {
@@ -144,7 +144,7 @@ app.post('/entity/send', (req, res) => {
     db.hmset(fromHash, 'entities', JSON.stringify(entities));
 
     // Add entity to another player
-    utils.addEntityToNextPlayer(db, entityId, fromPlayerId);
+    utils.addEntityToRandomPlayer(db, entityId, fromPlayerId);
     statusCode = 200;
     res.status(200).send();
   });
