@@ -44,6 +44,10 @@ app.put('/player/:playerId', (req, res) => {
   const keys = Object.keys(req.body);
   var args = [];
   keys.forEach(key => {
+    if (key == 'entities') {
+      // Don't allow changes in the entities array
+      return;
+    }
     args.push(key);
     args.push(req.body[key]);
   })
