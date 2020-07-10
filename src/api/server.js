@@ -55,7 +55,11 @@ app.put('/player/:playerId', (req, res) => {
 
 app.post('/player/add', (req, res) => {
   const name = req.body.name;
-  db.incr('playerCount', function(err, playerId) {
+  db.scard('players', function(err, lastPlayerId) {
+    var playerId = 1;
+    if (lastPlayerId !== null) {
+      playerId = lastPlayerId + 1;
+    }
     // Register new player
     const hash = utils.getPlayerHash(playerId);
     db.hmset(hash, 'name', name);
