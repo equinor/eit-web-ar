@@ -1,6 +1,6 @@
 version: "3.7"
 services:
-  eit-web-ar:
+  frontend:
     image: node:12
     container_name: eit-web-ar-development_frontend
     tty: true # Keep container running. This option is not available if you build from a dockerfile.
@@ -14,11 +14,13 @@ services:
         target: /frontend/node_modules
     ports:
       - "3000:3000"
-    links:
-      - redis:redis
+    networks:
+      - frontend
 
   redis:
     image: "redis:alpine"
+    networks:
+      - backend
 
   api:
     image: node:12
@@ -34,9 +36,18 @@ services:
         target: /api/node_modules
     ports:
       - "3001:3001"
+    networks:
+      - frontend
+      - backend
 
 volumes:
   frontend-node-modules:
     name: eit-web-ar_frontend-node-modules
   api-node-modules:
     name: eit-web-ar_api-node-modules
+
+networks:
+  frontend:
+    driver: bridge
+  backend:
+    driver: bridge
