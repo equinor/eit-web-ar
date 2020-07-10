@@ -78,7 +78,6 @@ app.post('/player/add', (req, res) => {
     if (numberOfMarkers < numberOfEntities) { numberOfMarkers = numberOfEntities; }
 
     db.scard('entities', function(err, entityCount) {
-      console.log(entityCount);
       if (entityCount === null) {
         entityCount = 0;
       }
