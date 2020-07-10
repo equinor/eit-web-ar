@@ -14,6 +14,7 @@ AFRAME.registerComponent('game', {
     playerName: { type: 'string', default: 'LoserBoi420'}
   },
   init: function () {
+
     const data = this.data;
     this.markerList = [];
     this.markerEntityList = [];
@@ -42,6 +43,7 @@ AFRAME.registerComponent('game', {
         this.sendEntity(this.playerId, entityId);
       });
     });
+    log.info("init complete")
   },
   tick: function () {
     // If the player is registered, get the new list of entities
@@ -122,6 +124,9 @@ AFRAME.registerComponent('game', {
         this.markerEntityList[i].setAttribute('visible', true);
         this.markerEntityList[i].setAttribute('data-entity-id', entities[i]);
         this.markerEntityList[i].classList.add('cursor-interactive');
+        // SOUND
+        this.markerEntityList[i].sound.stopSound();
+        this.markerEntityList[i].sound.playSound();
       }
     }
     
