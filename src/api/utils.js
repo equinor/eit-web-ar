@@ -27,6 +27,11 @@ exports.addEntityToRandomPlayer = function(db, entityId, fromPlayerId) {
       entities[space] = entityId;
 
       db.hmset(toHash, 'entities', JSON.stringify(entities));
+      
+      // Remove receiving player from availablePlayers if full entity list
+      if (entities.indexOf(0) == -1) {
+        db.srem('playersAvailable', toPlayerId);
+      }
     });
   });
 }

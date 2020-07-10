@@ -143,6 +143,8 @@ app.post('/entity/send', (req, res) => {
     // Remove entity from player
     entities[entityIndex] = 0;
     db.hmset(fromHash, 'entities', JSON.stringify(entities));
+    // Add player to availablePlayers if not present already
+    db.sadd('playersAvailable', fromPlayerId);
 
     // Add entity to another player
     utils.addEntityToRandomPlayer(db, entityId, fromPlayerId);
