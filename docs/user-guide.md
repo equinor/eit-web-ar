@@ -1,10 +1,12 @@
 # User guide
 
+Augmented Reality is a technology that fuses Virtual Reality with the real world. This web application is made to present its main functionalities and prove that this concept is a viable choice for Equinor both in terms of development complexity, cost and convenience. This application is divided into four parts, from now on referred to as epic 1-4. 
+
 ## Epic 1
 
 *epic1.html*
 
-The app reacts on barcode markers (can be generated [here](https://au.gmented.com/app/marker/marker.php). 2D barcode markers, dimensions 3*3. Use "Generate a single marker image with code ___" with the codes specified below).
+The purpose of Epic 1 is to show that the app can react to barcode markers (can be generated [here](https://au.gmented.com/app/marker/marker.php). More specifically they are 2D barcode markers of dimensions 3*3. Use "Generate a single marker image with code ___" with the codes specified below). The different possible scenarios are listed below, depending on the barcode the camera is pointing at.
 
 We printed the markers and put them on a guitar amplifier, but any box will do. For simple testing you can just point the camera at the markers without printing them and putting them on a box.
 
@@ -23,6 +25,17 @@ The following markers enhances the real world. The number is the marker code.
 ## Epic 2
 
 *epic2.html*
+
+The main purpose of Epic 2 is to show that large 3D models can be used in the app, both placed by relative position and gps locations, and how to interact with them. First of all it is important to ensure that the gps coordinates stated in the epic2.html script are located close to the user. The thought is that the eiffel_tower, mario_kart, banana, ho_oh and disco_ball objects have the same coordinates, and that the four sphere objects are located close to, but not on top of, each other. The reason why will be clear shortly.
+
+When pointing towards the Eiffel Tower, you will see:
+
+* a rotating disco ball hanging from under the Eiffel Tower. When clicking on it a short music sample will start playing, and it will stop rotating. When clicking again it will start rotating again, and the same music will play.
+* a stationary banana peel.
+* Super Mario driving in his signature kart around the Eiffel Tower, and slipping when hitting the banana peel. When clicking on Mario's start position (just under the disco ball), his animation will pause/unpause.
+* a Ho-Oh pokèmon (bird) hovering around the upper half of the Eiffel Tower.
+
+When clicking on one of the spheres, it will start an animation. This animation is defined by stating the start and end location in the html script, in addition to the duration time (in milliseconds). It is possible to add other animation properties, see documentation. When clicking on two spheres consecutively a straight red line will be drawn between them. Hence, for convenience we suggest that the spheres are located relatively close to one another.
 
 
 ## Epic 3
