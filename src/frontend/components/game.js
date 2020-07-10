@@ -59,7 +59,7 @@ AFRAME.registerComponent('game', {
   registerPlayer: function (playerName) {
     const regUrl = 'http://localhost:3001/player/add';
     
-    let payload = {
+    const payload = {
       name: playerName
     };
     
@@ -129,7 +129,7 @@ AFRAME.registerComponent('game', {
   sendEntity: function (playerId, entityId) {
     const sendEntityUrl = 'http://localhost:3001/entity/send';
     
-    let payload = {
+    const payload = {
       playerId: playerId,
       entityId: entityId
     };
