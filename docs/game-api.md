@@ -14,7 +14,7 @@ Get all available information about the given player
 }
 ```
 
-#### 404 Not found
+#### 410 Gone
 The player does not exist
 
 
@@ -79,7 +79,7 @@ Not very useful until the possibility to change color, material, gltf, etc. is i
 }
 ```
 
-#### 404 Not found
+#### 410 Gone
 The entity does not exist, or the entity exists, but there are no information about it.
 
 
@@ -122,7 +122,7 @@ The entity was removed from you and assigned to another player
 
 Might be implemented: Returning the player who got the entity.
 
-#### 404 Not found
+#### 410 Gone
 The user does not exist.
 
 #### 409 Conflict
@@ -151,5 +151,5 @@ The user exists, return entities.
 }
 ```
 
-#### 404 Not found
+#### 410 Gone
 User does not exist.

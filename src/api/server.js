@@ -27,7 +27,7 @@ app.get('/player/:playerId', (req, res) => {
   const playerId = req.params.playerId;
   hash = utils.getPlayerHash(playerId);
   db.hgetall(hash, function(err, playerInfo) {
-    var statusCode = 404;
+    var statusCode = 410;
     if (playerInfo === null) {
       res.status(statusCode).send();
       return;
@@ -92,7 +92,7 @@ app.get('/entity/:entityId', (req, res) => {
   const entityId = req.params.entityId;
   hash = utils.getEntityHash(entityId);
   db.hgetall(hash, function(err, entityInfo) {
-    var statusCode = 404;
+    var statusCode = 410;
     if (entityInfo === null) {
       res.status(statusCode).send();
       return;
@@ -153,7 +153,7 @@ app.post('/entity/send', (req, res) => {
 app.get('/entities/:playerId', (req, res) => {
   const hash = utils.getPlayerHash(req.params.playerId);
   db.hmget(hash, 'entities', function(err, entities) {
-    var statusCode = 404;
+    var statusCode = 410;
     if (entities[0] !== null) {
       statusCode = 200;
     }
@@ -166,7 +166,7 @@ app.get('/entities/:playerId', (req, res) => {
         }
         break;
       default:
-      case 404:
+      case 410:
         break;
     }
       res.status(statusCode).send(response);
