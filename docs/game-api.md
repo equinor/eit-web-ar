@@ -203,12 +203,11 @@ If the `entities` from the client *does not* match the `entities` on the server,
 Player does not exist
 
 
-## GET `scores`
+## GET `/scores`
 Get the current scores from all registered players
 
 ### Responses
-
-### 200 OK
+#### 200 OK
 ```json
 {
     "scores": [
@@ -226,5 +225,22 @@ Get the current scores from all registered players
         },
         ...
     ]
+}
+```
+
+## GET `/gamestatus`
+Get the current overall status of the game.
+
+### Responses
+#### 200 OK
+
+`status` can be one of the following:
+* `not-started`
+* `running`
+* `game-over`
+
+```json
+{
+  "status": "game-over"
 }
 ```

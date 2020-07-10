@@ -94,6 +94,11 @@ app.post('/player/add', (req, res) => {
       entities = utils.shuffle(entities);
       db.hmset(hash, 'entities', JSON.stringify(entities));
     });
+    
+    // Start the game when there are two players
+    if (playerId == 2) {
+      db.set('gamestatus', 'running');
+    }
 
     const statusCode = 201;
     const response = {
@@ -257,4 +262,17 @@ app.get('/scores', (req, res) => {
       res.status(statusCode).send(response);
     })
   });
+});
+
+app.get('/gamestatus', (req, res) => {
+  db.get('gamestatus', function(err, status) {
+    if (status === null) {
+      status = 'not-started';
+    }
+    const statusCode = 200;
+    const response = {
+      status: status
+    };
+    res.status(statusCode).send(response);
+  })
 });
