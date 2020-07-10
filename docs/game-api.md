@@ -153,3 +153,51 @@ The user exists, return entities.
 
 #### 410 Gone
 User does not exist.
+
+
+## POST `/entities/compare`
+
+Check if the entities passed along are the correct entities.
+
+### Request
+```json
+{
+  "playerId": 2,
+  "entities": [
+    4,
+    0,
+    0,
+    5,
+    6,
+    0
+  ]
+}
+```
+
+### Responses
+
+#### 200 OK
+If the `entities` from the client match the `entities` on the server:
+```json
+{
+  "match": true
+}
+```
+
+If the `entities` from the client *does not* match the `entities` on the server, respond with the `entities` array from the server:
+```json
+{
+  "match": false,
+  "entities": [
+    4,
+    0,
+    0,
+    5,
+    6,
+    0
+  ]
+}
+```
+
+#### 410 Gone
+Player does not exist
