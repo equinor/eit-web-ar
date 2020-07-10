@@ -51,8 +51,10 @@ app.put('/player/:playerId', (req, res) => {
     args.push(key);
     args.push(req.body[key]);
   })
-  const hash = utils.getPlayerHash(playerId);
-  db.hmset(hash, args);
+  if (args.length > 0) {
+    const hash = utils.getPlayerHash(playerId);
+    db.hmset(hash, args);
+  }
 
   res.status(200).send();
 });
