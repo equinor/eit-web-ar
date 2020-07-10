@@ -2,7 +2,7 @@
 
 ## GET `/player/:playerId`
 
-Get all available information about the given player
+Get all available information about the given player.
 
 ### Responses
 
@@ -14,15 +14,13 @@ Get all available information about the given player
 }
 ```
 
-#### 400 Bad request
-`name` was not provided.
+#### 400 `name` was not provided
 
-#### 410 Gone
-The player does not exist
+#### 410 Player does not exist
 
 
 ## PUT `/player/:playerId`
-Add or update player information. Accepts all field names.
+Add or update player information. Accepts all field names except `entities`.
 
 ### Request
 ```json
@@ -38,8 +36,8 @@ Add or update player information. Accepts all field names.
 
 ## POST `/player/add`
 
-The game client should call the `/player/add` endpoint once.
-The desired username is passed in the request body, and then the assigned unique playerId is returned.
+The game client should call this endpoint once.
+The desired player name is passed in the request body, and then the assigned unique `playerId` is returned.
 
 ### Request
 ```json
@@ -50,26 +48,23 @@ The desired username is passed in the request body, and then the assigned unique
 
 ### Responses
 
-#### 201 Created
-The user was created, return the new playerId
+#### 201 Player created
+Returns the new `playerId`.
 
 ```json
 {
-  "playerId": int
+  "playerId": 2
 }
 ```
 
-#### 409 Conflict (not implemented)
-Username already in use
+#### 406 Username not allowed (not implemented)
 
-#### 406 Not acceptable (not implemented)
-Username is an empty string
+#### 409 Username already in use (not implemented)
 
 
 ## GET `/entity/:entityId`
 
 Get all available information about the given entity.
-Not very useful until the possibility to change color, material, gltf, etc. is implemented.
 
 ### Responses
 
@@ -77,14 +72,14 @@ Not very useful until the possibility to change color, material, gltf, etc. is i
 
 ```json
 {
-  "entityId": int,
+  "entityId": 13,
   "color": "#f00",
   "glft": "magnemite"
 }
 ```
 
-#### 410 Gone
-The entity does not exist, or the entity exists, but there are no information about it.
+#### 410 No entity information available
+The entity does not exist, or the entity exists but there are no information about it.
 
 
 ## PUT `/entity/:entityId`
@@ -105,11 +100,11 @@ Add or update entity information. Accepts all field names.
 
 ## POST `/entity/send`
 
-Send an entity from yourself to another player.
+Send an entity to another player.
 
 ### Request
 
-Specify entity to send and your playerId
+Specify entity to send and the player sending the entity.
 
 ```json
 {
@@ -123,15 +118,14 @@ Might be implemented: `receivingPlayerId`, to allow the sender to specify the re
 ### Responses
 
 #### 200 OK
-The entity was removed from you and assigned to another player
+The entity was removed from you and assigned to another player.
 
 Might be implemented: Returning the player who got the entity.
 
-#### 410 Gone
-The user does not exist.
+#### 409 Can't send this entity
+You don't own the specified entity, or the entity does not exist.
 
-#### 409 Conflict
-You don't own the specified entity (or the entity does not exist).
+#### 410 Player does not exist
 
 
 ## GET `/entities/:playerId`
@@ -140,8 +134,7 @@ Get the entities assigned to a given player
 
 ### Responses
 
-#### 200 OK
-The user exists, return entities.
+#### 200 Player exists, return entities
 
 ```json
 {
@@ -156,8 +149,7 @@ The user exists, return entities.
 }
 ```
 
-#### 410 Gone
-User does not exist.
+#### 410 Player does not exist
 
 
 ## POST `/entities/compare`
@@ -204,12 +196,11 @@ If the `entities` from the client *does not* match the `entities` on the server,
 }
 ```
 
-#### 410 Gone
-Player does not exist
+#### 410 Player does not exist
 
 
 ## GET `/scores`
-Get the current scores from all registered players
+Get the current scores from all registered players.
 
 ### Responses
 #### 200 OK
