@@ -14,8 +14,8 @@ AFRAME.registerComponent('game', {
     playerName: { type: 'string', default: 'LoserBoi420'}
   },
   init: function () {
-
     const data = this.data;
+    this.playerEntities = [0,0,0,0,0,0];
     this.markerList = [];
     this.markerEntityList = [];
 
@@ -50,7 +50,7 @@ AFRAME.registerComponent('game', {
     if (typeof(this.playerId) == 'number') {
       this.getEntities(this.playerId, this.playerEntities).then((newEntities) => {
         if (newEntities) {
-          this.playerEntities = data.entities;
+          this.playerEntities = newEntities;
           this.updateSceneEntities(this.playerEntities);
         }
       }).catch((error) => {
@@ -108,7 +108,7 @@ AFRAME.registerComponent('game', {
       if (response.data.match == true) {
         return false
       } else {
-        return response.data;
+        return response.data.entities;
       }
     } else {
       throw '#GAME: Something went wrong when requesting list of entities (not 200 response)'
@@ -125,8 +125,10 @@ AFRAME.registerComponent('game', {
         this.markerEntityList[i].setAttribute('data-entity-id', entities[i]);
         this.markerEntityList[i].classList.add('cursor-interactive');
         // SOUND
-        this.markerEntityList[i].sound.stopSound();
-        this.markerEntityList[i].sound.playSound();
+        console.log(this.markerEntityList[i]);
+        console.log(this.markerEntityList[i].sound);
+        this.markerEntityList[i].components.sound.stopSound();
+        this.markerEntityList[i].components.sound.playSound();
       }
     }
     
