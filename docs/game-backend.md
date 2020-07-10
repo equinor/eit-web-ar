@@ -24,6 +24,17 @@ Stores information about each player. An entry can look like:
 player:3 name Kim city Atlantis
 ```
 
+### entities set
+Stores entityId's of the entities created this session. Can look like this:
+```redis
+5
+2
+4
+1
+3
+6
+```
+
 ### entity:entityId hash
 Stores information about each entity. An entry can look like the following:
 ```redis

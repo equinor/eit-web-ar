@@ -71,11 +71,16 @@ app.post('/player/add', (req, res) => {
     const numberOfMarkers = 6;
     if (numberOfMarkers < numberOfEntities) { numberOfMarkers = numberOfEntities; }
 
-    db.incrby('entityCount', numberOfEntities, function(err, newEntityCount) {
+    db.scard('entities', function(err, entityCount) {
+      console.log(entityCount);
+      if (entityCount === null) {
+        entityCount = 0;
+      }
       var entities = [];
-      for (var entityId = newEntityCount - numberOfEntities + 1; entityId < newEntityCount + 1; entityId++) {
+      for (var entityId = entityCount + 1; entityId < entityCount + numberOfEntities + 1; entityId++) {
         entities.push(entityId);
       }
+      db.sadd('entities', entities);
 
       for (var i = entities.length; i < numberOfMarkers; i++) {
         entities.push(0);
