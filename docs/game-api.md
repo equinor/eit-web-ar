@@ -34,6 +34,7 @@ Add or update player information. Accepts all field names.
 
 ### Responses
 #### 200 OK
+#### 410 User does not exist
 
 ## POST `/player/add`
 

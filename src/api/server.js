@@ -9,6 +9,8 @@ const port = 3001;
 const app = express();
 app.use(express.json());
 app.use(cors());
+app.options('*', cors());
+
 app.listen(port, () => {
   console.log('API listening on port ' + port);
 });
@@ -20,8 +22,6 @@ db.on('error', function(error) {
   console.log(error);
 });
 db.flushall();
-
-app.options('*', cors()) // pre-flight cors
 
 const numberOfEntities = 3;
 const numberOfMarkers = 6;
@@ -45,21 +45,27 @@ app.get('/player/:playerId', (req, res) => {
 app.put('/player/:playerId', (req, res) => {
   const playerId = req.params.playerId;
   const keys = Object.keys(req.body);
-  var args = [];
-  keys.forEach(key => {
-    if (key == 'entities') {
-      // Don't allow changes in the entities array
+  db.sismember('players', playerId, function(err, playerExists) {
+    if (!playerExists) {
+      res.status(410).send();
       return;
     }
-    args.push(key);
-    args.push(req.body[key]);
-  })
-  if (args.length > 0) {
-    const hash = utils.getPlayerHash(playerId);
-    db.hmset(hash, args);
-  }
+    var args = [];
+    keys.forEach(key => {
+      if (key == 'entities') {
+        // Don't allow changes in the entities array
+        return;
+      }
+      args.push(key);
+      args.push(req.body[key]);
+    })
+    if (args.length > 0) {
+      const hash = utils.getPlayerHash(playerId);
+      db.hmset(hash, args);
+    }
 
-  res.status(200).send();
+    res.status(200).send();
+  });
 });
 
 app.post('/player/add', (req, res) => {
