@@ -126,7 +126,7 @@ app.post('/entity/send', (req, res) => {
   const fromHash = utils.getPlayerHash(fromPlayerId);
   db.hmget(fromHash, 'entities', function(err, entities) {
     // Return if user not found
-    var statusCode = 400;
+    var statusCode = 410;
     if (entities[0] === null) {
       res.status(statusCode).send();
       return;
