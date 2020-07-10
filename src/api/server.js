@@ -190,3 +190,40 @@ app.get('/entities/:playerId', (req, res) => {
       res.status(statusCode).send(response);
   });
 });
+
+app.post('/entities/compare', (req, res) => {
+  const playerId = req.body.playerId;
+  const entitiesInput = req.body.entities;
+  const hash = utils.getPlayerHash(playerId);
+  db.hget(hash, 'entities', function(err, entities) {
+    var statusCode = 410;
+    if (entities === null) {
+      res.status(statusCode).send();
+      return;
+    }
+    statusCode = 200;
+    entities = JSON.parse(entities);
+    
+    var match = true;
+    for (var i = 0; i < entities.length; i++) {
+      if (entitiesInput[i] != entities[i]) {
+        match = false;
+        break;
+      }
+    }
+    
+    var response;
+    if (match) {
+      response = {
+        "match": match
+      };
+    } else {
+      response = {
+        "match": match,
+        "entities": entities
+      };
+    }
+    
+    res.status(statusCode).send(response);
+  });
+});
