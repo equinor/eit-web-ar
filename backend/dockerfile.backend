@@ -1,0 +1,19 @@
+# Simpe nodejs production image
+# The alpine version of nodejs has a generic user called "node" which is handy to help you _avoid_ running the container as root
+
+FROM node:12-alpine
+# Install tooling required by some npm packages
+RUN apk add --update \
+  git \
+  openssh-client \
+  && rm -rf /var/cache/apk/*
+# Build for production (read up on command "npm ci")
+WORKDIR /app
+COPY . .
+RUN npm ci --only=production
+# Make sure we do not run as root, and give the user full control of the app files
+RUN chown -R node:node /app
+USER node
+
+EXPOSE 3100
+CMD [ "node", "/app/src/bin/www" ]

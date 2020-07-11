@@ -1,0 +1,702 @@
+{
+    "asset" : {
+        "generator" : "Khronos glTF Blender I/O v1.2.75",
+        "version" : "2.0"
+    },
+    "scene" : 0,
+    "scenes" : [
+        {
+            "name" : "Scene",
+            "nodes" : [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8,
+                9,
+                10,
+                16
+            ]
+        }
+    ],
+    "nodes" : [
+        {
+            "name" : "RootNode (gltf orientation matrix)",
+            "rotation" : [
+                -0.7071067690849304,
+                0,
+                0,
+                0.7071067690849304
+            ],
+            "translation" : [
+                -0.022854868322610855,
+                0,
+                0
+            ]
+        },
+        {
+            "name" : "RootNode (model correction matrix)",
+            "translation" : [
+                -0.022854868322610855,
+                0,
+                0
+            ]
+        },
+        {
+            "name" : "Root",
+            "translation" : [
+                -0.022854868322610855,
+                0,
+                0
+            ]
+        },
+        {
+            "name" : "Eiffel-Tower",
+            "translation" : [
+                -0.022774867713451385,
+                -1.9999999494757503e-05,
+                0.30223000049591064
+            ]
+        },
+        {
+            "name" : "RootNode (gltf orientation matrix).001",
+            "rotation" : [
+                -0.7071067690849304,
+                0,
+                0,
+                0.7071067690849304
+            ],
+            "translation" : [
+                -0.022854868322610855,
+                0,
+                0
+            ]
+        },
+        {
+            "name" : "RootNode (model correction matrix).001",
+            "translation" : [
+                -0.022854868322610855,
+                0,
+                0
+            ]
+        },
+        {
+            "name" : "Collada visual scene group",
+            "rotation" : [
+                0.7071068286895752,
+                0,
+                0,
+                0.7071068286895752
+            ],
+            "translation" : [
+                -0.022854868322610855,
+                0,
+                0
+            ]
+        },
+        {
+            "name" : "RootNode (gltf orientation matrix).002",
+            "rotation" : [
+                -0.7071067690849304,
+                0,
+                0,
+                0.7071067690849304
+            ],
+            "translation" : [
+                -0.022854868322610855,
+                0,
+                0
+            ]
+        },
+        {
+            "name" : "RootNode (model correction matrix).002",
+            "translation" : [
+                -0.022854868322610855,
+                0,
+                0
+            ]
+        },
+        {
+            "name" : "336c779f6369414bb22844db01a44ed5.fbx",
+            "rotation" : [
+                0.7071068286895752,
+                0,
+                0,
+                0.7071068286895752
+            ],
+            "translation" : [
+                -0.022854868322610855,
+                0,
+                0
+            ]
+        },
+        {
+            "name" : "RootNode",
+            "translation" : [
+                -0.022854868322610855,
+                0,
+                0
+            ]
+        },
+        {
+            "name" : "F2_Item_Kart_Mario_S",
+            "translation" : [
+                -0.022854868322610855,
+                0,
+                0
+            ]
+        },
+        {
+            "name" : "Bone"
+        },
+        {
+            "mesh" : 0,
+            "name" : "mt_kart_Mario_S",
+            "skin" : 0
+        },
+        {
+            "mesh" : 1,
+            "name" : "mt_Kart_Mario_Tire_S",
+            "skin" : 0
+        },
+        {
+            "mesh" : 2,
+            "name" : "mt_mario",
+            "skin" : 0
+        },
+        {
+            "children" : [
+                11,
+                13,
+                14,
+                15,
+                12
+            ],
+            "name" : "Armature"
+        }
+    ],
+    "animations" : [
+        {
+            "channels" : [
+                {
+                    "sampler" : 0,
+                    "target" : {
+                        "node" : 12,
+                        "path" : "translation"
+                    }
+                },
+                {
+                    "sampler" : 1,
+                    "target" : {
+                        "node" : 12,
+                        "path" : "rotation"
+                    }
+                },
+                {
+                    "sampler" : 2,
+                    "target" : {
+                        "node" : 12,
+                        "path" : "scale"
+                    }
+                }
+            ],
+            "name" : "ArmatureAction.001",
+            "samplers" : [
+                {
+                    "input" : 22,
+                    "interpolation" : "LINEAR",
+                    "output" : 23
+                },
+                {
+                    "input" : 22,
+                    "interpolation" : "LINEAR",
+                    "output" : 24
+                },
+                {
+                    "input" : 22,
+                    "interpolation" : "LINEAR",
+                    "output" : 25
+                }
+            ]
+        }
+    ],
+    "materials" : [
+        {
+            "doubleSided" : true,
+            "emissiveFactor" : [
+                0,
+                0,
+                0
+            ],
+            "name" : "mt_kart_Mario_S",
+            "pbrMetallicRoughness" : {
+                "baseColorTexture" : {
+                    "index" : 0,
+                    "texCoord" : 0
+                },
+                "metallicFactor" : 0,
+                "roughnessFactor" : 0.6000000238418579
+            }
+        },
+        {
+            "doubleSided" : true,
+            "emissiveFactor" : [
+                0,
+                0,
+                0
+            ],
+            "name" : "mt_Kart_Mario_Tire_S",
+            "pbrMetallicRoughness" : {
+                "baseColorTexture" : {
+                    "index" : 1,
+                    "texCoord" : 0
+                },
+                "metallicFactor" : 0,
+                "roughnessFactor" : 0.6000000238418579
+            }
+        },
+        {
+            "doubleSided" : true,
+            "emissiveFactor" : [
+                0,
+                0,
+                0
+            ],
+            "name" : "mt_mario",
+            "pbrMetallicRoughness" : {
+                "baseColorTexture" : {
+                    "index" : 2,
+                    "texCoord" : 0
+                },
+                "metallicFactor" : 0,
+                "roughnessFactor" : 0.6000000238418579
+            }
+        }
+    ],
+    "meshes" : [
+        {
+            "name" : "mt_kart_Mario_S",
+            "primitives" : [
+                {
+                    "attributes" : {
+                        "POSITION" : 0,
+                        "NORMAL" : 1,
+                        "TEXCOORD_0" : 2,
+                        "COLOR_0" : 3,
+                        "JOINTS_0" : 4,
+                        "WEIGHTS_0" : 5
+                    },
+                    "indices" : 6,
+                    "material" : 0
+                }
+            ]
+        },
+        {
+            "name" : "mt_Kart_Mario_Tire_S",
+            "primitives" : [
+                {
+                    "attributes" : {
+                        "POSITION" : 8,
+                        "NORMAL" : 9,
+                        "TEXCOORD_0" : 10,
+                        "COLOR_0" : 11,
+                        "JOINTS_0" : 12,
+                        "WEIGHTS_0" : 13
+                    },
+                    "indices" : 14,
+                    "material" : 1
+                }
+            ]
+        },
+        {
+            "name" : "mt_mario",
+            "primitives" : [
+                {
+                    "attributes" : {
+                        "POSITION" : 15,
+                        "NORMAL" : 16,
+                        "TEXCOORD_0" : 17,
+                        "COLOR_0" : 18,
+                        "JOINTS_0" : 19,
+                        "WEIGHTS_0" : 20
+                    },
+                    "indices" : 21,
+                    "material" : 2
+                }
+            ]
+        }
+    ],
+    "textures" : [
+        {
+            "source" : 0
+        },
+        {
+            "source" : 1
+        },
+        {
+            "source" : 2
+        }
+    ],
+    "images" : [
+        {
+            "mimeType" : "image/png",
+            "name" : "mt_kart_Mario_S_baseColor",
+            "uri" : "mt_kart_Mario_S_baseColor.png"
+        },
+        {
+            "mimeType" : "image/png",
+            "name" : "mt_Kart_Mario_Tire_S_baseColor",
+            "uri" : "mt_Kart_Mario_Tire_S_baseColor.png"
+        },
+        {
+            "mimeType" : "image/png",
+            "name" : "mt_mario_baseColor",
+            "uri" : "mt_mario_baseColor.png"
+        }
+    ],
+    "skins" : [
+        {
+            "inverseBindMatrices" : 7,
+            "joints" : [
+                12
+            ],
+            "name" : "Armature"
+        }
+    ],
+    "accessors" : [
+        {
+            "bufferView" : 0,
+            "componentType" : 5126,
+            "count" : 1003,
+            "max" : [
+                0.6022351384162903,
+                0.6246309876441956,
+                1.0730700492858887
+            ],
+            "min" : [
+                -0.6462088823318481,
+                0.0468796007335186,
+                -0.9783290028572083
+            ],
+            "type" : "VEC3"
+        },
+        {
+            "bufferView" : 1,
+            "componentType" : 5126,
+            "count" : 1003,
+            "type" : "VEC3"
+        },
+        {
+            "bufferView" : 2,
+            "componentType" : 5126,
+            "count" : 1003,
+            "type" : "VEC2"
+        },
+        {
+            "bufferView" : 3,
+            "componentType" : 5126,
+            "count" : 1003,
+            "type" : "VEC4"
+        },
+        {
+            "bufferView" : 4,
+            "componentType" : 5123,
+            "count" : 1003,
+            "type" : "VEC4"
+        },
+        {
+            "bufferView" : 5,
+            "componentType" : 5126,
+            "count" : 1003,
+            "type" : "VEC4"
+        },
+        {
+            "bufferView" : 6,
+            "componentType" : 5123,
+            "count" : 1083,
+            "type" : "SCALAR"
+        },
+        {
+            "bufferView" : 7,
+            "componentType" : 5126,
+            "count" : 1,
+            "type" : "MAT4"
+        },
+        {
+            "bufferView" : 8,
+            "componentType" : 5126,
+            "count" : 576,
+            "max" : [
+                0.5951231122016907,
+                0.43970099091529846,
+                0.6250439882278442
+            ],
+            "min" : [
+                -0.6408328413963318,
+                -0.0012316700303927064,
+                -0.5712739825248718
+            ],
+            "type" : "VEC3"
+        },
+        {
+            "bufferView" : 9,
+            "componentType" : 5126,
+            "count" : 576,
+            "type" : "VEC3"
+        },
+        {
+            "bufferView" : 10,
+            "componentType" : 5126,
+            "count" : 576,
+            "type" : "VEC2"
+        },
+        {
+            "bufferView" : 11,
+            "componentType" : 5126,
+            "count" : 576,
+            "type" : "VEC4"
+        },
+        {
+            "bufferView" : 12,
+            "componentType" : 5123,
+            "count" : 576,
+            "type" : "VEC4"
+        },
+        {
+            "bufferView" : 13,
+            "componentType" : 5126,
+            "count" : 576,
+            "type" : "VEC4"
+        },
+        {
+            "bufferView" : 14,
+            "componentType" : 5123,
+            "count" : 576,
+            "type" : "SCALAR"
+        },
+        {
+            "bufferView" : 15,
+            "componentType" : 5126,
+            "count" : 373,
+            "max" : [
+                0.2531651258468628,
+                1.163949966430664,
+                0.5807949900627136
+            ],
+            "min" : [
+                -0.3016998767852783,
+                0.11132100224494934,
+                -0.2867569923400879
+            ],
+            "type" : "VEC3"
+        },
+        {
+            "bufferView" : 16,
+            "componentType" : 5126,
+            "count" : 373,
+            "type" : "VEC3"
+        },
+        {
+            "bufferView" : 17,
+            "componentType" : 5126,
+            "count" : 373,
+            "type" : "VEC2"
+        },
+        {
+            "bufferView" : 18,
+            "componentType" : 5126,
+            "count" : 373,
+            "type" : "VEC4"
+        },
+        {
+            "bufferView" : 19,
+            "componentType" : 5123,
+            "count" : 373,
+            "type" : "VEC4"
+        },
+        {
+            "bufferView" : 20,
+            "componentType" : 5126,
+            "count" : 373,
+            "type" : "VEC4"
+        },
+        {
+            "bufferView" : 21,
+            "componentType" : 5123,
+            "count" : 1137,
+            "type" : "SCALAR"
+        },
+        {
+            "bufferView" : 22,
+            "componentType" : 5126,
+            "count" : 284,
+            "max" : [
+                11.791666666666666
+            ],
+            "min" : [
+                0
+            ],
+            "type" : "SCALAR"
+        },
+        {
+            "bufferView" : 23,
+            "componentType" : 5126,
+            "count" : 284,
+            "type" : "VEC3"
+        },
+        {
+            "bufferView" : 24,
+            "componentType" : 5126,
+            "count" : 284,
+            "type" : "VEC4"
+        },
+        {
+            "bufferView" : 25,
+            "componentType" : 5126,
+            "count" : 284,
+            "type" : "VEC3"
+        }
+    ],
+    "bufferViews" : [
+        {
+            "buffer" : 0,
+            "byteLength" : 12036,
+            "byteOffset" : 0
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 12036,
+            "byteOffset" : 12036
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 8024,
+            "byteOffset" : 24072
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 16048,
+            "byteOffset" : 32096
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 8024,
+            "byteOffset" : 48144
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 16048,
+            "byteOffset" : 56168
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 2166,
+            "byteOffset" : 72216
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 64,
+            "byteOffset" : 74384
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 6912,
+            "byteOffset" : 74448
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 6912,
+            "byteOffset" : 81360
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 4608,
+            "byteOffset" : 88272
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 9216,
+            "byteOffset" : 92880
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 4608,
+            "byteOffset" : 102096
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 9216,
+            "byteOffset" : 106704
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 1152,
+            "byteOffset" : 115920
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 4476,
+            "byteOffset" : 117072
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 4476,
+            "byteOffset" : 121548
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 2984,
+            "byteOffset" : 126024
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 5968,
+            "byteOffset" : 129008
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 2984,
+            "byteOffset" : 134976
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 5968,
+            "byteOffset" : 137960
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 2274,
+            "byteOffset" : 143928
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 1136,
+            "byteOffset" : 146204
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 3408,
+            "byteOffset" : 147340
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 4544,
+            "byteOffset" : 150748
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 3408,
+            "byteOffset" : 155292
+        }
+    ],
+    "buffers" : [
+        {
+            "byteLength" : 158700,
+            "uri" : "scene.bin"
+        }
+    ]
+}

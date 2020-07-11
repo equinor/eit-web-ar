@@ -1,0 +1,56 @@
+# Development environment for frontend
+version: "3.7"
+services:
+
+   storage:
+      container_name: storage
+      hostname: storage
+      env_file:
+         - ../.env
+      build:
+         context: ../storage/
+         dockerfile: dockerfile.storage
+      networks:
+         - eit-web-ar
+      ports:
+         - "6379:6379"
+      restart: always
+
+   backend:
+      container_name: backend
+      hostname: backend
+      env_file:
+         - ../.env
+      build:
+         context: ../backend/
+         dockerfile: dockerfile.backend
+      depends_on:
+         - storage
+      networks:
+         - eit-web-ar
+      ports:
+      - "3100:3100"
+
+   frontend:
+      container_name: frontend
+      hostname: frontend
+      build:
+         context: .
+         dockerfile: dockerfile.frontend
+      depends_on:
+         - backend
+      networks:
+         - eit-web-ar
+      ports:
+         - "8080:8080"
+      restart: always
+
+volumes:
+   frontend-node-modules:
+      name: eit-web-ar_frontend-node-modules
+   backend-node-modules:
+      name: eit-web-ar_backend-node-modules
+
+networks:
+   eit-web-ar:
+      name: eit-web-ar
