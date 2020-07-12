@@ -22,8 +22,11 @@ app.use(cookieParser());
 /** ROUTES */
 var indexRouter = require('./routes/index');
 var playerRouter = require('./routes/api/player');
+var entityRouter = require('./routes/api/entity');
+
 app.use('/', indexRouter);
 app.use('/api/player', playerRouter);
+app.use('/api/entity', entityRouter);
 
 
 module.exports = app;

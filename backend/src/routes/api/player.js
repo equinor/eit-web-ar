@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var path = require('path');
-var storage = require('../../lib/storage');
+var storage = require('../../modules/storage');
 
 
 /**********************************************************************************
