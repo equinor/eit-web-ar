@@ -6,11 +6,20 @@ Dependent on component [`storage`](../storage/) for, well, data storage.
 
 ## Docs
 
-- [node and redis via docker](https://www.hamrodev.com/en/tutorials/node-and-redis-via-docker)
-- [nodejs and express example from workshop `A Hands-On Introduction to modern web based A&A`](https://github.com/larskaare/WebAuthAuthorAndOtherCreatures/tree/master/ex-8/api)
+### For the developer
+
+- [Notes](./notes.md)
+
+### Official
+
 - [ExpressJS routing guide](https://expressjs.com/en/guide/routing.html)
   - Note the paragraph `Response methods`, especially the use of `res.json()` to avoid unecessary transformations
 - [ExpressJS cors middelware](https://expressjs.com/en/resources/middleware/cors.html)
+
+### Tutorials, guides and other googly stuff
+
+- [node and redis via docker](https://www.hamrodev.com/en/tutorials/node-and-redis-via-docker)
+- [nodejs and express example from workshop `A Hands-On Introduction to modern web based A&A`](https://github.com/larskaare/WebAuthAuthorAndOtherCreatures/tree/master/ex-8/api)
 - [HTTP status codes](https://en.wikipedia.org/wiki/List_of_HTTP_status_codes)
 
 
