@@ -1,0 +1,20 @@
+# A simple redis container
+# 
+# SECURITY
+# - USER CONTEXT
+#   Redis allows you to run it as any user you want, make sure it is _not_ root
+#
+# - PASSWORD
+#   Set env var REDIS_PASSWORD="some-password"
+#   You then set redis to use this password when starting up the redis server using the following command:
+#   /bin/sh -c 'redis-server --appendonly yes --requirepass ${REDIS_PASSWORD}'
+
+FROM redis:6.0.5-alpine
+# Making sure we do not run as root
+# This require us to create a directory where the new user has full control when starting redis as it will generate lots of files
+WORKDIR /redis-data
+RUN chown -R 1001:1001 /redis-data
+USER 1001
+
+EXPOSE 6379
+CMD ["/bin/sh", "-c", "redis-server --appendonly yes --requirepass ${REDIS_PASSWORD}"]

@@ -1,0 +1,30 @@
+################################################
+# Build
+
+FROM node:12-alpine as builder
+RUN apk add --update \
+  git \
+  openssh-client \
+  && rm -rf /var/cache/apk/*
+WORKDIR /app
+COPY . .
+RUN npm install
+RUN npm run build
+
+
+################################################
+# Release
+
+FROM nginxinc/nginx-unprivileged:1.18
+WORKDIR /app
+COPY --from=builder /app/dist ./www
+COPY ./proxy ./proxy
+COPY proxy/server.conf /etc/nginx/conf.d/default.conf
+USER 0
+RUN chown -R nginx /etc/nginx/conf.d \
+    && chown -R nginx /app \
+    && chmod +x ./proxy/init_app.sh
+USER 101
+# Note that nginx use port 8080 by default in nginx-unprivileged
+EXPOSE 8080
+CMD /bin/sh -c "./proxy/init_app.sh"
