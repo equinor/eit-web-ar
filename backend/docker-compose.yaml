@@ -34,7 +34,7 @@ services:
       networks:
          - eit-web-ar
       ports:
-      - "3100:3100"
+         - "3100:3100"
 
    frontend:
       container_name: frontend

@@ -29,21 +29,25 @@ services:
       networks:
          - eit-web-ar
       ports:
-      - "3100:3100"
+         - "3100:3100"
 
    frontend:
-      container_name: frontend
+      container_name: frontend_development
       hostname: frontend
-      build:
-         context: .
-         dockerfile: dockerfile.frontend
-      depends_on:
-         - backend
+      image: node:12
+      tty: true
+      working_dir: /app
+      volumes:
+         - type: bind
+           source: .
+           target: /app
+         - type: volume
+           source: frontend-node-modules
+           target: /app/node_modules
       networks:
          - eit-web-ar
       ports:
-         - "8080:8080"
-      restart: always
+         - "3000:3000" 
 
 volumes:
    frontend-node-modules:
