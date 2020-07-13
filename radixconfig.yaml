@@ -13,7 +13,7 @@ spec:
   components:    
     - name: web
       src: frontend
-      dockerfileName: frontend/dockerfile.frontend
+      dockerfileName: dockerfile.frontend
       ports:
        - name: http
          port: 8080
