@@ -47,7 +47,7 @@ spec:
       src: storage
       dockerfileName: dockerfile.storage
       ports:
-        - name: http
+        - name: redis
           port: 6379
       public: false
       secrets:
