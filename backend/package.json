@@ -13,7 +13,8 @@
     "jsonwebtoken": "^8.5.1",
     "jwks-rsa": "^1.8.1",
     "morgan": "~1.10.0",
-    "redis": "^3.0.2"
+    "redis": "^3.0.2",
+    "socket.io": "^2.3.0"
   },
   "author": "gjengen",
   "license": "ISC"
