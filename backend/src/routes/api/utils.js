@@ -5,8 +5,8 @@ exports.getEntityHash = function(entityId) {
   return 'entityId:' + entityId;
 }
 
-exports.addEntityToRandomPlayer = function(db, entityId, fromPlayerId) {
-  db.smembers('playersAvailable', function(err, playersAvailable) {
+exports.addEntityToRandomPlayer = function(storage, entityId, fromPlayerId) {
+  storage.smembers('playersAvailable', function(err, playersAvailable) {
     // Get random playerId of available players except self
     const myIndex = playersAvailable.indexOf(String(fromPlayerId));
     playersAvailable.splice(myIndex, 1);
@@ -14,7 +14,7 @@ exports.addEntityToRandomPlayer = function(db, entityId, fromPlayerId) {
     const toHash = exports.getPlayerHash(toPlayerId);
 
     // Insert entity into random empty space on the receiving player
-    db.hmget(toHash, 'entities', function(err, entities) {
+    storage.hmget(toHash, 'entities', function(err, entities) {
       entities = JSON.parse(entities);
       var spaces = [];
       for (var i = 0; i < entities.length; i++) {
@@ -26,11 +26,11 @@ exports.addEntityToRandomPlayer = function(db, entityId, fromPlayerId) {
       const space = spaces[0];
       entities[space] = entityId;
 
-      db.hmset(toHash, 'entities', JSON.stringify(entities));
+      storage.hmset(toHash, 'entities', JSON.stringify(entities));
       
       // Remove receiving player from availablePlayers if full entity list
       if (entities.indexOf(0) == -1) {
-        db.srem('playersAvailable', toPlayerId);
+        storage.srem('playersAvailable', toPlayerId);
       }
     });
   });

@@ -3,10 +3,17 @@ var router = express.Router();
 var path = require('path');
 var storage = require('../../modules/storage');
 
+var utils = require('./utils');
+
+const numberOfEntities = 3;
+const numberOfMarkers = 6;
+if (numberOfMarkers < numberOfEntities) {
+  numberOfMarkers = numberOfEntities;
+}
 
 /**********************************************************************************
- * GET
- */
+* GET
+*/
 
 router.get('/', function (req, res) {
   let statusCode = 200;
@@ -18,88 +25,96 @@ router.get('/', function (req, res) {
 
 router.get('/:playerId', (req, res) => {
   const playerId = req.params.playerId;
-  let hash = getPlayerHash(playerId);
-  
-  storage.hgetall(hash, function (err, playerInfo) {
-    let statusCode = 200;
+  hash = utils.getPlayerHash(playerId);
+  storage.hgetall(hash, function(err, playerInfo) {
     if (playerInfo === null) {
-      // Not found
-      statusCode = 404;
-      res.status(statusCode).send();
-    } else {
-      // Success
-      res.status(statusCode).json(playerInfo);
+      res.status(410).send();
+      return;
     }
+    playerInfo.entities = JSON.parse(playerInfo.entities);
+    res.status(200).send(playerInfo);
+  });
+});
+
+/**********************************************************************************
+* PUT
+*/
+
+router.put('/:playerId', (req, res) => {
+  const playerId = req.params.playerId;
+  const keys = Object.keys(req.body);
+  storage.sismember('players', playerId, function(err, playerExists) {
+    if (!playerExists) {
+      res.status(410).send();
+      return;
+    }
+    var args = [];
+    keys.forEach(key => {
+      if (key == 'entities') {
+        return; // Don't allow changes in the entities array
+      }
+      args.push(key);
+      args.push(req.body[key]);
+    })
+    if (args.length > 0) {
+      const hash = utils.getPlayerHash(playerId);
+      storage.hmset(hash, args);
+    }
+    res.status(200).send();
   });
 });
 
 
 /**********************************************************************************
- * POST
- */
+* POST
+*/
 
 router.post('/add', (req, res) => {
   const name = req.body.name;
-  storage.incr('playerCount', function (err, playerId) {
+  if (name === undefined) {
+    res.status(400).send();
+    return;
+  }
+  storage.scard('players', function(err, lastPlayerId) {
+    var playerId = 1;
+    if (lastPlayerId !== null) {
+      playerId = lastPlayerId + 1;
+    }
     // Register new player
-    const hash = getPlayerHash(playerId);
+    const hash = utils.getPlayerHash(playerId);
     storage.hmset(hash, 'name', name);
+    storage.sadd('players', playerId);
+    storage.sadd('playersAvailable', playerId);
 
     // Make a randomized list of entities and assign them to the player
-    const numberOfEntities = 3;
-    const numberOfMarkers = 6;
-    if (numberOfMarkers < numberOfEntities) { numberOfMarkers = numberOfEntities; }
-
-    storage.incrby('entityCount', numberOfEntities, function (err, newEntityCount) {
+    storage.scard('entities', function(err, entityCount) {
+      if (entityCount === null) {
+        entityCount = 0;
+      }
       var entities = [];
-      for (var entityId = newEntityCount - numberOfEntities + 1; entityId < newEntityCount + 1; entityId++) {
+      for (var entityId = entityCount + 1; entityId < entityCount + numberOfEntities + 1; entityId++) {
         entities.push(entityId);
       }
+      storage.sadd('entities', entities);
 
       for (var i = entities.length; i < numberOfMarkers; i++) {
         entities.push(0);
       }
-      entities = shuffle(entities);
+      entities = utils.shuffle(entities);
       storage.hmset(hash, 'entities', JSON.stringify(entities));
     });
 
-    const statusCode = 201;
+    // Start the game when there are two players
+    if (playerId == 2) {
+      storage.set('gamestatus', 'running');
+    }
+
     const response = {
       playerId: playerId
     };
-
-    res.status(statusCode).json(response);
+    res.status(201).send(response);
   });
 });
-
-
-
-/**********************************************************************************
- * SUPPORT FUNCS ...which maybe ought to be separated out into modules that hande specific parts of the business logic...
- */
-
-function getPlayerHash(playerId) {
-  return 'player:' + playerId;
-}
-
-function shuffle(array) {
-  var currentIndex = array.length, temporaryValue, randomIndex;
-
-  // While there remain elements to shuffle...
-  while (0 !== currentIndex) {
-
-    // Pick a remaining element...
-    randomIndex = Math.floor(Math.random() * currentIndex);
-    currentIndex -= 1;
-
-    // And swap it with the current element.
-    temporaryValue = array[currentIndex];
-    array[currentIndex] = array[randomIndex];
-    array[randomIndex] = temporaryValue;
-  }
-
-  return array;
-}
 
 
 /**********************************************************************************
