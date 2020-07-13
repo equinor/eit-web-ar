@@ -26,39 +26,39 @@ spec:
           monitoring: false
           replicas: 1
 
-      - name: backend
-        src: backend
-        dockerfileName: dockerfile.backend
-        ports:
+    - name: backend
+      src: backend
+      dockerfileName: dockerfile.backend
+      ports:
         - name: http
           port: 3100
-        public: false
-        secrets:
-          - REDIS_PASSWORD
-        environmentConfig:
-          - environment: development
-            monitoring: false
-            replicas: 1
-          - environment: production
-            monitoring: false
-            replicas: 1
+      public: false
+      secrets:
+        - REDIS_PASSWORD
+      environmentConfig:
+        - environment: development
+          monitoring: false
+          replicas: 1
+        - environment: production
+          monitoring: false
+          replicas: 1
 
-      - name: storage
-        src: storage
-        dockerfileName: dockerfile.storage
-        ports:
+    - name: storage
+      src: storage
+      dockerfileName: dockerfile.storage
+      ports:
         - name: http
           port: 6379
-        public: false
-        secrets:
-          - REDIS_PASSWORD
-        environmentConfig:
-          - environment: development
-            monitoring: false
-            replicas: 1
-          - environment: production
-            monitoring: false
-            replicas: 1
+      public: false
+      secrets:
+        - REDIS_PASSWORD
+      environmentConfig:
+        - environment: development
+          monitoring: false
+          replicas: 1
+        - environment: production
+          monitoring: false
+          replicas: 1
 
     - name: entrypoint
       image: quay.io/pusher/oauth2_proxy:v4.1.0 # see https://pusher.github.io/oauth2_proxy/configuration
