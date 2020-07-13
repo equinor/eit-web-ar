@@ -199,7 +199,7 @@ If the `entities` from the client *does not* match the `entities` on the server,
 #### 410 Player does not exist
 
 
-## GET `/scores`
+## GET `/game/scores`
 Get the current scores from all registered players.
 
 ### Responses
@@ -224,7 +224,7 @@ Get the current scores from all registered players.
 }
 ```
 
-## GET `/gamestatus`
+## GET `/game/status`
 Get the current overall status of the game.
 
 ### Responses

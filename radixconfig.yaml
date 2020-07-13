@@ -11,12 +11,47 @@ spec:
       build:
         from: release
   components:    
-    - name: web
-      src: ./frontend/dockerfile.frontend
+    - name: frontend
+      src: frontend
+      dockerfileName: dockerfile.frontend
       ports:
        - name: http
          port: 8080
       public: false
+      environmentConfig:
+        - environment: development
+          monitoring: false
+          replicas: 1
+        - environment: production
+          monitoring: false
+          replicas: 1
+
+    - name: backend
+      src: backend
+      dockerfileName: dockerfile.backend
+      ports:
+        - name: http
+          port: 3100
+      public: false
+      secrets:
+        - REDIS_PASSWORD
+      environmentConfig:
+        - environment: development
+          monitoring: false
+          replicas: 1
+        - environment: production
+          monitoring: false
+          replicas: 1
+
+    - name: storage
+      src: storage
+      dockerfileName: dockerfile.storage
+      ports:
+        - name: redis
+          port: 6379
+      public: false
+      secrets:
+        - REDIS_PASSWORD
       environmentConfig:
         - environment: development
           monitoring: false
@@ -51,7 +86,7 @@ spec:
             OAUTH2_PROXY_REDIS_CONNECTION_URL: "redis://auth-state:6379" # Where to store session info (the auth-state component)
             OAUTH2_PROXY_SESSION_STORE_TYPE: "redis" # We're using Redis for storing session info instead of cookies (cookies would get too big)
             OAUTH2_PROXY_SKIP_PROVIDER_BUTTON: "true" # We don't want a "click to login" page; just issue a redirect
-            OAUTH2_PROXY_UPSTREAMS: "http://web:8080" # Where authenticated requests are routed to: the web component (nginx)
+            OAUTH2_PROXY_UPSTREAMS: "http://frontend:8080" # Where authenticated requests are routed to: the web component (nginx)
         - environment: development
           variables:
             OAUTH2_PROXY_CLIENT_ID: "72f7ddbd-9967-40d1-b655-095c60108f3f" # ID of the AD app
@@ -68,7 +103,7 @@ spec:
             OAUTH2_PROXY_REDIS_CONNECTION_URL: "redis://auth-state:6379"
             OAUTH2_PROXY_SESSION_STORE_TYPE: "redis"
             OAUTH2_PROXY_SKIP_PROVIDER_BUTTON: "true"
-            OAUTH2_PROXY_UPSTREAMS: "http://web:8080"
+            OAUTH2_PROXY_UPSTREAMS: "http://frontend:8080"
 
     - name: auth-state
       image: redis:5-alpine
