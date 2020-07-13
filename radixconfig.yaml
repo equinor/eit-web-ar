@@ -12,7 +12,7 @@ spec:
         from: release
   components:    
     - name: web
-      src: ./frontend/dockerfile.frontend
+      src: frontend/dockerfile.frontend
       ports:
        - name: http
          port: 8080
