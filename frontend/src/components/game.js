@@ -4,6 +4,7 @@ import AFRAME, { THREE } from "aframe"
 import * as utils from "../modules/utils";
 const log = utils.getLogger("components:game");
 import axios from 'axios';
+import io from 'socket.io-client';
 
 // TODO:
 // X * Register and get playerId
@@ -15,6 +16,26 @@ AFRAME.registerComponent('game', {
     playerName: { type: 'string', default: 'LoserBoi420'}
   },
   init: function () {
+    this.socket = io('http://localhost:3100');
+    this.socket.on('EVENT', function(data){
+      if (this.playerId != undefined) {
+        // Get list of entities for this playerId
+        this.getEntities(this.playerId).then((resData) => {
+          // If entities were recieved from the server
+          if (resData != false && resData != undefined) {
+            // TODO: Check if the new array is different (in backend)
+  
+            // Update the players entity array
+            this.playerEntities = resData.entities;
+            // Update the a-frame scene to display entities according to the entity array
+            this.updateEntities(this.playerEntities);
+          } else {
+            console.error("#GAME: Error while requesting entities");
+          }
+        });
+      }
+    });
+
     let data = this.data;
     this.playerEntities = [];
     
@@ -85,7 +106,7 @@ AFRAME.registerComponent('game', {
     }
   },
   registerPlayer: async function (playerName) {
-    const regUrl = 'http://localhost:3001/player/add';
+    const regUrl = 'http://localhost:3100/player/add';
     
     let player = {
       name: playerName
