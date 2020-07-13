@@ -16,24 +16,9 @@ AFRAME.registerComponent('game', {
     playerName: { type: 'string', default: 'LoserBoi420'}
   },
   init: function () {
-    this.socket = io('http://localhost:3100');
-    this.socket.on('EVENT', function(data){
-      if (this.playerId != undefined) {
-        // Get list of entities for this playerId
-        this.getEntities(this.playerId).then((resData) => {
-          // If entities were recieved from the server
-          if (resData != false && resData != undefined) {
-            // TODO: Check if the new array is different (in backend)
-  
-            // Update the players entity array
-            this.playerEntities = resData.entities;
-            // Update the a-frame scene to display entities according to the entity array
-            this.updateEntities(this.playerEntities);
-          } else {
-            console.error("#GAME: Error while requesting entities");
-          }
-        });
-      }
+    this.socket = io('http://localhost:3100/socket');
+    this.socket.on('heisann sveisann', function(data){
+     alert('Connected to backend. Recieved event: heisann sveisann');
     });
 
     let data = this.data;
