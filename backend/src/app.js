@@ -23,10 +23,14 @@ app.use(cookieParser());
 var indexRouter = require('./routes/index');
 var playerRouter = require('./routes/api/player');
 var entityRouter = require('./routes/api/entity');
+var entitiesRouter = require('./routes/api/entities');
+var gameRouter = require('./routes/api/game');
 
 app.use('/', indexRouter);
 app.use('/api/player', playerRouter);
 app.use('/api/entity', entityRouter);
+app.use('/api/entities', entitiesRouter);
+app.use('/api/game', gameRouter);
 
 
 module.exports = app;
