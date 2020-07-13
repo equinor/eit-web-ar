@@ -9,6 +9,8 @@ const port = 3001;
 const app = express();
 app.use(express.json());
 app.use(cors());
+app.options('*', cors());
+
 app.listen(port, () => {
   console.log('API listening on port ' + port);
 });
@@ -21,46 +23,55 @@ db.on('error', function(error) {
 });
 db.flushall();
 
-app.options('*', cors()) // pre-flight cors
+const numberOfEntities = 3;
+const numberOfMarkers = 6;
+if (numberOfMarkers < numberOfEntities) {
+  numberOfMarkers = numberOfEntities;
+}
 
 app.get('/player/:playerId', (req, res) => {
   const playerId = req.params.playerId;
   hash = utils.getPlayerHash(playerId);
   db.hgetall(hash, function(err, playerInfo) {
-    var statusCode = 410;
     if (playerInfo === null) {
-      res.status(statusCode).send();
+      res.status(410).send();
       return;
     }
-    statusCode = 200;
-    var response = playerInfo;
-    response.entities = JSON.parse(response.entities);
-    res.status(statusCode).send(response);
+    playerInfo.entities = JSON.parse(playerInfo.entities);
+    res.status(200).send(playerInfo);
   });
 });
 
 app.put('/player/:playerId', (req, res) => {
   const playerId = req.params.playerId;
   const keys = Object.keys(req.body);
-  var args = [];
-  keys.forEach(key => {
-    if (key == 'entities') {
-      // Don't allow changes in the entities array
+  db.sismember('players', playerId, function(err, playerExists) {
+    if (!playerExists) {
+      res.status(410).send();
       return;
     }
-    args.push(key);
-    args.push(req.body[key]);
-  })
-  if (args.length > 0) {
-    const hash = utils.getPlayerHash(playerId);
-    db.hmset(hash, args);
-  }
-
-  res.status(200).send();
+    var args = [];
+    keys.forEach(key => {
+      if (key == 'entities') {
+        return; // Don't allow changes in the entities array
+      }
+      args.push(key);
+      args.push(req.body[key]);
+    })
+    if (args.length > 0) {
+      const hash = utils.getPlayerHash(playerId);
+      db.hmset(hash, args);
+    }
+    res.status(200).send();
+  });
 });
 
 app.post('/player/add', (req, res) => {
   const name = req.body.name;
+  if (name === undefined) {
+    res.status(400).send();
+    return;
+  }
   db.scard('players', function(err, lastPlayerId) {
     var playerId = 1;
     if (lastPlayerId !== null) {
@@ -73,10 +84,6 @@ app.post('/player/add', (req, res) => {
     db.sadd('playersAvailable', playerId);
 
     // Make a randomized list of entities and assign them to the player
-    const numberOfEntities = 3;
-    const numberOfMarkers = 6;
-    if (numberOfMarkers < numberOfEntities) { numberOfMarkers = numberOfEntities; }
-
     db.scard('entities', function(err, entityCount) {
       if (entityCount === null) {
         entityCount = 0;
@@ -93,13 +100,16 @@ app.post('/player/add', (req, res) => {
       entities = utils.shuffle(entities);
       db.hmset(hash, 'entities', JSON.stringify(entities));
     });
-
-    const statusCode = 201;
+    
+    // Start the game when there are two players
+    if (playerId == 2) {
+      db.set('gamestatus', 'running');
+    }
+    
     const response = {
       playerId: playerId
     };
-
-    res.status(statusCode).send(response);
+    res.status(201).send(response);
   });
 });
 
@@ -107,29 +117,32 @@ app.get('/entity/:entityId', (req, res) => {
   const entityId = req.params.entityId;
   hash = utils.getEntityHash(entityId);
   db.hgetall(hash, function(err, entityInfo) {
-    var statusCode = 410;
     if (entityInfo === null) {
-      res.status(statusCode).send();
+      res.status(410).send();
       return;
     }
-    statusCode = 200;
-    var response = entityInfo;
-    res.status(statusCode).send(response);
+    res.status(200).send(entityInfo);
   });
 });
 
 app.put('/entity/:entityId', (req, res) => {
   const entityId = req.params.entityId;
   const keys = Object.keys(req.body);
-  var args = [];
-  keys.forEach(key => {
-    args.push(key);
-    args.push(req.body[key]);
-  })
-  const hash = utils.getEntityHash(entityId);
-  db.hmset(hash, args);
+  db.sismember('entities', entityId, function(err, entityExists) {
+    if (!entityExists) {
+      res.status(410).send();
+      return;
+    }
+    var args = [];
+    keys.forEach(key => {
+      args.push(key);
+      args.push(req.body[key]);
+    })
+    const hash = utils.getEntityHash(entityId);
+    db.hmset(hash, args);
 
-  res.status(200).send();
+    res.status(200).send();
+  });
 });
 
 app.post('/entity/send', (req, res) => {
@@ -138,55 +151,44 @@ app.post('/entity/send', (req, res) => {
 
   // Update the entity list for this player
   const fromHash = utils.getPlayerHash(fromPlayerId);
-  db.hmget(fromHash, 'entities', function(err, entities) {
+  db.hget(fromHash, 'entities', function(err, entities) {
     // Return if user not found
-    var statusCode = 410;
-    if (entities[0] === null) {
-      res.status(statusCode).send();
+    if (entities === null) {
+      res.status(410).send();
       return;
     }
     entities = JSON.parse(entities);
     const entityIndex = entities.indexOf(entityId);
     // Return if entity not found on user
     if (entityIndex == -1) {
-      statusCode = 409;
-      res.status(statusCode).send();
+      res.status(409).send();
       return;
     }
 
     // Remove entity from player
     entities[entityIndex] = 0;
     db.hmset(fromHash, 'entities', JSON.stringify(entities));
-    // Add player to availablePlayers if not present already
+    
     db.sadd('playersAvailable', fromPlayerId);
 
     // Add entity to another player
     utils.addEntityToRandomPlayer(db, entityId, fromPlayerId);
-    statusCode = 200;
     res.status(200).send();
   });
 });
 
 app.get('/entities/:playerId', (req, res) => {
-  const hash = utils.getPlayerHash(req.params.playerId);
-  db.hmget(hash, 'entities', function(err, entities) {
-    var statusCode = 410;
-    if (entities[0] !== null) {
-      statusCode = 200;
+  const playerId = req.params.playerId;
+  const hash = utils.getPlayerHash(playerId);
+  db.hget(hash, 'entities', function(err, entities) {
+    if (entities === null) {
+      res.status(410).send();
+      return;
     }
-
-    var response;
-    switch (statusCode) {
-      case 200:
-        response = {
-          entities: JSON.parse(entities)
-        }
-        break;
-      default:
-      case 410:
-        break;
+    const response = {
+      entities: JSON.parse(entities)
     }
-      res.status(statusCode).send(response);
+    res.status(200).send(response);
   });
 });
 
@@ -195,12 +197,10 @@ app.post('/entities/compare', (req, res) => {
   const entitiesInput = req.body.entities;
   const hash = utils.getPlayerHash(playerId);
   db.hget(hash, 'entities', function(err, entities) {
-    var statusCode = 410;
     if (entities === null) {
-      res.status(statusCode).send();
+      res.status(410).send();
       return;
     }
-    statusCode = 200;
     entities = JSON.parse(entities);
     
     var match = true;
@@ -211,18 +211,55 @@ app.post('/entities/compare', (req, res) => {
       }
     }
     
-    var response;
-    if (match) {
-      response = {
-        "match": match
-      };
-    } else {
-      response = {
-        "match": match,
-        "entities": entities
-      };
+    var response = {
+      "match": match
+    }
+    if (!match) {
+      response.entities = entities;
     }
     
-    res.status(statusCode).send(response);
+    res.status(200).send(response);
   });
+});
+
+app.get('/scores', (req, res) => {
+  db.smembers('players', function(err, players) {
+    var multi = [];
+    for (var i = 0; i < players.length; i++) {
+      multi.push([
+        'hget',
+        utils.getPlayerHash(players[i]),
+        'entities'
+      ]);
+    }
+    db.multi(multi).exec(function(err, entitiesFromAll) {
+      var scores = [];
+      for (var i = 0; i < players.length; i++) {
+        var playerId = players[i];
+        var entities = JSON.parse(entitiesFromAll[i]);
+        var score = utils.getScore(entities);
+        scores.push({
+          playerId: playerId,
+          score:    score,
+          entities: entities
+        })
+      }
+      const response = {
+        scores: scores
+      };
+      res.status(200).send(response);
+    })
+  });
+});
+
+app.get('/gamestatus', (req, res) => {
+  db.get('gamestatus', function(err, status) {
+    if (status === null) {
+      status = 'not-started';
+    }
+    const response = {
+      status: status
+    };
+    res.status(200).send(response);
+  })
 });
