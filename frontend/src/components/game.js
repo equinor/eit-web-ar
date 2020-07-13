@@ -4,6 +4,7 @@ import AFRAME, { THREE } from "aframe"
 import * as utils from "../modules/utils";
 const log = utils.getLogger("components:game");
 import axios from 'axios';
+import io from 'socket.io-client';
 
 // TODO:
 // X * Register and get playerId
@@ -15,6 +16,11 @@ AFRAME.registerComponent('game', {
     playerName: { type: 'string', default: 'LoserBoi420'}
   },
   init: function () {
+    this.socket = io('http://localhost:3100/socket');
+    this.socket.on('heisann sveisann', function(data){
+     alert('Connected to backend. Recieved event: heisann sveisann');
+    });
+
     let data = this.data;
     this.playerEntities = [];
     
@@ -85,7 +91,7 @@ AFRAME.registerComponent('game', {
     }
   },
   registerPlayer: async function (playerName) {
-    const regUrl = 'http://localhost:3001/player/add';
+    const regUrl = 'http://localhost:3100/player/add';
     
     let player = {
       name: playerName
