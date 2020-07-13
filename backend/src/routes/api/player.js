@@ -12,8 +12,8 @@ if (numberOfMarkers < numberOfEntities) {
 }
 
 /**********************************************************************************
- * GET
- */
+* GET
+*/
 
 router.get('/', function (req, res) {
   let statusCode = 200;
@@ -37,8 +37,8 @@ router.get('/:playerId', (req, res) => {
 });
 
 /**********************************************************************************
- * PUT
- */
+* PUT
+*/
 
 router.put('/:playerId', (req, res) => {
   const playerId = req.params.playerId;
@@ -66,55 +66,55 @@ router.put('/:playerId', (req, res) => {
 
 
 /**********************************************************************************
- * POST
- */
+* POST
+*/
 
- router.post('/add', (req, res) => {
-   const name = req.body.name;
-   if (name === undefined) {
-     res.status(400).send();
-     return;
-   }
-   storage.scard('players', function(err, lastPlayerId) {
-     var playerId = 1;
-     if (lastPlayerId !== null) {
-       playerId = lastPlayerId + 1;
-     }
-     // Register new player
-     const hash = utils.getPlayerHash(playerId);
-     storage.hmset(hash, 'name', name);
-     storage.sadd('players', playerId);
-     storage.sadd('playersAvailable', playerId);
+router.post('/add', (req, res) => {
+  const name = req.body.name;
+  if (name === undefined) {
+    res.status(400).send();
+    return;
+  }
+  storage.scard('players', function(err, lastPlayerId) {
+    var playerId = 1;
+    if (lastPlayerId !== null) {
+      playerId = lastPlayerId + 1;
+    }
+    // Register new player
+    const hash = utils.getPlayerHash(playerId);
+    storage.hmset(hash, 'name', name);
+    storage.sadd('players', playerId);
+    storage.sadd('playersAvailable', playerId);
 
-     // Make a randomized list of entities and assign them to the player
-     storage.scard('entities', function(err, entityCount) {
-       if (entityCount === null) {
-         entityCount = 0;
-       }
-       var entities = [];
-       for (var entityId = entityCount + 1; entityId < entityCount + numberOfEntities + 1; entityId++) {
-         entities.push(entityId);
-       }
-       storage.sadd('entities', entities);
+    // Make a randomized list of entities and assign them to the player
+    storage.scard('entities', function(err, entityCount) {
+      if (entityCount === null) {
+        entityCount = 0;
+      }
+      var entities = [];
+      for (var entityId = entityCount + 1; entityId < entityCount + numberOfEntities + 1; entityId++) {
+        entities.push(entityId);
+      }
+      storage.sadd('entities', entities);
 
-       for (var i = entities.length; i < numberOfMarkers; i++) {
-         entities.push(0);
-       }
-       entities = utils.shuffle(entities);
-       storage.hmset(hash, 'entities', JSON.stringify(entities));
-     });
-     
-     // Start the game when there are two players
-     if (playerId == 2) {
-       storage.set('gamestatus', 'running');
-     }
-     
-     const response = {
-       playerId: playerId
-     };
-     res.status(201).send(response);
-   });
- });
+      for (var i = entities.length; i < numberOfMarkers; i++) {
+        entities.push(0);
+      }
+      entities = utils.shuffle(entities);
+      storage.hmset(hash, 'entities', JSON.stringify(entities));
+    });
+
+    // Start the game when there are two players
+    if (playerId == 2) {
+      storage.set('gamestatus', 'running');
+    }
+
+    const response = {
+      playerId: playerId
+    };
+    res.status(201).send(response);
+  });
+});
 
 
 /**********************************************************************************

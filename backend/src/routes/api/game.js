@@ -5,8 +5,6 @@ var storage = require('../../modules/storage');
 
 var utils = require('./utils');
 
-
-
 /**********************************************************************************
 * GET
 */

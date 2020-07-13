@@ -5,19 +5,17 @@ var storage = require('../../modules/storage');
 
 var utils = require('./utils');
 
-
-
 /**********************************************************************************
- * GET
- */
+* GET
+*/
 
 router.get('/', function (req, res) {
-   let statusCode = 200;
-   let defaultData = {
-     description: "entity api"
-   };
-   res.status(statusCode).json(defaultData);
- });
+  let statusCode = 200;
+  let defaultData = {
+    description: "entity api"
+  };
+  res.status(statusCode).json(defaultData);
+});
 
 router.get('/:entityId', (req, res) => {
   const entityId = req.params.entityId;
@@ -32,32 +30,32 @@ router.get('/:entityId', (req, res) => {
 });
 
 /**********************************************************************************
- * PUT
- */
+* PUT
+*/
 
- router.put('/:entityId', (req, res) => {
-   const entityId = req.params.entityId;
-   const keys = Object.keys(req.body);
-   storage.sismember('entities', entityId, function(err, entityExists) {
-     if (!entityExists) {
-       res.status(410).send();
-       return;
-     }
-     var args = [];
-     keys.forEach(key => {
-       args.push(key);
-       args.push(req.body[key]);
-     })
-     const hash = utils.getEntityHash(entityId);
-     storage.hmset(hash, args);
+router.put('/:entityId', (req, res) => {
+  const entityId = req.params.entityId;
+  const keys = Object.keys(req.body);
+  storage.sismember('entities', entityId, function(err, entityExists) {
+    if (!entityExists) {
+      res.status(410).send();
+      return;
+    }
+    var args = [];
+    keys.forEach(key => {
+      args.push(key);
+      args.push(req.body[key]);
+    })
+    const hash = utils.getEntityHash(entityId);
+    storage.hmset(hash, args);
 
-     res.status(200).send();
-   });
- });
+    res.status(200).send();
+  });
+});
 
- /**********************************************************************************
-  * POST
-  */
+/**********************************************************************************
+* POST
+*/
 
 router.post('/send', (req, res) => {
   const fromPlayerId = req.body.playerId;
@@ -92,16 +90,12 @@ router.post('/send', (req, res) => {
 });
 
 /**********************************************************************************
- * SUPPORT FUNCS ...which maybe ought to be separated out into modules that hande specific parts of the business logic...
- */
+* SUPPORT FUNCS ...which maybe ought to be separated out into modules that hande specific parts of the business logic...
+*/
 
 function handleError(res, message){
    console.log(message);
    res.status(500).send(message);
-}
-
-function getEntityHash(entityId) {
-   return 'entityId:' + entityId;
 }
 
 
