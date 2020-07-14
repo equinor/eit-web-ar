@@ -4,6 +4,22 @@ body {
 }
 
 /* GAME */
+#action-text {
+   position:absolute;
+   top:150px;
+   left:0;
+   width: 100%;
+   height: 200px;
+}
+   #action-text p {
+      position: relative;
+      padding: 0 20px;
+      color: #fff;
+      font-size: 24px;
+      text-align: center;
+   }
+
+
 #game_init_container {
    position: absolute;
    bottom:0;
@@ -12,32 +28,32 @@ body {
    max-height: 50%;
    overflow: auto;
  }
-#game_init_container img {
-  width: 100%;
-}
-#player_submit_container {
-  width: 100%;
-  background: #ddd;
-  border: none;
-} 
-#player_id_text {
-  width: 65%;
-  padding: 10px;
-  margin: 10px;
-  border: none;
-  color: #6A49AC;
-  border-radius: 3px;
-}
-#player_id_submit {
- width: 25%;
- float: right;
- padding: 10px;
- margin: 10px;
- border: none;
- background: #6A49AC;
- color: #fff;
- border-radius: 3px;
-}
+   #game_init_container img {
+   width: 100%;
+   }
+   #player_submit_container {
+   width: 100%;
+   background: #ddd;
+   border: none;
+   } 
+   #player_id_text {
+   width: 65%;
+   padding: 10px;
+   margin: 10px;
+   border: none;
+   color: #6A49AC;
+   border-radius: 3px;
+   }
+   #player_id_submit {
+   width: 25%;
+   float: right;
+   padding: 10px;
+   margin: 10px;
+   border: none;
+   background: #6A49AC;
+   color: #fff;
+   border-radius: 3px;
+   }
 
 /*  */
 

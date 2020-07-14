@@ -15,20 +15,6 @@ AFRAME.registerComponent('game', {
     playerName: { type: 'string', default: 'LoserBoi420'}
   },
   init: function () {
-
-    /////////
-    const _this = this;
-    _this.socket = io('http://localhost:3100');
-    
-    _this.socket.on('connect', function(data){
-     console.log('Connected to backend.');
-     console.log(_this.socket);
-    });
-    _this.socket.on('heisann sveisann', function(data){
-     console.log('Recieved event: heisann sveisann');
-    });
-    /////////
-
     const data = this.data;
     this.playerEntities = [0,0,0,0,0,0];
     this.markerList = [];
@@ -59,19 +45,63 @@ AFRAME.registerComponent('game', {
       });
     });
     log.info("init complete")
+
+    // Socket stuff - connection to backend
+    this.socket = io('http://localhost:3100');
+    this.socket.on('connect', function(data){
+      console.log('#GAME: Socket-io: Connected to backend.');
+    });
+    // When backend updates list of entities
+    this.socket.on('entities-updated', function(data) {
+      console.log('#GAME: Recieved event: entities-updated');
+      if (this.playerId == data.playerId) {
+        this.playerEntities = data.entities;
+        this.updateSceneEntities(this.playerEntities);
+      }
+    });
+    // Når en ny player registreres
+    this.socket.on('player-added', function(data) {
+      this.animateText(data.name + " has joined the game", "#c1f588");
+    });
+
+    // Når noen sender en boks
+    this.socket.on('entity-sent', function(data) {
+      this.animateText(data.fromPlayer.name + ' sent box to ' + data.toPlayer.name + '!!', "#ff7161");
+    });
+
+    // Når det er game over
+    this.socket.on('status-change', function(data) {
+      this.animateText(data.status, "#40B7FF", 3000);
+    });
   },
   tick: function () {
-    // If the player is registered, get the new list of entities
-    // if (typeof(this.playerId) == 'number') {
-    //   this.getEntities(this.playerId, this.playerEntities).then((newEntities) => {
-    //     if (newEntities) {
-    //       this.playerEntities = newEntities;
-    //       this.updateSceneEntities(this.playerEntities);
-    //     }
-    //   }).catch((error) => {
-    //     console.log(error);
-    //   });
-    // }
+  },
+  animateText(text, color, delay=500) {
+    // add element to html
+    let paragraph = document.createElement("p");
+    paragraph.innerHTML = text;
+    paragraph.style.color = color;
+    let element = document.getElementById("action-text");
+    element.appendChild(paragraph);
+    
+    // animate element
+    setTimeout(function() {
+      let pos = 0;
+      let op = 1;
+      let fz = 24;
+      let id = setInterval(animate, 10);
+      function animate() {
+        if (pos == 150) {
+          clearInterval(id);
+          paragraph.remove();
+        } else {
+          pos++;
+          paragraph.style.top = -1.5*pos + 'px';
+          paragraph.style.opacity = op - pos/150;
+          paragraph.style.fontSize = fz - 24*pos/150 + 'px';
+        }
+      }
+    }, delay);
   },
   registerPlayer: function (playerName) {
     const regUrl = 'http://localhost:3100/api/player/add';
@@ -103,30 +133,27 @@ AFRAME.registerComponent('game', {
         console.error(error);
       });
   },
-  getEntities: async function (playerId, playerEntities) {
-    const getEntitiesUrl = 'http://localhost:3100/api/entities/compare';
+  getEntities: async function (playerId) {
+    
+    // this.getEntities(this.playerId).then((newEntities) => {
+        //   if (newEntities) {
+        //     this.playerEntities = newEntities;
+        //     this.updateSceneEntities(this.playerEntities);
+        //   }
+        // }).catch((error) => {
+        //   console.log(error);
+        // });
 
-    const payload = {
-      playerId: playerId,
-      entities: playerEntities
-    }
+    const getEntitiesUrl = 'http://localhost:3100/api/entities/';
 
     const response = await axios({
-        method: 'post',
-        url: getEntitiesUrl,
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        data: payload
+        method: 'get',
+        url: getEntitiesUrl + playerId,
     });
     if (response.status == 200) {
-      if (response.data.match == true) {
-        return false
-      } else {
-        return response.data.entities;
-      }
+      return response.data.entities;
     } else {
-      throw '#GAME: Something went wrong when requesting list of entities (not 200 response)'
+      throw '#GAME: Something went wrong when requesting list of entities.'
     }
   },
   updateSceneEntities: function (entities) {
@@ -146,7 +173,6 @@ AFRAME.registerComponent('game', {
         this.markerEntityList[i].components.sound.playSound();
       }
     }
-
   },
   sendEntity: function (playerId, entityId) {
     const sendEntityUrl = 'http://localhost:3100/api/entity/send';
