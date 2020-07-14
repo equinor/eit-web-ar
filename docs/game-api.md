@@ -240,3 +240,9 @@ Get the current overall status of the game.
   "status": "game-over"
 }
 ```
+
+## GET `/game/flushall`
+Flush Redis. Remove all users and entities, restart the game.
+
+### Responses
+#### 200 OK
