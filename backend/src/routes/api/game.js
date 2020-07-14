@@ -51,6 +51,10 @@ router.get('/status', (req, res) => {
   })
 });
 
+router.get('/flushall', (req, res) => {
+  storage.flushall();
+});
+
 
 /**********************************************************************************
 * EXPORT MODULE
