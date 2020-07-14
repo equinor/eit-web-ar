@@ -5,7 +5,7 @@ exports.getEntityHash = function(entityId) {
   return 'entityId:' + entityId;
 }
 
-exports.addEntityToRandomPlayer = function(storage, entityId, fromPlayerId) {
+exports.addEntityToRandomPlayer = function(storage, entityId, fromPlayerId, callback) {
   storage.smembers('playersAvailable', function(err, playersAvailable) {
     // Get random playerId of available players except self
     const myIndex = playersAvailable.indexOf(String(fromPlayerId));
@@ -32,6 +32,8 @@ exports.addEntityToRandomPlayer = function(storage, entityId, fromPlayerId) {
       if (entities.indexOf(0) == -1) {
         storage.srem('playersAvailable', toPlayerId);
       }
+      
+      callback(toPlayerId);
     });
   });
 }

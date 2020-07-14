@@ -7,7 +7,7 @@
 var app = require('../app');
 var debug = require('debug')('backend:api');
 var http = require('http');
-var ioServer = require('socket.io');
+var ioNotConnected = require('../modules/io');
 
 /**
  * Get port from environment and store in Express.
@@ -26,22 +26,8 @@ var server = http.createServer(app);
 * Socket.io
 */
 
-var io = ioServer(server);
-app.set('socketio', io);
-// ws
-console.log('wwwio');
-
-io.on('connection', (socket) => {
-  console.log('io connection');
-  io.emit('heisann sveisann');
-  socket.emit('hei?');
-});
-
-io.on('connect', (socket) => {
-  console.log('io connect');
-  io.emit('heisann sveisann');
-  socket.emit('hei?');
-});
+const io = ioNotConnected(server);
+app.set('io', io);
 
 /**
  * Listen on provided port, on all network interfaces.

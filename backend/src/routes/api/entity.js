@@ -60,6 +60,7 @@ router.put('/:entityId', (req, res) => {
 router.post('/send', (req, res) => {
   const fromPlayerId = req.body.playerId;
   const entityId = req.body.entityId;
+  const io = req.app.get('io');
 
   // Update the entity list for this player
   const fromHash = utils.getPlayerHash(fromPlayerId);
@@ -84,7 +85,16 @@ router.post('/send', (req, res) => {
     storage.sadd('playersAvailable', fromPlayerId);
 
     // Add entity to another player
-    utils.addEntityToRandomPlayer(storage, entityId, fromPlayerId);
+    utils.addEntityToRandomPlayer(storage, entityId, fromPlayerId, function(toPlayerId) {
+      io.emit('entities-updated', {
+        playerId: toPlayerId
+      });
+    });
+    
+    io.emit('entities-updated', {
+      playerId: fromPlayerId
+    });
+    
     res.status(200).send();
   });
 });
