@@ -108,7 +108,8 @@ AFRAME.registerComponent('game', {
     }, delay);
   },
   registerPlayer: function (playerName) {
-    const regUrl = api.BaseUri + '/player/add';
+    const regUrl = api.baseUri + '/player/add';
+    console.log(regUrl);
 
     const payload = {
       name: playerName
@@ -138,7 +139,7 @@ AFRAME.registerComponent('game', {
       });
   },
   getEntities: async function (playerId) {
-    const getEntitiesUrl = api.BaseUri + '/entities/';
+    const getEntitiesUrl = api.baseUri + '/entities/';
 
     const response = await axios({
         method: 'get',
@@ -169,7 +170,7 @@ AFRAME.registerComponent('game', {
     }
   },
   sendEntity: function (playerId, entityId) {
-    const sendEntityUrl = api.BaseUri + '/entity/send';
+    const sendEntityUrl = api.baseUri + '/entity/send';
 
     const payload = {
       playerId: playerId,
