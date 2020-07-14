@@ -76,6 +76,7 @@ router.post('/add', (req, res) => {
     return;
   }
   storage.scard('players', function(err, lastPlayerId) {
+    const io = req.app.get('io');
     var playerId = 1;
     if (lastPlayerId !== null) {
       playerId = lastPlayerId + 1;
@@ -108,6 +109,11 @@ router.post('/add', (req, res) => {
     if (playerId == 2) {
       storage.set('gamestatus', 'running');
     }
+    
+    io.emit('player-added', {
+      playerId: playerId,
+      name: name
+    })
 
     const response = {
       playerId: playerId
