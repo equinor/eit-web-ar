@@ -61,6 +61,8 @@ spec:
           replicas: 1
 
     - name: entrypoint
+      ingressConfiguration:
+        - websocketfriendly
       image: quay.io/pusher/oauth2_proxy:v4.1.0 # see https://pusher.github.io/oauth2_proxy/configuration
       ports:
         - name: http
