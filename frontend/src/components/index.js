@@ -21,3 +21,12 @@ import "./animation-pauser"
 import "./gps-polygon-intersection";
 import "./gps-sound";
 import "./game";
+
+
+import io from 'socket.io-client';
+
+const socket = io('http://localhost:3100');
+
+socket.on('connect', () => {
+  console.log('io connect:)');
+});
