@@ -50,7 +50,7 @@ AFRAME.registerComponent('game', {
     log.info("init complete")
 
     // Socket stuff - connection to backend
-    this.socket = io('http://localhost:3100');
+    this.socket = io(api.baseUri);
     this.socket.on('connect', function(data){
       console.log('#GAME: Socket-io: Connected to backend.');
     });
