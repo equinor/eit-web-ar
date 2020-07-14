@@ -113,6 +113,11 @@ router.post('/add', (req, res) => {
     // Start the game when there are two players
     if (playerId == 2) {
       storage.set('gamestatus', 'running');
+      
+      io.emit('status-change', {
+        status: "running"
+      });
+      
     }
     
     io.emit('player-added', {
