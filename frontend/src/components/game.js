@@ -79,22 +79,20 @@ AFRAME.registerComponent('game', {
       } else if (data.status == 'running') {
         _this.animateText("<strong>Game started - Let's GO!</strong>", "#87ff9f", 3000);
       } else if (data.status == 'game-over') {
-        let winner = _this.getWinner();
-        _this.animateText('<strong>GAME OVER!</strong>\n And the winner is.... \n <strong>' + winner + '</strong>', "#ff4060", 3000);
-
-
+        _this.getWinner((winner) => {
+          _this.animateText('<strong>GAME OVER!</strong>\n And the winner is.... \n <strong>' + winner + '</strong>', "#ff4060", 3000);
+        });
       }
     });
   },
   tick: function () {
   },
-  getWinner: function() {
+  getWinner: function(callback) {
     const getWinnerUrl = api.baseUri + '/game/scores';
 
     axios.get(getWinnerUrl)
       .then((response) => {
         if (response.status == 200) {
-          let scoresArray = [];
           let winner;
           for (const item of response.data.scores) {
             if (item.score == 0) {
@@ -102,7 +100,7 @@ AFRAME.registerComponent('game', {
               break;
             }
           }
-          return winner;
+          callback(winner);
         }
       })
       .catch((error) => {
