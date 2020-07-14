@@ -85,14 +85,16 @@ router.post('/send', (req, res) => {
     storage.sadd('playersAvailable', fromPlayerId);
 
     // Add entity to another player
-    utils.addEntityToRandomPlayer(storage, entityId, fromPlayerId, function(toPlayerId) {
+    utils.addEntityToRandomPlayer(storage, entityId, fromPlayerId, function(toPlayerId, entities) {
       io.emit('entities-updated', {
-        playerId: toPlayerId
+        playerId: toPlayerId,
+        entities: entities
       });
     });
     
     io.emit('entities-updated', {
-      playerId: fromPlayerId
+      playerId: fromPlayerId,
+      entities: entities
     });
     
     res.status(200).send();
