@@ -208,7 +208,10 @@ Get the current scores from all registered players.
 {
     "scores": [
         {
-            "playerId": "1",
+            "player": {
+              "playerId": 3,
+              "name": "JP"
+            },
             "score": -2,
             "entities": [
                 0,
