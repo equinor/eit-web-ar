@@ -43,6 +43,7 @@ AFRAME.registerComponent('game', {
     const entities = document.querySelectorAll('.game-entity');
     entities.forEach(item => {
       item.addEventListener('click', (e) => {
+        alert('clicked box');
         const entityId = parseInt(e.target.dataset.entityId, 10);
         _this.sendEntity(_this.playerId, entityId);
       });
@@ -64,17 +65,17 @@ AFRAME.registerComponent('game', {
     });
     // Når en ny player registreres
     this.socket.on('player-added', function(data) {
-      _this.animateText(data.name + " has joined the game", "#c1f588");
+      _this.animateText('<strong>' + data.name + "</strong> has joined the game", "#c1f588");
     });
 
     // Når noen sender en boks
     this.socket.on('entity-sent', function(data) {
-      _this.animateText(data.fromPlayer.name + ' sent box to ' + data.toPlayer.name + '!!', "#ff7161");
+      _this.animateText('<strong>' + data.fromPlayer.name + '</strong> sent box to <strong>' + data.toPlayer.name + '</strong>!!', "#ff7161");
     });
 
     // Når det er game over
     this.socket.on('status-change', function(data) {
-      _this.animateText(data.status, "#40B7FF", 3000);
+      _this.animateText('<strong>' + data.status + '</strong>', "#40B7FF", 3000);
     });
   },
   tick: function () {
@@ -162,8 +163,6 @@ AFRAME.registerComponent('game', {
         this.markerEntityList[i].setAttribute('data-entity-id', entities[i]);
         this.markerEntityList[i].classList.add('cursor-interactive');
         // SOUND
-        console.log(this.markerEntityList[i]);
-        console.log(this.markerEntityList[i].sound);
         this.markerEntityList[i].components.sound.stopSound();
         this.markerEntityList[i].components.sound.playSound();
       }
