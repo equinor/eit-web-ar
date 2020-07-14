@@ -1,5 +1,5 @@
 const api = {
-  baseUri: 'https://' + window.location.hostname + ':3100/api'
+  baseUri: 'https://' + window.location.hostname + '/api'
 };
 
 export default api;
