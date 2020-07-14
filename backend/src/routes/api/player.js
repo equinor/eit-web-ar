@@ -76,6 +76,7 @@ router.post('/add', (req, res) => {
     return;
   }
   storage.scard('players', function(err, lastPlayerId) {
+    const io = req.app.get('io');
     var playerId = 1;
     if (lastPlayerId !== null) {
       playerId = lastPlayerId + 1;
@@ -102,12 +103,27 @@ router.post('/add', (req, res) => {
       }
       entities = utils.shuffle(entities);
       storage.hmset(hash, 'entities', JSON.stringify(entities));
+      
+      io.emit('entities-updated', {
+        playerId: playerId,
+        entities: entities
+      });
     });
 
     // Start the game when there are two players
     if (playerId == 2) {
       storage.set('gamestatus', 'running');
+      
+      io.emit('status-change', {
+        status: "running"
+      });
+      
     }
+    
+    io.emit('player-added', {
+      playerId: playerId,
+      name: name
+    });
 
     const response = {
       playerId: playerId
