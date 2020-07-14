@@ -5,6 +5,7 @@ import * as utils from "../modules/utils";
 const log = utils.getLogger("components:game");
 import axios from 'axios';
 import io from 'socket.io-client';
+import api from '../modules/api';
 
 // TODO:
 // * Check if the new array is different (in backend), when updating entitites in tick()
@@ -15,6 +16,7 @@ AFRAME.registerComponent('game', {
     playerName: { type: 'string', default: 'LoserBoi420'}
   },
   init: function () {
+    console.log(api.baseUri);
     const _this = this;
     const data = this.data;
     this.playerEntities = [0,0,0,0,0,0];
@@ -106,7 +108,8 @@ AFRAME.registerComponent('game', {
     }, delay);
   },
   registerPlayer: function (playerName) {
-    const regUrl = 'http://localhost:3100/api/player/add';
+    const regUrl = api.baseUri + '/player/add';
+    console.log(regUrl);
 
     const payload = {
       name: playerName
@@ -136,7 +139,7 @@ AFRAME.registerComponent('game', {
       });
   },
   getEntities: async function (playerId) {
-    const getEntitiesUrl = 'http://localhost:3100/api/entities/';
+    const getEntitiesUrl = api.baseUri + '/entities/';
 
     const response = await axios({
         method: 'get',
@@ -167,7 +170,7 @@ AFRAME.registerComponent('game', {
     }
   },
   sendEntity: function (playerId, entityId) {
-    const sendEntityUrl = 'http://localhost:3100/api/entity/send';
+    const sendEntityUrl = api.baseUri + '/entity/send';
 
     const payload = {
       playerId: playerId,
