@@ -23,19 +23,33 @@ app.set('port', port);
 var server = http.createServer(app);
 
 /**
+* Socket.io
+*/
+
+var io = ioServer(server);
+app.set('socketio', io);
+// ws
+console.log('wwwio');
+
+io.on('connection', (socket) => {
+  console.log('io connection');
+  io.emit('heisann sveisann');
+  socket.emit('hei?');
+});
+
+io.on('connect', (socket) => {
+  console.log('io connect');
+  io.emit('heisann sveisann');
+  socket.emit('hei?');
+});
+
+/**
  * Listen on provided port, on all network interfaces.
  */
 
 server.listen(port);
 server.on('error', onError);
 server.on('listening', onListening);
-
-/**
-* Socket.io
-*/
-
-var io = ioServer(server);
-app.set('socketio', io);
 
 /**
  * Normalize a port into a number, string, or false.
