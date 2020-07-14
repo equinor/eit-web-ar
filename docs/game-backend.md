@@ -40,3 +40,14 @@ Stores information about each entity. An entry can look like the following:
 ```redis
 entity:9 color #f00 gltf penguin
 ```
+
+## Websocket events
+
+### `entities-updated`
+Sent from the server to the client when an entitiy list is updated. The data object includes the id of the player who has an updated entity list.
+
+```json
+{
+  "playerId": 3
+}
+```
