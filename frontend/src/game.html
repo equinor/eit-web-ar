@@ -18,25 +18,28 @@
       >
 
       <a-assets>
+        <a-asset>
+          <audio id="recievedEntitySound" src="./audio/markerFound.mp3" preload="auto"></audio>
+        </a-asset>
       </a-assets>
 
       <a-marker class="marker" type='barcode' value='0' id="m-0">
-        <a-box class="cursor-interactive game-entity" color="green" data-entity-id="0"></a-box>
+        <a-box class="cursor-interactive game-entity" color="green" data-entity-id="0" sound="src: #recievedEntitySound" autoplay="false"></a-box>
       </a-marker>
       <a-marker class="marker" type='barcode' value='1' id="m-1">
-        <a-box class="cursor-interactive game-entity" color="green" data-entity-id="0"></a-box>
+        <a-box class="cursor-interactive game-entity" color="green" data-entity-id="0" sound="src: #recievedEntitySound" autoplay="false"></a-box>
       </a-marker>
       <a-marker class="marker" type='barcode' value='2' id="m-2">
-        <a-box class="cursor-interactive game-entity" color="green" data-entity-id="0"></a-box>
+        <a-box class="cursor-interactive game-entity" color="green" data-entity-id="0" sound="src: #recievedEntitySound" autoplay="false"></a-box>
       </a-marker>
       <a-marker class="marker" type='barcode' value='3' id="m-3">
-        <a-box class="cursor-interactive game-entity" color="green" data-entity-id="0"></a-box>
+        <a-box class="cursor-interactive game-entity" color="green" data-entity-id="0" sound="src: #recievedEntitySound" autoplay="false"></a-box>
       </a-marker>
       <a-marker class="marker" type='barcode' value='4' id="m-4">
-        <a-box class="cursor-interactive game-entity" color="green" data-entity-id="0"></a-box>
+        <a-box class="cursor-interactive game-entity" color="green" data-entity-id="0" sound="src: #recievedEntitySound" autoplay="false"></a-box>
       </a-marker>
       <a-marker class="marker" type='barcode' value='5' id="m-5">
-        <a-box class="cursor-interactive game-entity" color="green" data-entity-id="0"></a-box>
+        <a-box class="cursor-interactive game-entity" color="green" data-entity-id="0" sound="src: #recievedEntitySound" autoplay="false"></a-box>
       </a-marker>
 
       <a-entity camera>
@@ -49,6 +52,11 @@
       </a-entity>
 
     </a-scene>
+    
+    <div id="action-text">
+      <!-- text added through javascript -->
+    </div>
+
     <div id="game_init_container">
       <div id="player_submit_container">
         <input type="text" name="playerId" id="player_id_text" placeholder="Your nickname..">

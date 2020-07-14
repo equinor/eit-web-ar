@@ -6,7 +6,7 @@ var cors = require('cors');
 
 // origin=null is dirty workaround for running XMLHttpRequest in chrome dev tools
 var corsOptions = {
-    origin: ['null','http://localhost', 'http://frontend'],
+    origin: ['null','http://localhost', 'http://frontend', 'https://localhost:3000'],
     methods: ['GET', 'PUT', 'POST'],
     optionsSuccessStatus: 200
   };
