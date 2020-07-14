@@ -16,11 +16,10 @@ AFRAME.registerComponent('game', {
     playerName: { type: 'string', default: 'LoserBoi420'}
   },
   init: function () {
-    /*
-    
-    ???
-    
-    */
+    this.socket = io('http://localhost:3100/socket');
+    this.socket.on('heisann sveisann', function(data){
+     alert('Connected to backend. Recieved event: heisann sveisann');
+    });
 
     let data = this.data;
     this.playerEntities = [];
