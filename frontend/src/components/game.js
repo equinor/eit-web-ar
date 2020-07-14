@@ -44,7 +44,7 @@ AFRAME.registerComponent('game', {
     entities.forEach(item => {
       item.addEventListener('click', (e) => {
         const entityId = parseInt(e.target.dataset.entityId, 10);
-        this.sendEntity(this.playerId, entityId);
+        _this.sendEntity(_this.playerId, entityId);
       });
     });
     log.info("init complete")
@@ -57,9 +57,9 @@ AFRAME.registerComponent('game', {
     // When backend updates list of entities
     this.socket.on('entities-updated', function(data) {
       console.log('#GAME: Recieved event: entities-updated');
-      if (this.playerId == data.playerId) {
-        this.playerEntities = data.entities;
-        this.updateSceneEntities(this.playerEntities);
+      if (_this.playerId == data.playerId) {
+        _this.playerEntities = data.entities;
+        _this.updateSceneEntities(_this.playerEntities);
       }
     });
     // Når en ny player registreres
