@@ -17,14 +17,10 @@ AFRAME.registerComponent('game', {
   },
   init: function () {
     /*
-    this.socket = io('http://localhost:3100');
-    this.socket.on('connect', function(data){
-     alert('Connected to backend. Recieved event: heisann sveisann');
-     console.log(this.socket);
-    });
-    this.socket.on('connection', function(data){
-     alert('Connected to backend. Recieved event: heisann sveisann');
-   });*/
+    
+    ???
+    
+    */
 
     let data = this.data;
     this.playerEntities = [];
