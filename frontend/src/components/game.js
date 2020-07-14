@@ -69,15 +69,45 @@ AFRAME.registerComponent('game', {
 
     // Når noen sender en boks
     this.socket.on('entity-sent', function(data) {
-      _this.animateText('<strong>' + data.fromPlayer.name + '</strong> sent box to <strong>' + data.toPlayer.name + '</strong>!!', "#ff7161");
+      _this.animateText('<strong>' + data.fromPlayer.name + '</strong> sent box to <strong>' + data.toPlayer.name + '</strong>!!', "#ff87f9");
     });
 
     // Når det er game over
     this.socket.on('status-change', function(data) {
-      _this.animateText('<strong>' + data.status + '</strong>', "#40B7FF", 3000);
+      if (data.status == 'not-started') {
+        _this.animateText("<strong>Standby - Game not started</strong>", "#87ebff", 3000);
+      } else if (data.status == 'running') {
+        _this.animateText("<strong>Game started - Let's GO!</strong>", "#87ff9f", 3000);
+      } else if (data.status == 'game-over') {
+        let winner = _this.getWinner();
+        _this.animateText('<strong>GAME OVER!</strong>\n And the winner is.... \n <strong>' + winner + '</strong>', "#ff4060", 3000);
+
+
+      }
     });
   },
   tick: function () {
+  },
+  getWinner: function() {
+    const getWinnerUrl = api.baseUri + '/game/scores';
+
+    axios.get(getWinnerUrl)
+      .then((response) => {
+        if (response.status == 200) {
+          let scoresArray = [];
+          let winner;
+          for (const item of response.data.scores) {
+            if (item.score == 0) {
+              winner = item.player.name;
+              break;
+            }
+          }
+          return winner;
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   },
   animateText: function (text, color, delay=500) {
     // add element to html
