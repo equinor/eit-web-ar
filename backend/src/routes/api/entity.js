@@ -83,6 +83,11 @@ router.post('/send', (req, res) => {
     storage.hmset(fromHash, 'entities', JSON.stringify(entities));
     
     storage.sadd('playersAvailable', fromPlayerId);
+    
+    io.emit('entities-updated', {
+      playerId: fromPlayerId,
+      entities: entities
+    });
 
     // Add entity to another player
     utils.addEntityToRandomPlayer(storage, entityId, fromPlayerId, function(toPlayerId, entities) {
@@ -90,11 +95,33 @@ router.post('/send', (req, res) => {
         playerId: toPlayerId,
         entities: entities
       });
-    });
-    
-    io.emit('entities-updated', {
-      playerId: fromPlayerId,
-      entities: entities
+      
+      // Send entity-sent websocket event
+      const multi = [
+        [
+          'hget',
+          utils.getPlayerHash(fromPlayerId),
+          'name'
+        ],
+        [
+          'hget',
+          utils.getPlayerHash(toPlayerId),
+          'name'
+        ]
+      ];
+      storage.multi(multi).exec(function(err, playerNames) {
+        io.emit('entity-sent', {
+          fromPlayer: {
+            playerId: fromPlayerId,
+            name: playerNames[0]
+          },
+          toPlayer: {
+            playerId: toPlayerId,
+            name: playerNames[1]
+          }
+        })
+      });
+      
     });
     
     res.status(200).send();

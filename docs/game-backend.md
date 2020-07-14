@@ -64,8 +64,14 @@ Sent from the server to the client when an entitiy list is created or updated.
 An entity has been sent between players.
 ```json
 {
-  "fromPlayerId": 3,
-  "toPlayerId": 1
+  "fromPlayer": {
+    "playerId": 3,
+    "name": "Odd-Sofie"
+  },
+  "toPlayer": {
+    "playerId": 3,
+    "name": "Kim"
+  }
 }
 ```
 
