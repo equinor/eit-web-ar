@@ -33,7 +33,7 @@ exports.addEntityToRandomPlayer = function(storage, entityId, fromPlayerId, call
         storage.srem('playersAvailable', toPlayerId);
       }
       
-      callback(toPlayerId);
+      callback(toPlayerId, entities);
     });
   });
 }
