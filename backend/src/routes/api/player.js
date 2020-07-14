@@ -103,6 +103,11 @@ router.post('/add', (req, res) => {
       }
       entities = utils.shuffle(entities);
       storage.hmset(hash, 'entities', JSON.stringify(entities));
+      
+      io.emit('entities-updated', {
+        playerId: playerId,
+        entities: entities
+      });
     });
 
     // Start the game when there are two players
@@ -113,7 +118,7 @@ router.post('/add', (req, res) => {
     io.emit('player-added', {
       playerId: playerId,
       name: name
-    })
+    });
 
     const response = {
       playerId: playerId
