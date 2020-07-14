@@ -15,6 +15,7 @@ AFRAME.registerComponent('game', {
     playerName: { type: 'string', default: 'LoserBoi420'}
   },
   init: function () {
+    const _this = this;
     const data = this.data;
     this.playerEntities = [0,0,0,0,0,0];
     this.markerList = [];
@@ -61,22 +62,22 @@ AFRAME.registerComponent('game', {
     });
     // Når en ny player registreres
     this.socket.on('player-added', function(data) {
-      this.animateText(data.name + " has joined the game", "#c1f588");
+      _this.animateText(data.name + " has joined the game", "#c1f588");
     });
 
     // Når noen sender en boks
     this.socket.on('entity-sent', function(data) {
-      this.animateText(data.fromPlayer.name + ' sent box to ' + data.toPlayer.name + '!!', "#ff7161");
+      _this.animateText(data.fromPlayer.name + ' sent box to ' + data.toPlayer.name + '!!', "#ff7161");
     });
 
     // Når det er game over
     this.socket.on('status-change', function(data) {
-      this.animateText(data.status, "#40B7FF", 3000);
+      _this.animateText(data.status, "#40B7FF", 3000);
     });
   },
   tick: function () {
   },
-  animateText(text, color, delay=500) {
+  animateText: function (text, color, delay=500) {
     // add element to html
     let paragraph = document.createElement("p");
     paragraph.innerHTML = text;
@@ -92,6 +93,7 @@ AFRAME.registerComponent('game', {
       let id = setInterval(animate, 10);
       function animate() {
         if (pos == 150) {
+          // remove element
           clearInterval(id);
           paragraph.remove();
         } else {
