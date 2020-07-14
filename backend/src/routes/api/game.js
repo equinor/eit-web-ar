@@ -14,19 +14,24 @@ router.get('/scores', (req, res) => {
     var multi = [];
     for (var i = 0; i < players.length; i++) {
       multi.push([
-        'hget',
+        'hmget',
         utils.getPlayerHash(players[i]),
+        'name',
         'entities'
       ]);
     }
-    storage.multi(multi).exec(function(err, entitiesFromAll) {
+    storage.multi(multi).exec(function(err, playerInfoFromAll) {
       var scores = [];
       for (var i = 0; i < players.length; i++) {
         var playerId = players[i];
-        var entities = JSON.parse(entitiesFromAll[i]);
+        var name = playerInfoFromAll[i][0];
+        var entities = JSON.parse(playerInfoFromAll[i][1]);
         var score = utils.getScore(entities);
         scores.push({
-          playerId: playerId,
+          player: {
+            playerId: playerId,
+            name: name
+          },
           score:    score,
           entities: entities
         })
