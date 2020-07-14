@@ -92,6 +92,7 @@ AFRAME.registerComponent('game', {
       let id = setInterval(animate, 10);
       function animate() {
         if (pos == 150) {
+          // remove element
           clearInterval(id);
           paragraph.remove();
         } else {
