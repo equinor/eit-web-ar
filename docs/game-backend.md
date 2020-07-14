@@ -44,10 +44,45 @@ entity:9 color #f00 gltf penguin
 ## Websocket events
 
 ### `entities-updated`
-Sent from the server to the client when an entitiy list is updated. The data object includes the id of the player who has an updated entity list.
+Sent from the server to the client when an entitiy list is created or updated.
 
 ```json
 {
-  "playerId": 3
+  "playerId": 3,
+  "entities": [
+    4,
+    2,
+    0,
+    1,
+    0,
+    7
+  ]
 }
 ```
+
+### `entity-sent`
+An entity has been sent between players.
+```json
+{
+  "fromPlayerId": 3,
+  "toPlayerId": 1
+}
+```
+
+### `player-added`
+A new player is registered in The Game.
+```json
+{
+  "playerId": 4,
+  "name": "Skandiamannen"
+}
+```
+
+### `status-change`
+Woach, the game status is changed! `status` can be "not-started", "running", or "game-over".
+```json
+{
+  "status": "game-over"
+}
+```
+
