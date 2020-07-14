@@ -43,7 +43,6 @@ AFRAME.registerComponent('game', {
     const entities = document.querySelectorAll('.game-entity');
     entities.forEach(item => {
       item.addEventListener('click', (e) => {
-        alert('clicked box');
         const entityId = parseInt(e.target.dataset.entityId, 10);
         _this.sendEntity(_this.playerId, entityId);
       });
