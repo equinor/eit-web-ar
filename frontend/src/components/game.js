@@ -134,16 +134,6 @@ AFRAME.registerComponent('game', {
       });
   },
   getEntities: async function (playerId) {
-    
-    // this.getEntities(this.playerId).then((newEntities) => {
-        //   if (newEntities) {
-        //     this.playerEntities = newEntities;
-        //     this.updateSceneEntities(this.playerEntities);
-        //   }
-        // }).catch((error) => {
-        //   console.log(error);
-        // });
-
     const getEntitiesUrl = 'http://localhost:3100/api/entities/';
 
     const response = await axios({
