@@ -4,6 +4,7 @@ var path = require('path');
 var storage = require('../../modules/storage');
 
 var utils = require('./utils');
+var emitters = require('./emitters');
 
 /**********************************************************************************
 * GET
@@ -61,81 +62,34 @@ router.post('/send', (req, res) => {
   const entityId = req.body.entityId;
   const io = req.app.get('io');
 
-  // Update the entity list for this player
   const fromHash = utils.getPlayerHash(fromPlayerId);
   storage.hget(fromHash, 'entities', function(err, entities) {
-    // Return if user not found
     if (entities === null) {
       res.status(410).send();
       return;
     }
     entities = JSON.parse(entities);
     const entityIndex = entities.indexOf(entityId);
-    // Return if entity not found on user
     if (entityIndex == -1) {
       res.status(409).send();
       return;
     }
 
-    // Remove entity from player
     entities[entityIndex] = 0;
-    storage.hmset(fromHash, 'entities', JSON.stringify(entities));
+    updatePlayerEntities(fromPlayerId, entities);
+    utils.makePlayerAvailable(fromPlayerId);
+    emitters.emitEntitiesUpdated(io, fromPlayerId, entities);
     
-    storage.sadd('playersAvailable', fromPlayerId);
-    
-    io.emit('entities-updated', {
-      playerId: fromPlayerId,
-      entities: entities
-    });
-    
-    // Game over if the sending player doesn't have any entities left
-    var gameOver = true;
-    console.log(entities);
-    for (var j = 0; j < entities.length; j++) {
-      if (entities[j] != 0) {
-        gameOver = false;
-        break;
-      }
-    }
-    if (gameOver) {
-      io.emit('status-change', {
-        status: 'game-over'
-      });
+    if (didPlayerWin(playerId, entities)) {
+      emitters.emitGameOver(io);
     }
 
-    // Add entity to another player
     utils.addEntityToRandomPlayer(storage, entityId, fromPlayerId, function(toPlayerId, entities) {
-      io.emit('entities-updated', {
-        playerId: toPlayerId,
-        entities: entities
-      });
-      
-      // Send entity-sent websocket event
-      const multi = [
-        [
-          'hget',
-          utils.getPlayerHash(fromPlayerId),
-          'name'
-        ],
-        [
-          'hget',
-          utils.getPlayerHash(toPlayerId),
-          'name'
-        ]
-      ];
-      storage.multi(multi).exec(function(err, playerNames) {
-        io.emit('entity-sent', {
-          fromPlayer: {
-            playerId: fromPlayerId,
-            name: playerNames[0]
-          },
-          toPlayer: {
-            playerId: toPlayerId,
-            name: playerNames[1]
-          }
-        })
-      });
-      
+      if (entities.indexOf(0) == -1) {
+        utils.makePlayerUnavailable(toPlayerId);
+      }
+      emitters.emitEntitiesUpdated(io, toPlayerId, entities);
+      emitters.emitEntitySent(io, fromPlayerId, toPlayerId, entityId);
     });
     
     res.status(200).send();
@@ -151,6 +105,48 @@ function handleError(res, message){
    res.status(500).send(message);
 }
 
+function didPlayerWin(playerId, entities) {
+  var playerWon = true;
+  for (var i = 0; i < entities.length; i++) {
+    if (entities[i] != 0) {
+      playerWon = false;
+      break;
+    }
+  }
+  return playerWon;
+}
+
+function addEntityToRandomPlayer = function(entityId, fromPlayerId, callback) {
+  storage.smembers('playersAvailable', function(err, playersAvailable) {
+    // Get random playerId of available players except self
+    const myIndex = playersAvailable.indexOf(String(fromPlayerId));
+    playersAvailable.splice(myIndex, 1);
+    const toPlayerId = playersAvailable[Math.floor(Math.random()*playersAvailable.length)];
+    const toHash = utils.getPlayerHash(toPlayerId);
+
+    // Insert entity into random empty space on the receiving player
+    storage.hmget(toHash, 'entities', function(err, entities) {
+      entities = JSON.parse(entities);
+      var spaces = [];
+      for (var i = 0; i < entities.length; i++) {
+        if (entities[i] == 0) {
+          spaces.push(i);
+        }
+      }
+      spaces = utils.shuffle(spaces);
+      const space = spaces[0];
+      entities[space] = entityId;
+
+      storage.hmset(toHash, 'entities', JSON.stringify(entities));
+      
+      callback(toPlayerId, entities);
+    });
+  });
+}
+
+function updatePlayerEntities(playerId, entities) {
+  storage.hmset(utils.getPlayerHash(playerId), 'entities', JSON.stringify(entities));
+}
 
 /**********************************************************************************
 * EXPORT MODULE

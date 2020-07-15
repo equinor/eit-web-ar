@@ -74,7 +74,7 @@ router.post('/add', (req, res) => {
     const io = req.app.get('io');
     var playerId = getNextPlayerId(lastPlayerId);
     addPlayer(playerId, name);
-    makePlayerAvailable(playerId);
+    utils.makePlayerAvailable(playerId);
     
     createEntityList(function(entities) {
       addEntitiesToPlayer(playerId, entities);
@@ -112,10 +112,6 @@ function addPlayer(playerId, name) {
   const hash = utils.getPlayerHash(playerId);
   storage.hmset(hash, 'name', name);
   storage.sadd('players', playerId);
-}
-
-function makePlayerAvailable(playerId) {
-  storage.sadd('playersAvailable', playerId);
 }
 
 function createEntityList(callback) {
