@@ -74,26 +74,31 @@ router.post('/send', (req, res) => {
       res.status(409).send();
       return;
     }
-
-    entities[entityIndex] = 0;
-    updatePlayerEntities(fromPlayerId, entities);
-    utils.makePlayerAvailable(fromPlayerId);
-    emitters.emitEntitiesUpdated(io, fromPlayerId, entities);
-    
-    if (isEntitiesEmpty(entities)) {
-      stopGame();
-      emitters.emitGameOver(io);
-    }
-
-    addEntityToRandomPlayer(entityId, fromPlayerId, function(toPlayerId, entities) {
-      if (entities.indexOf(0) == -1) {
-        utils.makePlayerUnavailable(toPlayerId);
+    anyOtherPlayersAvailable(fromPlayerId, function(anyOthersAvailable) {
+      if (!anyOthersAvailable) {
+        res.status(400).send();
+        return;
       }
-      emitters.emitEntitiesUpdated(io, toPlayerId, entities);
-      emitters.emitEntitySent(io, fromPlayerId, toPlayerId, entityId);
+      entities[entityIndex] = 0;
+      updatePlayerEntities(fromPlayerId, entities);
+      utils.makePlayerAvailable(fromPlayerId);
+      emitters.emitEntitiesUpdated(io, fromPlayerId, entities);
+      
+      if (isEntitiesEmpty(entities)) {
+        stopGame();
+        emitters.emitGameOver(io);
+      }
+
+      addEntityToRandomPlayer(entityId, fromPlayerId, function(toPlayerId, entities) {
+        if (entities.indexOf(0) == -1) {
+          utils.makePlayerUnavailable(toPlayerId);
+        }
+        emitters.emitEntitiesUpdated(io, toPlayerId, entities);
+        emitters.emitEntitySent(io, fromPlayerId, toPlayerId, entityId);
+      });
+      
+      res.status(200).send();
     });
-    
-    res.status(200).send();
   });
 });
 
@@ -119,7 +124,9 @@ function addEntityToRandomPlayer(entityId, fromPlayerId, callback) {
   storage.smembers('playersAvailable', function(err, playersAvailable) {
     // Get random playerId of available players except self
     const myIndex = playersAvailable.indexOf(String(fromPlayerId));
-    playersAvailable.splice(myIndex, 1);
+    if (myIndex != -1) {
+      playersAvailable.splice(myIndex, 1);
+    }
     const toPlayerId = playersAvailable[Math.floor(Math.random()*playersAvailable.length)];
     const toHash = utils.getPlayerHash(toPlayerId);
 
@@ -149,6 +156,18 @@ function updatePlayerEntities(playerId, entities) {
 
 function stopGame() {
   storage.set('gamestatus', 'game-over');
+}
+
+function anyOtherPlayersAvailable(playerId, callback) {
+  storage.smembers('playersAvailable', function(err, playersAvailable) {
+    const myIndex = playersAvailable.indexOf(String(playerId));
+    if (myIndex != -1) {
+      playersAvailable.splice(myIndex, 1);
+    }
+    
+    var anyOthersAvailable = (playersAvailable.length > 0);
+    callback(anyOthersAvailable);
+  });
 }
 
 /**********************************************************************************
