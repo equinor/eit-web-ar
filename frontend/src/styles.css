@@ -11,8 +11,8 @@ body {
    width: 100%;
 }
    #action-text p {
-      position: relative;
-      padding: 0 20px;
+      position: absolute;
+      width: 100%;
       color: #fff;
       font-size: 24px;
       text-align: center;
