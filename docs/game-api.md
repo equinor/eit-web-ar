@@ -122,6 +122,8 @@ The entity was removed from you and assigned to another player.
 
 Might be implemented: Returning the player who got the entity.
 
+#### 400 No players available to receive the entity
+
 #### 409 Can't send this entity
 You don't own the specified entity, or the entity does not exist.
 
@@ -235,7 +237,7 @@ Get the current overall status of the game.
 
 `status` can be one of the following:
 * `not-started`
-* `running`
+* `started`
 * `game-over`
 
 ```json

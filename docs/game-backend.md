@@ -85,7 +85,7 @@ A new player is registered in The Game.
 ```
 
 ### `status-change`
-Woach, the game status is changed! `status` can be "not-started", "running", or "game-over".
+Woach, the game status is changed! `status` can be "not-started", "started", or "game-over".
 ```json
 {
   "status": "game-over"

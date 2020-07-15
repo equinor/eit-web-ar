@@ -10,37 +10,26 @@ var utils = require('./utils');
 */
 
 router.get('/scores', (req, res) => {
-  storage.smembers('players', function(err, players) {
-    var multi = [];
-    for (var i = 0; i < players.length; i++) {
-      multi.push([
-        'hmget',
-        utils.getPlayerHash(players[i]),
-        'name',
-        'entities'
-      ]);
+  getInfoFromAllPlayers(function(playerInfoFromAll) {
+    var scores = [];
+    for (var i = 0; i < playerInfoFromAll.length; i++) {
+      var name = playerInfoFromAll[i][0];
+      var entities = JSON.parse(playerInfoFromAll[i][1]);
+      var playerId = playerInfoFromAll[i][2];
+      var score = utils.getScore(entities);
+      scores.push({
+        player: {
+          playerId: playerId,
+          name: name
+        },
+        score:    score,
+        entities: entities
+      })
     }
-    storage.multi(multi).exec(function(err, playerInfoFromAll) {
-      var scores = [];
-      for (var i = 0; i < players.length; i++) {
-        var playerId = players[i];
-        var name = playerInfoFromAll[i][0];
-        var entities = JSON.parse(playerInfoFromAll[i][1]);
-        var score = utils.getScore(entities);
-        scores.push({
-          player: {
-            playerId: playerId,
-            name: name
-          },
-          score:    score,
-          entities: entities
-        })
-      }
-      const response = {
-        scores: scores
-      };
-      res.status(200).send(response);
-    })
+    const response = {
+      scores: scores
+    };
+    res.status(200).send(response);
   });
 });
 
@@ -61,6 +50,30 @@ router.get('/flushall', (req, res) => {
   res.status(200).send();
 });
 
+/*
+* Helpers
+*/
+
+
+function getInfoFromAllPlayers(callback) {
+  storage.smembers('players', function(err, players) {
+    var multi = [];
+    for (var i = 0; i < players.length; i++) {
+      multi.push([
+        'hmget',
+        utils.getPlayerHash(players[i]),
+        'name',
+        'entities'
+      ]);
+    }
+    storage.multi(multi).exec(function(err, playerInfoFromAll) {
+      for (var i = 0; i < playerInfoFromAll.length; i++) {
+        playerInfoFromAll[i].push(players[i]);
+      }
+      callback(playerInfoFromAll);
+    });
+  });
+}
 
 /**********************************************************************************
 * EXPORT MODULE
