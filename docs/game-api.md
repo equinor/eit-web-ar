@@ -235,7 +235,7 @@ Get the current overall status of the game.
 
 `status` can be one of the following:
 * `not-started`
-* `running`
+* `started`
 * `game-over`
 
 ```json

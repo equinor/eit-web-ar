@@ -139,7 +139,7 @@ function addEntitiesToPlayer(playerId, entities) {
 }
 
 function startGame() {
-  storage.set('gamestatus', 'running');
+  storage.set('gamestatus', 'started');
 }
 
 /**********************************************************************************

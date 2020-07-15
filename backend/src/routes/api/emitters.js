@@ -19,7 +19,7 @@ module.exports = {
 
   emitGameStarted: function(io) {
     io.emit('status-change', {
-      status: "running"
+      status: "started"
     });
   },
 

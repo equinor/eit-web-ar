@@ -76,7 +76,7 @@ AFRAME.registerComponent('game', {
     this.socket.on('status-change', function(data) {
       if (data.status == 'not-started') {
         _this.animateText("<strong>Standby - Game not started</strong>", "#87ebff", 3000);
-      } else if (data.status == 'running') {
+      } else if (data.status == 'started') {
         _this.animateText("<strong>Game started - Let's GO!</strong>", "#87ff9f", 3000);
       } else if (data.status == 'game-over') {
         _this.getWinner((winner) => {
