@@ -81,6 +81,7 @@ router.post('/send', (req, res) => {
     emitters.emitEntitiesUpdated(io, fromPlayerId, entities);
     
     if (isEntitiesEmpty(entities)) {
+      stopGame();
       emitters.emitGameOver(io);
     }
 
@@ -144,6 +145,10 @@ function addEntityToRandomPlayer(entityId, fromPlayerId, callback) {
 
 function updatePlayerEntities(playerId, entities) {
   storage.hmset(utils.getPlayerHash(playerId), 'entities', JSON.stringify(entities));
+}
+
+function stopGame() {
+  storage.set('gamestatus', 'game-over');
 }
 
 /**********************************************************************************
