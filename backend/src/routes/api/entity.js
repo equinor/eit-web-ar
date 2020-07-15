@@ -88,6 +88,21 @@ router.post('/send', (req, res) => {
       playerId: fromPlayerId,
       entities: entities
     });
+    
+    // Game over if the sending player doesn't have any entities left
+    var gameOver = true;
+    console.log(entities);
+    for (var j = 0; j < entities.length; j++) {
+      if (entities[j] != 0) {
+        gameOver = false;
+        break;
+      }
+    }
+    if (gameOver) {
+      io.emit('status-change', {
+        status: 'game-over'
+      });
+    }
 
     // Add entity to another player
     utils.addEntityToRandomPlayer(storage, entityId, fromPlayerId, function(toPlayerId, entities) {
