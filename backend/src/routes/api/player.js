@@ -78,15 +78,15 @@ router.post('/add', (req, res) => {
     
     createEntityList(function(entities) {
       addEntitiesToPlayer(playerId, entities);
-      emitEntitiesUpdated(io, playerId, entities);
+      emitters.emitEntitiesUpdated(io, playerId, entities);
     });
     
-    emitPlayerAdded(io, playerId, name);
+    emitters.emitPlayerAdded(io, playerId, name);
 
     // Start the game when there are two players
     if (playerId == 2) {
       startGame();
-      emitGameStarted(io);
+      emitters.emitGameStarted(io);
     }
     
     const response = {
