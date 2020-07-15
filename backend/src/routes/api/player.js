@@ -3,13 +3,8 @@ var router = express.Router();
 var path = require('path');
 var storage = require('../../modules/storage');
 
+var game = require('../../modules/game');
 var utils = require('./utils');
-
-const numberOfEntities = 3;
-const numberOfMarkers = 6;
-if (numberOfMarkers < numberOfEntities) {
-  numberOfMarkers = numberOfEntities;
-}
 
 /**********************************************************************************
 * GET
@@ -93,12 +88,12 @@ router.post('/add', (req, res) => {
         entityCount = 0;
       }
       var entities = [];
-      for (var entityId = entityCount + 1; entityId < entityCount + numberOfEntities + 1; entityId++) {
+      for (var entityId = entityCount + 1; entityId < entityCount + game.numberOfEntities + 1; entityId++) {
         entities.push(entityId);
       }
       storage.sadd('entities', entities);
 
-      for (var i = entities.length; i < numberOfMarkers; i++) {
+      for (var i = entities.length; i < game.numberOfMarkers; i++) {
         entities.push(0);
       }
       entities = utils.shuffle(entities);
