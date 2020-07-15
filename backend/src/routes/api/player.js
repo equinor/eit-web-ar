@@ -5,6 +5,7 @@ var storage = require('../../modules/storage');
 
 var game = require('../../modules/game');
 var utils = require('./utils');
+var emitters = require('./emitters');
 
 /**********************************************************************************
 * GET
@@ -77,15 +78,15 @@ router.post('/add', (req, res) => {
     
     createEntityList(function(entities) {
       addEntitiesToPlayer(playerId, entities);
-      emitEntitiesUpdated(playerId, entities);
+      emitEntitiesUpdated(io, playerId, entities);
     });
     
-    emitPlayerAdded(playerId, name);
+    emitPlayerAdded(io, playerId, name);
 
     // Start the game when there are two players
     if (playerId == 2) {
       startGame();
-      emitGameStarted();
+      emitGameStarted(io);
     }
     
     const response = {
@@ -143,26 +144,6 @@ function addEntitiesToPlayer(playerId, entities) {
 
 function startGame() {
   storage.set('gamestatus', 'running');
-}
-
-function emitEntitiesUpdated(playerId, entities) {
-  io.emit('entities-updated', {
-    playerId: playerId,
-    entities: entities
-  });
-});
-
-function emitPlayerAdded(playerId, name) {
-  io.emit('player-added', {
-    playerId: playerId,
-    name: name
-  });
-}
-
-function emitGameStarted() {
-  io.emit('status-change', {
-    status: "running"
-  });
 }
 
 /**********************************************************************************
