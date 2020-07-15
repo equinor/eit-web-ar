@@ -74,30 +74,37 @@ router.post('/send', (req, res) => {
       res.status(409).send();
       return;
     }
-    anyOtherPlayersAvailable(fromPlayerId, function(anyOthersAvailable) {
-      if (!anyOthersAvailable) {
-        res.status(400).send();
+    
+    getGameStatus(function(gameStatus) {
+      if (gameStatus != 'started') {
+        res.status(406).send();
         return;
       }
-      entities[entityIndex] = 0;
-      updatePlayerEntities(fromPlayerId, entities);
-      utils.makePlayerAvailable(fromPlayerId);
-      emitters.emitEntitiesUpdated(io, fromPlayerId, entities);
-      
-      if (isEntitiesEmpty(entities)) {
-        stopGame();
-        emitters.emitGameOver(io);
-      }
-
-      addEntityToRandomPlayer(entityId, fromPlayerId, function(toPlayerId, entities) {
-        if (entities.indexOf(0) == -1) {
-          utils.makePlayerUnavailable(toPlayerId);
+      anyOtherPlayersAvailable(fromPlayerId, function(anyOthersAvailable) {
+        if (!anyOthersAvailable) {
+          res.status(405).send();
+          return;
         }
-        emitters.emitEntitiesUpdated(io, toPlayerId, entities);
-        emitters.emitEntitySent(io, fromPlayerId, toPlayerId, entityId);
+        entities[entityIndex] = 0;
+        updatePlayerEntities(fromPlayerId, entities);
+        utils.makePlayerAvailable(fromPlayerId);
+        emitters.emitEntitiesUpdated(io, fromPlayerId, entities);
+        
+        if (isEntitiesEmpty(entities)) {
+          stopGame();
+          emitters.emitGameOver(io);
+        }
+
+        addEntityToRandomPlayer(entityId, fromPlayerId, function(toPlayerId, entities) {
+          if (entities.indexOf(0) == -1) {
+            utils.makePlayerUnavailable(toPlayerId);
+          }
+          emitters.emitEntitiesUpdated(io, toPlayerId, entities);
+          emitters.emitEntitySent(io, fromPlayerId, toPlayerId, entityId);
+        });
+        
+        res.status(200).send();
       });
-      
-      res.status(200).send();
     });
   });
 });
@@ -167,6 +174,12 @@ function anyOtherPlayersAvailable(playerId, callback) {
     
     var anyOthersAvailable = (playersAvailable.length > 0);
     callback(anyOthersAvailable);
+  });
+}
+
+function getGameStatus(callback) {
+  storage.get('gamestatus', function(err, gameStatus) {
+    callback(gameStatus);
   });
 }
 
