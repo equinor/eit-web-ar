@@ -71,54 +71,23 @@ router.post('/add', (req, res) => {
   }
   storage.scard('players', function(err, lastPlayerId) {
     const io = req.app.get('io');
-    var playerId = 1;
-    if (lastPlayerId !== null) {
-      playerId = lastPlayerId + 1;
-    }
-    // Register new player
-    const hash = utils.getPlayerHash(playerId);
-    storage.hmset(hash, 'name', name);
-    storage.sadd('players', playerId);
-    storage.sadd('playersAvailable', playerId);
-
-    // Make a randomized list of entities and assign them to the player
-    storage.scard('entities', function(err, entityCount) {
-      if (entityCount === null) {
-        entityCount = 0;
-      }
-      var entities = [];
-      for (var entityId = entityCount + 1; entityId < entityCount + game.numberOfEntities + 1; entityId++) {
-        entities.push(entityId);
-      }
-      storage.sadd('entities', entities);
-
-      for (var i = entities.length; i < game.numberOfMarkers; i++) {
-        entities.push(0);
-      }
-      entities = utils.shuffle(entities);
-      storage.hmset(hash, 'entities', JSON.stringify(entities));
-      
-      io.emit('entities-updated', {
-        playerId: playerId,
-        entities: entities
-      });
+    var playerId = getNextPlayerId(lastPlayerId);
+    addPlayer(playerId, name);
+    makePlayerAvailable(playerId);
+    
+    createEntityList(function(entities) {
+      addEntitiesToPlayer(playerId, entities);
+      emitEntitiesUpdated(playerId, entities);
     });
+    
+    emitPlayerAdded(playerId, name);
 
     // Start the game when there are two players
     if (playerId == 2) {
-      storage.set('gamestatus', 'running');
-      
-      io.emit('status-change', {
-        status: "running"
-      });
-      
+      startGame();
+      emitGameStarted();
     }
     
-    io.emit('player-added', {
-      playerId: playerId,
-      name: name
-    });
-
     const response = {
       playerId: playerId
     };
@@ -126,6 +95,75 @@ router.post('/add', (req, res) => {
   });
 });
 
+/*
+* Helpers
+*/
+
+function getNextPlayerId(lastPlayerId) {
+  var nextPlayerId = 1;
+  if (lastPlayerId !== null) {
+    nextPlayerId = lastPlayerId + 1;
+  }
+  return nextPlayerId;
+}
+
+function addPlayer(playerId, name) {
+  const hash = utils.getPlayerHash(playerId);
+  storage.hmset(hash, 'name', name);
+  storage.sadd('players', playerId);
+}
+
+function makePlayerAvailable(playerId) {
+  storage.sadd('playersAvailable', playerId);
+}
+
+function createEntityList(callback) {
+  storage.scard('entities', function(err, entityCount) {
+    if (entityCount === null) {
+      entityCount = 0;
+    }
+    var entities = [];
+    for (var entityId = entityCount + 1; entityId < entityCount + game.numberOfEntities + 1; entityId++) {
+      entities.push(entityId);
+    }
+    storage.sadd('entities', entities);
+
+    for (var i = entities.length; i < game.numberOfMarkers; i++) {
+      entities.push(0);
+    }
+    entities = utils.shuffle(entities);
+    
+    callback(entities);
+  });
+}
+
+function addEntitiesToPlayer(playerId, entities) {
+  storage.hmset(getPlayerHash(playerId), 'entities', JSON.stringify(entities));
+}
+
+function startGame() {
+  storage.set('gamestatus', 'running');
+}
+
+function emitEntitiesUpdated(playerId, entities) {
+  io.emit('entities-updated', {
+    playerId: playerId,
+    entities: entities
+  });
+});
+
+function emitPlayerAdded(playerId, name) {
+  io.emit('player-added', {
+    playerId: playerId,
+    name: name
+  });
+}
+
+function emitGameStarted() {
+  io.emit('status-change', {
+    status: "running"
+  });
+}
 
 /**********************************************************************************
 * EXPORT MODULE
