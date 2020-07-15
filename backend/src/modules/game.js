@@ -10,4 +10,4 @@ const game = {
   numberOfMarkers: numberOfMarkers
 };
 
-export default game;
+module.exports = game;
