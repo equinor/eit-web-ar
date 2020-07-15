@@ -80,11 +80,11 @@ router.post('/send', (req, res) => {
     utils.makePlayerAvailable(fromPlayerId);
     emitters.emitEntitiesUpdated(io, fromPlayerId, entities);
     
-    if (didPlayerWin(playerId, entities)) {
+    if (isEntitiesEmpty(entities)) {
       emitters.emitGameOver(io);
     }
 
-    utils.addEntityToRandomPlayer(storage, entityId, fromPlayerId, function(toPlayerId, entities) {
+    addEntityToRandomPlayer(entityId, fromPlayerId, function(toPlayerId, entities) {
       if (entities.indexOf(0) == -1) {
         utils.makePlayerUnavailable(toPlayerId);
       }
@@ -105,18 +105,16 @@ function handleError(res, message){
    res.status(500).send(message);
 }
 
-function didPlayerWin(playerId, entities) {
-  var playerWon = true;
+function isEntitiesEmpty(entities) {
   for (var i = 0; i < entities.length; i++) {
     if (entities[i] != 0) {
-      playerWon = false;
-      break;
+      return false;
     }
   }
-  return playerWon;
+  return true;
 }
 
-function addEntityToRandomPlayer = function(entityId, fromPlayerId, callback) {
+function addEntityToRandomPlayer(entityId, fromPlayerId, callback) {
   storage.smembers('playersAvailable', function(err, playersAvailable) {
     // Get random playerId of available players except self
     const myIndex = playersAvailable.indexOf(String(fromPlayerId));

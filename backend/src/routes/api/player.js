@@ -135,7 +135,7 @@ function createEntityList(callback) {
 }
 
 function addEntitiesToPlayer(playerId, entities) {
-  storage.hmset(getPlayerHash(playerId), 'entities', JSON.stringify(entities));
+  storage.hmset(utils.getPlayerHash(playerId), 'entities', JSON.stringify(entities));
 }
 
 function startGame() {
