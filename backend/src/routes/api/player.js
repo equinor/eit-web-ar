@@ -11,11 +11,10 @@ var utils = require('./utils');
 */
 
 router.get('/', function (req, res) {
-  let statusCode = 200;
   let defaultData = {
     description: "player api"
   };
-  res.status(statusCode).json(defaultData);
+  res.status(200).json(defaultData);
 });
 
 router.get('/:playerId', (req, res) => {
