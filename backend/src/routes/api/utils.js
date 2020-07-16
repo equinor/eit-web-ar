@@ -1,4 +1,5 @@
 var storage = require('../../modules/storage');
+var game = require('../../modules/game');
 
 exports.getPlayerHash = function(playerId) {
   return 'player:' + playerId;
@@ -42,4 +43,32 @@ exports.makePlayerAvailable = function(playerId) {
 
 exports.makePlayerUnavailable = function(playerId) {
   storage.srem('playersAvailable', playerId);
+}
+
+exports.createEntityList = function(callback) {
+  storage.scard('entities', function(err, entityCount) {
+    if (entityCount === null) {
+      entityCount = 0;
+    }
+    var entities = [];
+    for (var entityId = entityCount + 1; entityId < entityCount + game.numberOfEntities + 1; entityId++) {
+      entities.push(entityId);
+    }
+    storage.sadd('entities', entities);
+
+    for (var i = entities.length; i < game.numberOfMarkers; i++) {
+      entities.push(0);
+    }
+    entities = exports.shuffle(entities);
+    
+    callback(entities);
+  });
+}
+
+exports.addEntitiesToPlayer = function(playerId, entities) {
+  storage.hmset(exports.getPlayerHash(playerId), 'entities', JSON.stringify(entities));
+}
+
+exports.startGame = function() {
+  storage.set('gamestatus', 'started');
 }

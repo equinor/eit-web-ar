@@ -76,8 +76,8 @@ router.post('/add', (req, res) => {
     addPlayer(playerId, name);
     utils.makePlayerAvailable(playerId);
     
-    createEntityList(function(entities) {
-      addEntitiesToPlayer(playerId, entities);
+    utils.createEntityList(function(entities) {
+      utils.addEntitiesToPlayer(playerId, entities);
       emitters.emitEntitiesUpdated(io, playerId, entities);
     });
     
@@ -85,7 +85,7 @@ router.post('/add', (req, res) => {
 
     // Start the game when there are two players
     if (playerId == 2) {
-      startGame();
+      utils.startGame();
       emitters.emitGameStarted(io);
     }
     
@@ -112,34 +112,6 @@ function addPlayer(playerId, name) {
   const hash = utils.getPlayerHash(playerId);
   storage.hmset(hash, 'name', name);
   storage.sadd('players', playerId);
-}
-
-function createEntityList(callback) {
-  storage.scard('entities', function(err, entityCount) {
-    if (entityCount === null) {
-      entityCount = 0;
-    }
-    var entities = [];
-    for (var entityId = entityCount + 1; entityId < entityCount + game.numberOfEntities + 1; entityId++) {
-      entities.push(entityId);
-    }
-    storage.sadd('entities', entities);
-
-    for (var i = entities.length; i < game.numberOfMarkers; i++) {
-      entities.push(0);
-    }
-    entities = utils.shuffle(entities);
-    
-    callback(entities);
-  });
-}
-
-function addEntitiesToPlayer(playerId, entities) {
-  storage.hmset(utils.getPlayerHash(playerId), 'entities', JSON.stringify(entities));
-}
-
-function startGame() {
-  storage.set('gamestatus', 'started');
 }
 
 /**********************************************************************************

@@ -3,6 +3,7 @@ var router = express.Router();
 var path = require('path');
 var storage = require('../../modules/storage');
 
+var game = require('../../modules/game');
 var utils = require('./utils');
 var emitters = require('./emitters');
 
@@ -93,6 +94,12 @@ router.post('/send', (req, res) => {
         if (isEntitiesEmpty(entities)) {
           stopGame();
           emitters.emitGameOver(io);
+          
+          resetGame(5000, io, function() {
+            console.log('callback');
+            utils.startGame();
+            emitters.emitGameStarted(io);
+          });
         }
 
         addEntityToRandomPlayer(entityId, fromPlayerId, function(toPlayerId, entities) {
@@ -163,6 +170,36 @@ function updatePlayerEntities(playerId, entities) {
 
 function stopGame() {
   storage.set('gamestatus', 'game-over');
+}
+
+function resetGame(delay, io, callback) {
+  setTimeout(function() {
+    storage.del('entities', function(err, _) {
+      storage.smembers('players', function(err, players) {
+        var entityId = 1; // 7 < 7
+        for (var i = 0; i < players.length; i++) {
+          var entities = [];
+          var j = 0;
+          while (entityId < (i + 1)*game.numberOfEntities + 1) {
+            entities.push(entityId);
+            entityId++;
+            j++;
+          }
+          while (j < game.numberOfMarkers) {
+            entities.push(0);
+            j++;
+          }
+          entities = utils.shuffle(entities);
+          console.log(entities);
+          storage.sadd('entities', entities);
+          
+          utils.addEntitiesToPlayer(players[i], entities);
+          emitters.emitEntitiesUpdated(io, players[i], entities);
+        }
+        callback();
+      });
+    });
+  }, delay);
 }
 
 function anyOtherPlayersAvailable(playerId, callback) {
