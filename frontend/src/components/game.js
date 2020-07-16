@@ -13,10 +13,11 @@ import api from '../modules/api';
 
 AFRAME.registerComponent('game', {
   schema: {
-    playerName: { type: 'string', default: 'LoserBoi420'}
+    playerName: { type: 'string', default: 'AnstendigSpiller'},
+    playerModel: { type: 'string', default: 'box'},
+    playerModelColor: { type: 'string', default: 'green' }
   },
   init: function () {
-    console.log(api.baseUri);
     const _this = this;
     const data = this.data;
     this.playerEntities = [0,0,0,0,0,0];
@@ -30,13 +31,30 @@ AFRAME.registerComponent('game', {
     });
 
     // Register player
+    document.getElementById("player_model_select").addEventListener('change', function() {
+      if (this.value[0] == 'g') {
+        document.getElementById("player_model_color_select").removeAttribute("disabled");
+      } else if (this.value[0] == 'm') {
+        document.getElementById("player_model_color_select").setAttribute("disabled", true);
+      }
+    });
     document.getElementById("player_id_submit").addEventListener("click", () => {
         const playerName = document.getElementById("player_id_text").value;
+        const playerModel = document.getElementById("player_model_select").value;
+        const playerModelColor = document.getElementById("player_model_color_select").value;
         if (playerName && typeof(playerName) == 'string') {
           data.playerName = playerName;
         }
+        if (playerModel && typeof(playerModel) == 'string') {
+          if (playerModel[0] == 'm') {
+            data.playerModelColor = '';
+          } else if (playerModelColor && typeof(playerModelColor) == 'string') {
+            data.playerModelColor = playerModelColor;
+          }
+          data.playerModel = playerModel;
+        }
         document.getElementById("game_init_container").style.display = 'none';
-        this.registerPlayer(data.playerName);
+        this.registerPlayer(data.playerName, data.playerModel, data.playerModelColor);
     });
 
     // Send entity when clicking on it
@@ -64,7 +82,7 @@ AFRAME.registerComponent('game', {
     });
     // Når en ny player registreres
     this.socket.on('player-added', function(data) {
-      _this.animateText('<strong>' + data.name + "</strong> has joined the game", "#c1f588");
+      _this.animateText('<strong>' + data.name + "</strong> has joined", "#c1f588");
     });
 
     // Når noen sender en boks
@@ -135,12 +153,13 @@ AFRAME.registerComponent('game', {
       }
     }, delay);
   },
-  registerPlayer: function (playerName) {
+  registerPlayer: function (playerName, playerModel, playerModelColor) {
     const regUrl = api.baseUri + '/player/add';
-    console.log(regUrl);
 
     const payload = {
-      name: playerName
+      name: playerName,
+      model: playerModel,
+      color: playerModelColor,
     };
 
     axios({
@@ -185,13 +204,22 @@ AFRAME.registerComponent('game', {
         this.markerEntityList[i].setAttribute('visible', false);
         this.markerEntityList[i].setAttribute('data-entity-id', '');
         this.markerEntityList[i].classList.remove('cursor-interactive');
-      } else {
-        this.markerEntityList[i].setAttribute('visible', true);
-        this.markerEntityList[i].setAttribute('data-entity-id', entities[i]);
-        this.markerEntityList[i].classList.add('cursor-interactive');
+      } else if (entities[i].model[0] == 'g') {
+        this.markerEntityList[i].removeAttribute('gltf-model');
+        this.markerEntityList[i].setAttribute('material', 'color', entities[i].color);
+        this.markerEntityList[i].setAttribute('geometry', 'primitive', entities[i].model.slice(3));
         // SOUND
         this.markerEntityList[i].components.sound.stopSound();
         this.markerEntityList[i].components.sound.playSound();
+      } else if (entities[i].model[0] == 'm') {
+        this.markerEntityList[i].removeAttribute('material');
+        this.markerEntityList[i].removeAttribute('geometry');
+        this.markerEntityList[i].setAttribute('gltf-model', entities[i].model.slice(3));
+        // SOUND
+        this.markerEntityList[i].components.sound.stopSound();
+        this.markerEntityList[i].components.sound.playSound();
+      } else {
+        console.log("#GAME: entity model is not a geometry or 3d-model. This updates nothing.")
       }
     }
   },
