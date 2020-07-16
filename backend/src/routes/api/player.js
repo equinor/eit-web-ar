@@ -77,6 +77,15 @@ router.post('/add', (req, res) => {
     utils.makePlayerAvailable(playerId);
     
     utils.createEntityList(function(entities) {
+      if (req.body.model !== undefined) {
+        const model = req.body.model;
+        setPropertyOnEntities(entities, 'model', model);
+      }
+      if (req.body.color !== undefined) {
+        const color = req.body.color;
+        setPropertyOnEntities(entities, 'color', color);
+      }
+      
       utils.addEntitiesToPlayer(playerId, entities);
       emitters.emitEntitiesUpdated(io, playerId, entities);
     });
@@ -112,6 +121,13 @@ function addPlayer(playerId, name) {
   const hash = utils.getPlayerHash(playerId);
   storage.hmset(hash, 'name', name);
   storage.sadd('players', playerId);
+}
+
+function setPropertyOnEntities(entities, property, content) {
+  for (var i = 0; i < entities.length; i++) {
+    var entityHash = utils.getEntityHash(entities[i]);
+    storage.hset(entityHash, property, content);
+  }
 }
 
 /**********************************************************************************

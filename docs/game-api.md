@@ -39,10 +39,14 @@ Add or update player information. Accepts all field names except `entities`.
 The game client should call this endpoint once.
 The desired player name is passed in the request body, and then the assigned unique `playerId` is returned.
 
+`model` and `color` are optional parameters. These are settings for the entities that the user starts with.
+
 ### Request
 ```json
 {
-  "name": "your-new-username"
+  "name": "your-new-username",
+  "model": "magnemite",
+  "color": "#f00"
 }
 ```
 
