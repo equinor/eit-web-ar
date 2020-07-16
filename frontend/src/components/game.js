@@ -13,7 +13,8 @@ import api from '../modules/api';
 
 AFRAME.registerComponent('game', {
   schema: {
-    playerName: { type: 'string', default: 'LoserBoi420'}
+    playerName: { type: 'string', default: 'LoserBoi420'},
+    playerModel: { type: 'string', default: 'magnemite'}
   },
   init: function () {
     console.log(api.baseUri);
@@ -32,11 +33,15 @@ AFRAME.registerComponent('game', {
     // Register player
     document.getElementById("player_id_submit").addEventListener("click", () => {
         const playerName = document.getElementById("player_id_text").value;
+        // -> playerModel = .....value (create ui for selecting models)
         if (playerName && typeof(playerName) == 'string') {
           data.playerName = playerName;
         }
+        if (playerModel && typeof(playerName) == 'string') {
+          data.playerModel = playerModel;
+        }
         document.getElementById("game_init_container").style.display = 'none';
-        this.registerPlayer(data.playerName);
+        this.registerPlayer(data.playerName, data.playerModel);
     });
 
     // Send entity when clicking on it
@@ -135,12 +140,13 @@ AFRAME.registerComponent('game', {
       }
     }, delay);
   },
-  registerPlayer: function (playerName) {
+  registerPlayer: function (playerName, playerModel) {
     const regUrl = api.baseUri + '/player/add';
     console.log(regUrl);
 
     const payload = {
-      name: playerName
+      name: playerName,
+      model: playerModel,
     };
 
     axios({
