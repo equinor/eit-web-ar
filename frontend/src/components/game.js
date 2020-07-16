@@ -202,16 +202,50 @@ AFRAME.registerComponent('game', {
         this.markerEntityList[i].setAttribute('data-entity-id', '');
         this.markerEntityList[i].classList.remove('cursor-interactive');
       } else if (entities[i].model[0] == 'g') {
+        const entityModel = entities[i].model.slice(2);
         this.markerEntityList[i].removeAttribute('gltf-model');
         this.markerEntityList[i].setAttribute('material', 'color', entities[i].color);
-        this.markerEntityList[i].setAttribute('geometry', 'primitive', entities[i].model.slice(2));
+        this.markerEntityList[i].setAttribute('geometry', 'primitive', entityModel);
+        this.markerEntityList[i].setAttribute('data-entity-id', entities[i].entityId);
+        // Scaling && Positioning
+        let scale;
+        let position;
+        if (entityModel == 'box') {
+          scale = '1 1 1';
+          position = '0 0 0';
+        } else if (entityModel == 'sphere') {
+          scale = '0.5 0.5 0.5';
+          position = '0 0 0';
+        } else if (entityModel == 'cone') {
+          scale = '0.5 0.5 0.5';
+          position = '0 0 0';
+        } else if (entityModel == 'octahedron') {
+          scale = '0.5 0.5 0.5';
+          position = '0 0 0';
+        } else if (entityModel == 'torusKnot') {
+          scale = '0.3 0.3 0.3';
+          position = '0 0 0';
+        }
+        this.markerEntityList[i].setAttribute('scale', scale);
+        this.markerEntityList[i].setAttribute('position', position);
         // SOUND
         this.markerEntityList[i].components.sound.stopSound();
         this.markerEntityList[i].components.sound.playSound();
       } else if (entities[i].model[0] == 'm') {
+        const entityModel = entities[i].model.slice(2);
         this.markerEntityList[i].removeAttribute('material');
         this.markerEntityList[i].removeAttribute('geometry');
-        this.markerEntityList[i].setAttribute('gltf-model', entities[i].model.slice(2));
+        this.markerEntityList[i].setAttribute('gltf-model', entityModel);
+        this.markerEntityList[i].setAttribute('data-entity-id', entities[i].entityId);
+        // Scaling && Positioning
+        let scale;
+        let position;
+        if (entityModel == '#penguin') {
+          scale = '0.3 0.3 0.3';
+          position = '0.8 0 0';
+        } 
+        this.markerEntityList[i].setAttribute('scale', scale);
+        this.markerEntityList[i].setAttribute('position', position);
         // SOUND
         this.markerEntityList[i].components.sound.stopSound();
         this.markerEntityList[i].components.sound.playSound();
