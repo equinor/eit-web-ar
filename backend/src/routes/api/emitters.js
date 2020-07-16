@@ -4,9 +4,11 @@ var utils = require('./utils');
 module.exports = {
   
   emitEntitiesUpdated: function(io, playerId, entities) {
-    io.emit('entities-updated', {
-      playerId: playerId,
-      entities: entities
+    utils.getDetailedEntities(entities, function(detailedEntities) {
+      io.emit('entities-updated', {
+        playerId: playerId,
+        entities: detailedEntities
+      });
     });
   },
 
@@ -20,13 +22,6 @@ module.exports = {
   emitGameStarted: function(io) {
     io.emit('status-change', {
       status: "started"
-    });
-  },
-
-  emitEntitiesUpdated: function(io, playerId, entities) {
-    io.emit('entities-updated', {
-      playerId: playerId,
-      entities: entities
     });
   },
 

@@ -72,3 +72,27 @@ exports.addEntitiesToPlayer = function(playerId, entities) {
 exports.startGame = function() {
   storage.set('gamestatus', 'started');
 }
+
+exports.getDetailedEntities = function(entities, callback) {
+  var multi = [];
+  for (var i = 0; i < entities.length; i++) {
+    var entityHash = exports.getEntityHash(entities[i]);
+    multi.push(['hgetall', entityHash]);
+  }
+  storage.multi(multi).exec(function(err, entityInfo) {
+    var detailedEntities = [];
+    for (var i = 0; i < entities.length; i++) {
+      if (entities[i] == 0) {
+        detailedEntities.push(0);
+      } else if (entityInfo[i] === null) {
+        detailedEntities.push({
+          entityId: entities[i]
+        });
+      } else {
+        entityInfo[i].entityId = entities[i];
+        detailedEntities.push(entityInfo[i]);
+      }
+    }
+    callback(detailedEntities);
+  });
+}

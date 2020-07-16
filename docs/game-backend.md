@@ -50,12 +50,20 @@ Sent from the server to the client when an entitiy list is created or updated.
 {
   "playerId": 3,
   "entities": [
-    4,
-    2,
+    {
+      "entityId": 4,
+      "model": "magnemite"
+    },
+    0
+    0
+    {
+      "entityId": 1
+    },
     0,
-    1,
-    0,
-    7
+    {
+      "entityId": 2,
+      "color": "#f00"
+    }
   ]
 }
 ```
