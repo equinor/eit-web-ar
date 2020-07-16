@@ -9,8 +9,6 @@
       vr-mode-ui="enabled: false"
       ar-mode-ui="enabled: false"
       id="scene"
-      cursor="rayOrigin: mouse; fuse: false;"
-      raycaster='objects: .cursor-interactive'
       arjs='detectionMode: mono_and_matrix; matrixCodeType: 3x3;'
       gesture-detector
       embedded
@@ -49,6 +47,8 @@
 
       <a-entity camera>
         <a-entity
+          cursor="fuse: false;"
+          raycaster='objects: .cursor-interactive;'
           position="0 0 -1"
           geometry="primitive: ring; radiusInner: 0.01; radiusOuter: 0.015"
           material="color: black; shader: flat"
