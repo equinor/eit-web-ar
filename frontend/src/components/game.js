@@ -207,14 +207,14 @@ AFRAME.registerComponent('game', {
       } else if (entities[i].model[0] == 'g') {
         this.markerEntityList[i].removeAttribute('gltf-model');
         this.markerEntityList[i].setAttribute('material', 'color', entities[i].color);
-        this.markerEntityList[i].setAttribute('geometry', 'primitive', entities[i].model.slice(3));
+        this.markerEntityList[i].setAttribute('geometry', 'primitive', entities[i].model.slice(2));
         // SOUND
         this.markerEntityList[i].components.sound.stopSound();
         this.markerEntityList[i].components.sound.playSound();
       } else if (entities[i].model[0] == 'm') {
         this.markerEntityList[i].removeAttribute('material');
         this.markerEntityList[i].removeAttribute('geometry');
-        this.markerEntityList[i].setAttribute('gltf-model', entities[i].model.slice(3));
+        this.markerEntityList[i].setAttribute('gltf-model', entities[i].model.slice(2));
         // SOUND
         this.markerEntityList[i].components.sound.stopSound();
         this.markerEntityList[i].components.sound.playSound();
