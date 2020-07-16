@@ -18,7 +18,6 @@ AFRAME.registerComponent('game', {
     playerModelColor: { type: 'string', default: 'green' }
   },
   init: function () {
-    console.log(api.baseUri);
     const _this = this;
     const data = this.data;
     this.playerEntities = [0,0,0,0,0,0];
@@ -162,8 +161,6 @@ AFRAME.registerComponent('game', {
       model: playerModel,
       color: playerModelColor,
     };
-
-    console.log(payload);
 
     axios({
       method: 'post',
