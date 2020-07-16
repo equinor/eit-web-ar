@@ -74,7 +74,6 @@ AFRAME.registerComponent('game', {
       console.log('#GAME: Recieved event: entities-updated');
       if (_this.playerId == data.playerId) {
         _this.playerEntities = data.entities;
-        console.log(data);
         _this.updateSceneEntities(_this.playerEntities);
       }
     });
