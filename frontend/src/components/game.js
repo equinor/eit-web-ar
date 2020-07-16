@@ -246,7 +246,7 @@ AFRAME.registerComponent('game', {
         let position;
         if (entityModel == '#penguin') {
           scale = '0.3 0.3 0.3';
-          position = '0.8 0 0';
+          position = '0.05 0 0';
         }
         this.markerEntityList[i].setAttribute('scale', scale);
         this.markerEntityList[i].setAttribute('position', position);
