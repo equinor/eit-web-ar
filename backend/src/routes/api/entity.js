@@ -185,14 +185,13 @@ function resetGame(delay, countdown=false, io, callback) {
     for (var i = entities.length; i < game.numberOfMarkers; i++) {
       entities.push(0);
     }
-    console.log(entities);
     
     storage.smembers('players', function(err, players) {
-      for (var i = 0; i < players.length; i++) {
+      for (let i = 0; i < players.length; i++) {
         emitters.emitEntitiesUpdated(io, players[i], entities);
-        for (var j = 1; j < steps; j++) {
+        for (let j = 1; j < steps; j++) {
           setTimeout(function() {
-            var index = steps - j;
+            var index = steps - j - 1;
             entities[index] = 0;
             emitters.emitEntitiesUpdated(io, players[i], entities);
           }, j*1000);
