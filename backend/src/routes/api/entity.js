@@ -95,8 +95,8 @@ router.post('/send', (req, res) => {
           stopGame();
           emitters.emitGameOver(io);
           
+          startCountdown(5000, io);
           resetGame(5000, io, function() {
-            console.log('callback');
             utils.startGame();
             emitters.emitGameStarted(io);
           });
@@ -190,7 +190,6 @@ function resetGame(delay, io, callback) {
             j++;
           }
           entities = utils.shuffle(entities);
-          console.log(entities);
           storage.sadd('entities', entities);
           
           utils.addEntitiesToPlayer(players[i], entities);
@@ -217,6 +216,34 @@ function anyOtherPlayersAvailable(playerId, callback) {
 function getGameStatus(callback) {
   storage.get('gamestatus', function(err, gameStatus) {
     callback(gameStatus);
+  });
+}
+
+
+function startCountdown(delay, io) {
+  var steps = Math.floor((delay) / 1000);
+  if (steps > game.numberOfMarkers) {
+    steps = game.numberOfMarkers;
+  }
+  var entities = [];
+  for (var i = 0; i < steps - 1; i++) {
+    entities.push(1);
+  }
+  for (var i = entities.length; i < game.numberOfMarkers; i++) {
+    entities.push(0);
+  }
+  
+  storage.smembers('players', function(err, players) {
+    for (let i = 0; i < players.length; i++) {
+      emitters.emitEntitiesUpdated(io, players[i], entities);
+      for (let j = 1; j < steps; j++) {
+        setTimeout(function() {
+          var index = steps - j - 1;
+          entities[index] = 0;
+          emitters.emitEntitiesUpdated(io, players[i], entities);
+        }, j*1000);
+      }
+    }
   });
 }
 
