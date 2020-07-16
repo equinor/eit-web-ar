@@ -21,37 +21,55 @@
         <a-asset>
           <audio id="recievedEntitySound" src="./audio/markerFound.mp3" preload="auto"></audio>
         </a-asset>
+        <a-asset-item
+            id="disco_ball"
+            src="./gltf/disco_ball/scene.glb"
+            preload="auto">
+        </a-asset-item>
+        <a-asset-item
+            id="banana"
+            src="./gltf/banana/scene.glb"
+            preload="auto">
+        </a-asset-item>
+        <a-asset-item 
+            id="penguin" 
+            src="./gltf/penguin/scene.glb" 
+            preload="auto">
+        </a-asset-item>
         <a-asset>
-          <!-- Magnemite -->
-        </a-asset>
-        <a-asset>
-          <!-- Penguin -->
-        </a-asset>
-        <a-asset>
-          <!-- Box -->
+          <a-box></a-box>
         </a-asset>
         <a-asset>
           <!-- Sphere -->
         </a-asset>
       </a-assets>
 
+      <!-- <a-entity
+            gltf-model="#penguin"
+            class="clickable"
+            gesture-scale
+            gesture-rotation
+            scale="0.5 0.5 0.5"
+         >
+      </a-entity> -->
+
       <a-marker class="marker" type='barcode' value='0' id="m-0">
-        <a-box class="cursor-interactive game-entity" color="green" data-entity-id="0" sound="src: #recievedEntitySound" autoplay="false"></a-box>
+        <a-entity class="cursor-interactive game-entity" data-entity-id="0" sound="src: #recievedEntitySound" autoplay="false"></a-entity>
       </a-marker>
       <a-marker class="marker" type='barcode' value='1' id="m-1">
-        <a-box class="cursor-interactive game-entity" color="green" data-entity-id="0" sound="src: #recievedEntitySound" autoplay="false"></a-box>
+        <a-entity class="cursor-interactive game-entity" data-entity-id="0" sound="src: #recievedEntitySound" autoplay="false"></a-entity>
       </a-marker>
       <a-marker class="marker" type='barcode' value='2' id="m-2">
-        <a-box class="cursor-interactive game-entity" color="green" data-entity-id="0" sound="src: #recievedEntitySound" autoplay="false"></a-box>
+        <a-entity class="cursor-interactive game-entity" data-entity-id="0" sound="src: #recievedEntitySound" autoplay="false"></a-entity>
       </a-marker>
       <a-marker class="marker" type='barcode' value='3' id="m-3">
-        <a-box class="cursor-interactive game-entity" color="green" data-entity-id="0" sound="src: #recievedEntitySound" autoplay="false"></a-box>
+        <a-entity class="cursor-interactive game-entity" data-entity-id="0" sound="src: #recievedEntitySound" autoplay="false"></a-entity>
       </a-marker>
       <a-marker class="marker" type='barcode' value='4' id="m-4">
-        <a-box class="cursor-interactive game-entity" color="green" data-entity-id="0" sound="src: #recievedEntitySound" autoplay="false"></a-box>
+        <a-entity class="cursor-interactive game-entity" data-entity-id="0" sound="src: #recievedEntitySound" autoplay="false"></a-entity>
       </a-marker>
       <a-marker class="marker" type='barcode' value='5' id="m-5">
-        <a-box class="cursor-interactive game-entity" color="green" data-entity-id="0" sound="src: #recievedEntitySound" autoplay="false"></a-box>
+        <a-entity class="cursor-interactive game-entity" data-entity-id="0" sound="src: #recievedEntitySound" autoplay="false"></a-entity>
       </a-marker>
 
       <a-entity camera>
@@ -72,10 +90,27 @@
     <div id="game_init_container">
       <div id="player_submit_container">
         <input type="text" name="playerId" id="player_id_text" placeholder="Your nickname..">
-        <select name="" id="">
-          <!-- <option value=""></option>  -->
-          <!-- FOR ......... in .... create option -->
-          <!-- i javascript game component? -->
+        <select name="playerModel" id="player_model_select">
+          <option value="" disabled selected>Choose model</option>
+          <option value="g_box">Box</option>
+          <option value="g_sphere">Sphere</option>
+          <option value="g_cone">Cone</option>
+          <option value="g_octahedron">Octahedron</option>
+          <option value="g_torusKnot">Torus Knot</option>
+          <option value="m_#penguin">Penguin</option>
+          <option value="m_#banana">Banana</option>
+          <option value="m_#disco_ball">Disco Ball</option>
+        </select>
+
+        <select name="modelColor" id="player_model_color_select" disabled>
+          <option value="" disabled selected >Color</option>
+          <option value="white">White</option>
+          <option value="green">Green</option>
+          <option value="red">Red</option>
+          <option value="pink">Pink</option>
+          <option value="blue">Blue</option>
+          <option value="orange">Orange</option>
+          <option value="black">Black</option>
         </select>
         <input type="submit" value="Go" id="player_id_submit">
       </div>
