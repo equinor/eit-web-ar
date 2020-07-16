@@ -39,10 +39,14 @@ Add or update player information. Accepts all field names except `entities`.
 The game client should call this endpoint once.
 The desired player name is passed in the request body, and then the assigned unique `playerId` is returned.
 
+`model` and `color` are optional parameters. These are settings for the entities that the user starts with.
+
 ### Request
 ```json
 {
-  "name": "your-new-username"
+  "name": "your-new-username",
+  "model": "magnemite",
+  "color": "#f00"
 }
 ```
 
@@ -122,7 +126,9 @@ The entity was removed from you and assigned to another player.
 
 Might be implemented: Returning the player who got the entity.
 
-#### 400 No players available to receive the entity
+#### 405 No players available to receive the entity
+
+#### 406 Game not started or game over
 
 #### 409 Can't send this entity
 You don't own the specified entity, or the entity does not exist.
