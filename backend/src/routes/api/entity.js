@@ -97,7 +97,6 @@ router.post('/send', (req, res) => {
           
           startCountdown(5000, io);
           resetGame(5000, io, function() {
-            console.log('callback');
             utils.startGame();
             emitters.emitGameStarted(io);
           });
@@ -191,7 +190,6 @@ function resetGame(delay, io, callback) {
             j++;
           }
           entities = utils.shuffle(entities);
-          console.log(entities);
           storage.sadd('entities', entities);
           
           utils.addEntitiesToPlayer(players[i], entities);
