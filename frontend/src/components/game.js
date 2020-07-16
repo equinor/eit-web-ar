@@ -7,9 +7,6 @@ import axios from 'axios';
 import io from 'socket.io-client';
 import api from '../modules/api';
 
-// TODO:
-// * Check if the new array is different (in backend), when updating entitites in tick()
-// * Implement sockets.io instead of requesting entities list every tick
 
 AFRAME.registerComponent('game', {
   schema: {
