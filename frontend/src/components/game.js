@@ -11,7 +11,7 @@ import api from '../modules/api';
 AFRAME.registerComponent('game', {
   schema: {
     playerName: { type: 'string', default: 'AnstendigSpiller'},
-    playerModel: { type: 'string', default: 'box'},
+    playerModel: { type: 'string', default: 'g_box'},
     playerModelColor: { type: 'string', default: 'green' }
   },
   init: function () {
@@ -203,6 +203,8 @@ AFRAME.registerComponent('game', {
         this.markerEntityList[i].classList.remove('cursor-interactive');
       } else if (entities[i].model[0] == 'g') {
         const entityModel = entities[i].model.slice(2);
+        this.markerEntityList[i].setAttribute('visible', true);
+        this.markerEntityList[i].classList.add('cursor-interactive');
         this.markerEntityList[i].removeAttribute('gltf-model');
         this.markerEntityList[i].setAttribute('material', 'color', entities[i].color);
         this.markerEntityList[i].setAttribute('geometry', 'primitive', entityModel);
@@ -233,6 +235,8 @@ AFRAME.registerComponent('game', {
         this.markerEntityList[i].components.sound.playSound();
       } else if (entities[i].model[0] == 'm') {
         const entityModel = entities[i].model.slice(2);
+        this.markerEntityList[i].setAttribute('visible', true);
+        this.markerEntityList[i].classList.add('cursor-interactive');
         this.markerEntityList[i].removeAttribute('material');
         this.markerEntityList[i].removeAttribute('geometry');
         this.markerEntityList[i].setAttribute('gltf-model', entityModel);
@@ -243,7 +247,7 @@ AFRAME.registerComponent('game', {
         if (entityModel == '#penguin') {
           scale = '0.3 0.3 0.3';
           position = '0.8 0 0';
-        } 
+        }
         this.markerEntityList[i].setAttribute('scale', scale);
         this.markerEntityList[i].setAttribute('position', position);
         // SOUND
