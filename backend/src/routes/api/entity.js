@@ -95,7 +95,7 @@ router.post('/send', (req, res) => {
           stopGame();
           emitters.emitGameOver(io);
           
-          resetGame(5000, io, function() {
+          resetGame(5000, countdown=true, io, function() {
             console.log('callback');
             utils.startGame();
             emitters.emitGameStarted(io);
@@ -172,7 +172,34 @@ function stopGame() {
   storage.set('gamestatus', 'game-over');
 }
 
-function resetGame(delay, io, callback) {
+function resetGame(delay, countdown=false, io, callback) {
+  if (countdown) {
+    var steps = Math.floor((delay) / 1000);
+    if (steps > game.numberOfMarkers) {
+      steps = game.numberOfMarkers;
+    }
+    var entities = [];
+    for (var i = 0; i < steps - 1; i++) {
+      entities.push(1);
+    }
+    for (var i = entities.length; i < game.numberOfMarkers; i++) {
+      entities.push(0);
+    }
+    console.log(entities);
+    
+    storage.smembers('players', function(err, players) {
+      for (var i = 0; i < players.length; i++) {
+        emitters.emitEntitiesUpdated(players[i], entities);
+        for (var j = 1; j < steps; j++) {
+          setTimeout(function() {
+            var index = steps - j;
+            entities[index] = 0;
+            emitters.emitEntitiesUpdated(players[i], entities);
+          }, j*1000);
+        }
+      }
+    });
+  }
   setTimeout(function() {
     storage.del('entities', function(err, _) {
       storage.smembers('players', function(err, players) {
