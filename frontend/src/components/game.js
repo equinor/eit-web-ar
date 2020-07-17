@@ -14,6 +14,7 @@ AFRAME.registerComponent('game', {
     playerModel: { type: 'string', default: 'g_box'},
     playerColor: { type: 'string', default: 'green' }
   },
+
   init: function () {
     const _this = this;
     const data = this.data;
@@ -102,56 +103,7 @@ AFRAME.registerComponent('game', {
       }
     });
   },
-  tick: function () {
-  },
-  getWinner: function(callback) {
-    const getWinnerUrl = api.baseUri + '/game/scores';
 
-    axios.get(getWinnerUrl)
-      .then((response) => {
-        if (response.status == 200) {
-          let winner;
-          for (const item of response.data.scores) {
-            if (item.score == 0) {
-              winner = item.player.name;
-              break;
-            }
-          }
-          callback(winner);
-        }
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  },
-  animateText: function (text, color, delay=500) {
-    // add element to html
-    let paragraph = document.createElement("p");
-    paragraph.innerHTML = text;
-    paragraph.style.color = color;
-    let element = document.getElementById("action-text");
-    element.appendChild(paragraph);
-    
-    // animate element
-    setTimeout(function() {
-      let pos = 0;
-      let op = 1;
-      let fz = 24;
-      let id = setInterval(animate, 10);
-      function animate() {
-        if (pos == 150) {
-          // remove element
-          clearInterval(id);
-          paragraph.remove();
-        } else {
-          pos++;
-          paragraph.style.top = -1.5*pos + 'px';
-          paragraph.style.opacity = op - pos/150;
-          paragraph.style.fontSize = fz - 24*pos/150 + 'px';
-        }
-      }
-    }, delay);
-  },
   registerPlayer: function (playerName, playerModel, playerColor) {
     const regUrl = api.baseUri + '/player/add';
 
@@ -184,6 +136,7 @@ AFRAME.registerComponent('game', {
         console.error(error);
       });
   },
+
   getEntities: async function (playerId) {
     const getEntitiesUrl = api.baseUri + '/entities/';
 
@@ -197,20 +150,23 @@ AFRAME.registerComponent('game', {
       throw '#GAME: Something went wrong when requesting list of entities.'
     }
   },
+
   updateSceneEntities: function (entities) {
     for (let i = 0; i < entities.length; i++) {
-      // if there is no entity at position i
+      // Check if there is no entity at position i
       if (entities[i] == 0) {
+        // "disable" entity
         this.markerEntityList[i].setAttribute('visible', false);
         this.markerEntityList[i].setAttribute('data-entity-id', '');
         this.markerEntityList[i].classList.remove('cursor-interactive');
-      // else if there is an entity
       } else {
-        const entityModel = entities[i].model.slice(2);
+        // "enable" entity
         this.markerEntityList[i].setAttribute('visible', true);
-        this.markerEntityList[i].classList.add('cursor-interactive');
         this.markerEntityList[i].setAttribute('data-entity-id', entities[i].entityId);
+        this.markerEntityList[i].classList.add('cursor-interactive');
         
+        // get model and set default scale and position values
+        const entityModel = entities[i].model.slice(2);
         let scale = '1 1 1';
         let position = '0 0 0';
 
@@ -219,17 +175,21 @@ AFRAME.registerComponent('game', {
           this.markerEntityList[i].removeAttribute('gltf-model');
           this.markerEntityList[i].setAttribute('material', 'color', entities[i].color);
           this.markerEntityList[i].setAttribute('geometry', 'primitive', entityModel);
-           if (entityModel == 'sphere' || entityModel == 'cone' || entityModel == 'octahedron') {
+
+          // set model specific scale / position
+          if (entityModel == 'sphere' || entityModel == 'cone' || entityModel == 'octahedron') {
             scale = '0.5 0.5 0.5';
           } else if (entityModel == 'torusKnot') {
             scale = '0.3 0.3 0.3';
           }
+          
         // else if the entity model is an imported 3d model (prefix m, e.g. "m_#penguin")
         } else if (entities[i].model[0] == 'm') {
           this.markerEntityList[i].removeAttribute('material');
           this.markerEntityList[i].removeAttribute('geometry');
           this.markerEntityList[i].setAttribute('gltf-model', entityModel);
 
+          // set model specific scale / position
           if (entityModel == '#penguin') {
             scale = '0.3 0.3 0.3';
             position = '0.05 0 0';
@@ -238,12 +198,14 @@ AFRAME.registerComponent('game', {
         // Set scale and position of the model
         this.markerEntityList[i].setAttribute('scale', scale);
         this.markerEntityList[i].setAttribute('position', position);
+        
         // Play sound
         this.markerEntityList[i].components.sound.stopSound();
         this.markerEntityList[i].components.sound.playSound();
       }
     }
   },
+
   sendEntity: function (playerId, entityId) {
     const sendEntityUrl = api.baseUri + '/entity/send';
 
@@ -268,5 +230,55 @@ AFRAME.registerComponent('game', {
     }).catch(function (error) {
       console.error(error);
     });
+  },
+
+  getWinner: function(callback) {
+    const getWinnerUrl = api.baseUri + '/game/scores';
+
+    axios.get(getWinnerUrl)
+      .then((response) => {
+        if (response.status == 200) {
+          let winner;
+          for (const item of response.data.scores) {
+            if (item.score == 0) {
+              winner = item.player.name;
+              break;
+            }
+          }
+          callback(winner);
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  },
+
+  animateText: function (text, color, delay=500) {
+    // add element to html
+    let paragraph = document.createElement("p");
+    paragraph.innerHTML = text;
+    paragraph.style.color = color;
+    let element = document.getElementById("action-text");
+    element.appendChild(paragraph);
+    
+    // animate element
+    setTimeout(function() {
+      let pos = 0;
+      let op = 1;
+      let fz = 24;
+      let id = setInterval(animate, 10);
+      function animate() {
+        if (pos == 150) {
+          // remove element
+          clearInterval(id);
+          paragraph.remove();
+        } else {
+          pos++;
+          paragraph.style.top = -1.5*pos + 'px';
+          paragraph.style.opacity = op - pos/150;
+          paragraph.style.fontSize = fz - 24*pos/150 + 'px';
+        }
+      }
+    }, delay);
   },
 });
