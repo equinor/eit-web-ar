@@ -12,22 +12,20 @@ AFRAME.registerComponent('game', {
   schema: {
     playerName: { type: 'string', default: 'AnstendigSpiller'},
     playerModel: { type: 'string', default: 'g_box'},
-    playerModelColor: { type: 'string', default: 'green' }
+    playerColor: { type: 'string', default: 'green' }
   },
   init: function () {
     const _this = this;
     const data = this.data;
     this.playerEntities = [0,0,0,0,0,0];
-    this.markerList = [];
     this.markerEntityList = [];
 
     const markers = document.querySelectorAll('.marker');
     markers.forEach((marker) => {
-      this.markerList.push(marker);
       this.markerEntityList.push(marker.firstElementChild);
     });
 
-    // Register player
+    // Selecting model and color when joining the game
     document.getElementById("player_model_select").addEventListener('change', function() {
       if (this.value[0] == 'g') {
         document.getElementById("player_model_color_select").removeAttribute("disabled");
@@ -35,26 +33,28 @@ AFRAME.registerComponent('game', {
         document.getElementById("player_model_color_select").setAttribute("disabled", true);
       }
     });
-    document.getElementById("player_id_submit").addEventListener("click", () => {
-        const playerName = document.getElementById("player_id_text").value;
-        const playerModel = document.getElementById("player_model_select").value;
-        const playerModelColor = document.getElementById("player_model_color_select").value;
+
+    // Register player
+    document.getElementById("submit_player_registration").addEventListener("click", () => {
+        const playerName = document.getElementById("player_name").value;
+        const playerModel = document.getElementById("player_model").value;
+        const playerColor = document.getElementById("player_color").value;
         if (playerName && typeof(playerName) == 'string') {
           data.playerName = playerName;
         }
         if (playerModel && typeof(playerModel) == 'string') {
           if (playerModel[0] == 'm') {
-            data.playerModelColor = '';
-          } else if (playerModelColor && typeof(playerModelColor) == 'string') {
-            data.playerModelColor = playerModelColor;
+            data.playerColor = '';
+          } else if (playerColor && typeof(playerColor) == 'string') {
+            data.playerColor = playerColor;
           }
           data.playerModel = playerModel;
         }
         document.getElementById("game_init_container").style.display = 'none';
-        this.registerPlayer(data.playerName, data.playerModel, data.playerModelColor);
+        this.registerPlayer(data.playerName, data.playerModel, data.playerColor);
     });
 
-    // Send entity when clicking on it
+    // Send entity to another player on click
     const entities = document.querySelectorAll('.game-entity');
     entities.forEach(item => {
       item.addEventListener('click', (e) => {
@@ -64,11 +64,12 @@ AFRAME.registerComponent('game', {
     });
     log.info("init complete")
 
-    // Socket stuff - connection to backend
+    // Socket - connecting to backend
     this.socket = io(api.socketUri);
     this.socket.on('connect', function(data){
       console.log('#GAME: Socket-io: Connected to backend.');
     });
+
     // When backend updates list of entities
     this.socket.on('entities-updated', function(data) {
       console.log('#GAME: Recieved event: entities-updated');
@@ -77,17 +78,18 @@ AFRAME.registerComponent('game', {
         _this.updateSceneEntities(_this.playerEntities);
       }
     });
-    // Når en ny player registreres
+
+    // Display text when a new player has joined the game
     this.socket.on('player-added', function(data) {
       _this.animateText('<strong>' + data.name + "</strong> has joined", "#c1f588");
     });
 
-    // Når noen sender en boks
+    // Display text when someone has sent a box
     this.socket.on('entity-sent', function(data) {
       _this.animateText('<strong>' + data.fromPlayer.name + '</strong> sent box to <strong>' + data.toPlayer.name + '</strong>!!', "#ff87f9");
     });
 
-    // Når det er game over
+    // Display text when the game is starting/game is over
     this.socket.on('status-change', function(data) {
       if (data.status == 'not-started') {
         _this.animateText("<strong>Standby - Game not started</strong>", "#87ebff", 3000);
@@ -150,13 +152,13 @@ AFRAME.registerComponent('game', {
       }
     }, delay);
   },
-  registerPlayer: function (playerName, playerModel, playerModelColor) {
+  registerPlayer: function (playerName, playerModel, playerColor) {
     const regUrl = api.baseUri + '/player/add';
 
     const payload = {
       name: playerName,
       model: playerModel,
-      color: playerModelColor,
+      color: playerColor,
     };
 
     axios({
@@ -197,64 +199,48 @@ AFRAME.registerComponent('game', {
   },
   updateSceneEntities: function (entities) {
     for (let i = 0; i < entities.length; i++) {
+      // if there is no entity at position i
       if (entities[i] == 0) {
         this.markerEntityList[i].setAttribute('visible', false);
         this.markerEntityList[i].setAttribute('data-entity-id', '');
         this.markerEntityList[i].classList.remove('cursor-interactive');
-      } else if (entities[i].model[0] == 'g') {
-        const entityModel = entities[i].model.slice(2);
-        this.markerEntityList[i].setAttribute('visible', true);
-        this.markerEntityList[i].classList.add('cursor-interactive');
-        this.markerEntityList[i].removeAttribute('gltf-model');
-        this.markerEntityList[i].setAttribute('material', 'color', entities[i].color);
-        this.markerEntityList[i].setAttribute('geometry', 'primitive', entityModel);
-        this.markerEntityList[i].setAttribute('data-entity-id', entities[i].entityId);
-        // Scaling && Positioning
-        let scale;
-        let position;
-        if (entityModel == 'box') {
-          scale = '1 1 1';
-          position = '0 0 0';
-        } else if (entityModel == 'sphere') {
-          scale = '0.5 0.5 0.5';
-          position = '0 0 0';
-        } else if (entityModel == 'cone') {
-          scale = '0.5 0.5 0.5';
-          position = '0 0 0';
-        } else if (entityModel == 'octahedron') {
-          scale = '0.5 0.5 0.5';
-          position = '0 0 0';
-        } else if (entityModel == 'torusKnot') {
-          scale = '0.3 0.3 0.3';
-          position = '0 0 0';
-        }
-        this.markerEntityList[i].setAttribute('scale', scale);
-        this.markerEntityList[i].setAttribute('position', position);
-        // SOUND
-        this.markerEntityList[i].components.sound.stopSound();
-        this.markerEntityList[i].components.sound.playSound();
-      } else if (entities[i].model[0] == 'm') {
-        const entityModel = entities[i].model.slice(2);
-        this.markerEntityList[i].setAttribute('visible', true);
-        this.markerEntityList[i].classList.add('cursor-interactive');
-        this.markerEntityList[i].removeAttribute('material');
-        this.markerEntityList[i].removeAttribute('geometry');
-        this.markerEntityList[i].setAttribute('gltf-model', entityModel);
-        this.markerEntityList[i].setAttribute('data-entity-id', entities[i].entityId);
-        // Scaling && Positioning
-        let scale;
-        let position;
-        if (entityModel == '#penguin') {
-          scale = '0.3 0.3 0.3';
-          position = '0.05 0 0';
-        }
-        this.markerEntityList[i].setAttribute('scale', scale);
-        this.markerEntityList[i].setAttribute('position', position);
-        // SOUND
-        this.markerEntityList[i].components.sound.stopSound();
-        this.markerEntityList[i].components.sound.playSound();
+      // else if there is an entity
       } else {
-        console.log("#GAME: entity model is not a geometry or 3d-model. This updates nothing.")
+        const entityModel = entities[i].model.slice(2);
+        this.markerEntityList[i].setAttribute('visible', true);
+        this.markerEntityList[i].classList.add('cursor-interactive');
+        this.markerEntityList[i].setAttribute('data-entity-id', entities[i].entityId);
+        
+        let scale = '1 1 1';
+        let position = '0 0 0';
+
+        // if the entity model is a geometry model (prefix g, e.g. "g_cone")
+        if (entities[i].model[0] == 'g') {
+          this.markerEntityList[i].removeAttribute('gltf-model');
+          this.markerEntityList[i].setAttribute('material', 'color', entities[i].color);
+          this.markerEntityList[i].setAttribute('geometry', 'primitive', entityModel);
+           if (entityModel == 'sphere' || entityModel == 'cone' || entityModel == 'octahedron') {
+            scale = '0.5 0.5 0.5';
+          } else if (entityModel == 'torusKnot') {
+            scale = '0.3 0.3 0.3';
+          }
+        // else if the entity model is an imported 3d model (prefix m, e.g. "m_#penguin")
+        } else if (entities[i].model[0] == 'm') {
+          this.markerEntityList[i].removeAttribute('material');
+          this.markerEntityList[i].removeAttribute('geometry');
+          this.markerEntityList[i].setAttribute('gltf-model', entityModel);
+
+          if (entityModel == '#penguin') {
+            scale = '0.3 0.3 0.3';
+            position = '0.05 0 0';
+          }
+        }
+        // Set scale and position of the model
+        this.markerEntityList[i].setAttribute('scale', scale);
+        this.markerEntityList[i].setAttribute('position', position);
+        // Play sound
+        this.markerEntityList[i].components.sound.stopSound();
+        this.markerEntityList[i].components.sound.playSound();
       }
     }
   },
