@@ -10,6 +10,8 @@ Augmented Reality is a technology that fuses Virtual Reality with the real world
 
 The purpose of Epic 1 is to show that the app can react to barcode markers (can be generated [here](https://au.gmented.com/app/marker/marker.php). More specifically they are 2D barcode markers of dimensions 3*3. Use "Generate a single marker image with code ___" with the codes specified below). The different possible scenarios are listed below, depending on the barcode the camera is pointing at. For click events, point with the circular cursor on the middle of the screen.
 
+[Markers 0-10 for testing](markers0-10.png).
+
 We printed the markers and put them on a guitar amplifier, but any box will do. For simple testing you can just point the camera at the markers without printing them and putting them on a box. Be aware that the markers do not work well on black/dark background. White background works fine. Choose to accept when the application asks to allow camera, geolocation and device motion sensors.
 
 ### Markers available in epic 1
@@ -40,8 +42,13 @@ When clicking on one of the spheres, it will start an animation. This animation 
 
 ## Epic 3
 
-*epic3.html*
+*game.html*
 
-## Epic 4
+The purpose of Epic 3 is to implement a proof of concept multiplayer app combined with AR. We implemented it as a multiplayer whack-a-mole game.
 
-*epic4.html*
+When signing into the game, the player can enter a username. The player can also choose which figure and color their entities will have (instead of the default green box). The entity settings will persist when sending the entities to other players.
+
+
+The game is started when two users have signed into the game. Each user will be assigned with three boxes (or other entities). The boxes are shown when pointing the camera on [markers 0-5](markers0-5.png). A user can send a box to another player by pointing the cursor at the box and clicking on it. When a user clicks on a box, the box will disappear from the user's markers and appear in front of another (randomly selected) player.
+
+One round of the game ends when one of the players does not have any boxes left. Another round starts after five seconds.
