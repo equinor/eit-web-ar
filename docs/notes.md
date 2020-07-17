@@ -141,3 +141,25 @@ Tested image-tracking for large scale objects. Used photo of building as a symbo
 
 Conclusion:
 Image tracking is not really that good. Neither for big or small objects. Both marker-based and location-based (gps) works much better.
+
+
+## Animate (gps placed) object
+
+### Example
+
+```html
+<a-asset-item
+    id="magnemite"
+    src="./gltf/magnemite/scene.gltf"
+    preload="auto">
+</a-asset-item>
+
+<a-entity
+id="magnemite"
+gps-entity-place='latitude: 59.959941; longitude: 10.701367'
+gltf-model='#magnemite'
+scale='0.5 0.5 0.5'
+animation="property: rotation; to: 0 360 0; loop: true; dur: 3000"
+cursor-interactive
+></a-entity>
+```

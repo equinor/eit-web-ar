@@ -1,6 +1,6 @@
-# Developer guide
+# A-frame components
 
-## COMPONENT: gps-object
+## gps-object
 Add the gps-object tag to an entity, together with its properties. For example:
 
 ```html
@@ -26,7 +26,7 @@ Make sure to add your model as an asset:
 </a-assets>
 ```
 
-## COMPONENT: get-avg-gps-location
+## get-avg-gps-location
 
 * Put get-avg-gps-location in the camera tag, like this:
 
@@ -56,7 +56,7 @@ Make sure to add your model as an asset:
 </script>
 ```
 
-## COMPONENT: gesture-detector
+## gesture-detector
 
 * Emit events for detected gestures
 Add to a-scene tag: <a-scene gesture-detector>
@@ -66,19 +66,19 @@ sceneEl.addEventListener("onefingermove"..
 sceneEl.addEventListener("twofingermove"..
 sceneEl.addEventListener("threefingermove"..
 
-## COMPONENT: gesture-rotation
+## gesture-rotation
 
 * Add this gesture to an entity to be able to rotate it with a one-finger gesture
 
 Inputs:
 - rotationAxis: choose what axis the object is able to rotate about, valid inputs: x, y, xy
 
-## COMPONENT: gesture-scale
+## gesture-scale
 
 * Add this gesture to an entity to be able to scale it with a two-finger gesture
 
 
-## COMPONENT: draw-line-click
+## draw-line-click
 
 You will need at least two entities with the draw-line-click component to be able to draw a line.
 
@@ -117,7 +117,7 @@ With offset, color and linewidth:
 </a-marker>
 ```
 
-## COMPONENT: draw-line
+## draw-line
 
 Supposed to automatically draw lines from markers with the draw-line component to all other visible markers.
 
@@ -125,7 +125,7 @@ Supposed to automatically draw lines from markers with the draw-line component t
 <a-marker draw-line type='barcode' value='5' id='5'></a-marker>
 ```
 
-## COMPONENT: gps-intersection
+## gps-intersection
 
 The `gps-intersection` component is added to an entity along with the `gps-entity-place` component. An event is fired each time the camera is within a given radius from the position of the `gps-entity-place` component.
 
@@ -156,7 +156,7 @@ The event is emitted along with the following data:
 * direction: 'in' (user is on the way into the radius of interest) 'out' (user is on the way out of the radius of interest) or 'stay' (user keeps inside the radius of interest)
 
 
-## COMPONENT: marker-sound
+## marker-sound
 
 The component is added to a marker. When the marker is found, the specified audio file will play. The audio will then play each time the marker is lost and then found again.
 
@@ -175,7 +175,7 @@ The component is added to a marker. When the marker is found, the specified audi
 ```
 
 
-## COMPONENT: show-modal
+## show-modal
 When this component is added to a marker, a modal with specified content will show on the entire screen when the specified trigger event happens. The modal can be closed by clicking on it.
 
 ### Attributes
@@ -198,7 +198,7 @@ When this component is added to a marker, a modal with specified content will sh
 </a-marker>
 ```
 
-## COMPONENT: cursor-interactive
+## cursor-interactive
 Adds the `cursor-interactive` class to itself (`this.el`) and all child ~~entities~~ elements. The classes are added after the scene is rendered. The class is therefore also added to elements that other components add to the scene in their `init`.
 
 ### Attributes
@@ -232,7 +232,7 @@ AFRAME.registerComponent('show-modal', {
 ```
 
 
-## COMPONENT: standstill-gps-camera
+## standstill-gps-camera
 ### What:
 **Two things:**
 1) Calculates the device's average gps position based on 20 datapoints (can be adjusted in the get-avg-gps-location component) and uses this to set the cameras position in the scene. The position is set at every added datapoint, until the average position is not changing anymore.
@@ -253,7 +253,7 @@ This is for standing still. Not much will happen if you try to move around (phys
 * **standstill-gps-camera** depends on the **get-avg-gps-location** component. But it is generated automatically. So just add **standstill-gps-camera**.
 
 
-## COMPONENT kalman-gps-camera
+## kalman-gps-camera
 
 ### STATUS:
 * Needs testing and tuning!
@@ -286,30 +286,7 @@ Hopefully this will provide a more stable experience while using location-based 
 * Needs the kalman.js module, located in /src/modules/kalman.js
 
 
-
-
-## Animate (gps placed) object
-
-### Example
-
-```html
-<a-asset-item
-    id="magnemite"
-    src="./gltf/magnemite/scene.gltf"
-    preload="auto">
-</a-asset-item>
-
-<a-entity
-id="magnemite"
-gps-entity-place='latitude: 59.959941; longitude: 10.701367'
-gltf-model='#magnemite'
-scale='0.5 0.5 0.5'
-animation="property: rotation; to: 0 360 0; loop: true; dur: 3000"
-cursor-interactive
-></a-entity>
-```
-
-## COMPONENT: gps-animation
+## gps-animation
 
 The `gps-animation` component makes it possible to animate the position of a gps placed entity (entity with the `gps-entity-place` component).
 The animation is initiated with the `animation` component. Use the usual attributes on `animation`.
@@ -343,7 +320,7 @@ animation__rotation="property: rotation; from: 0 0 0; to: 0 360 0; loop: false; 
 
 Adding the attributes above to an entity will make it move and rotate at the same time.
 
-## COMPONENT: animation-pauser
+## animation-pauser
 
 The `animation-pauser` component makes it possible to pause and unpause a built-in animation in a gltf-model. This presupposes that the `animation-mixer` component is used to construct the animation in the html entity. It also presupposes that the `cursor-interactive` component is present in the html entity. To pause/unpause the animation you need to point the cursor at the gltf-model and perform a simple click (either touch screen or mouse).
 
@@ -369,7 +346,7 @@ In this example the gltf-model is placed at the gps location (68.679019, 16.7966
 ></a-asset-item>
 ```
 
-## COMPONENT: gps-sound
+## gps-sound
 
 The `gps-sound` component makes it possible to play mp3-sounds when clicking on gltf-models placed with gps coordinates. 
 
@@ -400,7 +377,7 @@ In this example the gltf-model is placed at the gps location (68.679019, 16.7966
 </a-asset>
 ```
 
-## COMPONENT: gps-polygon-intersection
+## gps-polygon-intersection
 
 This components emits the `gps-polygon-intersection` event when the user steps inside a polygon (area consisting of gps points), and when the user exits the polygon. If the `keepEmitting` property is set to `true` then the emit will keep emitting while the user is inside the polygon.
 
