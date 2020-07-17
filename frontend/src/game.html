@@ -26,23 +26,23 @@
         </a-asset-item>
       </a-assets>
 
-      <a-marker class="marker" type='barcode' value='0' id="m-0">
-        <a-entity class="cursor-interactive game-entity" data-entity-id="0" sound="src: #recievedEntitySound" autoplay="false"></a-entity>
+      <a-marker class="marker" type='barcode' value='0'>
+        <a-entity class="cursor-interactive game-entity" data-entity-id="" sound="src: #recievedEntitySound" autoplay="false"></a-entity>
       </a-marker>
-      <a-marker class="marker" type='barcode' value='1' id="m-1">
-        <a-entity class="cursor-interactive game-entity" data-entity-id="0" sound="src: #recievedEntitySound" autoplay="false"></a-entity>
+      <a-marker class="marker" type='barcode' value='1'>
+        <a-entity class="cursor-interactive game-entity" data-entity-id="" sound="src: #recievedEntitySound" autoplay="false"></a-entity>
       </a-marker>
-      <a-marker class="marker" type='barcode' value='2' id="m-2">
-        <a-entity class="cursor-interactive game-entity" data-entity-id="0" sound="src: #recievedEntitySound" autoplay="false"></a-entity>
+      <a-marker class="marker" type='barcode' value='2'>
+        <a-entity class="cursor-interactive game-entity" data-entity-id="" sound="src: #recievedEntitySound" autoplay="false"></a-entity>
       </a-marker>
-      <a-marker class="marker" type='barcode' value='3' id="m-3">
-        <a-entity class="cursor-interactive game-entity" data-entity-id="0" sound="src: #recievedEntitySound" autoplay="false"></a-entity>
+      <a-marker class="marker" type='barcode' value='3'>
+        <a-entity class="cursor-interactive game-entity" data-entity-id="" sound="src: #recievedEntitySound" autoplay="false"></a-entity>
       </a-marker>
-      <a-marker class="marker" type='barcode' value='4' id="m-4">
-        <a-entity class="cursor-interactive game-entity" data-entity-id="0" sound="src: #recievedEntitySound" autoplay="false"></a-entity>
+      <a-marker class="marker" type='barcode' value='4'>
+        <a-entity class="cursor-interactive game-entity" data-entity-id="" sound="src: #recievedEntitySound" autoplay="false"></a-entity>
       </a-marker>
-      <a-marker class="marker" type='barcode' value='5' id="m-5">
-        <a-entity class="cursor-interactive game-entity" data-entity-id="0" sound="src: #recievedEntitySound" autoplay="false"></a-entity>
+      <a-marker class="marker" type='barcode' value='5'>
+        <a-entity class="cursor-interactive game-entity" data-entity-id="" sound="src: #recievedEntitySound" autoplay="false"></a-entity>
       </a-marker>
 
       <a-entity camera>
@@ -63,9 +63,9 @@
     </div>
 
     <div id="game_init_container">
-      <div id="player_submit_container">
-        <input type="text" name="playerId" id="player_id_text" placeholder="Your nickname..">
-        <select name="playerModel" id="player_model_select">
+      <div id="player_registration_container">
+        <input type="text" id="player_name" placeholder="Your nickname..">
+        <select id="player_model">
           <option value="" disabled selected>Choose model</option>
           <option value="g_box">Box</option>
           <option value="g_sphere">Sphere</option>
@@ -75,7 +75,7 @@
           <option value="m_#penguin">Penguin</option>
         </select>
 
-        <select name="modelColor" id="player_model_color_select" disabled>
+        <select id="player_color" disabled>
           <option value="" disabled selected >Color</option>
           <option value="white">White</option>
           <option value="green">Green</option>
@@ -85,7 +85,7 @@
           <option value="orange">Orange</option>
           <option value="black">Black</option>
         </select>
-        <input type="submit" value="Go" id="player_id_submit">
+        <input type="submit" value="Go" id="submit_player_registration">
       </div>
       <!-- <img src="./game/logo.jpg" alt=""> -->
     </div>
