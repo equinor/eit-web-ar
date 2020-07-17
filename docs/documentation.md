@@ -22,3 +22,7 @@
 
 ## General notes
 * [Notes](notes.md)
+
+## Videos
+* [Epic 1 in action](https://drive.google.com/file/d/1teWcL39Us8xr9aYBNlM7stuhZb1C4WGH/view?usp=sharing)
+* [Epic 2 in action](https://drive.google.com/file/d/12KXkdVIaeG4T4l7JaiPhFnztpZU9T2MH/view?usp=sharing)
