@@ -37,3 +37,48 @@ Stores information about each group
 ```
 group:43 latitude 59.23223 longitude 10.32989 radius 5 users [1, 4, 2]
 ```
+
+## Socket messages
+
+### Client -> Server: `position-update`
+A user has changed position. Tell the server to update its information.
+```json
+{
+  "userId": 3,
+  "latitude": 50.23223,
+  "longitude": 10.23222
+}
+```
+
+### Server -> Client: `user-joined`
+```json
+{
+  "userId": 17,
+  "name": "Kjell-Frida"
+}
+```
+
+### Server -> Client: `user-added-to-group`
+```json
+{
+  "userId": 4,
+  "groupId": 2
+}
+```
+
+
+### Server -> Client: `user-positions-updated`
+```json
+[
+  {
+    "userId": 1,
+    "latitude": 1.33233,
+    "longitude": 2.133323
+  },
+  {
+    "userId": 2,
+    "latitude": 0.3434444,
+    "longitude": 4.42322
+  }
+]
+```
