@@ -1,0 +1,32 @@
+<html>
+
+  <head>
+    <meta charset="UTF-8">
+    <title>Never gonna give you up</title>
+  </head>
+
+  <body>
+    <a-scene
+      id="scene"
+      cursor="rayOrigin: mouse"
+      arjs='detectionMode: mono_and_matrix; matrixCodeType: 3x3;'
+      gesture-detector
+      embedded
+      >
+
+      <a-assets>
+      </a-assets>
+
+      <a-entity camera>
+        <a-entity
+        cursor="fuse: false;"
+        raycaster="interval: 20; objects: .cursor-interactive"
+        position="0 0 -1"
+        geometry="primitive: ring; radiusInner: 0.01; radiusOuter: 0.015"
+        material="color: black; shader: flat"
+        ></a-entity>
+      </a-entity>
+
+    </a-scene>
+  </body>
+</html>
