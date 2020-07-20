@@ -7,10 +7,31 @@ function io(server) {
     console.log('io connect');
     io.emit('connectmsg');
     console.log('io sendte connectmsg');
+    
+    socket.on('position-update', (data) => {
+      console.log('position-update');
+      console.log(data);
+    });
   });
-
-  io.on('connectmsg2', (socket) => {
-    console.log('io mottok connectmsg2');
+  
+  io.on('connect_error', (error) => {
+    console.log('connect_error');
+    console.log(error);
+  });
+  
+  io.on('connect_timeout', (error) => {
+    console.log('connect_timeout');
+    console.log(error);
+  });
+  
+  io.on('error', (error) => {
+    console.log('error');
+    console.log(error);
+  });
+  
+  io.on('disconnect', (error) => {
+    console.log('disconnect');
+    console.log(error);
   });
   
   return io;
