@@ -4,7 +4,7 @@
 Get all available information about a user.
 
 ### Responses
-#### 200 OK
+#### 200
 ```json
 {
   "name": "username"
@@ -28,7 +28,7 @@ When updating the group, the corresponding group will also be altered.
 ```
 
 ### Responses
-#### 200 OK
+#### 200 User updated
 #### 410 User does not exist
 
 ## POST `/user`
@@ -51,10 +51,16 @@ Returns the new `userId`:
 }
 ```
 
+## DELETE `/user/:userId`
+Delete the user and corresponding information
+### Responses
+#### 200 User deleted
+#### 410 User does not exist
+
 ## GET `/group/:groupId`
 Get information about a group and the players within the group
 ### Responses
-#### 200 OK
+#### 200
 ```json
 {
   "position": {
@@ -72,6 +78,20 @@ Get information about a group and the players within the group
 
 #### 410 Group does not exist
 
+## POST `/group`
+Add new group.
+### Request
+```json
+{
+  "latitude": 50.345345,
+  "longitude": 32.23244,
+  "radius": 4,
+  "color": "yellow"
+}
+```
+### Responses
+#### 201 Group added
+
 ## PUT `/group/:groupId`
 Update group information
 ### Request
@@ -81,20 +101,26 @@ Update group information
 }
 ```
 ### Responses
-#### 200 OK
+#### 200 Group updated
+#### 410 Group does not exist
+
+## DELETE `/group/:groupId`
+Delete a group and remove information related to the group.
+### Responses
+#### 200 Group deleted
 #### 410 Group does not exist
 
 ## GET `/meeting`
 Get all available information about everything
 ### Responses
-#### 200 OK
+#### 200
 ```json
 {
   "...": "?"
 }
 ```
 
-## GET `/meeting/reset`
+## PUT `/meeting/reset`
 Flush Redis.
 ### Responses
-#### 200 OK
+#### 200 Reset done
