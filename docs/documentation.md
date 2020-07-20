@@ -12,7 +12,7 @@
 * [What we learned with Epic 1 (Enhance 3d printed models)](epic1.md)
 * [What we learned with Epic 2 (True scale, GPS)](epic2.md)
 * [What we learned with Epic 3 (Multiplayer game)](epic3.md)
-* [What we learned with Epic 3 (Multiplayer meeting)](epic4.md)
+* [What we learned with Epic 4 (Multiuser meeting)](epic4.md)
 
 ## User guides
 * [User guide for all epics](user-guide.md)
