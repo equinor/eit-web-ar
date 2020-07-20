@@ -20,16 +20,27 @@ app.use(cookieParser());
 
 /** ROUTES */
 var indexRouter = require('./routes/index');
+app.use('/', indexRouter);
+
+// The Game
 var playerRouter = require('./routes/api/player');
 var entityRouter = require('./routes/api/entity');
 var entitiesRouter = require('./routes/api/entities');
 var gameRouter = require('./routes/api/game');
 
-app.use('/', indexRouter);
 app.use('/api/player', playerRouter);
 app.use('/api/entity', entityRouter);
 app.use('/api/entities', entitiesRouter);
 app.use('/api/game', gameRouter);
+
+// The Meeting
+var userRouter = require('./routes/meetapi/user');
+var groupRouter = require('./routes/meetapi/group');
+var meetingRouter = require('./routes/meetapi/meeting');
+
+app.use('/meetapi/user', userRouter);
+app.use('/meetapi/group', groupRouter);
+app.use('/meetapi/meeting', meetingRouter);
 
 
 module.exports = app;
