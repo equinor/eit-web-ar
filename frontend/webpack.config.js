@@ -122,8 +122,8 @@ module.exports = {
       new HtmlWebpackPlugin({
          hash: true,
          favicon: "./src/favicon.ico",
-         template: "./src/epic3.html",
-         filename: "epic3.html",
+         template: "./src/game.html",
+         filename: "game.html",
          inject: "head",
          chunks: ["app", "vendor"],
          chunksSortMode: "dependency"
@@ -131,8 +131,8 @@ module.exports = {
       new HtmlWebpackPlugin({
          hash: true,
          favicon: "./src/favicon.ico",
-         template: "./src/game.html",
-         filename: "game.html",
+         template: "./src/meeting.html",
+         filename: "meeting.html",
          inject: "head",
          chunks: ["app", "vendor"],
          chunksSortMode: "dependency"
