@@ -29,7 +29,7 @@ var server = http.createServer(app);
 
 const io = socketio.connect(server);
 app.set('io', io);
-meeting.setIo(io);
+meeting.init(io);
 
 /**
  * Listen on provided port, on all network interfaces.

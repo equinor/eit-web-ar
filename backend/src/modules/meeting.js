@@ -14,7 +14,7 @@ function _getUserAtSocket(socket) {
 }
 
 module.exports = {
-  setIo: function(io) {
+  init: function(io) {
     _io = io;
 
     _io.on('connect', (socket) => {      
