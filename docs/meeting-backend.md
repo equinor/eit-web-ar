@@ -17,7 +17,7 @@ Stores userId's of the active users
 ### `user:userId` hash
 Stores information about each user
 ```
-user:3 name Victor country Krakozhia
+user:3 name Victor latitude 59.23232 longitude 10.12221 latitude0 50.3422 longitude0 11.12332 fakeLatitude0 10 fakeLongitude0 10
 ```
 
 ### `lastGroupId` int
@@ -52,30 +52,12 @@ The client have registered a new user and received their userId. Then the client
 A user has changed position. Tell the server to update its information. Also, if this is the first position emitted by this user, store the initial position as well.
 ```json
 {
-  "userId": 3,
   "latitude": 50.23223,
   "longitude": 10.23222
 }
 ```
 
-### Server -> Client: `user-joined`
-```json
-{
-  "userId": 17,
-  "name": "Kjell-Frida"
-}
-```
-
-### Server -> Client: `user-added-to-group`
-```json
-{
-  "userId": 4,
-  "groupId": 2
-}
-```
-
-
-### Server -> Client: `position-updates`
+### Server -> Client: `position-update`
 ```json
 [
   {
@@ -89,4 +71,22 @@ A user has changed position. Tell the server to update its information. Also, if
     "longitude": 4.42322
   }
 ]
+```
+
+### Server -> Client: `user-joined`
+### Server -> Client `user-left`
+```json
+{
+  "userId": 17,
+  "name": "Kjell-Frida"
+}
+```
+
+### Server -> Client: `user-joined-group`
+### Server -> Client: `user-left-group`
+```json
+{
+  "userId": 4,
+  "groupId": 2
+}
 ```
