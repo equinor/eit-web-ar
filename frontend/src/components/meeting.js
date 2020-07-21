@@ -15,8 +15,8 @@ AFRAME.registerComponent('meeting', {
     });
     
     meeting.receivePositions(data => {
-      console.log('received position-update:');
-      console.log(data);
+      //console.log('received position-update:');
+      //console.log(data);
     });
     
     meeting.receiveUserJoined(data => {
@@ -24,21 +24,20 @@ AFRAME.registerComponent('meeting', {
       console.log(data);
     });
     meeting.receiveUserLeft(data => {
-      console.log('received user-joined:');
+      console.log('received user-left:');
       console.log(data);
     });
     meeting.receiveUserJoinedGroup(data => {
-      console.log('received user-joined:');
+      console.log('received user-joined-group:');
       console.log(data);
     });
     meeting.receiveUserLeftGroup(data => {
-      console.log('received user-joined:');
+      console.log('received user-left-group:');
       console.log(data);
     });
   },
   startEmittingPosition: function() {
     window.addEventListener('gps-camera-update-position', function (e) {
-      console.log(e);
       meeting.emitPosition(e.detail.position.latitude, e.detail.position.longitude);
     });
   }

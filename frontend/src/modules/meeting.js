@@ -60,7 +60,7 @@ module.exports = {
           callback(response.data.userId);
           return true;
         } else {
-          alert("Something went wrong when registering. See console.");
+          console.log('Something went wrong when registering');
           return false;
         }
       })
@@ -78,8 +78,8 @@ module.exports = {
     });
   },
   emitPosition: function(latitude, longitude) {
-    console.log('sender position-update til ');
-    console.log(socket);
+    //console.log('sender position-update til ');
+    //console.log(socket);
     socket.emit('position-update', {
       latitude: latitude,
       longitude: longitude
