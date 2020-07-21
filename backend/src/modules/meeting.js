@@ -13,6 +13,11 @@ function _getUserAtSocket(socket) {
   return null;
 }
 
+function _getSocketFromUser(userId) {
+  const s = _sockets.find(s => s.userId == userId);
+  return s.socket;
+}
+
 module.exports = {
   init: function(io) {
     _io = io;
@@ -86,8 +91,8 @@ module.exports = {
             }
             console.log(relativePositions);
             // Emit relative positions
-            let s = _sockets.find(s => s.userId == a_userId);
-            s.socket.emit('position-updates', relativePositions);
+            const socket = _getSocketFromUser(a_userId);
+            socket.emit('position-updates', relativePositions);
           }
         });
       });
