@@ -117,12 +117,12 @@ AFRAME.registerComponent("handpose", {
         hand_position = this.getPosition(predictions);
         rotated_hand = this.rotateYAxis(-Math.PI / 3, hand_position);
         hand_world_position = this.toWorldPos(rotated_hand);
-        this.el.emit("handpose", {
+        this.el.sceneEl.emit("handpose", {
           handpose: handpose_gesture,
           position: hand_world_position,
         });
       } else {
-        this.el.emit("handpose", {
+        this.el.sceneEl.emit("handpose", {
           handpose: handpose_gesture,
         });
       }
@@ -170,21 +170,21 @@ AFRAME.registerComponent("handpose", {
 
     world_pos = [
       vector.x + camera_pos.x,
-      vector.y + camera_pos.y,
+      -vector.y + camera_pos.y + 2,
       vector.z + camera_pos.z,
     ];
     return world_pos;
   },
 
-  //tick() {
-  //var _this = this;
-  //var lastMove = 0;
-  //this.el.addEventListener("handpose", function (e) {
-  //if (Date.now() - lastMove > 500) {
-  //lastMove = Date.now();
-  //handpos = e.detail.position;
-  //console.log(handpos);
-  //}
-  //});
-  //},
+  tick() {
+    var _this = this;
+    var lastMove = 0;
+    this.el.sceneEl.addEventListener("handpose", function (e) {
+      if (Date.now() - lastMove > 500) {
+        lastMove = Date.now();
+        handpos = e.detail.position;
+        console.log(handpos);
+      }
+    });
+  },
 });
