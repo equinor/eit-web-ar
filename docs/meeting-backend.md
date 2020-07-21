@@ -49,7 +49,7 @@ The client have registered a new user and received their userId. Then the client
 ```
 
 ### Client -> Server: `position-update`
-A user has changed position. Tell the server to update its information.
+A user has changed position. Tell the server to update its information. Also, if this is the first position emitted by this user, store the initial position as well.
 ```json
 {
   "userId": 3,
