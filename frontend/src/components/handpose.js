@@ -14,7 +14,6 @@ AFRAME.registerComponent("handpose", {
   init: function () {
     load_loop_timeout = 1000;
     this.waitForElementToDisplay("video", load_loop_timeout);
-    this.tick();
   },
 
   remove: function () {},
