@@ -3,24 +3,19 @@ var router = express.Router();
 var path = require('path');
 var storage = require('../../modules/storage');
 
+var game = require('../../modules/game');
 var utils = require('./utils');
-
-const numberOfEntities = 3;
-const numberOfMarkers = 6;
-if (numberOfMarkers < numberOfEntities) {
-  numberOfMarkers = numberOfEntities;
-}
+var emitters = require('./emitters');
 
 /**********************************************************************************
 * GET
 */
 
 router.get('/', function (req, res) {
-  let statusCode = 200;
   let defaultData = {
     description: "player api"
   };
-  res.status(statusCode).json(defaultData);
+  res.status(200).json(defaultData);
 });
 
 router.get('/:playerId', (req, res) => {
@@ -77,54 +72,32 @@ router.post('/add', (req, res) => {
   }
   storage.scard('players', function(err, lastPlayerId) {
     const io = req.app.get('io');
-    var playerId = 1;
-    if (lastPlayerId !== null) {
-      playerId = lastPlayerId + 1;
-    }
-    // Register new player
-    const hash = utils.getPlayerHash(playerId);
-    storage.hmset(hash, 'name', name);
-    storage.sadd('players', playerId);
-    storage.sadd('playersAvailable', playerId);
-
-    // Make a randomized list of entities and assign them to the player
-    storage.scard('entities', function(err, entityCount) {
-      if (entityCount === null) {
-        entityCount = 0;
+    var playerId = getNextPlayerId(lastPlayerId);
+    addPlayer(playerId, name);
+    utils.makePlayerAvailable(playerId);
+    
+    utils.createEntityList(function(entities) {
+      if (req.body.model !== undefined) {
+        const model = req.body.model;
+        setPropertyOnEntities(entities, 'model', model);
       }
-      var entities = [];
-      for (var entityId = entityCount + 1; entityId < entityCount + numberOfEntities + 1; entityId++) {
-        entities.push(entityId);
+      if (req.body.color !== undefined) {
+        const color = req.body.color;
+        setPropertyOnEntities(entities, 'color', color);
       }
-      storage.sadd('entities', entities);
-
-      for (var i = entities.length; i < numberOfMarkers; i++) {
-        entities.push(0);
-      }
-      entities = utils.shuffle(entities);
-      storage.hmset(hash, 'entities', JSON.stringify(entities));
       
-      io.emit('entities-updated', {
-        playerId: playerId,
-        entities: entities
-      });
+      utils.addEntitiesToPlayer(playerId, entities);
+      emitters.emitEntitiesUpdated(io, playerId, entities);
     });
+    
+    emitters.emitPlayerAdded(io, playerId, name);
 
     // Start the game when there are two players
     if (playerId == 2) {
-      storage.set('gamestatus', 'running');
-      
-      io.emit('status-change', {
-        status: "running"
-      });
-      
+      utils.startGame();
+      emitters.emitGameStarted(io);
     }
     
-    io.emit('player-added', {
-      playerId: playerId,
-      name: name
-    });
-
     const response = {
       playerId: playerId
     };
@@ -132,6 +105,30 @@ router.post('/add', (req, res) => {
   });
 });
 
+/*
+* Helpers
+*/
+
+function getNextPlayerId(lastPlayerId) {
+  var nextPlayerId = 1;
+  if (lastPlayerId !== null) {
+    nextPlayerId = lastPlayerId + 1;
+  }
+  return nextPlayerId;
+}
+
+function addPlayer(playerId, name) {
+  const hash = utils.getPlayerHash(playerId);
+  storage.hmset(hash, 'name', name);
+  storage.sadd('players', playerId);
+}
+
+function setPropertyOnEntities(entities, property, content) {
+  for (var i = 0; i < entities.length; i++) {
+    var entityHash = utils.getEntityHash(entities[i]);
+    storage.hset(entityHash, property, content);
+  }
+}
 
 /**********************************************************************************
 * EXPORT MODULE

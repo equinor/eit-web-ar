@@ -1,41 +1,11 @@
+var storage = require('../../modules/storage');
+var game = require('../../modules/game');
+
 exports.getPlayerHash = function(playerId) {
   return 'player:' + playerId;
 }
 exports.getEntityHash = function(entityId) {
   return 'entityId:' + entityId;
-}
-
-exports.addEntityToRandomPlayer = function(storage, entityId, fromPlayerId, callback) {
-  storage.smembers('playersAvailable', function(err, playersAvailable) {
-    // Get random playerId of available players except self
-    const myIndex = playersAvailable.indexOf(String(fromPlayerId));
-    playersAvailable.splice(myIndex, 1);
-    const toPlayerId = playersAvailable[Math.floor(Math.random()*playersAvailable.length)];
-    const toHash = exports.getPlayerHash(toPlayerId);
-
-    // Insert entity into random empty space on the receiving player
-    storage.hmget(toHash, 'entities', function(err, entities) {
-      entities = JSON.parse(entities);
-      var spaces = [];
-      for (var i = 0; i < entities.length; i++) {
-        if (entities[i] == 0) {
-          spaces.push(i);
-        }
-      }
-      spaces = exports.shuffle(spaces);
-      const space = spaces[0];
-      entities[space] = entityId;
-
-      storage.hmset(toHash, 'entities', JSON.stringify(entities));
-      
-      // Remove receiving player from availablePlayers if full entity list
-      if (entities.indexOf(0) == -1) {
-        storage.srem('playersAvailable', toPlayerId);
-      }
-      
-      callback(toPlayerId, entities);
-    });
-  });
 }
 
 exports.shuffle = function(array) {
@@ -65,4 +35,64 @@ exports.getScore = function(entities) {
     }
   }
   return score;
+}
+
+exports.makePlayerAvailable = function(playerId) {
+  storage.sadd('playersAvailable', playerId);
+}
+
+exports.makePlayerUnavailable = function(playerId) {
+  storage.srem('playersAvailable', playerId);
+}
+
+exports.createEntityList = function(callback) {
+  storage.scard('entities', function(err, entityCount) {
+    if (entityCount === null) {
+      entityCount = 0;
+    }
+    var entities = [];
+    for (var entityId = entityCount + 1; entityId < entityCount + game.numberOfEntities + 1; entityId++) {
+      entities.push(entityId);
+    }
+    storage.sadd('entities', entities);
+
+    for (var i = entities.length; i < game.numberOfMarkers; i++) {
+      entities.push(0);
+    }
+    entities = exports.shuffle(entities);
+    
+    callback(entities);
+  });
+}
+
+exports.addEntitiesToPlayer = function(playerId, entities) {
+  storage.hmset(exports.getPlayerHash(playerId), 'entities', JSON.stringify(entities));
+}
+
+exports.startGame = function() {
+  storage.set('gamestatus', 'started');
+}
+
+exports.getDetailedEntities = function(entities, callback) {
+  var multi = [];
+  for (var i = 0; i < entities.length; i++) {
+    var entityHash = exports.getEntityHash(entities[i]);
+    multi.push(['hgetall', entityHash]);
+  }
+  storage.multi(multi).exec(function(err, entityInfo) {
+    var detailedEntities = [];
+    for (var i = 0; i < entities.length; i++) {
+      if (entities[i] == 0) {
+        detailedEntities.push(0);
+      } else if (entityInfo[i] === null) {
+        detailedEntities.push({
+          entityId: entities[i]
+        });
+      } else {
+        entityInfo[i].entityId = entities[i];
+        detailedEntities.push(entityInfo[i]);
+      }
+    }
+    callback(detailedEntities);
+  });
 }
