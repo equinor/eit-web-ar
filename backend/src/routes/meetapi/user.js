@@ -44,6 +44,9 @@ router.post('/', (req, res) => {
     const hash = utils.getUserHash(newUserId);
     storage.hmset(hash, args);
     
+    const io = req.app.get('io');
+    emitUserJoined(io, newUserId);
+    
     // Add user to a group
     
     res.status(201).send({ "userId": newUserId });
@@ -68,3 +71,13 @@ router.delete('/:userId', (req, res) => {
 });
 
 module.exports = router;
+
+function emitUserJoined(io, userId) {
+  const userHash = utils.getUserHash(userId);
+  storage.hget(userHash, 'name', (err, name) => {
+    io.emit('user-joined', {
+      userId: userId,
+      name: name
+    });
+  });
+}
