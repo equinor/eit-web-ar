@@ -1,7 +1,6 @@
 import AFRAME, { THREE } from "aframe";
 import * as utils from "../modules/utils";
 const log = utils.getLogger("components:meeting");
-import io from 'socket.io-client';
 import meeting from '../modules/meeting';
 
 AFRAME.registerComponent('meeting', {
