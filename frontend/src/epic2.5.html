@@ -38,8 +38,8 @@
                 preload="auto">
             </a-asset-item>
             <a-asset-item
-                id="sphere"
-                src="./gltf/sphere/scene.glb"
+                id="lookout_tower"
+                src="./gltf/lookout_tower/scene.glb"
                 preload="auto">
             </a-asset-item>
             <a-asset>
@@ -48,15 +48,6 @@
               <img id="myEnterARButton" src="./images/ar_button.png"></img>
             </a-asset>
         </a-assets>
-
-        <a-marker type="barcode" value="4">
-            <a-box material="color:green" position="0 0.5 0" toggle-visibility cursor-interactive></a-box>
-         </a-marker>
-
-         <a-entity
-            gps-entity-place="latitude: 59.959941; longitude: 10.701367"
-            gps-intersection='radius: 40'
-         ></a-entity>
 
         <a-entity
           id="mario_kart_ent"
@@ -86,42 +77,12 @@
           sound="src: #music" 
           autoplay="false">
         </a-entity>
-
         <a-entity
-          id="sphere_ent_0"
-          gps-entity-place='latitude: 68.679137; longitude: 16.796575'
-          gltf-model='#sphere'
-          scale='0.004 0.004 0.004'
-          animation="property: gps-animation; from: 68.679137 16.796545; to: 68.679207 16.796645; loop: false; dur: 12000; startEvents: click;"
-          draw-line-click>
-        </a-entity>
-        <a-entity
-          id="sphere_ent_1"
-          gps-entity-place='latitude: 68.679107; longitude: 16.796575'
-          gltf-model='#sphere'
-          scale='0.004 0.004 0.004'
-          animation="property: gps-animation; from: 68.679107 16.796575; to: 68.679807 16.796575; loop: false; dur: 12000; startEvents: click;"
-          draw-line-click>
-        </a-entity>
-        <a-entity
-          id="sphere_ent_2"
-          gps-entity-place='latitude: 68.679107; longitude: 16.796545'
-          gltf-model='#sphere'
-          scale='0.004 0.004 0.004'
-          animation="property: gps-animation; from: 68.679107 16.796545; to: 68.679107 16.7945; loop: false; dur: 12000; startEvents: click;"
-          draw-line-click>
-        </a-entity>
-        <a-entity
-          id="sphere_ent_3"
-          gps-entity-place='latitude: 68.679137; longitude: 16.796545'
-          gps-animation
-          gltf-model='#sphere'
-          scale='0.004 0.004 0.004'
-          animation="property: gps-animation; from: 68.679137 16.796545; to: 68.679837 16.796945; loop: false; dur: 12000; startEvents: click;"
-          draw-line-click>
+          id="lookout_tower_ent"
+          gps-object='object: #lookout_tower; location: { "lat": 68.679103, "lng": 16.797319 }; scale: 0.043'>
         </a-entity>
 
-        <a-camera kalman-gps-camera="R: 1; Q: 0.12; logConsole: true" rotation-reader look-controls position="0 0 0">
+        <a-camera set-gps-camera="R: 1; Q: 0.12; logConsole: true; set_coords: [68.679069, 16.796574999999997]; radius: 2" rotation-reader look-controls position="0 0 0">
             <a-entity
                 cursor="fuse: false"
                 raycaster="interval: 20; objects: .cursor-interactive"
@@ -156,7 +117,6 @@
     <div id="button_three">
         <img src="./images/three.svg" class="button_img">
     </div-->
-
 
 
 </body>

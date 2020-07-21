@@ -122,6 +122,15 @@ module.exports = {
       new HtmlWebpackPlugin({
          hash: true,
          favicon: "./src/favicon.ico",
+         template: "./src/epic2.5.html",
+         filename: "epic2.5.html",
+         inject: "head",
+         chunks: ["app", "vendor", "ui"],
+         chunksSortMode: "dependency"
+      }),
+      new HtmlWebpackPlugin({
+         hash: true,
+         favicon: "./src/favicon.ico",
          template: "./src/epic3.html",
          filename: "epic3.html",
          inject: "head",

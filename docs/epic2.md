@@ -3,7 +3,7 @@
 ## Experience made during epic 2
 When loading the gltf models in the application, several of the objects in AR appear as black and white (no colours). This is commonly caused by using .gltf files instead of .glb, but they appear as colourless either way for us. After spending hours trying to fix this, we concluded that it was not worth correcting it considering the time provided.
 
-Creating animations on gltf models in Blender had a lot of advantages. It is possible to make complex animations on large and detailed objects, making it valuable for comprehensive projects/applications. We only had the time to learn the basic tools and features of the program, but were able to make acceptable products. 
+Using Blender for creating animations on gltf models had a lot of advantages. It is possible to make complex animations on large and detailed objects, making it valuable for comprehensive projects/applications. We only had the time to learn the basic tools and features of the program, but were able to make acceptable products. 
 
 ## Pros and cons with the approach
 

@@ -21,3 +21,4 @@ import "./animation-pauser"
 import "./gps-polygon-intersection";
 import "./gps-sound";
 import "./game";
+import "./set-gps-camera";
