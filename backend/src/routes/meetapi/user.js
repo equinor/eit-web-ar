@@ -3,6 +3,7 @@ var router = express.Router();
 var path = require('path');
 var storage = require('../../modules/storage');
 var utils = require('../../modules/utils');
+var meeting = require('../../modules/meeting');
 
 router.get('/', (req, res) => {
   res.status(200).send({ description: "meeting/user api"});
@@ -32,6 +33,8 @@ router.put('/:userId', (req, res) => {
     storage.hmset(hash, args);
     
     // Handle group change
+    // Emit user-joined-group
+    // Emit user-left-group
       
     res.status(200).send();
   });
@@ -47,8 +50,6 @@ router.post('/', (req, res) => {
     const io = req.app.get('io');
     emitUserJoined(io, newUserId);
     
-    // Add user to a group
-    
     res.status(201).send({ "userId": newUserId });
   });
 });
@@ -63,6 +64,7 @@ router.delete('/:userId', (req, res) => {
     storage.srem('users', userId);
     const userHash = utils.getUserHash(userId);
     storage.del(userHash);
+    meeting.emitUserLeft(userId);
     
     // Remove user from group
     
