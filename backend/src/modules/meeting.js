@@ -16,6 +16,9 @@ function _getUserAtSocket(socket) {
 
 function _getSocketFromUser(userId) {
   const s = _sockets.find(s => s.userId == userId);
+  if (s === undefined) {
+    return null;
+  }
   return s.socket;
 }
 
@@ -59,7 +62,9 @@ function _emitPositionUpdate() {
         console.log(relativePositions);
         // Emit relative positions
         const socket = _getSocketFromUser(a_userId);
-        socket.emit('position-update', relativePositions);
+        if (socket !== null) {
+          socket.emit('position-update', relativePositions);
+        }
       }
     });
   });
@@ -90,7 +95,15 @@ module.exports = {
   init: function(io) {
     _io = io;
 
-    _io.on('connect', (socket) => {      
+    _io.on('connect', (socket) => {
+      socket.on('disconnect', reason => {
+        const userId = _getUserAtSocket(socket);
+        this.removeUser(userId, (userId) => {
+          this.emitUserLeft(userId);
+        });
+        console.log(`User ${userId} disconnected: ${reason}`);
+      });
+      
       socket.on('connect-socket-to-user', function(data) {
         const userId = data.userId;
         console.log(`connect-socket-to-user ${userId}`);
@@ -110,5 +123,21 @@ module.exports = {
       console.log('Send position-update to clients');
       _emitPositionUpdate();
     }, _emitPositionInterval);
+  },
+
+  emitUserLeft: function(userId) {
+    const userHash = utils.getUserHash(userId);
+    storage.hget(userHash, 'name', (err, name) => {
+      _io.emit('user-left', {
+        userId: userId,
+        name: name
+      });
+    });
+  },
+
+  removeUser: function(userId, callback) {
+    storage.srem('users', userId, (err, _) => {
+      callback(userId);
+    });
   }
 }
