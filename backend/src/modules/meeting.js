@@ -32,8 +32,65 @@ module.exports = {
         const userId = _getUserAtSocket(socket);
         console.log(`position-update: ${userId}: ${latitude}, ${longitude}`);
         const userHash = utils.getUserHash(userId);
+        storage.hexists(userHash, 'latitude0', (err, firstPositionExists) => {
+          if (!firstPositionExists) {
+            // Calculate initial fake position
+            
+            const fakeLatitude0 = 0;
+            const fakeLongitude0 = 0;
+            storage.hmset(userHash, 'latitude0', latitude, 'longitude0', longitude, 'fakeLatitude0', fakeLatitude0, 'fakeLongitude0', fakeLongitude0);
+          }
+        });
         storage.hmset(userHash, 'latitude', latitude, 'longitude', longitude);
       });
     });
+    
+    setInterval(function() {
+      console.log('Send position-updates to clients');
+      
+      if (_sockets.length < 1) {
+        return;
+      }
+      
+      // Get position of all users
+      storage.smembers('users', (err, users) => {
+        let multi = [];
+        for (let i = 0; i < users.length; i++) {
+          let userHash = utils.getUserHash(users[i]);
+          multi.push(['hmget', userHash, 'latitude', 'longitude', 'latitude0', 'longitude0', 'fakeLatitude0', 'fakeLongitude0']);
+        }
+        storage.multi(multi).exec((err, positions) => {
+          // Calculate relative positions
+          console.log(positions);
+          for (let i = 0; i < users.length; i++) {
+            let a_userId = users[i];
+            var a_latitude = positions[i][0];
+            var a_longitude = positions[i][1];
+            var a_fakeLatitude  = positions[i][0] - positions[i][2] + positions[i][4];
+            var a_fakeLongitude = positions[i][1] - positions[i][3] + positions[i][5];
+            let relativePositions = [];
+            for (let j = 0; j < users.length; j++) {
+              /*if (j == i) {
+                continue;
+              }*/
+              let b_userId = users[j];
+              let b_fakeLatitude = positions[j][0] - positions[j][2] + positions[j][4];
+              let b_fakeLongitude = positions[j][1] - positions[j][3] + positions[j][5];
+              let b_relativeLatitude = parseFloat(b_fakeLatitude) + parseFloat(a_latitude) - parseFloat(a_fakeLatitude);
+              let b_relativeLongitude = parseFloat(b_fakeLongitude) + parseFloat(a_longitude) - parseFloat(a_fakeLatitude);
+              relativePositions.push({
+                userId: b_userId,
+                latitude: b_relativeLatitude,
+                longitude: b_relativeLongitude
+              });
+            }
+            console.log(relativePositions);
+            // Emit relative positions
+            let s = _sockets.find(s => s.userId == a_userId);
+            s.socket.emit('position-updates', relativePositions);
+          }
+        });
+      });
+    }, 1000);
   }
 }
