@@ -11,19 +11,35 @@ AFRAME.registerComponent('meeting', {
       log.info('User registered with name ' + name + ' and id ' + userId);
       meeting.setName(name);
       meeting.setUserId(userId);
-      this.startEventListeners();
-    });
-  },
-  startEventListeners: function() {
-    console.log('startEventListeners');
-    window.addEventListener('gps-camera-update-position', function (e) {
-      console.log(e);
-      meeting.emitPosition(e.detail.position.latitude, e.detail.position.longitude);
+      this.startEmittingPosition();
     });
     
     meeting.receivePositions(data => {
       console.log('received position-update:');
       console.log(data);
-    })
+    });
+    
+    meeting.receiveUserJoined(data => {
+      console.log('received user-joined:');
+      console.log(data);
+    });
+    meeting.receiveUserLeft(data => {
+      console.log('received user-joined:');
+      console.log(data);
+    });
+    meeting.receiveUserJoinedGroup(data => {
+      console.log('received user-joined:');
+      console.log(data);
+    });
+    meeting.receiveUserLeftGroup(data => {
+      console.log('received user-joined:');
+      console.log(data);
+    });
+  },
+  startEmittingPosition: function() {
+    window.addEventListener('gps-camera-update-position', function (e) {
+      console.log(e);
+      meeting.emitPosition(e.detail.position.latitude, e.detail.position.longitude);
+    });
   }
 });

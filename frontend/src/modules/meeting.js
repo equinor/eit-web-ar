@@ -89,5 +89,25 @@ module.exports = {
     socket.on('position-update', data => {
       callback(data);
     });
+  },
+  receiveUserJoined: function(callback) {
+    socket.on('user-joined', data => {
+      callback(data);
+    });
+  },
+  receiveUserLeft: function(callback) {
+    socket.on('user-left', data => {
+      callback(data);
+    });
+  },
+  receiveUserJoinedGroup: function(callback) {
+    socket.on('user-joined-group', data => {
+      callback(data);
+    });
+  },
+  receiveUserLeftGroup: function(callback) {
+    socket.on('user-left-group', data => {
+      callback(data);
+    });
   }
 }
