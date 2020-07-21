@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 var path = require('path');
 var storage = require('../../modules/storage');
-var utils = require('./utils');
+var utils = require('../../modules/utils');
 
 router.get('/', (req, res) => {
   res.status(200).send({ description: "meeting/group api" });
