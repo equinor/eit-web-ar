@@ -73,15 +73,16 @@ module.exports = {
   },
   setUserId: function(userId) {
     userId = userId;
+    socket.emit('connect-socket-to-user', {
+      userId: userId
+    });
   },
   emitPosition: function(latitude, longitude) {
     console.log('sender position-update til ');
     console.log(socket);
-    /*socket.emit('position-update', {
-      userId: userId,
+    socket.emit('position-update', {
       latitude: latitude,
       longitude: longitude
-    });*/
-    socket.emit('position-update');
+    });
   }
 }

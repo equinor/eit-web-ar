@@ -40,6 +40,14 @@ group:43 latitude 59.23223 longitude 10.32989 radius 5 users [1, 4, 2]
 
 ## Socket messages
 
+### Client -> Server: `connect-socket-to-user`
+The client have registered a new user and received their userId. Then the client sends the `connect-socket-to-user` to the server so that the server can know which user are connected to which websocket id.
+```json
+{
+  "userId": 18
+}
+```
+
 ### Client -> Server: `position-update`
 A user has changed position. Tell the server to update its information.
 ```json
@@ -67,7 +75,7 @@ A user has changed position. Tell the server to update its information.
 ```
 
 
-### Server -> Client: `user-positions-updated`
+### Server -> Client: `position-updates`
 ```json
 [
   {
