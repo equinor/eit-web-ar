@@ -9,7 +9,10 @@
     "axios": "^0.19.2",
     "fs": "0.0.1-security",
     "redis": "^3.0.2",
-    "socket.io": "^2.3.0"
+    "socket.io": "^2.3.0",
+    "@tensorflow-models/handpose": "0.0.5",
+    "@tensorflow/tfjs-converter": "1.7.4",
+    "@tensorflow/tfjs-core": "1.7.4"
   },
   "devDependencies": {
     "copy-webpack-plugin": "^5.1.1",
