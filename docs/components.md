@@ -412,6 +412,7 @@ this.el.addEventListener('gps-polygon-intersection', function(e) {
   console.log(e);
 })
 ```
+
 ## handpose
 
 This component detects between two hand-poses, flat hand and closed hand (fistbump hand). It also emits the 3D world position of the handpalm (base of hand).
@@ -419,26 +420,37 @@ This component must be attached to the camera entity as "handpose"
 
 ### Attributes
 
-* loop_timer: the time interval in milliseconds between each prediction.
-* emit_3d_pos: toggle on/off calculating and emitting 3d world position of handpalm.
+- loop_timer: the time interval in milliseconds between each prediction.
+- emit_3d_pos: toggle on/off calculating and emitting 3d world position of handpalm.
 
 ### Example of implementation
+
+```HTML
 <a-entity camera>
    <a-entity
       cursor="fuse: false;"
       handpose
    ></a-entity>
 </a-entity>
+```
 
 ### The "handpose" event
+
 object with 2 members, handpose and position
+
+```javascript
 {
    handpose: handpose_gesture,
    position: hand_world_position,
 }
+```
 
 Listen to event in javascript
-this.el.sceneEl.addEventListener('handpose', function(e) {
-  console.log(e.detail.position)
-  console.log(e.detail.handpose)
-})
+
+```javascript
+this.el.sceneEl.addEventListener("handpose", function (e) {
+  console.log(e.detail.position);
+  console.log(e.detail.handpose);
+});
+```
+
