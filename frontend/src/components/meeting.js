@@ -22,7 +22,7 @@ AFRAME.registerComponent('meeting', {
     });
     
     meeting.receivePositions(data => {
-      console.log('received position-updates:');
+      console.log('received position-update:');
       console.log(data);
     })
   }

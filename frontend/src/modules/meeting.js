@@ -86,7 +86,7 @@ module.exports = {
     });
   },
   receivePositions: function(callback) {
-    socket.on('position-updates', data => {
+    socket.on('position-update', data => {
       callback(data);
     });
   }

@@ -51,7 +51,7 @@ module.exports = {
     });
     
     setInterval(function() {
-      console.log('Send position-updates to clients');
+      console.log('Send position-update to clients');
       
       if (_sockets.length < 1) {
         return;
@@ -92,7 +92,7 @@ module.exports = {
             console.log(relativePositions);
             // Emit relative positions
             const socket = _getSocketFromUser(a_userId);
-            socket.emit('position-updates', relativePositions);
+            socket.emit('position-update', relativePositions);
           }
         });
       });
