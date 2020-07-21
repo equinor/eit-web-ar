@@ -20,5 +20,10 @@ AFRAME.registerComponent('meeting', {
       console.log(e);
       meeting.emitPosition(e.detail.position.latitude, e.detail.position.longitude);
     });
+    
+    meeting.receivePositions(data => {
+      console.log('received position-updates:');
+      console.log(data);
+    })
   }
 });

@@ -84,5 +84,10 @@ module.exports = {
       latitude: latitude,
       longitude: longitude
     });
+  },
+  receivePositions: function(callback) {
+    socket.on('position-updates', data => {
+      callback(data);
+    });
   }
 }
