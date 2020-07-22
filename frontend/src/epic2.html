@@ -7,7 +7,7 @@
 
 <body style='margin: 0; overflow: hidden;'>
     <a-scene
-      vr-mode-ui="enabled: false"
+      vr-mode-ui="enabled: true"
       embedded
       arjs='detectionMode: mono_and_matrix; matrixCodeType: 3x3;'
       loading-screen="backgroundColor: black">
@@ -17,13 +17,10 @@
                 src="./gltf/disco_ball/scene.glb"
                 preload="auto">
             </a-asset-item>
-            <!-- <a-asset-item
-                id="sphere"
-                src="./gltf/sphere/scene.glb"
-                preload="auto">
-            </a-asset-item> -->
             <a-asset>
                 <audio id="music" src="./audio/music.mp3" preload="auto"></audio>
+            </a-asset>
+              <img id="myEnterARButton" src="./images/ar_button.png"></img>
             </a-asset>
         </a-assets>
 
@@ -36,10 +33,11 @@
           id="disco_ball_ent"
           animation-mixer
           animation-pauser
-          gps-object='object: #disco_ball; location: { "lat": 60.631533, "lng": 6.417439 }; scale: 0.0693'
+          gps-object='object: #disco_ball'
           gps-sound 
           sound="src: #music" 
-          autoplay="false">
+          autoplay="false"
+          scale="0.0693 0.0693 0.0693">
         </a-entity>
         
         <a-entity

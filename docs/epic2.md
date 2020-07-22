@@ -3,7 +3,7 @@
 ## Experience made during epic 2
 When loading the gltf models in the application, several of the objects in AR appear as black and white (no colours). This is commonly caused by using .gltf files instead of .glb, but they appear as colourless either way for us. After spending hours trying to fix this, we concluded that it was not worth correcting it considering the time provided.
 
-Creating animations on gltf models in Blender had a lot of advantages. It is possible to make complex animations on large and detailed objects, making it valuable for comprehensive projects/applications. We only had the time to learn the basic tools and features of the program, but were able to make acceptable products. 
+Using Blender for creating animations on gltf models had a lot of advantages. It is possible to make complex animations on large and detailed objects, making it valuable for comprehensive projects/applications. We only had the time to learn the basic tools and features of the program, but were able to make acceptable products. 
 
 ## Pros and cons with the approach
 The big downside with using the phone gps to anything at all is that the gps signal is not stable. In our case that means that when we place an object (e.g. eiffel tower) at a gps location, the object will drift around in a proximity to the gps location it was supposed to be stationary at. See [this video](https://drive.google.com/file/d/12KXkdVIaeG4T4l7JaiPhFnztpZU9T2MH/view?usp=sharing) for an example.

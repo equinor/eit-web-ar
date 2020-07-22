@@ -29,13 +29,13 @@ body {
    #game_init_container img {
       width: 100%;
    }
-   #player_submit_container {
+   #player_registration_container {
       width: 100%;
       background: #ddd;
       border: none;
       padding: 10px 0;
    } 
-      #player_id_text {
+      #player_name {
       display: block;
       width: 90%;
       padding: 10px;
@@ -44,7 +44,7 @@ body {
       color: #6A49AC;
       border-radius: 3px;
       }
-      #player_model_select {
+      #player_model {
          display: block;
          width: 90%;
          margin: 10px auto;
@@ -52,7 +52,7 @@ body {
          border: none;
          padding: 5px;
       }
-      #player_model_color_select {
+      #player_color {
          display: block;
          width: 90%;
          padding: 5px;
@@ -60,7 +60,7 @@ body {
          border: none;
          margin: 10px auto;
       }
-      #player_id_submit {
+      #submit_player_registration {
          display: block;
          width: 90%;
          padding: 10px;
