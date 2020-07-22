@@ -34,10 +34,12 @@ app.use('/api/entities', entitiesRouter);
 app.use('/api/game', gameRouter);
 
 // The Meeting
+var usersRouter = require('./routes/meetapi/users');
 var userRouter = require('./routes/meetapi/user');
 var groupRouter = require('./routes/meetapi/group');
 var meetingRouter = require('./routes/meetapi/meeting');
 
+app.use('/meetapi/users', usersRouter);
 app.use('/meetapi/user', userRouter);
 app.use('/meetapi/group', groupRouter);
 app.use('/meetapi/meeting', meetingRouter);
