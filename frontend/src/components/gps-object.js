@@ -9,21 +9,66 @@ AFRAME.registerComponent('gps-object', {
   schema: {
     object: { type: 'string', default: '' },
     location: { type: 'string', default: '{}' },
-    scale: { type: 'string', default: '1' },
+    offset: { type: 'boolean', default: false },
     printDistance: { type: 'boolean', default: false },
   },
 
   init() {
+    this.camera = document.querySelector('a-camera');
     let data = this.data;
     const object = data.object;
-    const location = JSON.parse(data.location);
-    const scale = data.scale;
-    this.renderObject(object, location, scale);
+    let location = JSON.parse(data.location);
+    this.renderObject(object, location, data.offset);
 
     // logs the distance to the place/model in the console
     if (data.printDistance == true) {
       this.logDistance();
     }
+
+    // When submitting gps coordinations through the app, do the following:
+    document.getElementById('submit_gps_coords').addEventListener('click', () => {
+      // Get submitted coords
+      const lat = document.getElementById('lat_pos').value;
+      const lng = document.getElementById('lng_pos').value;
+      // Put element at the submitted coords
+      this.location = { "lat": lat, "lng": lng }
+      this.renderObject(object, this.location, data.offset);
+      // Update animation component
+      let animation = this.el.components['gps-animation'];
+      if (animation) {
+        this.el.components['gps-animation'].updateAnimationPosition(this.location);
+      }
+    });
+
+    // When submitting your current gps position, do the following:
+    document.getElementById('submit_current_position').addEventListener('click', () => {
+      // Get current position
+      var currentPos;
+      if (this.camera.hasAttribute('gps-camera')) {
+        this.gpsCamera = this.camera.components['gps-camera'];
+        currentPos = this.camera.components['gps-camera'].currentCoords;
+      } else if (this.camera.hasAttribute('kalman-gps-camera')) {
+        this.gpsCamera = this.camera.components['kalman-gps-camera'];
+        currentPos = this.camera.components['kalman-gps-camera'].currentCoords;
+      } else if (this.camera.hasAttribute('standstill-gps-camera')) {
+        this.gpsCamera = this.camera.components['standstill-gps-camera'];
+        currentPos = this.camera.components['standstill-gps-camera'].currentCoords;
+      }
+      // Set element at current position
+      this.location = { "lat": currentPos.latitude, "lng": currentPos.longitude }
+      this.renderObject(object, this.location, data.offset);
+      // Set input fields to current pos
+      document.getElementById('lat_pos').value = currentPos.latitude;
+      document.getElementById('lng_pos').value = currentPos.longitude;
+      // Update animation component
+      let animation = this.el.components['gps-animation'];
+      console.log(animation);
+      if (animation) {
+        console.log(animation);
+        this.el.components['gps-animation'].updateAnimationPosition(this.location);
+      }
+    });
+    log.info('init done');
   },
 
   // For logDistance function
@@ -38,7 +83,7 @@ AFRAME.registerComponent('gps-object', {
     const id = this.el.id;
 
     while (true) {
-      distance = this.el.querySelector('[gps-entity-place]').getAttribute('distanceMsg');
+      distance = this.el.getAttribute('distanceMsg');
       log.info(`${distance} to object with id ${id}.`);
 
       await this.sleep(2000);
@@ -46,21 +91,43 @@ AFRAME.registerComponent('gps-object', {
   },
 
   // Generate an entity which can be seen at the place's coordinates
-  renderObject(object, location, scale) {
-    let scene = this.el.sceneEl;
+  renderObject: function (object, location, offset) {
+    if (object[0] == '#') {
+      this.el.setAttribute('gltf-model', object);
+    } else if (object == '') {
+      this.el.setAttribute('geometry', 'primitive: box');
+    } else {
+      this.el.setAttribute('geometry', `primitive: ${object}`);
+    }
 
     let latitude = location.lat;
     let longitude = location.lng;
-
-    let model = document.createElement('a-entity');
-    model.setAttribute('gps-entity-place', `latitude: ${latitude}; longitude: ${longitude};`);
-    model.setAttribute('gltf-model', object);
-    model.setAttribute('scale', `${scale} ${scale} ${scale}`);
-
-    this.el.appendChild(model);
+    if (offset) {
+      latitude += addOffset();
+      longitude += addOffset();
+    }
+    
+    this.el.setAttribute('gps-entity-place', `latitude: ${latitude}; longitude: ${longitude};`);
+    if (this.gpsCamera && this.gpsCamera.originCoords != null) {
+      this.el.components['gps-entity-place']._updatePosition();
+    }
   },
 
-  update: function () {
+  addOffset: function(base) {
+    let sgn;
+    if (Math.random() <= 0.5) {
+      sgn = -1;
+    } else {
+      sgn = 1;
+    }
+    return (sgn*base);
+  },
+
+  update: function (oldData) {
+    const data = this.data;
+    const object = data.object;
+    const location = JSON.parse(data.location);
+    this.renderObject(object, location, data.offset);
   },
 
   remove: function () {
