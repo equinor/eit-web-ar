@@ -41,16 +41,17 @@ router.put('/:userId', (req, res) => {
 });
 
 router.post('/', (req, res) => {
+  const io = req.app.get('io');
   storage.incr('lastUserId', (err, newUserId) => {
     storage.sadd('users', newUserId);
     const args = utils.objectToStorageArray(req.body);
     const hash = utils.getUserHash(newUserId);
     storage.hmset(hash, args);
-    
-    const io = req.app.get('io');
+    storage.hgetall(hash, (err, userInfo) => {
+      userInfo.userId = newUserId;
+      res.status(201).send(userInfo);
+    });
     emitUserJoined(io, newUserId);
-    
-    res.status(201).send({ "userId": newUserId });
   });
 });
 
@@ -76,10 +77,8 @@ module.exports = router;
 
 function emitUserJoined(io, userId) {
   const userHash = utils.getUserHash(userId);
-  storage.hget(userHash, 'name', (err, name) => {
-    io.emit('user-joined', {
-      userId: userId,
-      name: name
-    });
+  storage.hgetall(userHash, (err, userInfo) => {
+    userInfo.userId = userId;
+    io.emit('user-joined', userInfo);
   });
 }
