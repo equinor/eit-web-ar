@@ -36,8 +36,12 @@ function _emitPositionUpdate() {
     }
     storage.multi(multi).exec((err, positions) => {
       // Calculate relative/fake positions
+      console.log('All positions:');
       console.log(positions);
+      
       for (let i = 0; i < users.length; i++) {
+        if (positions[i][0] === null) continue;
+        
         let a_userId = users[i];
         var a_latitude = positions[i][0];
         var a_longitude = positions[i][1];
@@ -45,26 +49,28 @@ function _emitPositionUpdate() {
         var a_fakeLongitude = positions[i][1] - positions[i][3] + positions[i][5];
         let relativePositions = [];
         for (let j = 0; j < users.length; j++) {
-          /*if (j == i) {
-            continue;
-          }*/
+          if (j == i) continue;
+          if (positions[j][0] === null) continue;
+          
           let b_userId = users[j];
           let b_fakeLatitude = positions[j][0] - positions[j][2] + positions[j][4];
           let b_fakeLongitude = positions[j][1] - positions[j][3] + positions[j][5];
           let b_relativeLatitude = parseFloat(b_fakeLatitude) + parseFloat(a_latitude) - parseFloat(a_fakeLatitude);
           let b_relativeLongitude = parseFloat(b_fakeLongitude) + parseFloat(a_longitude) - parseFloat(a_fakeLongitude);
+          
           relativePositions.push({
             userId: b_userId,
             latitude: b_relativeLatitude,
             longitude: b_relativeLongitude
           });
         }
+        console.log('Positions relative to ' + a_userId);
         console.log(relativePositions);
-        // Emit relative positions
+        
         const socket = _getSocketFromUser(a_userId);
-        if (socket !== null) {
-          socket.emit('position-update', relativePositions);
-        }
+        if (socket === null) continue;
+        if (relativePositions.length == 0) continue;
+        socket.emit('position-update', relativePositions);
       }
     });
   });
@@ -134,7 +140,6 @@ module.exports = {
     });
     
     setInterval(function() {
-      console.log('Send position-update to clients');
       _emitPositionUpdate();
     }, _emitPositionInterval);
   },
