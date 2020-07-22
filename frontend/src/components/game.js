@@ -27,11 +27,11 @@ AFRAME.registerComponent('game', {
     });
 
     // Selecting model and color when joining the game
-    document.getElementById("player_model_select").addEventListener('change', function() {
+    document.getElementById("player_model").addEventListener('change', function() {
       if (this.value[0] == 'g') {
-        document.getElementById("player_model_color_select").removeAttribute("disabled");
+        document.getElementById("player_color").removeAttribute("disabled");
       } else if (this.value[0] == 'm') {
-        document.getElementById("player_model_color_select").setAttribute("disabled", true);
+        document.getElementById("player_color").setAttribute("disabled", true);
       }
     });
 
