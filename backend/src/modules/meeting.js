@@ -72,12 +72,12 @@ function _emitPositionUpdate() {
 
 function _savePosition(userId, latitude, longitude) {
   const userHash = utils.getUserHash(userId);
-  storage.hexists(userHash, 'latitude0', (err, firstPositionExists) => {
-    if (!firstPositionExists) {
-      // Calculate initial fake position
-      
-      const fakeLatitude0 = 0;
-      const fakeLongitude0 = 0;
+  storage.hexists(userHash, 'latitude0', (err, initialPositionExists) => {
+    if (!initialPositionExists) {      
+      const latMeters = _random(-20, 20);
+      const lngMeters = _random(-20, 20);
+      const fakeLatitude0 = 0 + _latitudePlusMeters(0, latMeters);
+      const fakeLongitude0 = 0 + _longitudePlusMeters(fakeLatitude0, 0, lngMeters);
       storage.hmset(userHash, 'latitude0', latitude, 'longitude0', longitude, 'fakeLatitude0', fakeLatitude0, 'fakeLongitude0', fakeLongitude0);
     }
   });
@@ -89,6 +89,20 @@ function _addToSocketList(userId, socket) {
     userId: userId,
     socket: socket
   });
+}
+
+function _latitudePlusMeters(latitude, meters) {
+  // https://stackoverflow.com/questions/7477003/calculating-new-longitude-latitude-from-old-n-meters
+  return latitude + (meters / 6371000) * (180 / Math.PI);
+}
+
+function _longitudePlusMeters(latitude, longitude, meters) {
+  // https://stackoverflow.com/questions/7477003/calculating-new-longitude-latitude-from-old-n-meters
+  return longitude + (meters / 6371000) * (180 / Math.PI) / Math.cos(latitude) * Math.PI/180;
+}
+
+function _random(min, max) {
+  return Math.floor(Math.random() * max - min + 1) + min;
 }
 
 module.exports = {
