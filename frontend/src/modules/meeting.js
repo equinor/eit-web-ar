@@ -165,5 +165,20 @@ module.exports = {
       .catch((error) => {
         console.error(error);
       });
+  },
+  addEntity: function(userId) {
+    console.log('Adding entity for user ' + userId);
+    let entity = document.createElement('a-entity');
+    const geometry = this.getUserProperties(userId).geometry;
+    const color = this.getUserProperties(userId).color;
+    entity.setAttribute('data-userId', userId);
+    entity.setAttribute('geometry', 'primitive', geometry);
+    entity.setAttribute('material', 'color', color);
+    entity.setAttribute('scale', '0.5 0.5 0.5');
+    document.querySelector('a-scene').appendChild(entity);
+  },
+  removeEntity: function(userId) {
+    let entity = document.querySelector(`[data-userId="${userId}"]`);
+    entity.parentNode.removeChild(entity);
   }
 }

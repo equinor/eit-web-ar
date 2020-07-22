@@ -22,7 +22,11 @@ AFRAME.registerComponent('meeting', {
     
     meeting.requestAllUsers(users => {
       for (let i = 0; i < users.length; i++) {
-        meeting.setUserProperties(users[i].userId, users[i]);
+        let userId = users[i].userId;
+        meeting.setUserProperties(userId, users[i]);
+        if (userId != meeting.getMyUserId()) {
+          meeting.addEntity(userId);
+        }
       }
     });
     
@@ -31,33 +35,25 @@ AFRAME.registerComponent('meeting', {
       console.log(data);
       for (let i = 0; i < data.length; i++) {
         const userId = data[i].userId;
-        if (meeting.getUserProperties(userId) === undefined) break;
         const latitude = data[i].latitude;
         const longitude = data[i].longitude;
         let findUserEl = document.querySelector(`[data-userId="${userId}"]`);
-        if (!findUserEl) {
-          console.log('Appending ' + userId + ' entity.');
-          let userEl = document.createElement('a-entity');
-          const geometry = meeting.getUserProperties(userId).geometry;
-          const color = meeting.getUserProperties(userId).color;
-          userEl.setAttribute('data-userId', userId);
-          userEl.setAttribute('gps-entity-place', `latitude: ${latitude}; longitude: ${longitude}`);
-          userEl.setAttribute('geometry', 'primitive', geometry);
-          userEl.setAttribute('material', 'color', color);
-          userEl.setAttribute('scale', '0.3 0.3 0.3');
-          document.querySelector('a-scene').appendChild(userEl);
-        } else {
+        if (findUserEl) {
           findUserEl.setAttribute('gps-entity-place', `latitude: ${latitude}; longitude: ${longitude}`);
         }
       }
     });
     
     meeting.receiveUserJoined(data => {
-      console.log('received user-joined:');
       meeting.setUserProperties(data.userId, data);
-      console.log(meeting.getUserProperties(data.userId));
+      if (data.userId != meeting.getMyUserId()) {
+        meeting.addEntity(data.userId);
+      }
+      console.log('received user-joined:');
+      console.log(properties);
     });
     meeting.receiveUserLeft(data => {
+      meeting.removeEntity(data.userId);
       console.log('received user-left:');
       console.log(data);
     });
