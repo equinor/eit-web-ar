@@ -1,5 +1,20 @@
 # The Meeting API
 
+## GET `/users`
+Get all available information about all users.
+
+### Responses
+#### 200
+```json
+[
+  {
+    "userId": 1,
+    "name": "Kaostrollet"
+  },
+  {}
+]
+```
+
 ## GET `/user/:userId`
 Get all available information about a user.
 
@@ -10,8 +25,6 @@ Get all available information about a user.
   "name": "username"
 }
 ```
-
-#### 410 User does not exist
 
 ## PUT `/user/:userId`
 Add or update user information. Accepts all field names.
@@ -32,7 +45,7 @@ When updating the group, the corresponding group will also be altered.
 #### 410 User does not exist
 
 ## POST `/user`
-Add a user. Returns the new unique userId
+Add a user.
 
 ### Request
 ```json
@@ -44,10 +57,12 @@ Add a user. Returns the new unique userId
 
 ### Responses
 #### 201 User created
-Returns the new `userId`:
+Returns the new `userId` and the properties stored:
 ```json
 {
-  "userId": 3
+  "userId": 3,
+  "name": "JP",
+  "phone": "81541001"
 }
 ```
 

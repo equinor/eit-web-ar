@@ -74,6 +74,16 @@ A user has changed position. Tell the server to update its information. Also, if
 ```
 
 ### Server -> Client: `user-joined`
+```json
+{
+  "userId": 17,
+  "name": "Kjell-Frida",
+  "geometry": "sphere",
+  "color": "#f00",
+  "...": "..."
+}
+```
+
 ### Server -> Client `user-left`
 ```json
 {
@@ -83,6 +93,13 @@ A user has changed position. Tell the server to update its information. Also, if
 ```
 
 ### Server -> Client: `user-joined-group`
+```json
+{
+  "userId": 4,
+  "groupId": 2
+}
+```
+
 ### Server -> Client: `user-left-group`
 ```json
 {
