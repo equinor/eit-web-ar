@@ -21,5 +21,5 @@ import "./animation-pauser";
 import "./gps-polygon-intersection";
 import "./gps-sound";
 import "./game";
-import "./set-gps-camera";
+import "./fixed-point-kalman-gps-camera";
 import "./handpose";

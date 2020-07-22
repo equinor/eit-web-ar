@@ -45,8 +45,6 @@
             <a-asset>
                 <audio id="music" src="./audio/music.mp3" preload="auto"></audio>
             </a-asset>
-              <img id="myEnterARButton" src="./images/ar_button.png"></img>
-            </a-asset>
         </a-assets>
 
         <a-entity
@@ -69,20 +67,11 @@
           gps-object='object: #ho_oh; location: { "lat": 68.679069, "lng": 16.796574999999997 }; scale: 0.042'>
         </a-entity>
         <a-entity
-          id="disco_ball_ent"
-          animation-mixer
-          animation-pauser
-          gps-object='object: #disco_ball; location: { "lat": 68.679069, "lng": 16.796574999999997 }; scale: 0.0693'
-          gps-sound 
-          sound="src: #music" 
-          autoplay="false">
-        </a-entity>
-        <a-entity
           id="lookout_tower_ent"
           gps-object='object: #lookout_tower; location: { "lat": 68.679103, "lng": 16.797319 }; scale: 0.043'>
         </a-entity>
 
-        <a-camera set-gps-camera="R: 1; Q: 0.12; logConsole: true; set_coords: [68.679069, 16.796574999999997]; radius: 2" rotation-reader look-controls position="0 0 0">
+        <a-camera fixed-point-kalman-gps-camera="R: 1; Q: 0.12; logConsole: true; set_coords: [68.679069, 16.796574999999997]; radius: 2" rotation-reader look-controls position="0 0 0">
             <a-entity
                 cursor="fuse: false"
                 raycaster="interval: 20; objects: .cursor-interactive"
