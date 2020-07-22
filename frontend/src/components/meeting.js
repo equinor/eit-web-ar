@@ -17,6 +17,21 @@ AFRAME.registerComponent('meeting', {
     meeting.receivePositions(data => {
       //console.log('received position-update:');
       //console.log(data);
+      for (let i = 0; i < data.length; i++) {
+        let findUserEl = document.querySelector(`[data-userId="${data[i].userId}"]`)
+        console.log(data[i].userId);
+        console.log(findUserEl);
+        if (!findUserEl) {
+          console.log('appending ' + data[i].userId);
+          let userEl = document.createElement('a-entity');
+          userEl.setAttribute('data-userId', data[i].userId);
+          userEl.setAttribute('gps-entity-place', `latitude: ${data[i].latitude}; longitude: ${data[i].longitude}`);
+          userEl.setAttribute('geometry', 'primitive', 'sphere');
+          userEl.setAttribute('material', 'color', '#f00');
+          userEl.setAttribute('scale', '2 2 2');
+          document.querySelector('a-scene').appendChild(userEl);
+        }
+      }
     });
     
     meeting.receiveUserJoined(data => {
