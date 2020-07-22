@@ -8,18 +8,37 @@ const log = utils.getLogger("components:gps-object");
 AFRAME.registerComponent('gps-object', {
   schema: {
     object: { type: 'string', default: '' },
-    location: { type: 'string', default: '{}' },
+    location: { type: 'string', default: '{ "lat": 60.631533, "lng": 6.417439 }' },
     offset: { type: 'boolean', default: false },
     printDistance: { type: 'boolean', default: false },
   },
 
   init() {
-    this.camera = document.querySelector('a-camera');
     let data = this.data;
     const object = data.object;
     let location = JSON.parse(data.location);
-    this.renderObject(object, location, data.offset);
+    
+    this.camera = document.querySelector('a-camera');
+    this.camera.addEventListener('loaded', () => {
+      if (this.camera.hasAttribute('gps-camera')) {
+        this.gpsCamera = this.camera.components['gps-camera'];
+      } else if (this.camera.hasAttribute('kalman-gps-camera')) {
+        this.gpsCamera = this.camera.components['kalman-gps-camera'];
+      } else if (this.camera.hasAttribute('standstill-gps-camera')) {
+        this.gpsCamera = this.camera.components['standstill-gps-camera'];
+      }
+      if (data.offset) {
+        location.lat += this.addOffset(0.0001);
+        location.lng += this.addOffset(0.0001);
+      }
+      this.renderObject(object, location);
 
+      let animation = this.el.components['gps-animation'];
+      if (animation) {
+        this.el.components['gps-animation'].updateAnimationPosition(location);
+      }
+    })
+    
     // logs the distance to the place/model in the console
     if (data.printDistance == true) {
       this.logDistance();
@@ -30,9 +49,14 @@ AFRAME.registerComponent('gps-object', {
       // Get submitted coords
       const lat = document.getElementById('lat_pos').value;
       const lng = document.getElementById('lng_pos').value;
+      
       // Put element at the submitted coords
       this.location = { "lat": lat, "lng": lng }
-      this.renderObject(object, this.location, data.offset);
+      if (data.offset) {
+        this.location.lat += this.addOffset(0.0001);
+        this.location.lng += this.addOffset(0.0001);
+      }
+      this.renderObject(object, this.location);
       // Update animation component
       let animation = this.el.components['gps-animation'];
       if (animation) {
@@ -43,29 +67,20 @@ AFRAME.registerComponent('gps-object', {
     // When submitting your current gps position, do the following:
     document.getElementById('submit_current_position').addEventListener('click', () => {
       // Get current position
-      var currentPos;
-      if (this.camera.hasAttribute('gps-camera')) {
-        this.gpsCamera = this.camera.components['gps-camera'];
-        currentPos = this.camera.components['gps-camera'].currentCoords;
-      } else if (this.camera.hasAttribute('kalman-gps-camera')) {
-        this.gpsCamera = this.camera.components['kalman-gps-camera'];
-        currentPos = this.camera.components['kalman-gps-camera'].currentCoords;
-      } else if (this.camera.hasAttribute('standstill-gps-camera')) {
-        this.gpsCamera = this.camera.components['standstill-gps-camera'];
-        currentPos = this.camera.components['standstill-gps-camera'].currentCoords;
-      }
-      // Set element at current position
+      var currentPos = this.gpsCamera.currentCoords;
       this.location = { "lat": currentPos.latitude, "lng": currentPos.longitude }
-      this.renderObject(object, this.location, data.offset);
+      if (data.offset) {
+        this.location.lat += this.addOffset(0.0001);
+        this.location.lng += this.addOffset(0.0001);
+      }
+      this.renderObject(object, this.location);
       // Set input fields to current pos
       document.getElementById('lat_pos').value = currentPos.latitude;
       document.getElementById('lng_pos').value = currentPos.longitude;
       // Update animation component
       let animation = this.el.components['gps-animation'];
-      console.log(animation);
       if (animation) {
-        console.log(animation);
-        this.el.components['gps-animation'].updateAnimationPosition(this.location);
+        this.el.components['gps-animation'].updateAnimationPosition(this.location); // DENNE MÅ HA OFFSET
       }
     });
     log.info('init done');
@@ -91,7 +106,7 @@ AFRAME.registerComponent('gps-object', {
   },
 
   // Generate an entity which can be seen at the place's coordinates
-  renderObject: function (object, location, offset) {
+  renderObject: function (object, location) {
     if (object[0] == '#') {
       this.el.setAttribute('gltf-model', object);
     } else if (object == '') {
@@ -102,10 +117,6 @@ AFRAME.registerComponent('gps-object', {
 
     let latitude = location.lat;
     let longitude = location.lng;
-    if (offset) {
-      latitude += addOffset();
-      longitude += addOffset();
-    }
     
     this.el.setAttribute('gps-entity-place', `latitude: ${latitude}; longitude: ${longitude};`);
     if (this.gpsCamera && this.gpsCamera.originCoords != null) {
@@ -124,10 +135,12 @@ AFRAME.registerComponent('gps-object', {
   },
 
   update: function (oldData) {
-    const data = this.data;
-    const object = data.object;
-    const location = JSON.parse(data.location);
-    this.renderObject(object, location, data.offset);
+    if (oldData.location != this.data.location) {
+      const data = this.data;
+      const object = data.object;
+      const location = JSON.parse(data.location);
+      this.renderObject(object, location);
+    }
   },
 
   remove: function () {
