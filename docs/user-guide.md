@@ -43,7 +43,9 @@ When clicking on one of the spheres, it will start an animation. This animation 
 
 *epic2.5.html*
 
-Epic 2.5 is 
+Epic 2.5 is mainly an extension of Epic 2, introducing ways to manipulate GPS signals from the user device. 
+
+ **FYLL INN MER HER**
 
 
 ## Epic 3

@@ -2,7 +2,7 @@
 
 ## Experience made during epic 2.5
 
-asdfghjkl
+When solving and 
 
 ## Pros and cons with the approach
 
