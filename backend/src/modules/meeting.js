@@ -52,7 +52,7 @@ function _emitPositionUpdate() {
           let b_fakeLatitude = positions[j][0] - positions[j][2] + positions[j][4];
           let b_fakeLongitude = positions[j][1] - positions[j][3] + positions[j][5];
           let b_relativeLatitude = parseFloat(b_fakeLatitude) + parseFloat(a_latitude) - parseFloat(a_fakeLatitude);
-          let b_relativeLongitude = parseFloat(b_fakeLongitude) + parseFloat(a_longitude) - parseFloat(a_fakeLatitude);
+          let b_relativeLongitude = parseFloat(b_fakeLongitude) + parseFloat(a_longitude) - parseFloat(a_fakeLongitude);
           relativePositions.push({
             userId: b_userId,
             latitude: b_relativeLatitude,
