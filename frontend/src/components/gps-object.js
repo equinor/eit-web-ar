@@ -11,6 +11,7 @@ AFRAME.registerComponent('gps-object', {
     location: { type: 'string', default: '{ "lat": 60.631533, "lng": 6.417439 }' },
     offset: { type: 'boolean', default: false },
     printDistance: { type: 'boolean', default: false },
+    scale: { type: 'string', default: '' },
   },
 
   init() {
@@ -113,6 +114,10 @@ AFRAME.registerComponent('gps-object', {
       this.el.setAttribute('geometry', 'primitive: box');
     } else {
       this.el.setAttribute('geometry', `primitive: ${object}`);
+    }
+
+    if (this.el.data.scale != '') {
+      this.el.setAttribute('scale', `${scale} ${scale} ${scale}`);
     }
 
     let latitude = location.lat;
