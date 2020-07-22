@@ -71,36 +71,118 @@ body {
          border-radius: 3px;
       }
 
+/* Epic 2 */
+#gps_input_container {
+   display: block;
+   position: absolute;
+   max-height: 45%;
+   bottom: 0;
+   left: 0;
+   width: 100%;
+   background: #ccc;
+}
+   #gps_input_container p {
+      text-align: center;
+      font-style: italic;
+      color: #666;
+      margin: 0.5em 0;
+   }
+   #gps_input_container span.close {
+      display: block;
+      background: #ddd;
+      width: 10%;
+      padding: 4px 8px;
+      margin:  0 7.5% 10px auto;
+      border-radius: 99px;
+      text-align: right;
+      color: rgb(78, 78, 218);
+   }
+   #text_input_wrap {
+      display: block;
+      float: left;
+      width: 50%;
+   }
+      .input_gps_coords {
+         display: block;
+         border: none;
+         width: 85%;
+         margin: 10px auto;
+         padding: 2.5% 2.5%;
+         border-radius: 3px;
+      }
+   #submit_wrap {
+      display: block;
+      float: right;
+      width: 50%;
+   }
+      .submit_coords {
+         display: block;
+         border: none;
+         width: 85%;
+         margin: 10px auto;
+         padding: 2.5% 2.5%;
+         border-radius: 99px;
+      }
+      #submit_gps_coords {
+         color: #F1E9EE;
+         background: #762A59;
+      }
+      #submit_current_position {
+         color: #EAE6EF;
+         background: #350865;
+      }
+
 /* UI  */
 
-#button_doubleup {
+#toggle_button {
+   display:block;
    position:fixed; 
    bottom: 20px; 
    right: 5%;
 }
 
-.button_img{
-   height: 15vw; 
-   max-height: 100px;
+   .button_img {
+      height: 15vw; 
+      max-height: 100px;
+   }
+#toggle_content {
 }
 
-#button_one{
-   position:fixed;
-   bottom: 20px;
-   right: 56%;
+   #button_one{
+      position:fixed;
+      bottom: 20px;
+      right: 56%;
+      display: none;
+   }
+
+   #button_two{
+      position:fixed;
+      bottom: 20px;
+      right: 39%;
+      display: none;
+   }
+
+   #button_three{
+      position:fixed;
+      bottom: 20px;
+      right: 22%;
+      display: none;
+   }
+
+/* utility */
+.hide {
    display: none;
+}
+.show {
+   display: block;
 }
 
-#button_two{
-   position:fixed;
-   bottom: 20px;
-   right: 39%;
-   display: none;
+.display_at_startup {
+   display: block;
 }
 
-#button_three{
-   position:fixed;
-   bottom: 20px;
-   right: 22%;
-   display: none;
-}
+.clearfix::after {
+   content: "";
+   clear: both;
+   display: table;
+ }
