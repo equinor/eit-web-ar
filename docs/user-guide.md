@@ -39,6 +39,14 @@ When pointing towards the Eiffel Tower, you will see:
 
 When clicking on one of the spheres, it will start an animation. This animation is defined by stating the start and end location in the html script, in addition to the duration time (in milliseconds). It is possible to add other animation properties, see documentation. When clicking on two spheres consecutively a straight red line will be drawn between them. Hence, for convenience we suggest that the spheres are located relatively close to, but not on top of, one another.
 
+## Epic 2.5
+
+*epic2.5.html*
+
+Epic 2.5 is mainly an extension of Epic 2, introducing ways to manipulate GPS signals from the user device. 
+
+ **FYLL INN MER HER**
+
 
 ## Epic 3
 
