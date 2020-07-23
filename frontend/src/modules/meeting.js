@@ -24,6 +24,11 @@ function getSocketUri() {
   }
 }
 
+function getMap() {
+  let map = document.getElementById('map');
+  return map;
+}
+
 const api = {
   baseUri: getApiUri(),
   socketUri: getSocketUri()
@@ -76,11 +81,15 @@ module.exports = {
     return myUserId;
   },
   setUserProperties: function(userId, properties) {
-    userProperties[userId] = {};
-    Object.assign(userProperties[userId], properties);
-    for (let [key, value] of Object.entries(defaultUserProperties)) {
-      if (!userProperties[userId].hasOwnProperty(key)) {
-        userProperties[userId][key] = value;
+    if (typeof(userProperties[userId]) === 'object') {
+      Object.assign(userProperties[userId], properties);
+    } else {
+      userProperties[userId] = {};
+      Object.assign(userProperties[userId], properties);
+      for (let [key, value] of Object.entries(defaultUserProperties)) {
+        if (!userProperties[userId].hasOwnProperty(key)) {
+          userProperties[userId][key] = value;
+        }
       }
     }
   },
@@ -180,5 +189,50 @@ module.exports = {
   removeEntity: function(userId) {
     let entity = document.querySelector(`[data-userId="${userId}"]`);
     entity.parentNode.removeChild(entity);
+  },
+  initMap: function() {
+    let map = getMap();
+    let canvas = map.querySelector('canvas');
+    let ctx = canvas.getContext('2d');
+    
+    // Clear map
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    
+    // Scale, move, rotate
+    const centerX = 100;
+    const centerY = 100;
+    canvas.style.top  = - centerX / 2;
+    canvas.style.left = - centerY / 2;
+    
+    // Add this user to the map
+    const lat = this.getUserProperties(this.getMyUserId()).latitude;
+    const lng = this.getUserProperties(this.getMyUserId()).longitude;
+    const color = this.getUserProperties(this.getMyUserId()).color;
+    this.addPointToMap(lat, lng, color);
+  },
+  addPointToMap: function(lat, lng, color) {
+    let map = getMap();
+    let canvas = map.querySelector('canvas');
+    let ctx = canvas.getContext('2d');
+    
+    const size = 5;
+    const centerX = 100;
+    const centerY = 100;
+    const scaleX = 500000;
+    const scaleY = 500000;
+    
+    const myLat = this.getUserProperties(this.getMyUserId()).latitude;
+    const myLng = this.getUserProperties(this.getMyUserId()).longitude;
+    
+    let relLat = lat - myLat + centerX;
+    let relLng = lng - myLng + centerY;
+    relLat += (relLat - centerX) * scaleX;
+    relLng += (relLng - centerY) * scaleY;
+    console.log('('+relLat+', '+relLng+') before floor');
+    relLat = Math.floor(relLat);
+    relLng = Math.floor(relLng);
+    console.log('Added point ('+relLat+', '+relLng+') to the map');
+    ctx.fillStyle = color;
+    ctx.fillRect(relLat, relLng, 5, 5);
   }
 }
