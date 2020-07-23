@@ -11,6 +11,7 @@
 ## What we learned with the epics
 * [What we learned with Epic 1 (Enhance 3d printed models)](epic1.md)
 * [What we learned with Epic 2 (True scale, GPS)](epic2.md)
+* [What we learned with Epic 2.5 (True scale, GPS, Fixed GPS points)](epic2.5.md)
 * [What we learned with Epic 3 (Multiplayer game)](epic3.md)
 * [What we learned with Epic 4 (Multiuser meeting)](epic4.md)
 
