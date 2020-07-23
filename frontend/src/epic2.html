@@ -9,119 +9,62 @@
     <a-scene
       vr-mode-ui="enabled: true"
       embedded
-      arjs='detectionMode: mono_and_matrix; matrixCodeType: 3x3;'>
-      <a id="myEnterARButton" href="#"></a>
-        <a-assets>
-            <a-asset-item
-                id="mario_kart"
-                src="./gltf/mario_kart/scene.glb"
-                preload="auto">
-            </a-asset-item>
-            <a-asset-item
-                id="banana"
-                src="./gltf/banana/scene.glb"
-                preload="auto">
-            </a-asset-item>
-            <a-asset-item
-                id="eiffel_tower"
-                src="./gltf/eiffel_tower/scene.glb"
-                preload="auto">
-            </a-asset-item>
-            <a-asset-item
-                id="ho_oh"
-                src="./gltf/ho_oh/scene.glb"
-                preload="auto">
-            </a-asset-item>
+      arjs='detectionMode: mono_and_matrix; matrixCodeType: 3x3;'
+      loading-screen="backgroundColor: black">
+        <a-assets timeout="40000">
             <a-asset-item
                 id="disco_ball"
                 src="./gltf/disco_ball/scene.glb"
                 preload="auto">
             </a-asset-item>
-            <a-asset-item
-                id="sphere"
-                src="./gltf/sphere/scene.glb"
-                preload="auto">
-            </a-asset-item>
             <a-asset>
                 <audio id="music" src="./audio/music.mp3" preload="auto"></audio>
             </a-asset>
-              <img id="myEnterARButton" src="./images/ar_button.png"></img>
             </a-asset>
         </a-assets>
 
-        <a-marker type="barcode" value="4">
-            <a-box material="color:green" position="0 0.5 0" toggle-visibility cursor-interactive></a-box>
-         </a-marker>
-
-         <a-entity
-            gps-entity-place="latitude: 59.959941; longitude: 10.701367"
+         <!-- <a-entity
+            gps-entity-place="latitude: 60.631533; longitude: 6.417439"
             gps-intersection='radius: 40'
-         ></a-entity>
+         ></a-entity> -->
 
-        <a-entity
-          id="mario_kart_ent"
-          animation-mixer
-          animation-pauser
-          gps-object='object: #mario_kart; location: { "lat": 68.679069, "lng": 16.796574999999997 }; scale: 1.12'>
-        </a-entity>
-        <a-entity
-          id="banana_ent"
-          gps-object='object: #banana; location: { "lat": 68.679069, "lng": 16.796574999999997 }; scale: 1.12'>
-        </a-entity>
-        <a-entity
-          id="eiffel_tower_ent"
-          gps-object='object: #eiffel_tower; location: { "lat": 68.679069, "lng": 16.796574999999997 }; scale: 0.0693'>
-        </a-entity>
-        <a-entity
-          id="ho_oh_ent"
-          animation-mixer
-          gps-object='object: #ho_oh; location: { "lat": 68.679069, "lng": 16.796574999999997 }; scale: 0.042'>
-        </a-entity>
         <a-entity
           id="disco_ball_ent"
           animation-mixer
           animation-pauser
-          gps-object='object: #disco_ball; location: { "lat": 68.679069, "lng": 16.796574999999997 }; scale: 0.0693'
+          gps-object='object: #disco_ball'
           gps-sound 
           sound="src: #music" 
-          autoplay="false">
+          autoplay="false"
+          scale="0.0693 0.0693 0.0693">
         </a-entity>
-
-        <a-entity
-          id="sphere_ent_0"
-          gps-entity-place='latitude: 68.679137; longitude: 16.796575'
-          gltf-model='#sphere'
-          scale='0.004 0.004 0.004'
-          animation="property: gps-animation; from: 68.679137 16.796545; to: 68.679207 16.796645; loop: false; dur: 12000; startEvents: click;"
-          draw-line-click>
-        </a-entity>
+        
         <a-entity
           id="sphere_ent_1"
-          gps-entity-place='latitude: 68.679107; longitude: 16.796575'
-          gltf-model='#sphere'
-          scale='0.004 0.004 0.004'
-          animation="property: gps-animation; from: 68.679107 16.796575; to: 68.679807 16.796575; loop: false; dur: 12000; startEvents: click;"
-          draw-line-click>
+          gps-object='object: sphere; offset: true;'
+          gps-animation="dur: 5000; startEvents: click"
+          draw-line-click
+          scale='0.5 0.5 0.5'
+          >
         </a-entity>
         <a-entity
           id="sphere_ent_2"
-          gps-entity-place='latitude: 68.679107; longitude: 16.796545'
-          gltf-model='#sphere'
-          scale='0.004 0.004 0.004'
-          animation="property: gps-animation; from: 68.679107 16.796545; to: 68.679107 16.7945; loop: false; dur: 12000; startEvents: click;"
-          draw-line-click>
+          gps-object='object: sphere; offset: true;'
+          gps-animation="dur: 5000; startEvents: click"
+          draw-line-click
+          scale='0.5 0.5 0.5'
+          >
         </a-entity>
         <a-entity
           id="sphere_ent_3"
-          gps-entity-place='latitude: 68.679137; longitude: 16.796545'
-          gps-animation
-          gltf-model='#sphere'
-          scale='0.004 0.004 0.004'
-          animation="property: gps-animation; from: 68.679137 16.796545; to: 68.679837 16.796945; loop: false; dur: 12000; startEvents: click;"
-          draw-line-click>
+          gps-object='object: sphere; offset: true;'
+          gps-animation="dur: 5000; startEvents: click"
+          draw-line-click
+          scale='0.5 0.5 0.5'
+          >
         </a-entity>
 
-        <a-camera kalman-gps-camera="R: 1; Q: 0.12; logConsole: true" rotation-reader look-controls position="0 0 0">
+        <a-camera kalman-gps-camera="R: 1; Q: 1; logConsole: false" rotation-reader position="0 0 0">
             <a-entity
                 cursor="fuse: false"
                 raycaster="interval: 20; objects: .cursor-interactive"
@@ -144,22 +87,21 @@
    </a> -->
    <!-- /Logo row -->
 
-    <!--div id="button_doubleup">
-        <img src="./images/doubleup.svg" class="button_img">
+    <div id="ui_wrap" class="hide">
+      <div id="toggle_button">
+          <img src="./images/doubleup.svg" class="button_img">
+      </div>
+      <div id="toggle_content" class="toggle_content show">
+        <div id="gps_input_container">
+          
+          <input type="submit" value="Use current position" class="close_content submit_coords" id="submit_current_position">
+          <p>--- or ---</p>
+          <input type="text" class="input_gps_coords" id="lat_pos" placeholder="latitude...">
+          <input type="text" class="input_gps_coords" id="lng_pos" placeholder="longitude...">
+          <input type="submit" value="Submit GPS coordinates" class="close_content submit_coords" id="submit_gps_coords">
+          <span class="close close_content">close</span>
+        </div>
+      </div>
     </div>
-    <div id="button_one">
-        <img src="./images/one.svg" class="button_img">
-    </div>
-    <div id="button_two">
-        <img src="./images/two.svg" class="button_img">
-    </div>
-    <div id="button_three">
-        <img src="./images/three.svg" class="button_img">
-    </div-->
-
-
-
 </body>
-
-
 </html>

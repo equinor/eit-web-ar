@@ -7,7 +7,7 @@ AFRAME.registerComponent('draw-line-click', {
   schema: {
     offset: { type: 'vec3', default: {x: 0, y: 0, z: 0} },
     color: { type: 'string', default: '#f00' },
-    linewidth: { type: 'number', default: 1 },
+    linewidth: { type: 'number', default: 6 },
     linecap: { type: 'string', default: 'round' },
     linejoin: { type: 'string', default: 'round' }
   },
@@ -17,7 +17,7 @@ AFRAME.registerComponent('draw-line-click', {
 
     this.lineMaterial = new THREE.LineBasicMaterial({
       color: this.data.color,
-      linewidt: this.data.linewidth,
+      linewidth: this.data.linewidth,
       linecap: this.data.linecap,
       linejoin: this.data.linejoin
     });
