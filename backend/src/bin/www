@@ -7,7 +7,8 @@
 var app = require('../app');
 var debug = require('debug')('backend:api');
 var http = require('http');
-var ioNotConnected = require('../modules/io');
+var socketio = require('../modules/socketio');
+var meeting = require('../modules/meeting');
 
 /**
  * Get port from environment and store in Express.
@@ -26,8 +27,9 @@ var server = http.createServer(app);
 * Socket.io
 */
 
-const io = ioNotConnected(server);
+const io = socketio.connect(server);
 app.set('io', io);
+meeting.init(io);
 
 /**
  * Listen on provided port, on all network interfaces.
