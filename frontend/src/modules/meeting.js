@@ -202,13 +202,14 @@ module.exports = {
     // Scale, move, rotate
     const centerX = 100;
     const centerY = 100;
-    canvas.style.top  = - centerX / 2;
-    canvas.style.left = - centerY / 2;
+    //canvas.style.top  = - centerX / 2;
+    //canvas.style.left = - centerY / 2;
     
     // Rotate map
-    //console.log('heading: ' + this.getUserProperties(this.getMyUserId()).heading);
-    //let heading = this.getUserProperties(this.getMyUserId()).heading;
-    //canvas.style.transform = `rotate(${heading}deg)`;
+    let heading = this.getUserProperties(this.getMyUserId()).heading;
+    let rotation = heading + 270;
+    console.log(heading);
+    canvas.style.transform = `rotate(${rotation}deg)`;
     
     // Add this user to the map
     const lat = this.getUserProperties(this.getMyUserId()).latitude;
@@ -217,6 +218,7 @@ module.exports = {
     this.addPointToMap(lat, lng, color);
   },
   addPointToMap: function(lat, lng, color) {
+    console.log('add point ' + lat + ', ' + lng + ' to map');
     let map = getMap();
     let canvas = map.querySelector('canvas');
     let ctx = canvas.getContext('2d');

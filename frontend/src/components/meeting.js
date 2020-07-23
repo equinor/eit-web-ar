@@ -16,12 +16,25 @@ AFRAME.registerComponent('meeting', {
       meeting.setUserProperties(response.userId, response);
       meeting.updateInfoBox();
       meeting.connectSocket();
+      
+      // FOR TESTING
+      if (window.location.href.indexOf('?testing') != -1) {
+        let properties = {
+          latitude: 1,
+          longitude: 1,
+          heading: this.el.camera.rotation.y
+        };
+        meeting.setUserProperties(response.userId, properties);
+        meeting.emitPosition(properties);
+      }
+      // ~FOR TESTING
+      
       window.addEventListener('gps-camera-update-position', function (e) {
-        console.log(e);
+        let heading = document.querySelector('a-camera').getAttribute('rotation').y;
         let properties = {
           latitude: e.detail.position.latitude,
           longitude: e.detail.position.longitude,
-          heading: e.detail.position.heading //feil!
+          heading: heading
         };
         meeting.setUserProperties(response.userId, properties);
         meeting.emitPosition(properties);
