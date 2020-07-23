@@ -13,7 +13,8 @@ AFRAME.registerComponent('meeting', {
     meeting.registerUser(properties, (response) => {
       log.info('I am now registered with name ' + response.name + ', id ' + response.userId);
       meeting.setMyUserId(response.userId);
-      meeting.setUserProperties(response.userId, response); //?
+      meeting.setUserProperties(response.userId, response);
+      meeting.updateInfoBox();
       meeting.connectSocket();
       window.addEventListener('gps-camera-update-position', function (e) {
         console.log(e);
@@ -24,7 +25,6 @@ AFRAME.registerComponent('meeting', {
         };
         meeting.setUserProperties(response.userId, properties);
         meeting.emitPosition(properties);
-        meeting.initMap();
       });
     });
     

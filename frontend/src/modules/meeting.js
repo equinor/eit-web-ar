@@ -240,5 +240,10 @@ module.exports = {
     //console.log('Added point ('+relLat+', '+relLng+') to the map');
     ctx.fillStyle = color;
     ctx.fillRect(relLat, relLng, 5, 5);
+  },
+  updateInfoBox() {
+    let infoBox = document.getElementById('info');
+    infoBox.innerText = 'You are ' + this.getUserProperties(this.getMyUserId()).name;
+    infoBox.style.color = this.getUserProperties(this.getMyUserId()).color;
   }
 }

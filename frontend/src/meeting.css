@@ -10,3 +10,11 @@
 #map canvas {
   position: relative;
 }
+
+#info {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  margin-left:5px;
+  margin-bottom:5px;
+}
