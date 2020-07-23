@@ -29,6 +29,10 @@ function getMap() {
   return map;
 }
 
+function deg2rad(deg) {
+  return deg * (Math.PI / 180);
+}
+
 const api = {
   baseUri: getApiUri(),
   socketUri: getSocketUri()
@@ -102,8 +106,6 @@ module.exports = {
     });
   },
   emitPosition: function(properties) {
-    //console.log('sender position-update til ');
-    //console.log(socket);
     socket.emit('position-update', properties);
   },
   receivePositions: function(callback) {
@@ -203,6 +205,11 @@ module.exports = {
     canvas.style.top  = - centerX / 2;
     canvas.style.left = - centerY / 2;
     
+    // Rotate map
+    //console.log('heading: ' + this.getUserProperties(this.getMyUserId()).heading);
+    //let heading = this.getUserProperties(this.getMyUserId()).heading;
+    //canvas.style.transform = `rotate(${heading}deg)`;
+    
     // Add this user to the map
     const lat = this.getUserProperties(this.getMyUserId()).latitude;
     const lng = this.getUserProperties(this.getMyUserId()).longitude;
@@ -227,10 +234,10 @@ module.exports = {
     let relLng = lng - myLng + centerY;
     relLat += (relLat - centerX) * scaleX;
     relLng += (relLng - centerY) * scaleY;
-    console.log('('+relLat+', '+relLng+') before floor');
+    //console.log('('+relLat+', '+relLng+') before floor');
     relLat = Math.floor(relLat);
     relLng = Math.floor(relLng);
-    console.log('Added point ('+relLat+', '+relLng+') to the map');
+    //console.log('Added point ('+relLat+', '+relLng+') to the map');
     ctx.fillStyle = color;
     ctx.fillRect(relLat, relLng, 5, 5);
   }

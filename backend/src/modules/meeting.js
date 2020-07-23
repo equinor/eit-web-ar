@@ -32,7 +32,7 @@ function _emitPositionUpdate() {
     let multi = [];
     for (let i = 0; i < users.length; i++) {
       let userHash = utils.getUserHash(users[i]);
-      multi.push(['hmget', userHash, 'latitude', 'longitude', 'latitude0', 'longitude0', 'fakeLatitude0', 'fakeLongitude0']);
+      multi.push(['hmget', userHash, 'latitude', 'longitude', 'latitude0', 'longitude0', 'fakeLatitude0', 'fakeLongitude0', 'heading']);
     }
     storage.multi(multi).exec((err, positions) => {
       // Calculate relative/fake positions
@@ -57,11 +57,13 @@ function _emitPositionUpdate() {
           let b_fakeLongitude = positions[j][1] - positions[j][3] + positions[j][5];
           let b_relativeLatitude = parseFloat(b_fakeLatitude) + parseFloat(a_latitude) - parseFloat(a_fakeLatitude);
           let b_relativeLongitude = parseFloat(b_fakeLongitude) + parseFloat(a_longitude) - parseFloat(a_fakeLongitude);
+          let b_heading = positions[j][6];
           
           relativePositions.push({
             userId: b_userId,
             latitude: b_relativeLatitude,
-            longitude: b_relativeLongitude
+            longitude: b_relativeLongitude,
+            heading: b_heading
           });
         }
         console.log('Positions relative to ' + a_userId);
@@ -76,7 +78,7 @@ function _emitPositionUpdate() {
   });
 }
 
-function _savePosition(userId, latitude, longitude) {
+function _savePosition(userId, latitude, longitude, heading) {
   const userHash = utils.getUserHash(userId);
   storage.hexists(userHash, 'latitude0', (err, initialPositionExists) => {
     if (!initialPositionExists) {      
@@ -87,6 +89,9 @@ function _savePosition(userId, latitude, longitude) {
       storage.hmset(userHash, 'latitude0', latitude, 'longitude0', longitude, 'fakeLatitude0', fakeLatitude0, 'fakeLongitude0', fakeLongitude0);
     }
   });
+  if (heading !== null) {
+    storage.hmset(userHash, 'heading', heading);
+  }
   storage.hmset(userHash, 'latitude', latitude, 'longitude', longitude);
 }
 
@@ -133,9 +138,10 @@ module.exports = {
       socket.on('position-update', data => {
         const latitude = data.latitude;
         const longitude = data.longitude;
+        const heading = data.heading;
         const userId = _getUserAtSocket(socket);
-        console.log(`position-update: ${userId}: ${latitude}, ${longitude}`);
-        _savePosition(userId, latitude, longitude);
+        console.log(`position-update: ${userId}: ${latitude}, ${longitude} - ${heading}`);
+        _savePosition(userId, latitude, longitude, heading);
       });
     });
     
