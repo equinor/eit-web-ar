@@ -119,6 +119,7 @@ AFRAME.registerComponent('gps-object', {
     }
 
     if (this.el.data.scale != '') {
+      let scale = this.el.data.scale;
       this.el.setAttribute('scale', `${scale} ${scale} ${scale}`);
     }
 
