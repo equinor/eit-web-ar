@@ -2,9 +2,11 @@
   position: fixed;
   top: 0;
   right: 0;
-  width: 100px;
-  height: 100px;
-  background-color: #fff;
+  width: 200px;
+  height: 200px;
+  border: 3px solid #fff;
+  border-radius:100px;
+  overflow: hidden;
 }
 
 #map canvas {
