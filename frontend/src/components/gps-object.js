@@ -27,6 +27,8 @@ AFRAME.registerComponent('gps-object', {
         this.gpsCamera = this.camera.components['kalman-gps-camera'];
       } else if (this.camera.hasAttribute('standstill-gps-camera')) {
         this.gpsCamera = this.camera.components['standstill-gps-camera'];
+      } else if (this.camera.hasAttribute('set-gps-camera')) {
+        var gpsCamera = this.camera.components['set-gps-camera'];
       }
       if (data.offset) {
         location.lat += this.addOffset(0.0001);
