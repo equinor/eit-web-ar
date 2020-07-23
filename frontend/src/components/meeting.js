@@ -16,6 +16,11 @@ AFRAME.registerComponent('meeting', {
       meeting.setUserProperties(response.userId, response); //?
       meeting.connectSocket();
       window.addEventListener('gps-camera-update-position', function (e) {
+        let properties = {
+          latitude: e.detail.position.latitude,
+          longitude: e.detail.position.longitude
+        };
+        meeting.setUserProperties(response.userId, properties);
         meeting.emitPosition(e.detail.position.latitude, e.detail.position.longitude);
       });
     });
@@ -30,9 +35,17 @@ AFRAME.registerComponent('meeting', {
       }
     });
     
+    // Save new positions
     meeting.receivePositions(data => {
-      console.log('received position-update:');
-      console.log(data);
+      for (let i = 0; i < data.length; i++) {
+        const userId = data[i].userId;
+        const properties = data[i];
+        meeting.setUserProperties(userId, properties);
+      }
+    });
+    
+    // Update 3d position
+    meeting.receivePositions(data => {
       for (let i = 0; i < data.length; i++) {
         const userId = data[i].userId;
         const latitude = data[i].latitude;
@@ -41,6 +54,18 @@ AFRAME.registerComponent('meeting', {
         if (findUserEl) {
           findUserEl.setAttribute('gps-entity-place', `latitude: ${latitude}; longitude: ${longitude}`);
         }
+      }
+    });
+    
+    // Update map
+    meeting.receivePositions(data => {
+      meeting.initMap();
+      for (let i = 0; i < data.length; i++) {
+        const userId = data[i].userId;
+        const latitude = data[i].latitude;
+        const longitude = data[i].longitude;
+        const color = meeting.getUserProperties(userId).color;
+        meeting.addPointToMap(latitude, longitude, color);
       }
     });
     
