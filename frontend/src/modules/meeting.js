@@ -101,13 +101,10 @@ module.exports = {
       userId: myUserId
     });
   },
-  emitPosition: function(latitude, longitude) {
+  emitPosition: function(properties) {
     //console.log('sender position-update til ');
     //console.log(socket);
-    socket.emit('position-update', {
-      latitude: latitude,
-      longitude: longitude
-    });
+    socket.emit('position-update', properties);
   },
   receivePositions: function(callback) {
     socket.on('position-update', data => {
@@ -188,7 +185,9 @@ module.exports = {
   },
   removeEntity: function(userId) {
     let entity = document.querySelector(`[data-userId="${userId}"]`);
-    entity.parentNode.removeChild(entity);
+    if (entity !== null) {
+      entity.parentNode.removeChild(entity);
+    }
   },
   initMap: function() {
     let map = getMap();
