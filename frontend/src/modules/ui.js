@@ -22,9 +22,13 @@ document.addEventListener("DOMContentLoaded", function(){
         log.info('Assets loaded');
         ui.classList.remove('hide');
     });
-    assets.addEventListener('timeout', () => {
-        alert('Timeout (40s): took too long to load assets (3D models, audio, etc.). Adjust timeout timer or reduce size of assets.')
-    });
+    if (assets.hasAttribute('timeout')) {
+        var timer = assets.getAttribute('timeout')*0.001;
+        assets.addEventListener('timeout', () => {
+            alert(`Timeout (${timer}s): took too long to load assets (3D models, audio, etc.). Adjust timeout timer or reduce size of assets.`)
+        });
+    }
+    
 
     // ********************************************************
     // Add events to toggle UI button and content
