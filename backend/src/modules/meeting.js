@@ -123,6 +123,7 @@ module.exports = {
     _io.on('connect', (socket) => {
       socket.on('disconnect', reason => {
         const userId = _getUserAtSocket(socket);
+        if (userId === null) return;
         this.removeUser(userId, (userId) => {
           this.emitUserLeft(userId);
         });
