@@ -35,8 +35,17 @@
   max-height: 20px;
 }
 
-#messages .fadeOut {
+#messages .fadeOut, #mapHelper.fadeOut {
   overflow: hidden;
   max-height: 0px;
   transition: max-height 5s ease-in-out;
+}
+
+#mapHelper {
+  max-height: 20px;
+  color: #fff;
+  position: fixed;
+  top: 90px;
+  right: 110px;
+  z-index: 1;
 }

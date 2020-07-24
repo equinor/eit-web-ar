@@ -42,7 +42,10 @@ const defaultUserProperties = {
   userId: 0,
   name: 'DefaultName',
   geometry: 'sphere',
-  color: '#f00'
+  color: '#f00',
+  latitude: 0,
+  longitude: 0,
+  heading: 0
 }
 var userProperties = [];
 var myUserId;
@@ -242,6 +245,11 @@ module.exports = {
     //console.log('Added point ('+relLat+', '+relLng+') to the map');
     ctx.fillStyle = color;
     ctx.fillRect(relLat, relLng, 5, 5);
+  },
+  showMapHelper: function() {
+    let mapHelper = document.getElementById('mapHelper');
+    mapHelper.innerText = 'You →';
+    setTimeout(function() { mapHelper.classList.add('fadeOut') }, 5000);
   },
   updateInfoBox() {
     let infoBox = document.getElementById('info');

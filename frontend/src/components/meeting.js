@@ -15,6 +15,8 @@ AFRAME.registerComponent('meeting', {
       meeting.setMyUserId(response.userId);
       meeting.setUserProperties(response.userId, response);
       meeting.updateInfoBox();
+      meeting.initMap();
+      meeting.showMapHelper();
       meeting.connectSocket();
       
       // FOR TESTING
