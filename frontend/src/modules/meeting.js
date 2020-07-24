@@ -185,6 +185,7 @@ module.exports = {
     const color = this.getUserProperties(userId).color;
     entity.setAttribute('data-userId', userId);
     entity.setAttribute('geometry', 'primitive', geometry);
+    //entity.setAttribute('material', 'src', './images/smiley.png');
     entity.setAttribute('material', 'color', color);
     entity.setAttribute('scale', '0.5 0.5 0.5');
     document.querySelector('a-scene').appendChild(entity);
