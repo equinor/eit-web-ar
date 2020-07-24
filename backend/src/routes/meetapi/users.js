@@ -16,7 +16,7 @@ router.get('/', (req, res) => {  // Get position of all users
       for (let i = 0; i < users.length; i++) {
         userInfo[i].userId = users[i];
       }
-      console.log(userInfo);
+      //console.log(userInfo);
       res.status(200).send(userInfo);
     });
   });

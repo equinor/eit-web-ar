@@ -5,7 +5,7 @@ module.exports =  {
     const io = _socketio(server);
 
     io.on('connect', (socket) => {
-      console.log(`socket.io connect: ${socket.id}`);      
+      //console.log(`socket.io connect: ${socket.id}`);      
     });
     
     io.on('connect_error', (error) => {

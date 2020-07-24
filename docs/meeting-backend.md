@@ -53,7 +53,8 @@ A user has changed position. Tell the server to update its information. Also, if
 ```json
 {
   "latitude": 50.23223,
-  "longitude": 10.23222
+  "longitude": 10.23222,
+  "heading": 157.223
 }
 ```
 
@@ -63,12 +64,14 @@ A user has changed position. Tell the server to update its information. Also, if
   {
     "userId": 1,
     "latitude": 1.33233,
-    "longitude": 2.133323
+    "longitude": 2.133323,
+    "heading": 157.223
   },
   {
     "userId": 2,
     "latitude": 0.3434444,
-    "longitude": 4.42322
+    "longitude": 4.42322,
+    "heading": 157.223
   }
 ]
 ```

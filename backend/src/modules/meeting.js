@@ -1,7 +1,7 @@
 var storage = require('./storage');
 var utils = require('./utils');
 
-const _emitPositionInterval = 1000;
+const _emitPositionInterval = 100;
 var _io = false;
 var _sockets = [];
 
@@ -32,12 +32,12 @@ function _emitPositionUpdate() {
     let multi = [];
     for (let i = 0; i < users.length; i++) {
       let userHash = utils.getUserHash(users[i]);
-      multi.push(['hmget', userHash, 'latitude', 'longitude', 'latitude0', 'longitude0', 'fakeLatitude0', 'fakeLongitude0']);
+      multi.push(['hmget', userHash, 'latitude', 'longitude', 'latitude0', 'longitude0', 'fakeLatitude0', 'fakeLongitude0', 'heading']);
     }
     storage.multi(multi).exec((err, positions) => {
       // Calculate relative/fake positions
-      console.log('All positions:');
-      console.log(positions);
+      //console.log('All positions:');
+      //console.log(positions);
       
       for (let i = 0; i < users.length; i++) {
         if (positions[i][0] === null) continue;
@@ -57,15 +57,17 @@ function _emitPositionUpdate() {
           let b_fakeLongitude = positions[j][1] - positions[j][3] + positions[j][5];
           let b_relativeLatitude = parseFloat(b_fakeLatitude) + parseFloat(a_latitude) - parseFloat(a_fakeLatitude);
           let b_relativeLongitude = parseFloat(b_fakeLongitude) + parseFloat(a_longitude) - parseFloat(a_fakeLongitude);
+          let b_heading = positions[j][6];
           
           relativePositions.push({
             userId: b_userId,
             latitude: b_relativeLatitude,
-            longitude: b_relativeLongitude
+            longitude: b_relativeLongitude,
+            heading: b_heading
           });
         }
-        console.log('Positions relative to ' + a_userId);
-        console.log(relativePositions);
+        //console.log('Positions relative to ' + a_userId);
+        //console.log(relativePositions);
         
         const socket = _getSocketFromUser(a_userId);
         if (socket === null) continue;
@@ -76,7 +78,7 @@ function _emitPositionUpdate() {
   });
 }
 
-function _savePosition(userId, latitude, longitude) {
+function _savePosition(userId, latitude, longitude, heading) {
   const userHash = utils.getUserHash(userId);
   storage.hexists(userHash, 'latitude0', (err, initialPositionExists) => {
     if (!initialPositionExists) {      
@@ -87,6 +89,9 @@ function _savePosition(userId, latitude, longitude) {
       storage.hmset(userHash, 'latitude0', latitude, 'longitude0', longitude, 'fakeLatitude0', fakeLatitude0, 'fakeLongitude0', fakeLongitude0);
     }
   });
+  if (heading !== null) {
+    storage.hmset(userHash, 'heading', heading);
+  }
   storage.hmset(userHash, 'latitude', latitude, 'longitude', longitude);
 }
 
@@ -118,24 +123,26 @@ module.exports = {
     _io.on('connect', (socket) => {
       socket.on('disconnect', reason => {
         const userId = _getUserAtSocket(socket);
+        if (userId === null) return;
         this.removeUser(userId, (userId) => {
           this.emitUserLeft(userId);
         });
-        console.log(`User ${userId} disconnected: ${reason}`);
+        //console.log(`User ${userId} disconnected: ${reason}`);
       });
       
       socket.on('connect-socket-to-user', function(data) {
         const userId = data.userId;
-        console.log(`connect-socket-to-user ${userId}`);
+        //console.log(`connect-socket-to-user ${userId}`);
         _addToSocketList(userId, socket);
       });
       
       socket.on('position-update', data => {
         const latitude = data.latitude;
         const longitude = data.longitude;
+        const heading = data.heading;
         const userId = _getUserAtSocket(socket);
-        console.log(`position-update: ${userId}: ${latitude}, ${longitude}`);
-        _savePosition(userId, latitude, longitude);
+        //console.log(`position-update: ${userId}: ${latitude}, ${longitude} - ${heading}`);
+        _savePosition(userId, latitude, longitude, heading);
       });
     });
     

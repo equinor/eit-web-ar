@@ -29,6 +29,10 @@ function getMap() {
   return map;
 }
 
+function deg2rad(deg) {
+  return deg * (Math.PI / 180);
+}
+
 const api = {
   baseUri: getApiUri(),
   socketUri: getSocketUri()
@@ -38,7 +42,10 @@ const defaultUserProperties = {
   userId: 0,
   name: 'DefaultName',
   geometry: 'sphere',
-  color: '#f00'
+  color: '#f00',
+  latitude: 0,
+  longitude: 0,
+  heading: 0
 }
 var userProperties = [];
 var myUserId;
@@ -101,13 +108,8 @@ module.exports = {
       userId: myUserId
     });
   },
-  emitPosition: function(latitude, longitude) {
-    //console.log('sender position-update til ');
-    //console.log(socket);
-    socket.emit('position-update', {
-      latitude: latitude,
-      longitude: longitude
-    });
+  emitPosition: function(properties) {
+    socket.emit('position-update', properties);
   },
   receivePositions: function(callback) {
     socket.on('position-update', data => {
@@ -143,10 +145,10 @@ module.exports = {
     return color;
   },
   getRandomName: function() {
-    let letters = 'abcdefghijklmnopqrstuvwxyz';
+    let letters = 'aeiouyabcdefghijklmnopqrstuvwxyz';
     let name = '';
     for (let i = 0; i < 6; i++) {
-      name += letters[Math.floor(Math.random() * 26)];
+      name += letters[Math.floor(Math.random() * 32)];
     }
     name = name.charAt(0).toUpperCase() + name.slice(1);
     return name;
@@ -177,18 +179,33 @@ module.exports = {
   },
   addEntity: function(userId) {
     console.log('Adding entity for user ' + userId);
+    // Enity
     let entity = document.createElement('a-entity');
     const geometry = this.getUserProperties(userId).geometry;
     const color = this.getUserProperties(userId).color;
     entity.setAttribute('data-userId', userId);
     entity.setAttribute('geometry', 'primitive', geometry);
+    //entity.setAttribute('material', 'src', './images/smiley.png');
     entity.setAttribute('material', 'color', color);
     entity.setAttribute('scale', '0.5 0.5 0.5');
     document.querySelector('a-scene').appendChild(entity);
+    
+    // Text
+    let text = document.createElement('a-text');
+    text.setAttribute('value', this.getUserProperties(userId).name);
+    text.setAttribute('position', '0 1.5 0');
+    entity.appendChild(text);
+    let text2 = document.createElement('a-text');
+    text2.setAttribute('value', this.getUserProperties(userId).name);
+    text2.setAttribute('position', '0 1.5 0');
+    text2.setAttribute('rotation', '0 180 0');
+    entity.appendChild(text2);
   },
   removeEntity: function(userId) {
     let entity = document.querySelector(`[data-userId="${userId}"]`);
-    entity.parentNode.removeChild(entity);
+    if (entity !== null) {
+      entity.parentNode.removeChild(entity);
+    }
   },
   initMap: function() {
     let map = getMap();
@@ -201,8 +218,14 @@ module.exports = {
     // Scale, move, rotate
     const centerX = 100;
     const centerY = 100;
-    canvas.style.top  = - centerX / 2;
-    canvas.style.left = - centerY / 2;
+    //canvas.style.top  = - centerX / 2;
+    //canvas.style.left = - centerY / 2;
+    
+    // Rotate map
+    let heading = this.getUserProperties(this.getMyUserId()).heading;
+    let rotation = heading + 270;
+    //console.log(heading);
+    canvas.style.transform = `rotate(${rotation}deg)`;
     
     // Add this user to the map
     const lat = this.getUserProperties(this.getMyUserId()).latitude;
@@ -211,6 +234,7 @@ module.exports = {
     this.addPointToMap(lat, lng, color);
   },
   addPointToMap: function(lat, lng, color) {
+    //console.log('add point ' + lat + ', ' + lng + ' to map');
     let map = getMap();
     let canvas = map.querySelector('canvas');
     let ctx = canvas.getContext('2d');
@@ -228,11 +252,34 @@ module.exports = {
     let relLng = lng - myLng + centerY;
     relLat += (relLat - centerX) * scaleX;
     relLng += (relLng - centerY) * scaleY;
-    console.log('('+relLat+', '+relLng+') before floor');
+    //console.log('('+relLat+', '+relLng+') before floor');
     relLat = Math.floor(relLat);
     relLng = Math.floor(relLng);
-    console.log('Added point ('+relLat+', '+relLng+') to the map');
+    //console.log('Added point ('+relLat+', '+relLng+') to the map');
     ctx.fillStyle = color;
     ctx.fillRect(relLat, relLng, 5, 5);
+  },
+  showMapHelper: function() {
+    let mapHelper = document.getElementById('mapHelper');
+    mapHelper.innerText = 'You →';
+    setTimeout(function() { mapHelper.classList.add('fadeOut') }, 5000);
+  },
+  updateInfoBox: function() {
+    let infoBox = document.getElementById('info');
+    infoBox.innerText = 'You are ' + this.getUserProperties(this.getMyUserId()).name;
+    //infoBox.style.color = this.getUserProperties(this.getMyUserId()).color;
+  },
+  addMessage: function(text) {
+    let messagesContainer = document.getElementById('messages');
+    let messages = messagesContainer.querySelectorAll('.message');
+    let message = document.createElement('span');
+    message.classList.add('message');
+    message.innerText = text;
+    setTimeout(function() { message.classList.add('fadeOut'); }, 5000);
+    messagesContainer.appendChild(message);
+    
+    if (messages.length > 9) {
+      messagesContainer.removeChild(messages[0]);
+    }
   }
 }
