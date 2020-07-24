@@ -35,6 +35,10 @@ document.addEventListener("DOMContentLoaded", function(){
     const toggleButton = document.getElementById("toggle_button");
     const toggleContent = document.getElementById("toggle_content");
     const closeButtons = document.getElementsByClassName("close_content");
+    const infoButton = document.getElementById("info_button");
+    const infoContent = document.getElementById("info_content");
+    const infoClose = document.getElementById("close_info");
+    const scrollIndicator = document.getElementById("scroll_indicator");
 
     let toggle = true;
 
@@ -56,5 +60,53 @@ document.addEventListener("DOMContentLoaded", function(){
             toggleButton.style.transform = "scaleY(1)";
         });
     }
+
+    let infoToggle = true;
+
+    // INFO BUTTON
+    infoButton.addEventListener('click', () => {
+        if (infoToggle) {
+            infoContent.style.display = "block";
+            infoToggle = false;
+            infoButton.style.transform = "scaleY(-1)";
+        } else {
+            infoContent.style.display = "none";
+            infoToggle = true;
+            infoButton.style.transform = "scaleY(1)";
+        }
+    });
+    infoClose.addEventListener('click', () => {
+        infoContent.style.display = "none";
+        infoToggle = true;
+        infoButton.style.transform = "scaleY(1)";
+    });
+
+    // Show indication that there are more info if you scroll
+    async function setScroll() {
+        setTimeout(function () {
+            if (infoContent.scrollHeight > infoContent.clientHeight+20) {
+                scrollIndicator.style.display = "block";
+            }
+        }, 1000)
+    }
+    setScroll();
+
+    
+    // if (infoContent.scrollHeight > infoContent.clientHeight) {
+    //     scrollIndicator.style.display = "block";
+    // }
+    // console.log(infoContent.scrollHeight);
+    //     console.log(infoContent.clientHeight);
+    
+    infoContent.addEventListener('scroll', (e) => {
+        if (infoContent.scrollHeight - infoContent.scrollTop < infoContent.offsetHeight+50) {
+            scrollIndicator.style.display = "none"
+        } else {
+            scrollIndicator.style.display = "block"
+        }
+    });
+    scrollIndicator.addEventListener("click", () => {
+        infoContent.scrollTop = infoContent.scrollHeight;
+    });
 });
 

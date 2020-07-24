@@ -7,7 +7,7 @@
 
 <body style='margin: 0; overflow: hidden;'>
     <a-scene
-      vr-mode-ui="enabled: true"
+      vr-mode-ui="enabled: false"
       embedded
       arjs='detectionMode: mono_and_matrix; matrixCodeType: 3x3;'
       loading-screen="backgroundColor: black">
@@ -88,10 +88,24 @@
    <!-- /Logo row -->
 
     <div id="ui_wrap" class="hide">
-      <div id="toggle_button">
-          <img src="./images/doubleup.svg" class="button_img">
+      <div id="info_button">
+        <img src="./images/info.svg" class="button_img">
       </div>
-      <div id="toggle_content" class="toggle_content show">
+      <div id="info_content" class="show">
+        <h3>Interaction with gps objects</h3>
+        <p><strong>Click</strong> by hovering the cursor over an object, then pressing the cursor with your finger.</p>
+        <ol>
+          <li>Click on a sphere to make it move.</li>
+          <li>Click on another sphere to draw a line between them.</li>
+          <li>Look up and press the disco ball to make it play music and stop rotating.</li>
+        </ol>
+        <span id="scroll_indicator">&darr;</span>
+        <input type="submit" value="Close" id="close_info">
+      </div>
+      <div id="toggle_button">
+          <img src="./images/gps.svg" class="button_img">
+      </div>
+      <div id="toggle_content" class="toggle_content hide">
         <div id="gps_input_container">
           
           <input type="submit" value="Use current position" class="close_content submit_coords" id="submit_current_position">
@@ -99,7 +113,7 @@
           <input type="text" class="input_gps_coords" id="lat_pos" placeholder="latitude...">
           <input type="text" class="input_gps_coords" id="lng_pos" placeholder="longitude...">
           <input type="submit" value="Submit GPS coordinates" class="close_content submit_coords" id="submit_gps_coords">
-          <span class="close close_content">close</span>
+          <input type="submit" class="close close_content" value="Close">
         </div>
       </div>
     </div>
