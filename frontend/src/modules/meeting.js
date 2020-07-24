@@ -247,5 +247,18 @@ module.exports = {
     let infoBox = document.getElementById('info');
     infoBox.innerText = 'You are ' + this.getUserProperties(this.getMyUserId()).name;
     infoBox.style.color = this.getUserProperties(this.getMyUserId()).color;
+  },
+  addMessage(text) {
+    let messagesContainer = document.getElementById('messages');
+    let messages = messagesContainer.querySelectorAll('.message');
+    let message = document.createElement('span');
+    message.classList.add('message');
+    message.innerText = text;
+    setTimeout(function() { message.classList.add('fadeOut'); }, 5000);
+    messagesContainer.appendChild(message);
+    
+    if (messages.length > 9) {
+      messagesContainer.removeChild(messages[0]);
+    }
   }
 }

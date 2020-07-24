@@ -91,12 +91,12 @@ AFRAME.registerComponent('meeting', {
         meeting.addEntity(data.userId);
       }
       console.log('received user-joined:');
-      console.log(properties);
+      meeting.addMessage(`${data.name} joined!`)
     });
     meeting.receiveUserLeft(data => {
       meeting.removeEntity(data.userId);
-      console.log('received user-left:');
-      console.log(data);
+      console.log('received user-left');
+      meeting.addMessage(`${data.name} left :(`)
     });
     meeting.receiveUserJoinedGroup(data => {
       console.log('received user-joined-group:');

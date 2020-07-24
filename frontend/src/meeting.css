@@ -19,3 +19,24 @@
   margin-left:5px;
   margin-bottom:5px;
 }
+
+#messages {
+  width: 200px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  margin-top: 5px;
+  margin-left: 5px;
+  color: #fff;
+}
+
+#messages .message {
+  display: block;
+  max-height: 20px;
+}
+
+#messages .fadeOut {
+  overflow: hidden;
+  max-height: 0px;
+  transition: max-height 5s ease-in-out;
+}
