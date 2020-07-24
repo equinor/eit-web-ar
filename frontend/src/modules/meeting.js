@@ -254,7 +254,7 @@ module.exports = {
   updateInfoBox: function() {
     let infoBox = document.getElementById('info');
     infoBox.innerText = 'You are ' + this.getUserProperties(this.getMyUserId()).name;
-    infoBox.style.color = this.getUserProperties(this.getMyUserId()).color;
+    //infoBox.style.color = this.getUserProperties(this.getMyUserId()).color;
   },
   addMessage: function(text) {
     let messagesContainer = document.getElementById('messages');
