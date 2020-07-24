@@ -2,16 +2,6 @@
 import * as utils from "./utils";
 const log = utils.getLogger("ui");
 
-// ********************************************************
-// HOW TO USE:
-// * Show and hide content with #toggle_button
-// * Put the content you want to toggle in #toggle_content
-// * If you want to hide the content at start-up, add the class .hide,
-// * If you want to show it at start-up, add the class .show to indicate this
-// * If you have other buttons (like submit buttons) that you want to close the content, 
-//   add the class .close_content to those buttons
-// ********************************************************
-
 document.addEventListener("DOMContentLoaded", function(){
     // ********************************************************
     // Wait until assets have loaded until UI is loaded.
@@ -23,6 +13,7 @@ document.addEventListener("DOMContentLoaded", function(){
         ui.classList.remove('hide');
     });
     if (assets.hasAttribute('timeout')) {
+        ui.classList.add('hide');
         var timer = assets.getAttribute('timeout')*0.001;
         assets.addEventListener('timeout', () => {
             alert(`Timeout (${timer}s): took too long to load assets (3D models, audio, etc.). Adjust timeout timer or reduce size of assets.`)
@@ -40,73 +31,76 @@ document.addEventListener("DOMContentLoaded", function(){
     const infoClose = document.getElementById("close_info");
     const scrollIndicator = document.getElementById("scroll_indicator");
 
+    // UI toggle button
     let toggle = true;
-
-    toggleButton.addEventListener("click", () => {
-        if (toggle) {
-            toggleContent.style.display = "block";
-            toggle = false;
-            toggleButton.style.transform = "scaleY(-1)"
-        } else {
-            toggleContent.style.display = "none";
-            toggle = true;
-            toggleButton.style.transform = "scaleY(1)"
-        }
-    });
-    for (let button of closeButtons) {
-        button.addEventListener('click', () => {
-            toggleContent.style.display = "none";
-            toggle = true;
-            toggleButton.style.transform = "scaleY(1)";
+    if (toggleButton) {
+        toggleButton.addEventListener("click", () => {
+            if (toggle) {
+                toggleContent.style.display = "block";
+                toggle = false;
+                toggleButton.style.transform = "scaleY(-1)"
+            } else {
+                toggleContent.style.display = "none";
+                toggle = true;
+                toggleButton.style.transform = "scaleY(1)"
+            }
         });
+        for (let button of closeButtons) {
+            button.addEventListener('click', () => {
+                toggleContent.style.display = "none";
+                toggle = true;
+                toggleButton.style.transform = "scaleY(1)";
+            });
+        }
     }
 
-    let infoToggle = true;
-
-    // INFO BUTTON
-    infoButton.addEventListener('click', () => {
-        if (infoToggle) {
-            infoContent.style.display = "block";
-            infoToggle = false;
-            infoButton.style.transform = "scaleY(-1)";
-        } else {
+    // Info button
+    if (infoButton) {
+        let infoToggle = true;
+        infoButton.addEventListener('click', () => {
+            if (infoToggle) {
+                infoContent.style.display = "block";
+                infoToggle = false;
+                infoButton.style.transform = "scaleY(-1)";
+            } else {
+                infoContent.style.display = "none";
+                infoToggle = true;
+                infoButton.style.transform = "scaleY(1)";
+            }
+        });
+        infoClose.addEventListener('click', () => {
             infoContent.style.display = "none";
             infoToggle = true;
             infoButton.style.transform = "scaleY(1)";
-        }
-    });
-    infoClose.addEventListener('click', () => {
-        infoContent.style.display = "none";
-        infoToggle = true;
-        infoButton.style.transform = "scaleY(1)";
-    });
+        });
 
-    // Show indication that there are more info if you scroll
-    async function setScroll() {
-        setTimeout(function () {
-            if (infoContent.scrollHeight > infoContent.clientHeight+20) {
-                scrollIndicator.style.display = "block";
+        // Show indication that there are more info if you scroll
+        async function setScroll() {
+            setTimeout(function () {
+                if (infoContent.scrollHeight == 0) {
+                    setScroll();
+                } else if (infoContent.scrollHeight > infoContent.clientHeight+20) {
+                    scrollIndicator.style.display = "block";
+                }
+            }, 1000)
+        }
+        setScroll();
+        
+        infoContent.addEventListener('scroll', (e) => {
+            if (infoContent.scrollHeight - infoContent.scrollTop < infoContent.offsetHeight+50) {
+                scrollIndicator.style.display = "none"
+            } else {
+                scrollIndicator.style.display = "block"
             }
-        }, 1000)
+        });
+        scrollIndicator.addEventListener("click", () => {
+            infoContent.scroll({
+                top: infoContent.scrollHeight,
+                behavior: 'smooth'
+              });
+        });
     }
-    setScroll();
-
     
-    // if (infoContent.scrollHeight > infoContent.clientHeight) {
-    //     scrollIndicator.style.display = "block";
-    // }
-    // console.log(infoContent.scrollHeight);
-    //     console.log(infoContent.clientHeight);
-    
-    infoContent.addEventListener('scroll', (e) => {
-        if (infoContent.scrollHeight - infoContent.scrollTop < infoContent.offsetHeight+50) {
-            scrollIndicator.style.display = "none"
-        } else {
-            scrollIndicator.style.display = "block"
-        }
-    });
-    scrollIndicator.addEventListener("click", () => {
-        infoContent.scrollTop = infoContent.scrollHeight;
-    });
+    log.info("UI Loaded");
 });
 
