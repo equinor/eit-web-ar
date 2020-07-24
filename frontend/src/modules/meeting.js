@@ -142,10 +142,10 @@ module.exports = {
     return color;
   },
   getRandomName: function() {
-    let letters = 'abcdefghijklmnopqrstuvwxyz';
+    let letters = 'aeiouyabcdefghijklmnopqrstuvwxyz';
     let name = '';
     for (let i = 0; i < 6; i++) {
-      name += letters[Math.floor(Math.random() * 26)];
+      name += letters[Math.floor(Math.random() * 32)];
     }
     name = name.charAt(0).toUpperCase() + name.slice(1);
     return name;
