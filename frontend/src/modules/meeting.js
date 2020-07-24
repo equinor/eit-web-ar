@@ -251,12 +251,12 @@ module.exports = {
     mapHelper.innerText = 'You →';
     setTimeout(function() { mapHelper.classList.add('fadeOut') }, 5000);
   },
-  updateInfoBox() {
+  updateInfoBox: function() {
     let infoBox = document.getElementById('info');
     infoBox.innerText = 'You are ' + this.getUserProperties(this.getMyUserId()).name;
     infoBox.style.color = this.getUserProperties(this.getMyUserId()).color;
   },
-  addMessage(text) {
+  addMessage: function(text) {
     let messagesContainer = document.getElementById('messages');
     let messages = messagesContainer.querySelectorAll('.message');
     let message = document.createElement('span');
