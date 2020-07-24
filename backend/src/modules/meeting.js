@@ -1,7 +1,7 @@
 var storage = require('./storage');
 var utils = require('./utils');
 
-const _emitPositionInterval = 1000;
+const _emitPositionInterval = 100;
 var _io = false;
 var _sockets = [];
 
@@ -36,8 +36,8 @@ function _emitPositionUpdate() {
     }
     storage.multi(multi).exec((err, positions) => {
       // Calculate relative/fake positions
-      console.log('All positions:');
-      console.log(positions);
+      //console.log('All positions:');
+      //console.log(positions);
       
       for (let i = 0; i < users.length; i++) {
         if (positions[i][0] === null) continue;
@@ -66,8 +66,8 @@ function _emitPositionUpdate() {
             heading: b_heading
           });
         }
-        console.log('Positions relative to ' + a_userId);
-        console.log(relativePositions);
+        //console.log('Positions relative to ' + a_userId);
+        //console.log(relativePositions);
         
         const socket = _getSocketFromUser(a_userId);
         if (socket === null) continue;
@@ -127,12 +127,12 @@ module.exports = {
         this.removeUser(userId, (userId) => {
           this.emitUserLeft(userId);
         });
-        console.log(`User ${userId} disconnected: ${reason}`);
+        //console.log(`User ${userId} disconnected: ${reason}`);
       });
       
       socket.on('connect-socket-to-user', function(data) {
         const userId = data.userId;
-        console.log(`connect-socket-to-user ${userId}`);
+        //console.log(`connect-socket-to-user ${userId}`);
         _addToSocketList(userId, socket);
       });
       
@@ -141,7 +141,7 @@ module.exports = {
         const longitude = data.longitude;
         const heading = data.heading;
         const userId = _getUserAtSocket(socket);
-        console.log(`position-update: ${userId}: ${latitude}, ${longitude} - ${heading}`);
+        //console.log(`position-update: ${userId}: ${latitude}, ${longitude} - ${heading}`);
         _savePosition(userId, latitude, longitude, heading);
       });
     });

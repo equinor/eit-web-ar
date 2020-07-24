@@ -179,6 +179,7 @@ module.exports = {
   },
   addEntity: function(userId) {
     console.log('Adding entity for user ' + userId);
+    // Enity
     let entity = document.createElement('a-entity');
     const geometry = this.getUserProperties(userId).geometry;
     const color = this.getUserProperties(userId).color;
@@ -187,6 +188,12 @@ module.exports = {
     entity.setAttribute('material', 'color', color);
     entity.setAttribute('scale', '0.5 0.5 0.5');
     document.querySelector('a-scene').appendChild(entity);
+    
+    // Text
+    let text = document.createElement('a-text');
+    text.setAttribute('value', this.getUserProperties(userId).name);
+    text.setAttribute('position', '0 1.5 0');
+    entity.appendChild(text);
   },
   removeEntity: function(userId) {
     let entity = document.querySelector(`[data-userId="${userId}"]`);
@@ -211,7 +218,7 @@ module.exports = {
     // Rotate map
     let heading = this.getUserProperties(this.getMyUserId()).heading;
     let rotation = heading + 270;
-    console.log(heading);
+    //console.log(heading);
     canvas.style.transform = `rotate(${rotation}deg)`;
     
     // Add this user to the map
@@ -221,7 +228,7 @@ module.exports = {
     this.addPointToMap(lat, lng, color);
   },
   addPointToMap: function(lat, lng, color) {
-    console.log('add point ' + lat + ', ' + lng + ' to map');
+    //console.log('add point ' + lat + ', ' + lng + ' to map');
     let map = getMap();
     let canvas = map.querySelector('canvas');
     let ctx = canvas.getContext('2d');
