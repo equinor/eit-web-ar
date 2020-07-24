@@ -195,6 +195,11 @@ module.exports = {
     text.setAttribute('value', this.getUserProperties(userId).name);
     text.setAttribute('position', '0 1.5 0');
     entity.appendChild(text);
+    let text2 = document.createElement('a-text');
+    text2.setAttribute('value', this.getUserProperties(userId).name);
+    text2.setAttribute('position', '0 1.5 0');
+    text2.setAttribute('rotation', '0 180 0');
+    entity.appendChild(text2);
   },
   removeEntity: function(userId) {
     let entity = document.querySelector(`[data-userId="${userId}"]`);
