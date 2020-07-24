@@ -21,13 +21,20 @@ AFRAME.registerComponent('meeting', {
       
       // FOR TESTING
       if (window.location.href.indexOf('?testing') != -1) {
-        let properties = {
-          latitude: 1,
-          longitude: 1,
-          heading: this.el.camera.rotation.y
-        };
-        meeting.setUserProperties(response.userId, properties);
-        meeting.emitPosition(properties);
+        var i = 0;
+        var y = this.el.camera.rotation.y;
+        setInterval(function() {
+          let properties = {
+            latitude: 1,
+            longitude: 1,
+            heading: (y + i * 2) % 360
+          };
+          
+          meeting.setUserProperties(response.userId, properties);
+          meeting.emitPosition(properties);
+          
+          i++;
+        }, 50);
       }
       // ~FOR TESTING
       
@@ -68,9 +75,11 @@ AFRAME.registerComponent('meeting', {
         const userId = data[i].userId;
         const latitude = data[i].latitude;
         const longitude = data[i].longitude;
+        const rotation = data[i].heading;
         let findUserEl = document.querySelector(`[data-userId="${userId}"]`);
         if (findUserEl) {
           findUserEl.setAttribute('gps-entity-place', `latitude: ${latitude}; longitude: ${longitude}`);
+          findUserEl.setAttribute('rotation', `0 ${rotation} 0`)
         }
       }
     });
