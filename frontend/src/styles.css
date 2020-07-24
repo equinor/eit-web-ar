@@ -25,6 +25,8 @@ body {
    left:0; 
    width: 100%;
    overflow: auto;
+   z-index: 99;
+   box-shadow: 0px 0px 10px rgba(0, 0, 0, 1);
  }
    #game_init_container img {
       width: 100%;
@@ -34,6 +36,7 @@ body {
       background: #ddd;
       border: none;
       padding: 10px 0;
+      
    } 
       #player_name {
       display: block;
@@ -79,7 +82,9 @@ body {
    bottom: 0;
    left: 0;
    width: 100%;
-   background: #ccc;
+   background: #ddd;
+   box-shadow: 0px 0px 10px rgba(0, 0, 0, 1);
+   z-index: 99;
 }
    #gps_input_container p {
       text-align: center;
@@ -87,15 +92,16 @@ body {
       color: #666;
       margin: 0.5em 0;
    }
-   #gps_input_container span.close {
+   #gps_input_container .close {
       display: block;
-      background: #ddd;
-      width: 10%;
+      background: #cbcbcb;
+      width: 20%;
       padding: 4px 8px;
       margin:  0 7.5% 10px auto;
       border-radius: 99px;
-      text-align: right;
-      color: rgb(78, 78, 218);
+      text-align: center;
+      border:none;
+      font-size: 0.9em;
    }
    #text_input_wrap {
       display: block;
@@ -104,7 +110,7 @@ body {
    }
       .input_gps_coords {
          display: block;
-         border: none;
+         border: 1px solid #ccc;
          width: 85%;
          margin: 10px auto;
          padding: 2.5% 2.5%;
@@ -134,11 +140,69 @@ body {
 
 /* UI  */
 
+#ui_wrap {
+   z-index: 1;
+}
+
+#info_button {
+   display:block;
+   position:fixed; 
+   bottom: 20px; 
+   left: 5%;
+   z-index: 1;
+}
+   #info_content {
+      position: fixed;
+      overflow: scroll;
+      background: #fefefe;
+      top: 0;
+      left:0;
+      width: 100%;
+      max-height: 40%;
+      box-shadow: 0px 0px 10px rgba(0, 0, 0, 1);
+   }
+      #info_content h3 {
+         text-align: center; 
+      }
+      #info_content p {
+         padding: 0 10px;      
+      }
+      #info_content ol {
+         padding-right: 10px;      
+      }
+      #info_content li {
+         margin-bottom: 10px;         
+      }
+      #close_info {
+         background: #ddd;
+         display: block;
+         margin: 0 auto 20px;
+         padding: 5px 15px;
+         border: none;
+         border-radius: 999px;
+      }
+      #scroll_indicator {
+         position: sticky;
+         bottom: 10px;
+         margin: 0 auto;
+         display: none;
+         background: rgba(184, 51, 139, 0.99);
+         color: #fff;
+         padding: 4px 8px;
+         width: 5%;
+         text-align: center;
+         border-radius: 99px;
+         box-shadow: 0 0 5px rgba(0,0,0,0.5);
+         font-size: 1.2rem;
+      }
+
+
 #toggle_button {
    display:block;
    position:fixed; 
    bottom: 20px; 
    right: 5%;
+   z-index: 1;
 }
 
    .button_img {
@@ -146,6 +210,7 @@ body {
       max-height: 100px;
    }
 #toggle_content {
+   z-index: 2;
 }
 
    #button_one{
