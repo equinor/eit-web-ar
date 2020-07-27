@@ -107,7 +107,7 @@ module.exports = {
          template: "./src/epic1.html",
          filename: "epic1.html",
          inject: "head",
-         chunks: ["app", "vendor"],
+         chunks: ["app", "vendor", "ui"],
          chunksSortMode: "dependency"
       }),
       new HtmlWebpackPlugin({
@@ -134,7 +134,7 @@ module.exports = {
          template: "./src/game.html",
          filename: "game.html",
          inject: "head",
-         chunks: ["app", "vendor"],
+         chunks: ["app", "vendor", "ui"],
          chunksSortMode: "dependency"
       }),
       new HtmlWebpackPlugin({
@@ -143,7 +143,7 @@ module.exports = {
          template: "./src/meeting.html",
          filename: "meeting.html",
          inject: "head",
-         chunks: ["app", "vendor"],
+         chunks: ["app", "vendor", "ui"],
          chunksSortMode: "dependency"
       }),
       new WebpackMd5Hash(),

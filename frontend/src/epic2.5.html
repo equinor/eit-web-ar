@@ -7,12 +7,13 @@
 
 <body style='margin: 0; overflow: hidden;'>
     <a-scene
-      vr-mode-ui="enabled: true"
+      vr-mode-ui="enabled: false"
       embedded
-      arjs='detectionMode: mono_and_matrix; matrixCodeType: 3x3;'>
+      arjs='detectionMode: mono_and_matrix; matrixCodeType: 3x3;'
+      loading-screen="backgroundColor: black">
       <a id="myEnterARButton" href="#"></a>
-        <a-assets>
-            <a-asset-item
+        <a-assets timeout="50000">
+            <!-- <a-asset-item
                 id="mario_kart"
                 src="./gltf/mario_kart/scene.glb"
                 preload="auto">
@@ -21,28 +22,28 @@
                 id="banana"
                 src="./gltf/banana/scene.glb"
                 preload="auto">
-            </a-asset-item>
+            </a-asset-item> -->
             <a-asset-item
                 id="eiffel_tower"
                 src="./gltf/eiffel_tower/scene.glb"
                 preload="auto">
             </a-asset-item>
-            <a-asset-item
+            <!-- <a-asset-item
                 id="ho_oh"
                 src="./gltf/ho_oh/scene.glb"
                 preload="auto">
-            </a-asset-item>
+            </a-asset-item> -->
             <a-asset-item
                 id="lookout_tower"
                 src="./gltf/lookout_tower/scene.glb"
                 preload="auto">
             </a-asset-item>
-            <a-asset>
+            <!-- <a-asset>
                 <audio id="music" src="./audio/music.mp3" preload="auto"></audio>
-            </a-asset>
+            </a-asset> -->
         </a-assets>
 
-        <a-entity
+        <!-- <a-entity
           id="mario_kart_ent"
           animation-mixer
           animation-pauser
@@ -51,22 +52,22 @@
         <a-entity
           id="banana_ent"
           gps-object='object: #banana; location: { "lat": 68.679069, "lng": 16.796574999999997 }; scale: 1.12'>
-        </a-entity>
+        </a-entity> -->
         <a-entity
           id="eiffel_tower_ent"
           gps-object='object: #eiffel_tower; location: { "lat": 68.679069, "lng": 16.796574999999997 }; scale: 0.0693'>
         </a-entity>
-        <a-entity
+        <!-- <a-entity
           id="ho_oh_ent"
           animation-mixer
           gps-object='object: #ho_oh; location: { "lat": 68.679069, "lng": 16.796574999999997 }; scale: 0.042'>
-        </a-entity>
+        </a-entity> -->
         <a-entity
           id="lookout_tower_ent"
-          gps-object='object: #lookout_tower; location: { "lat": 68.679103, "lng": 16.797319 }; scale: 0.043'>
+          gps-object='object: #lookout_tower; offset: true; location: { "lat": 68.679103, "lng": 16.797319 }; scale: 0.043'>
         </a-entity>
 
-        <a-camera fixed-point-kalman-gps-camera="R: 1; Q: 0.12; logConsole: true; set_coords: [68.679069, 16.796574999999997]; radius: 2" rotation-reader look-controls position="0 0 0">
+        <a-camera fixed-point-kalman-gps-camera="R: 1; Q: 1; logConsole: true; set_coords: [68.679069, 16.796574999999997]; radius: 2" rotation-reader look-controls position="0 0 0">
             <a-entity
                 cursor="fuse: false"
                 raycaster="interval: 20; objects: .cursor-interactive"
@@ -89,11 +90,25 @@
    </a> -->
    <!-- /Logo row -->
 
-   <div id="ui_wrap" class="hide">
-    <div id="toggle_button">
-        <img src="./images/doubleup.svg" class="button_img">
+   <div id="ui_wrap">
+    <div id="info_button">
+      <img src="./images/info.svg" class="button_img">
     </div>
-    <div id="toggle_content" class="toggle_content show">
+    <div id="info_content" class="hide">
+      <h3>Using static viewpoints</h3>
+      <p>Find a space where you can walk around.</p>
+      <ol>
+        <li>...</li>
+        <li>...</li>
+        <li>...</li>
+      </ol>
+      <span id="scroll_indicator">&darr;</span>
+      <input type="submit" value="Close" id="close_info">
+    </div>
+    <div id="toggle_button">
+        <img src="./images/gps.svg" class="button_img">
+    </div>
+    <div id="toggle_content" class="toggle_content hide">
       <div id="gps_input_container">
         
         <input type="submit" value="Use current position" class="close_content submit_coords" id="submit_current_position">
@@ -101,7 +116,7 @@
         <input type="text" class="input_gps_coords" id="lat_pos" placeholder="latitude...">
         <input type="text" class="input_gps_coords" id="lng_pos" placeholder="longitude...">
         <input type="submit" value="Submit GPS coordinates" class="close_content submit_coords" id="submit_gps_coords">
-        <span class="close close_content">close</span>
+        <input type="submit" class="close close_content" value="Close">
       </div>
     </div>
   </div>

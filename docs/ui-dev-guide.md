@@ -6,7 +6,7 @@
 To access the user input from the UI wrap, use the following code in your javascript.
 
 Add event listener for when the user submits gps coords manually:
-``` 
+```
     document.getElementById('submit_gps_coords').addEventListener('click', () => {
       const lat = document.getElementById('lat_pos').value;
       const lng = document.getElementById('lng_pos').value;
