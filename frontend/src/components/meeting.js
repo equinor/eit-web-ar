@@ -23,10 +23,13 @@ AFRAME.registerComponent('meeting', {
       if (window.location.href.indexOf('?testing') != -1) {
         var i = 0;
         var y = this.el.camera.rotation.y;
+        var lat = Math.floor(Math.random() * 100);
+        var lng = Math.floor(Math.random() * 100);
+        console.log('random latlng: ' + lat + ', ' + lng);
         setInterval(function() {
           let properties = {
-            latitude: 1,
-            longitude: 1,
+            latitude: lat,
+            longitude: lng,
             heading: (y + i * 2) % 360
           };
           
@@ -92,7 +95,7 @@ AFRAME.registerComponent('meeting', {
         const latitude = data[i].latitude;
         const longitude = data[i].longitude;
         const color = meeting.getUserProperties(userId).color;
-        meeting.addPointToMap(latitude, longitude, color);
+        meeting.addUserToMap(userId);
       }
     });
     
