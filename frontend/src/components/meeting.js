@@ -51,16 +51,17 @@ AFRAME.registerComponent('meeting', {
         meeting.setUserProperties(response.userId, properties);
         meeting.emitPosition(properties);
       });
-    });
-    
-    meeting.requestAllUsers(users => {
-      for (let i = 0; i < users.length; i++) {
-        let userId = users[i].userId;
-        meeting.setUserProperties(userId, users[i]);
-        if (userId != meeting.getMyUserId()) {
-          meeting.addEntity(userId);
+      
+      meeting.requestAllUsers(users => {
+        for (let i = 0; i < users.length; i++) {
+          let userId = users[i].userId;
+          meeting.setUserProperties(userId, users[i]);
+          if (userId != meeting.getMyUserId()) {
+            meeting.addEntity(userId);
+          }
         }
-      }
+      });
+      
     });
     
     // Save new positions
