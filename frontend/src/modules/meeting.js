@@ -223,7 +223,11 @@ module.exports = {
     
     // Rotate map
     let heading = this.getUserProperties(this.getMyUserId()).heading;
-    let rotation = heading + 270;
+    let originHeading = 0;
+    if (document.querySelector('a-camera').components['gps-camera'].originCoords !== null) {
+      originHeading = document.querySelector('a-camera').components['gps-camera'].originCoords.heading;
+    }
+    let rotation = heading;
     //console.log(heading);
     canvas.style.transform = `rotate(${rotation}deg)`;
     
@@ -234,30 +238,48 @@ module.exports = {
     this.addPointToMap(lat, lng, color);
   },
   addPointToMap: function(lat, lng, color) {
-    //console.log('add point ' + lat + ', ' + lng + ' to map');
     let map = getMap();
     let canvas = map.querySelector('canvas');
     let ctx = canvas.getContext('2d');
     
-    const size = 5;
-    const centerX = 100;
-    const centerY = 100;
-    const scaleX = 500000;
-    const scaleY = 500000;
+    let size = 5;
+    let centerX = 100;
+    let centerY = 100;
+    let scaleX = 500000;
+    let scaleY = 500000;
     
-    const myLat = this.getUserProperties(this.getMyUserId()).latitude;
-    const myLng = this.getUserProperties(this.getMyUserId()).longitude;
+    let myLat = this.getUserProperties(this.getMyUserId()).latitude;
+    let myLng = this.getUserProperties(this.getMyUserId()).longitude;
     
     let relLat = lat - myLat + centerX;
     let relLng = lng - myLng + centerY;
     relLat += (relLat - centerX) * scaleX;
     relLng += (relLng - centerY) * scaleY;
-    //console.log('('+relLat+', '+relLng+') before floor');
     relLat = Math.floor(relLat);
     relLng = Math.floor(relLng);
-    //console.log('Added point ('+relLat+', '+relLng+') to the map');
+
     ctx.fillStyle = color;
-    ctx.fillRect(relLat, relLng, 5, 5);
+    ctx.fillRect(relLat, relLng, size, size);
+  },
+  addUserToMap: function(userId) {
+    let map = getMap();
+    let canvas = map.querySelector('canvas');
+    let ctx = canvas.getContext('2d');
+    
+    let size = 5;
+    let centerX = 100;
+    let centerY = 100;
+    let scaleX = 5;
+    let scaleY = 5;
+    let color = this.getUserProperties(userId).color;
+    
+    let x = document.querySelector(`[data-userId="${userId}"]`).getAttribute('position').x;
+    let y = document.querySelector(`[data-userId="${userId}"]`).getAttribute('position').z;
+    let relX = centerX + x * scaleX;
+    let relY = centerY + y * scaleY;
+    
+    ctx.fillStyle = color;
+    ctx.fillRect(relX, relY, size, size);
   },
   showMapHelper: function() {
     let mapHelper = document.getElementById('mapHelper');
