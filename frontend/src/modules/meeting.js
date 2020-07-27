@@ -177,6 +177,23 @@ module.exports = {
         console.error(error);
       });
   },
+  appendEyes: function(entity) {
+    let eye = document.createElement('a-entity');
+    eye.setAttribute('geometry', 'primitive', 'sphere');
+    eye.setAttribute('material', 'color', '#00f');
+    eye.setAttribute('scale', '0.1 0.1 0.1');
+    eye.setAttribute('position', '0.6 0.6 0.6');
+    entity.appendChild(eye);
+    
+    let eye2 = document.createElement('a-entity');
+    eye2.setAttribute('geometry', 'primitive', 'sphere');
+    eye2.setAttribute('material', 'color', '#00f');
+    eye2.setAttribute('scale', '0.1 0.1 0.1');
+    eye2.setAttribute('position', '0.6 0.6 -0.6');
+    entity.appendChild(eye2);
+      
+    return entity;
+  },
   addEntity: function(userId) {
     console.log('Adding entity for user ' + userId);
     // Enity
@@ -185,6 +202,7 @@ module.exports = {
     const color = this.getUserProperties(userId).color;
     entity.setAttribute('data-userId', userId);
     entity.setAttribute('geometry', 'primitive', geometry);
+    this.appendEyes(entity);
     //entity.setAttribute('material', 'src', './images/smiley.png');
     entity.setAttribute('material', 'color', color);
     entity.setAttribute('scale', '0.5 0.5 0.5');
@@ -273,6 +291,7 @@ module.exports = {
     let scaleY = 5;
     let color = this.getUserProperties(userId).color;
     
+    if (document.querySelector(`[data-userId="${userId}"]`) === undefined) return;
     let x = document.querySelector(`[data-userId="${userId}"]`).getAttribute('position').x;
     let y = document.querySelector(`[data-userId="${userId}"]`).getAttribute('position').z;
     let relX = centerX + x * scaleX;
