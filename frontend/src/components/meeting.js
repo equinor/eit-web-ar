@@ -62,6 +62,15 @@ AFRAME.registerComponent('meeting', {
         }
       });
       
+      meeting.receiveUserJoined(data => {
+        meeting.setUserProperties(data.userId, data);
+        if (data.userId != meeting.getMyUserId()) {
+          meeting.addEntity(data.userId);
+        }
+        console.log('received user-joined:');
+        meeting.addMessage(`${data.name} joined!`)
+      });
+      
     });
     
     // Save new positions
@@ -79,7 +88,7 @@ AFRAME.registerComponent('meeting', {
         const userId = data[i].userId;
         const latitude = data[i].latitude;
         const longitude = data[i].longitude;
-        const rotation = data[i].heading;
+        const rotation = data[i].heading - 90;
         let findUserEl = document.querySelector(`[data-userId="${userId}"]`);
         if (findUserEl) {
           findUserEl.setAttribute('gps-entity-place', `latitude: ${latitude}; longitude: ${longitude}`);
@@ -98,15 +107,6 @@ AFRAME.registerComponent('meeting', {
         const color = meeting.getUserProperties(userId).color;
         meeting.addUserToMap(userId);
       }
-    });
-    
-    meeting.receiveUserJoined(data => {
-      meeting.setUserProperties(data.userId, data);
-      if (data.userId != meeting.getMyUserId()) {
-        meeting.addEntity(data.userId);
-      }
-      console.log('received user-joined:');
-      meeting.addMessage(`${data.name} joined!`)
     });
     meeting.receiveUserLeft(data => {
       meeting.removeEntity(data.userId);
