@@ -28,11 +28,6 @@ By gaining easy availability we hope to be able to quickly explore use cases whe
 - [Components](#components)
 - [Security](#security)
 - [Development](./README.md#development)
-  - [Start](./README.md#start)
-  - [Stop](./README.md#stop)
-  - [Notes](./README.md#notes)
-  - [Starting from scratch](./README.md#starting-from-scratch)
-- [Build and run release image](./README.md#build-and-run-release-image)
 - [How we work](./docs/how-we-work.md)
 - [Documentation](./docs/README.md)
 
