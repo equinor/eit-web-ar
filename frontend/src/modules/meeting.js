@@ -33,6 +33,12 @@ function deg2rad(deg) {
   return deg * (Math.PI / 180);
 }
 
+function getPointAtHeading(x0, y0, heading, distance) {
+  let x = x0 - distance * Math.sin(deg2rad(heading));
+  let y = y0 - distance * Math.cos(deg2rad(heading));
+  return [x, y];
+}
+
 const api = {
   baseUri: getApiUri(),
   socketUri: getSocketUri()
@@ -133,6 +139,16 @@ module.exports = {
   },
   receiveUserLeftGroup: function(callback) {
     socket.on('user-left-group', data => {
+      callback(data);
+    });
+  },
+  receiveRocketJoined: function(callback) {
+    socket.on('rocket-joined', data => {
+      callback(data);
+    });
+  },
+  receiveRocketLeft: function(callback) {
+    socket.on('rocket-left', data => {
       callback(data);
     });
   },
@@ -322,5 +338,65 @@ module.exports = {
     if (messages.length > 9) {
       messagesContainer.removeChild(messages[0]);
     }
+  },
+  sendRocket: function() {
+    let lat = this.getUserProperties(this.getMyUserId()).latitude;
+    let lng = this.getUserProperties(this.getMyUserId()).longitude;
+    let heading = this.getUserProperties(this.getMyUserId()).heading;
+    console.log('Send rocket from (' + lat + ', ' + lng + ') with heading ' + heading);
+    
+    let properties = {
+      type: 'rocket',
+      latitude: lat,
+      longitude: lng,
+      heading: heading
+    }
+    const rocketUrl = api.baseUri + '/rocket';
+    axios({
+      method: 'post',
+      url: rocketUrl,
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      data: properties
+    })
+      .then((response) => {
+        if (response.status == 201) {
+          return true;
+        } else {
+          console.log('Error with post /rocket');
+          return false;
+        }
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  },
+  addRocket: function(properties) {
+    let latitude = properties.latitude;
+    let longitude = properties.longitude;
+    let heading = properties.heading;
+    let distance = 20;
+    console.log('Adding rocket from (' + latitude + ', ' + longitude + ') with heading ' + heading + ', distance ' + distance);
+    
+    let entity = document.createElement('a-entity');
+    const geometry = 'sphere';
+    const color = this.getUserProperties(this.getMyUserId()).color;
+    entity.setAttribute('data-rocketId', properties.rocketId);
+    entity.setAttribute('geometry', 'primitive', geometry);
+    entity.setAttribute('material', 'color', color);
+    entity.setAttribute('scale', '0.1 0.1 0.1');
+    entity.setAttribute('gps-entity-place', `latitude: ${latitude}; longitude: ${longitude}`);
+    entity.setAttribute('rotation', `0 ${heading} 0`);
+    document.querySelector('a-scene').appendChild(entity);
+    let position0 = [
+      entity.getAttribute('position').x,
+      entity.getAttribute('position').z
+    ];
+    let position1 = getPointAtHeading(position0[0], position0[1], heading, distance);
+    console.log('Rocket going from: ' + position0 + ' --> ' + position1);
+    entity.setAttribute('animation', `property: position; from: ${position0[0]} 0 ${position0[1]}; to: ${position1[0]} 0 ${position1[1]}; loop: false; dur: 3000; autoplay: true;`);
+    
   }
 }
