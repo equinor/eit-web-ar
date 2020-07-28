@@ -383,6 +383,8 @@ module.exports = {
     let heading = properties.heading;
     let color = properties.color;
     let distance = 20;
+    let animationTime = 3000;
+    let removeTime = 4000;
     console.log('Adding rocket from (' + latitude + ', ' + longitude + ') with heading ' + heading + ', distance ' + distance);
     
     let entity = document.createElement('a-entity');
@@ -411,7 +413,11 @@ module.exports = {
     console.log('Position0_: ' + position0);
     let position1 = getPointAtHeading(position0[0], position0[1], heading, distance);
     console.log('Rocket going from: ' + position0 + ' --> ' + position1);
-    entity.setAttribute('animation', `property: position; from: ${position0[0]} 0 ${position0[1]}; to: ${position1[0]} 0 ${position1[1]}; loop: false; dur: 3000; autoplay: true;`);
+    entity.setAttribute('animation', `property: position; from: ${position0[0]} 0 ${position0[1]}; to: ${position1[0]} 0 ${position1[1]}; loop: false; dur: ${animationTime}; autoplay: true;`);
+    
+    setTimeout(function() {
+      entity.parentNode.removeChild(entity);
+    }, removeTime)
     
   }
 }
