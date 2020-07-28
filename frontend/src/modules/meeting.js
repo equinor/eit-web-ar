@@ -343,13 +343,15 @@ module.exports = {
     let lat = this.getUserProperties(this.getMyUserId()).latitude;
     let lng = this.getUserProperties(this.getMyUserId()).longitude;
     let heading = this.getUserProperties(this.getMyUserId()).heading;
+    let color = this.getUserProperties(this.getMyUserId()).color;
     console.log('Send rocket from (' + lat + ', ' + lng + ') with heading ' + heading);
     
     let properties = {
       type: 'rocket',
       latitude: lat,
       longitude: lng,
-      heading: heading
+      heading: heading,
+      color: color
     }
     const rocketUrl = api.baseUri + '/rocket';
     axios({
@@ -377,12 +379,12 @@ module.exports = {
     let latitude = properties.latitude;
     let longitude = properties.longitude;
     let heading = properties.heading;
+    let color = properties.color;
     let distance = 20;
     console.log('Adding rocket from (' + latitude + ', ' + longitude + ') with heading ' + heading + ', distance ' + distance);
     
     let entity = document.createElement('a-entity');
     const geometry = 'sphere';
-    const color = this.getUserProperties(this.getMyUserId()).color;
     entity.setAttribute('data-rocketId', properties.rocketId);
     entity.setAttribute('geometry', 'primitive', geometry);
     entity.setAttribute('material', 'color', color);
