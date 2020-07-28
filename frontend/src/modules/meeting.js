@@ -198,14 +198,14 @@ module.exports = {
     eye.setAttribute('geometry', 'primitive', 'sphere');
     eye.setAttribute('material', 'color', '#00f');
     eye.setAttribute('scale', '0.1 0.1 0.1');
-    eye.setAttribute('position', '0.6 0.6 0.6');
+    eye.setAttribute('position', '0.6 0.6 -0.6');
     entity.appendChild(eye);
     
     let eye2 = document.createElement('a-entity');
     eye2.setAttribute('geometry', 'primitive', 'sphere');
     eye2.setAttribute('material', 'color', '#00f');
     eye2.setAttribute('scale', '0.1 0.1 0.1');
-    eye2.setAttribute('position', '0.6 0.6 -0.6');
+    eye2.setAttribute('position', '-0.6 0.6 -0.6');
     entity.appendChild(eye2);
       
     return entity;
