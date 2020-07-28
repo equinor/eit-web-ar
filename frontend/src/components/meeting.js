@@ -5,12 +5,11 @@ import meeting from '../modules/meeting';
 
 AFRAME.registerComponent('meeting', {
   init: function() {
-    const _this = this;
-    const properties = {
+    const registerProperties = {
       name: meeting.getRandomName(),
       color: meeting.getRandomColor()
     };
-    meeting.registerUser(properties, (response) => {
+    meeting.registerUser(registerProperties, (response) => {
       log.info('I am now registered with name ' + response.name + ', id ' + response.userId);
       meeting.setMyUserId(response.userId);
       meeting.setUserProperties(response.userId, response);
@@ -69,6 +68,7 @@ AFRAME.registerComponent('meeting', {
       document.querySelector('a-scene').appendChild(entity4);
       // ~FOR TESTING
       
+      // Save and emit our own positions when receiving updated coordinated from gps
       window.addEventListener('gps-camera-update-position', function (e) {
         let heading = document.querySelector('a-camera').getAttribute('rotation').y;
         console.log('Heading: ' + heading); //testing
@@ -81,6 +81,7 @@ AFRAME.registerComponent('meeting', {
         meeting.emitPosition(properties);
       });
       
+      // Add entities for all registered users
       meeting.requestAllUsers(users => {
         for (let i = 0; i < users.length; i++) {
           let userId = users[i].userId;
@@ -91,22 +92,24 @@ AFRAME.registerComponent('meeting', {
         }
       });
       
+      // Add entity each time a new user joins
       meeting.receiveUserJoined(data => {
         meeting.setUserProperties(data.userId, data);
         if (data.userId != meeting.getMyUserId()) {
           meeting.addEntity(data.userId);
         }
         console.log('received user-joined:');
-        meeting.addMessage(`${data.name} joined!`)
+        meeting.addMessage(`${data.name} joined!`);
       });
       
+      // Fire a rocket when touching the screen
       document.addEventListener('touchstart', function(e) {
         meeting.sendRocket();
       });
       
     });
     
-    // Save new positions
+    // Save new positions when new positions are received from the server
     meeting.receivePositions(data => {
       for (let i = 0; i < data.length; i++) {
         const userId = data[i].userId;
@@ -115,7 +118,7 @@ AFRAME.registerComponent('meeting', {
       }
     });
     
-    // Update 3d position
+    // Move all entities to new positions when new positions are received from the server
     meeting.receivePositions(data => {
       for (let i = 0; i < data.length; i++) {
         const userId = data[i].userId;
@@ -125,12 +128,12 @@ AFRAME.registerComponent('meeting', {
         let findUserEl = document.querySelector(`[data-userId="${userId}"]`);
         if (findUserEl) {
           findUserEl.setAttribute('gps-entity-place', `latitude: ${latitude}; longitude: ${longitude}`);
-          findUserEl.setAttribute('rotation', `0 ${rotation} 0`)
+          findUserEl.setAttribute('rotation', `0 ${rotation} 0`);
         }
       }
     });
     
-    // Update map
+    // Update map when new positions are received from the server
     meeting.receivePositions(data => {
       meeting.initMap();
       for (let i = 0; i < data.length; i++) {
@@ -141,6 +144,8 @@ AFRAME.registerComponent('meeting', {
         meeting.addUserToMap(userId);
       }
     });
+    
+    // Receive various socket messages
     meeting.receiveUserLeft(data => {
       meeting.removeEntity(data.userId);
       console.log('received user-left');

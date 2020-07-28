@@ -3,42 +3,6 @@ const io = require('socket.io-client');
 const utils = require('./utils');
 const log = utils.getLogger("components:meeting");
 
-function getApiUri() {
-  let dockerUri = `http://${window.location.hostname}:3100/meetapi`;
-  let productionUri = `https://${window.location.hostname}/meetapi`;
-  
-  if (window.location.hostname.indexOf("localhost") > -1) {
-    return dockerUri;
-  } else {
-    return productionUri;
-  }
-}
-function getSocketUri() {
-  let dockerUri = `http://${window.location.hostname}:3100`;
-  let productionUri = `https://${window.location.hostname}`;
-  
-  if (window.location.hostname.indexOf("localhost") > -1) {
-    return dockerUri;
-  } else {
-    return productionUri;
-  }
-}
-
-function getMap() {
-  let map = document.getElementById('map');
-  return map;
-}
-
-function deg2rad(deg) {
-  return deg * (Math.PI / 180);
-}
-
-function getPointAtHeading(x0, y0, heading, distance) {
-  let x = x0 - distance * Math.sin(deg2rad(heading));
-  let y = y0 - distance * Math.cos(deg2rad(heading));
-  return [x, y];
-}
-
 const api = {
   baseUri: getApiUri(),
   socketUri: getSocketUri()
@@ -198,7 +162,7 @@ module.exports = {
         console.error(error);
       });
   },
-  appendEyes: function(entity) {
+  appendEyesToEntity: function(entity) {
     let eye = document.createElement('a-entity');
     eye.setAttribute('geometry', 'primitive', 'sphere');
     eye.setAttribute('material', 'color', '#00f');
@@ -224,7 +188,7 @@ module.exports = {
     entity.setAttribute('data-userId', userId);
     entity.classList.add('user');
     entity.setAttribute('geometry', 'primitive', geometry);
-    this.appendEyes(entity);
+    this.appendEyesToEntity(entity);
     //entity.setAttribute('material', 'src', './images/smiley.png');
     entity.setAttribute('material', 'color', color);
     entity.setAttribute('scale', '0.5 0.5 0.5');
@@ -439,4 +403,41 @@ module.exports = {
       }
     });
   }
+}
+
+function getApiUri() {
+  let dockerUri = `http://${window.location.hostname}:3100/meetapi`;
+  let productionUri = `https://${window.location.hostname}/meetapi`;
+  
+  if (window.location.hostname.indexOf("localhost") > -1) {
+    return dockerUri;
+  } else {
+    return productionUri;
+  }
+}
+
+function getSocketUri() {
+  let dockerUri = `http://${window.location.hostname}:3100`;
+  let productionUri = `https://${window.location.hostname}`;
+  
+  if (window.location.hostname.indexOf("localhost") > -1) {
+    return dockerUri;
+  } else {
+    return productionUri;
+  }
+}
+
+function getMap() {
+  let map = document.getElementById('map');
+  return map;
+}
+
+function deg2rad(deg) {
+  return deg * (Math.PI / 180);
+}
+
+function getPointAtHeading(x0, y0, heading, distance) {
+  let x = x0 - distance * Math.sin(deg2rad(heading));
+  let y = y0 - distance * Math.cos(deg2rad(heading));
+  return [x, y];
 }
