@@ -13,8 +13,8 @@ Storage is a simple redis container with no file storage or backup.
 
 - Storage credentials  
   The env var `REDIS_PASSWORD` must be set storage container  
-  - Development configuration, set the env var when starting the container
-  - Production configuration, set as secret `REDIS_PASSWORD` for component `storage` in Radix
+  - **Development configuration:** set the env var when starting the container
+  - **Production configuration:** set as secret `REDIS_PASSWORD` for component `storage` in Radix
 
 
 ## Build and run production image

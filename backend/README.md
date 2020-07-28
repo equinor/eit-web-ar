@@ -37,6 +37,8 @@ Dependent on component [`storage`](../storage/) for, well, data storage.
 The [./docker-compose.yaml](./docker-compose.yaml) contains everything we need to run a development environment.  
 Note that only the `backend` component will be a development container, the rest will run production builds based on their respective dockerfiles.
 
+Make sure the shared `.env` file is available in your local repo, see [../README/Storage credentials in shared .env file](../README.md#storage-credentials-in-shared-env-file)
+
 ### Storage credentials in shared .env file
 
 We make use of [docker-compose `.env` file](https://docs.docker.com/compose/environment-variables/#the-env-file) to insert credentials as environment variables in the storage and backend container.  
