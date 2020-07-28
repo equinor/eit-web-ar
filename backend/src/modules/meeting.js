@@ -1,7 +1,7 @@
 var storage = require('./storage');
 var utils = require('./utils');
 
-const _emitPositionInterval = 100;
+const _emitPositionInterval = 50;
 var _io = false;
 var _sockets = [];
 
