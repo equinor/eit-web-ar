@@ -292,7 +292,7 @@ module.exports = {
   },
   updateInfoBox: function() {
     let infoBox = document.getElementById('info');
-    infoBox.innerText = 'You are ' + this.getUserProperties(this.getMyUserId()).name;
+    infoBox.innerHTML = 'You are ' + this.getStyledName(this.getMyUserId());
     //infoBox.style.color = this.getUserProperties(this.getMyUserId()).color;
   },
   addMessage: function(text) {
@@ -300,7 +300,7 @@ module.exports = {
     let messages = messagesContainer.querySelectorAll('.message');
     let message = document.createElement('span');
     message.classList.add('message');
-    message.innerText = text;
+    message.innerHTML = text;
     setTimeout(function() { message.classList.add('fadeOut'); }, 5000);
     messagesContainer.appendChild(message);
     
@@ -401,6 +401,12 @@ module.exports = {
         });
       }
     });
+  },
+  
+  getStyledName: function(userId) {
+    let name = this.getUserProperties(userId).name;
+    let color = this.getUserProperties(userId).color;
+    return `<span class="styledName" style="border-color: ${color}">${name}</span>`
   }
 }
 

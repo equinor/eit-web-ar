@@ -50,3 +50,7 @@
   right: 110px;
   z-index: 1;
 }
+
+.styledName {
+  border-bottom: 3px solid;
+}

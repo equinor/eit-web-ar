@@ -99,7 +99,7 @@ AFRAME.registerComponent('meeting', {
           meeting.addEntity(data.userId);
         }
         console.log('received user-joined:');
-        meeting.addMessage(`${data.name} joined!`);
+        meeting.addMessage(`${meeting.getStyledName(data.userId)} joined!`);
       });
       
       // Fire a rocket when touching the screen
@@ -149,7 +149,7 @@ AFRAME.registerComponent('meeting', {
     meeting.receiveUserLeft(data => {
       meeting.removeEntity(data.userId);
       console.log('received user-left');
-      meeting.addMessage(`${data.name} left :(`)
+      meeting.addMessage(`${meeting.getStyledName(data.userId)} left :(`);
     });
     meeting.receiveUserJoinedGroup(data => {
       console.log('received user-joined-group:');
@@ -173,7 +173,7 @@ AFRAME.registerComponent('meeting', {
     meeting.receiveRocketHitUser(data => {
       console.log('received rocket-hit-user:');
       console.log(data);
-      meeting.addMessage(`${meeting.getUserProperties(data.fromUserId).name} hit ${meeting.getUserProperties(data.toUserId).name}!`)
+      meeting.addMessage(`${meeting.getStyledName(data.fromUserId)} hit ${meeting.getStyledName(data.toUserId)}!`);
     });
   }
 });
