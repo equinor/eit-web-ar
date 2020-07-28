@@ -219,11 +219,10 @@ module.exports = {
     // Clear map
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     
-    // Scale, move, rotate
+    // Scale, move, rotate, style
     const centerX = 100;
     const centerY = 100;
-    //canvas.style.top  = - centerX / 2;
-    //canvas.style.left = - centerY / 2;
+    map.style.borderColor = this.getUserProperties(this.getMyUserId()).color;
     
     // Rotate map
     let heading = this.getUserProperties(this.getMyUserId()).heading;
