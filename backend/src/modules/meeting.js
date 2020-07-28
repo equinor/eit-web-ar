@@ -167,18 +167,6 @@ module.exports = {
       callback(userId);
     });
   },
-  
-  
-
-  /*
-  function emitRocketJoined(io, rocketId) {
-    const rocketHash = utils.getRocketHash(rocketId);
-    storage.hgetall(rocketHash, (err, rocketInfo) => {
-      rocketInfo.rocketId = rocketId;
-      io.emit('rocket-joined', rocketInfo);
-    });
-  }
-  */
 
   emitRocketJoined: function(rocketId, properties) {
     if (_sockets.length < 1) {
@@ -192,15 +180,10 @@ module.exports = {
         let userHash = utils.getUserHash(users[i]);
         multi.push(['hmget', userHash, 'latitude', 'longitude', 'latitude0', 'longitude0', 'fakeLatitude0', 'fakeLongitude0', 'heading']);
       }
-      storage.multi(multi).exec((err, positions) => {
-        // Calculate relative/fake positions
-        //console.log('All positions:');
-        //console.log(positions);
-        
+      storage.multi(multi).exec((err, positions) => {        
         let fromUserKey = Object.keys(users).find(key => users[key] == properties.fromUserId);
         let r_fakeLatitude = positions[fromUserKey][0] - positions[fromUserKey][2] + positions[fromUserKey][4];
         let r_fakeLongitude = positions[fromUserKey][1] - positions[fromUserKey][3] + positions[fromUserKey][5];
-        //let r_heading = positions[fromUserKey][6];
         
         for (let i = 0; i < users.length; i++) {
           if (positions[i][0] === null) continue;
@@ -213,19 +196,9 @@ module.exports = {
           
           let r_relativeLatitude = parseFloat(r_fakeLatitude) + parseFloat(a_latitude) - parseFloat(a_fakeLatitude);
           let r_relativeLongitude = parseFloat(r_fakeLongitude) + parseFloat(a_longitude) - parseFloat(a_fakeLongitude);
-          /*
-          relativePositions.push({
-            userId: b_userId,
-            latitude: b_relativeLatitude,
-            longitude: b_relativeLongitude,
-            heading: b_heading
-          });*/
           
           properties.latitude = r_relativeLatitude;
           properties.longitude = r_relativeLongitude;
-          
-          //console.log('Positions relative to ' + a_userId);
-          //console.log(relativePositions);
           
           const socket = _getSocketFromUser(a_userId);
           if (socket === null) continue;
