@@ -5,8 +5,8 @@ module.exports = {
   getGroupHash: function(groupId) {
     return 'group:' + groupId;
   },
-  getRocketHash: function(rocketId) {
-    return 'rocket:' + rocketId;
+  getInteractionHash: function(interactionId) {
+    return 'interaction:' + interactionId;
   },
   objectToStorageArray: function(object) {
     const keys = Object.keys(object);

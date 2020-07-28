@@ -142,13 +142,13 @@ module.exports = {
       callback(data);
     });
   },
-  receiveRocketJoined: function(callback) {
-    socket.on('rocket-joined', data => {
+  receiveInteractionJoined: function(callback) {
+    socket.on('interaction-joined', data => {
       callback(data);
     });
   },
-  receiveRocketLeft: function(callback) {
-    socket.on('rocket-left', data => {
+  receiveInteractionLeft: function(callback) {
+    socket.on('interaction-left', data => {
       callback(data);
     });
   },
@@ -217,6 +217,7 @@ module.exports = {
     const geometry = this.getUserProperties(userId).geometry;
     const color = this.getUserProperties(userId).color;
     entity.setAttribute('data-userId', userId);
+    entity.classList.add('user');
     entity.setAttribute('geometry', 'primitive', geometry);
     this.appendEyes(entity);
     //entity.setAttribute('material', 'src', './images/smiley.png');
@@ -354,10 +355,10 @@ module.exports = {
       heading: heading,
       color: color
     }
-    const rocketUrl = api.baseUri + '/rocket';
+    const interactionUrl = api.baseUri + '/interaction';
     axios({
       method: 'post',
-      url: rocketUrl,
+      url: interactionUrl,
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json',
@@ -368,7 +369,7 @@ module.exports = {
         if (response.status == 201) {
           return true;
         } else {
-          console.log('Error with post /rocket');
+          console.log('Error with post /interaction');
           return false;
         }
       })
@@ -389,12 +390,14 @@ module.exports = {
     
     let entity = document.createElement('a-entity');
     const geometry = 'sphere';
-    entity.setAttribute('data-rocketId', properties.rocketId);
+    entity.setAttribute('data-interactionId', properties.interactionId);
     entity.setAttribute('geometry', 'primitive', geometry);
     entity.setAttribute('material', 'color', color);
     entity.setAttribute('scale', '0.1 0.1 0.1');
     entity.setAttribute('gps-entity-place', `latitude: ${latitude}; longitude: ${longitude}`);
     entity.setAttribute('rotation', `0 ${heading} 0`);
+    entity.classList.add('rocket');
+    entity.setAttribute('sphere-collider', 'objects', '.user');
     document.querySelector('a-scene').appendChild(entity);
     let position0 = [
       entity.getAttribute('position').x,
@@ -415,7 +418,7 @@ module.exports = {
     console.log('Rocket going from: ' + position0 + ' --> ' + position1);
     entity.setAttribute('animation', `property: position; from: ${position0[0]} 0 ${position0[1]}; to: ${position1[0]} 0 ${position1[1]}; loop: false; dur: ${animationTime}; autoplay: true;`);
     
-    setTimeout(function() {
+    var removeTimer = setTimeout(function() {
       entity.parentNode.removeChild(entity);
     }, removeTime)
     

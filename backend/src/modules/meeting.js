@@ -168,7 +168,7 @@ module.exports = {
     });
   },
 
-  emitRocketJoined: function(rocketId, properties) {
+  emitInteractionJoined: function(interactionId, properties) {
     if (_sockets.length < 1) {
       return;
     }
@@ -202,7 +202,7 @@ module.exports = {
           
           const socket = _getSocketFromUser(a_userId);
           if (socket === null) continue;
-          socket.emit('rocket-joined', properties);
+          socket.emit('interaction-joined', properties);
         }
       });
     });

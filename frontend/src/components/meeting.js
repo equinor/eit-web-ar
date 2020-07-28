@@ -154,13 +154,15 @@ AFRAME.registerComponent('meeting', {
       console.log('received user-left-group:');
       console.log(data);
     });
-    meeting.receiveRocketJoined(data => {
-      console.log('received rocket-joined:');
+    meeting.receiveInteractionJoined(data => {
+      console.log('received interaction-joined:');
       console.log(data);
-      meeting.addRocket(data);
+      if (data.type == 'rocket') {
+        meeting.addRocket(data);
+      }
     });
-    meeting.receiveRocketLeft(data => {
-      console.log('received rocket-left:');
+    meeting.receiveInteractionLeft(data => {
+      console.log('received interaction-left:');
       console.log(data);
     });
   }
