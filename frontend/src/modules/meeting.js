@@ -348,6 +348,7 @@ module.exports = {
     
     let properties = {
       type: 'rocket',
+      fromUserId: this.getMyUserId(),
       latitude: lat,
       longitude: lng,
       heading: heading,
@@ -376,6 +377,7 @@ module.exports = {
       });
   },
   addRocket: function(properties) {
+    let fromUserId = properties.fromUserId;
     let latitude = properties.latitude;
     let longitude = properties.longitude;
     let heading = properties.heading;
@@ -396,6 +398,17 @@ module.exports = {
       entity.getAttribute('position').x,
       entity.getAttribute('position').z
     ];
+    let cameraPosition = [
+      document.querySelector('a-camera').getAttribute('position').x,
+      document.querySelector('a-camera').getAttribute('position').z
+    ];
+    console.log('Position0: ' + position0);
+    console.log('Camera position: ' + cameraPosition);
+    position0 = [
+      position0[0] + cameraPosition[0],
+      position0[1] + cameraPosition[1]
+    ]
+    console.log('Position0_: ' + position0);
     let position1 = getPointAtHeading(position0[0], position0[1], heading, distance);
     console.log('Rocket going from: ' + position0 + ' --> ' + position1);
     entity.setAttribute('animation', `property: position; from: ${position0[0]} 0 ${position0[1]}; to: ${position1[0]} 0 ${position1[1]}; loop: false; dur: 3000; autoplay: true;`);
