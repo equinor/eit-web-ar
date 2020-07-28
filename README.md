@@ -161,8 +161,9 @@ By gaining easy availability we hope to be able to quickly explore use cases whe
 
 ## Development
 
-Each component has a `docker-compose.yaml` that contains everything we need to run a development environment.  
-See the component README for how to get it up and running.
+Each component has a `docker-compose.yaml` that contains everything we need to run a development environment for that specific component, while the other components are run using their production dockerfiles. See each component README for how to get it up and running.
+
+If you need to have the development environment for _all_ components available at the same time then use the [./docker-compose.yaml](./docker-compose.yaml) found in repo root.
 
 ### Storage credentials in shared .env file
 
