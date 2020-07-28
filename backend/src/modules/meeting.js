@@ -145,11 +145,19 @@ module.exports = {
         //console.log(`position-update: ${userId}: ${latitude}, ${longitude} - ${heading}`);
         _savePosition(userId, latitude, longitude, heading);
       });
+      
+      socket.on('rocket-hit-user', data => {
+        this.emitRocketHitUser(data);
+      });
     });
     
     setInterval(function() {
       _emitPositionUpdate();
     }, _emitPositionInterval);
+  },
+  
+  emitRocketHitUser: function(data) {
+    _io.emit('rocket-hit-user', data);
   },
 
   emitUserLeft: function(userId) {

@@ -152,6 +152,11 @@ module.exports = {
       callback(data);
     });
   },
+  receiveRocketHitUser: function(callback) {
+    socket.on('rocket-hit-user', data => {
+      callback(data);
+    });
+  },
   getRandomColor: function() {
     let letters = '0123456789ABCDEF';
     let color = '#';
@@ -422,5 +427,16 @@ module.exports = {
       entity.parentNode.removeChild(entity);
     }, removeTime)
     
+    entity.addEventListener('hit', function(e) {
+      if (e.detail.el !== null) {
+        console.log(e);
+        entity.parentNode.removeChild(entity);
+        clearTimeout(removeTimer);
+        socket.emit('rocket-hit-user', {
+          fromUserId: fromUserId,
+          toUserId: e.detail.el.getAttribute('data-userId')
+        });
+      }
+    });
   }
 }

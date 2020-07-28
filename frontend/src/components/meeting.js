@@ -165,5 +165,10 @@ AFRAME.registerComponent('meeting', {
       console.log('received interaction-left:');
       console.log(data);
     });
+    meeting.receiveRocketHitUser(data => {
+      console.log('received rocket-hit-user:');
+      console.log(data);
+      meeting.addMessage(`${meeting.getUserProperties(data.fromUserId).name} hit ${meeting.getUserProperties(data.toUserId).name}!`)
+    });
   }
 });
