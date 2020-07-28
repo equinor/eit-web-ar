@@ -121,7 +121,7 @@ AFRAME.registerComponent('meeting', {
         const userId = data[i].userId;
         const latitude = data[i].latitude;
         const longitude = data[i].longitude;
-        const rotation = data[i].heading - 90;
+        const rotation = data[i].heading;
         let findUserEl = document.querySelector(`[data-userId="${userId}"]`);
         if (findUserEl) {
           findUserEl.setAttribute('gps-entity-place', `latitude: ${latitude}; longitude: ${longitude}`);

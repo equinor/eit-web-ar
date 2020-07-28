@@ -198,14 +198,14 @@ module.exports = {
     eye.setAttribute('geometry', 'primitive', 'sphere');
     eye.setAttribute('material', 'color', '#00f');
     eye.setAttribute('scale', '0.1 0.1 0.1');
-    eye.setAttribute('position', '0.6 0.6 0.6');
+    eye.setAttribute('position', '0.6 0.6 -0.6');
     entity.appendChild(eye);
     
     let eye2 = document.createElement('a-entity');
     eye2.setAttribute('geometry', 'primitive', 'sphere');
     eye2.setAttribute('material', 'color', '#00f');
     eye2.setAttribute('scale', '0.1 0.1 0.1');
-    eye2.setAttribute('position', '0.6 0.6 -0.6');
+    eye2.setAttribute('position', '-0.6 0.6 -0.6');
     entity.appendChild(eye2);
       
     return entity;
@@ -343,13 +343,16 @@ module.exports = {
     let lat = this.getUserProperties(this.getMyUserId()).latitude;
     let lng = this.getUserProperties(this.getMyUserId()).longitude;
     let heading = this.getUserProperties(this.getMyUserId()).heading;
+    let color = this.getUserProperties(this.getMyUserId()).color;
     console.log('Send rocket from (' + lat + ', ' + lng + ') with heading ' + heading);
     
     let properties = {
       type: 'rocket',
+      fromUserId: this.getMyUserId(),
       latitude: lat,
       longitude: lng,
-      heading: heading
+      heading: heading,
+      color: color
     }
     const rocketUrl = api.baseUri + '/rocket';
     axios({
@@ -374,15 +377,18 @@ module.exports = {
       });
   },
   addRocket: function(properties) {
+    let fromUserId = properties.fromUserId;
     let latitude = properties.latitude;
     let longitude = properties.longitude;
     let heading = properties.heading;
+    let color = properties.color;
     let distance = 20;
+    let animationTime = 3000;
+    let removeTime = 4000;
     console.log('Adding rocket from (' + latitude + ', ' + longitude + ') with heading ' + heading + ', distance ' + distance);
     
     let entity = document.createElement('a-entity');
     const geometry = 'sphere';
-    const color = this.getUserProperties(this.getMyUserId()).color;
     entity.setAttribute('data-rocketId', properties.rocketId);
     entity.setAttribute('geometry', 'primitive', geometry);
     entity.setAttribute('material', 'color', color);
@@ -394,9 +400,24 @@ module.exports = {
       entity.getAttribute('position').x,
       entity.getAttribute('position').z
     ];
+    let cameraPosition = [
+      document.querySelector('a-camera').getAttribute('position').x,
+      document.querySelector('a-camera').getAttribute('position').z
+    ];
+    console.log('Position0: ' + position0);
+    console.log('Camera position: ' + cameraPosition);
+    position0 = [
+      position0[0] + cameraPosition[0],
+      position0[1] + cameraPosition[1]
+    ]
+    console.log('Position0_: ' + position0);
     let position1 = getPointAtHeading(position0[0], position0[1], heading, distance);
     console.log('Rocket going from: ' + position0 + ' --> ' + position1);
-    entity.setAttribute('animation', `property: position; from: ${position0[0]} 0 ${position0[1]}; to: ${position1[0]} 0 ${position1[1]}; loop: false; dur: 3000; autoplay: true;`);
+    entity.setAttribute('animation', `property: position; from: ${position0[0]} 0 ${position0[1]}; to: ${position1[0]} 0 ${position1[1]}; loop: false; dur: ${animationTime}; autoplay: true;`);
+    
+    setTimeout(function() {
+      entity.parentNode.removeChild(entity);
+    }, removeTime)
     
   }
 }

@@ -37,7 +37,6 @@ router.put('/:rocketId', (req, res) => {
 });
 
 router.post('/', (req, res) => {
-  const io = req.app.get('io');
   storage.incr('lastRocketId', (err, newRocketId) => {
     storage.sadd('rockets', newRocketId);
     const args = utils.objectToStorageArray(req.body);
@@ -47,7 +46,7 @@ router.post('/', (req, res) => {
       rocketInfo.rocketId = newRocketId;
       res.status(201).send(rocketInfo);
     });
-    emitRocketJoined(io, newRocketId);
+    meeting.emitRocketJoined(newRocketId, req.body);
   });
 });
 
@@ -68,11 +67,3 @@ router.delete('/:rocketId', (req, res) => {
 });
 
 module.exports = router;
-
-function emitRocketJoined(io, rocketId) {
-  const rocketHash = utils.getRocketHash(rocketId);
-  storage.hgetall(rocketHash, (err, rocketInfo) => {
-    rocketInfo.rocketId = rocketId;
-    io.emit('rocket-joined', rocketInfo);
-  });
-}
