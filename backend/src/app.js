@@ -38,13 +38,13 @@ var usersRouter = require('./routes/meetapi/users');
 var userRouter = require('./routes/meetapi/user');
 var groupRouter = require('./routes/meetapi/group');
 var meetingRouter = require('./routes/meetapi/meeting');
-var rocketRouter = require('./routes/meetapi/rocket');
+var interactionRouter = require('./routes/meetapi/interaction');
 
 app.use('/meetapi/users', usersRouter);
 app.use('/meetapi/user', userRouter);
 app.use('/meetapi/group', groupRouter);
 app.use('/meetapi/meeting', meetingRouter);
-app.use('/meetapi/rocket', rocketRouter);
+app.use('/meetapi/interaction', interactionRouter);
 
 
 module.exports = app;
