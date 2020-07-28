@@ -34,63 +34,88 @@ By gaining easy availability we hope to be able to quickly explore use cases whe
   - [Starting from scratch](./README.md#starting-from-scratch)
 - [Build and run release image](./README.md#build-and-run-release-image)
 - [How we work](./docs/how-we-work.md)
-- [Documentation](./docs/documentation.md)
+- [Documentation](./docs/README.md)
 
 ### For users
 
 - [User guide](./docs/user-guide.md)
 
+### For Equinor
+
+- Final report is available in the following formats  
+  - [docx](./docs/report/Case09_report.docx)
+  - [pdf](./docs/report/Case09_report.pdf)
+- [Documentation](./docs/README.md)
+
 
 ## Technologies
 
-- [A-Frame JS](https://aframe.io/)
+- [A-Frame JS](https://aframe.io/)  
    Web VR library
    - [Experiment with AR and A-Frame](https://aframe.io/blog/webxr-ar-module/)
    - [Image Tracking and Location-Based AR with A-Frame and AR.js 3](https://aframe.io/blog/arjs3/)
 
-- [nginx](https://www.nginx.com/)
-  Web server
+- [nginx](https://www.nginx.com/)  
+  Simple web server for static content, handle public routing
 
-- [Docker](https://www.docker.com/)
-  For hosting the web app anywhere
+- [NodeJS](https://nodejs.org/en/)  
+  Serverside javascript
+
+- [Redis](https://redis.io/)  
+  Redis is an open source (BSD licensed), in-memory data structure store, used as a database, cache and message broker
+
+- [Docker](https://www.docker.com/)  
+  For hosting the web app anywhere and to run local development environments
   To quickly get up to speed with docker then run through the [Learn Docker & Containers using Interactive Browser-Based Scenarios](https://www.katacoda.com/courses/docker) at katacoda
 
-- [OAuth2 proxy](https://github.com/oauth2-proxy/oauth2-proxy)
+- [OAuth2 proxy](https://github.com/oauth2-proxy/oauth2-proxy)  
   A reverse proxy and static file server that provides authentication using Providers (Google, GitHub, and others) to validate accounts by email, domain or group.
   We use it as a proxy container in front of the app container to simplify integration with an Azure AD app.
 
-- [Omnia Radix](https://www.radix.equinor.com/)
+- [Omnia Radix](https://www.radix.equinor.com/)  
    CICD and hosting
 
 
 ### CICD
 
-- nodejs
-
-- [webpack](https://webpack.js.org/guides/)
+- [webpack](https://webpack.js.org/guides/)  
   Build and bundle the web components of the app
 
-- [Docker](https://www.docker.com/)
-  We use a multistage dockerfile to build the images.
+- [Docker](https://www.docker.com/)  
+  We use multistage dockerfiles to build the images.
   `docker-compose` is used for development purposes only.
 
-- [Omnia Radix](https://www.radix.equinor.com/)
+- [Omnia Radix](https://www.radix.equinor.com/)  
   CICD and hosting in the [playground](https://console.playground.radix.equinor.com/) environment.
   Radix configuration is mainly handled in [`radixconfiguration.yaml`](../radixconfiguration.yaml)
 
 
 ## Components
 
-- **frontend**
-  A pure client side app that handle all business logic. nginx acts as a backend in that it serves the inital js/css/html to the client.
-  All traffic is routed through the `auth-proxy` component.
+### Core 
 
-- **auth-proxy**
-  Main entry point for the app.
+- [**frontend**](./frontend/README.md)  
+  A client side web app.  
+  nginx acts as a "backend" in that it
+  - Serve static js/css/html to the client
+  - Route `/api` to the `backend` component
+
+- [**backend**](./backend/README.md)  
+  Handle business logic for multiplayer scenarios.  
+  It is a nodejs server running express to expose a REST api.  
+  Dependent on component `storage` for, well, data storage.
+
+- [**storage**](./storage/README.md)   
+  Storage is a simple redis container with no file storage or backup
+
+### Additional components when app is available in Radix (public)
+
+- **auth-proxy**  
+  Main entry point for the app when making the app available to the public in `radix`.  
   It allows traffic to the `frontend` component if the `aad app` authenticate the user.
   Based on [radix auth proxy example](https://github.com/equinor/radix-example-front-proxy)
 
-- **aad app**
+- **aad app**  
   OAuth in Azure
 
 
@@ -128,155 +153,30 @@ By gaining easy availability we hope to be able to quickly explore use cases whe
 
 - **Docker**
   - _What:_  Release image does not have root privilieges
-  - _Where:_ [./Dockerfile](./Dockerfile)
+  - _Where:_ 
+    - [dockerfile.frontend](./frontend/dockerfile.frontend)
+    - [dockerfile.backend](./backend/dockerfile.backend)
+    - [dockerfile.storage](./storage/dockerfile.storage)
+
+
+- **Credentials**  
+  The component `storage` is the only component that use credentials, see [storage/security](./storage/README.md#security) for details.  
+  The local development share all credentials by using a docker-compose `.env` file, see [README/Storage credentials in shared .env file](./README.md#storage-credentials-in-shared-env-file)
 
 
 ## Development
 
-The [`./docker-compose.yaml`](./docker-compose.yaml) contains everything we need to run a development environment.
+Each component has a `docker-compose.yaml` that contains everything we need to run a development environment.  
+See the component README for how to get it up and running.
 
-### Start
+### Storage credentials in shared .env file
 
-You will want to use 2-3 terminal sessions for this as it is easier to see what is going on where.
+We make use of [docker-compose `.env` file](https://docs.docker.com/compose/environment-variables/#the-env-file) to insert credentials as environment variables in the storage and backend container.  
+This `.env` file is shared among the development environments (docker-compose) for all the app components.
 
-#### _Session 1: Build and start the webpack container_
-
-If you are using WSL then this session should be in windows `cmd`
-```sh
-docker-compose up --build
-```
-
-#### _Session 2: Run commands inside the webpack container_
-
-```sh
-# Open a bash session into the webpack container
-docker exec -it eit-web-ar-development_container bash
-
-# From inside the container you can then run any npm command.
-# First install all packages. You can later skip this step as long as docker volume "eit-web-ar_node-modules" still exist.
-npm install
-# Then start the webpack-dev-server
-npm run start
-```
-You should now be able to access the webpack server from the host at https://localhost:3000/
-Please note that webpack is serving selfsigned tls cert as `https` is required for browsers to handle `WebXR`.
-See `webpack.config.js`
-```
-   devServer: {
-      contentBase: "./dist",
-      port: 3000,
-      https: true // true for self-signed, object for cert authority
-   },
-```
-
-#### _Session 3: Access the files in host_
-
-```sh
-# Bring up your IDE and start hacking away.
-# Please note that template files will not be hot reloaded, see "Notes" down below
-code .
-
-# Run git commands etc
-git status
-```
-
-### Stop
-
-Stop and remove all started containers and networks
-
-```sh
-docker-compose down
-```
-
-If you want to clean out `node-modules` as well then add option `-v` to make docker delete the volume
-
-```sh
-docker-compose down -v
-```
-
-
-### Notes
-
-#### Template files are not hot reloaded
-
-This is a bug in `webpack-dev-server`, and hopefully it will be resolved in the next major versions.
-See [git issue 1271](https://github.com/webpack/webpack-dev-server/issues/1271)
-
-#### Exposing webpack-dev-server
-
-To make the webpack-dev-server accessible outside the container then you must set the `--host` option when starting the server.
-
-Example `package.json`:
-```js
-{
-   ...
-   "scripts": {
-      "test": "echo \"Error: no test specified\" && exit 1",
-      "watch": "webpack --watch",
-      "start": "webpack-dev-server --mode development --open --hot --host 0.0.0.0",
-      "build": "webpack"
-   }
-}
-```
-
-#### WebXR, tls and webpack
-
-The webpack development server can provide self-signed certs using a simple boolean toggle in the config.
-
-Example `webpack.config.js`:
-```js
-{
-   ...
-   devServer: {
-      ...
-      https: true // true for self-signed, object for cert authority
-   },
-   ...
-}
-```
-
-#### npm scripts
-
-Remember that your nodejs development environment is in the context of the docker container. To be able to successfully run npm scripts like `eslint` then you must run them in context of the docker container. If you try to call on scripts outside the container, even if the files are shared by mounting, will most likely fail and npm will complain that it cannot find the resources.
-
-Example:
-I want to eslint to watch changes so can can track of any errors while working in vs code.
-I have added the script `"lint:watch": "esw -w src"` to `package.json`.
-The solution is to
-1. open a terminal in vscode,
-1. open a bash session in the container `docker exec -it eit-web-ar-development_container bash`
-1. and in this session I can then run the npm script `npm run lint:watch`
-Now I can code and watch changes at the same time.
-
-
-### Starting from scratch
-
-Say you want to start a new nodejs project and build up `package.js` and `webpack.config.js` from scratch.
-
-All you have to do is to remove those files from this demo and simply start building them using the tools availble in the eit-web-ar-development_container.
-
-```sh
-# Open a bash session into the webpack container
-docker exec -it eit-web-ar-development_container bash
-
-# From inside the container you can then run any npm command.
-npm init
-npm install --save-dev webpack webpack-cli webpack-dev-server
-```
-
-
-## Build and run release image
-
-The [`./Dockerfile`](./Dockerfile) is a multistage build that will produce a minimal release image.
-Please note that webpack is set to development mode in this demo. You should add your own configuration for webpack production mode (mine tend to differ from project to project).
-
-
-```sh
-docker build -t eit-web-ar-release .
-docker run -it --rm -p 3000:8080 --name eit-web-ar-release eit-web-ar-release
-# You should now be able to access the web app from the host computer at http://localhost:3000/
-# Note that https is not available as there is no tls cert. Cert termination will be handled automatically by the host loadbalancer, in our case Radix.
-
-# Inspect contents
-docker exec -it eit-web-ar-release sh
-```
+1. Create your own `.env` file in root of repo 
+1. Add variables in key=value format
+   ```sh
+   REDIS_PASSWORD=<insert-your-password>
+   ```
+1. Make sure `.env` is gitignored!
