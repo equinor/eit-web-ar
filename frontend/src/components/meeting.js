@@ -75,7 +75,7 @@ AFRAME.registerComponent('meeting', {
       });
       
       // Fire a rocket when touching the screen
-      document.addEventListener('touchstart', function(e) {
+      document.querySelector('a-scene').addEventListener('touchstart', function(e) {
         meeting.sendRocket();
       });
       
@@ -120,7 +120,7 @@ AFRAME.registerComponent('meeting', {
     // Receive various socket messages
     meeting.receiveUserLeft(data => {
       meeting.removeEntity(data.userId);
-      console.log('received user-left');
+      //console.log('received user-left');
       meeting.addMessage(`${meeting.getStyledName(data.userId)} left :(`);
     });
     meeting.receiveUserJoinedGroup(data => {
@@ -132,8 +132,8 @@ AFRAME.registerComponent('meeting', {
       console.log(data);
     });
     meeting.receiveInteractionJoined(data => {
-      console.log('received interaction-joined:');
-      console.log(data);
+      //console.log('received interaction-joined:');
+      //console.log(data);
       if (data.type == 'rocket') {
         meeting.addRocket(data);
       }
@@ -143,8 +143,8 @@ AFRAME.registerComponent('meeting', {
       console.log(data);
     });
     meeting.receiveRocketHitUser(data => {
-      console.log('received rocket-hit-user:');
-      console.log(data);
+      //console.log('received rocket-hit-user:');
+      //console.log(data);
       meeting.addMessage(`${meeting.getStyledName(data.fromUserId)} hit ${meeting.getStyledName(data.toUserId)}!`);
     });
     meeting.receiveAudioMessage(data => {
