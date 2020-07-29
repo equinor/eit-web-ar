@@ -149,11 +149,19 @@ module.exports = {
       socket.on('rocket-hit-user', data => {
         this.emitRocketHitUser(data);
       });
+      
+      socket.on('audio-message', data => {
+        this.emitAudioMessage(data);
+      });
     });
     
     setInterval(function() {
       _emitPositionUpdate();
     }, _emitPositionInterval);
+  },
+  
+  emitAudioMessage: function(data) {
+    _io.emit('audio-message', data);
   },
   
   emitRocketHitUser: function(data) {
