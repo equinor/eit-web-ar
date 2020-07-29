@@ -456,6 +456,12 @@ module.exports = {
     if (data.userId == this.getMyUserId()) return;
     console.log('playaudio');
     let entity = document.querySelector(`[data-userId="${data.userId}"]`);
+    
+    entity.setAttribute('material', 'color', '#FFFF00');
+    setTimeout(function() {
+      entity.setAttribute('material', 'color', this.getUserProperties(data.userId).color);
+    }, 3000);
+    
     let blob = new Blob(data.chunks);
     let blobUrl = URL.createObjectURL(blob);
     entity.setAttribute('sound', 'src', blobUrl);
