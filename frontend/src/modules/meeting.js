@@ -383,10 +383,10 @@ module.exports = {
       }
       clearInterval(findPositionInterval);
       
-      console.log('Position0: '+ position0);
+      //console.log('Position0: '+ position0);
       
       let position1 = getPointAtHeading(position0[0], position0[1], heading, distance);
-      console.log('Rocket going from: ' + position0 + ' --> ' + position1);
+      //console.log('Rocket going from: ' + position0 + ' --> ' + position1);
       entity.setAttribute('animation', `property: position; from: ${position0[0]} 0 ${position0[1]}; to: ${position1[0]} 0 ${position1[1]}; loop: false; dur: ${animationTime}; autoplay: true;`);
       
       var removeTimer = setTimeout(function() {
@@ -397,7 +397,7 @@ module.exports = {
         if (e.detail.el !== null) {
           let toUserId = e.detail.el.getAttribute('data-userId');
           if (fromUserId == toUserId) return;
-          console.log(e);
+          //console.log(e);
           clearTimeout(removeTimer);
           entity.parentNode.removeChild(entity);
           socket.emit('rocket-hit-user', {
@@ -456,6 +456,12 @@ module.exports = {
     if (data.userId == this.getMyUserId()) return;
     console.log('playaudio');
     let entity = document.querySelector(`[data-userId="${data.userId}"]`);
+    
+    entity.setAttribute('material', 'color', '#FFFF00');
+    setTimeout(function() {
+      entity.setAttribute('material', 'color', this.getUserProperties(data.userId).color);
+    }, 3000);
+    
     let blob = new Blob(data.chunks);
     let blobUrl = URL.createObjectURL(blob);
     entity.setAttribute('sound', 'src', blobUrl);

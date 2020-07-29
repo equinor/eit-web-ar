@@ -24,7 +24,7 @@ AFRAME.registerComponent('meeting', {
         var y = this.el.camera.rotation.y;
         var lat = Math.floor(Math.random() * 100);
         var lng = Math.floor(Math.random() * 100);
-        console.log('random latlng: ' + lat + ', ' + lng);
+        //console.log('random latlng: ' + lat + ', ' + lng);
         setInterval(function() {
           let properties = {
             latitude: lat,
@@ -38,40 +38,12 @@ AFRAME.registerComponent('meeting', {
           i++;
         }, 50);
       }
-      // Red: 270 deg/-90 deg (10, 0)
-      let entity1 = document.createElement('a-entity');
-      entity1.setAttribute('geometry', 'primitive', 'sphere');
-      entity1.setAttribute('material', 'color', '#f00');
-      entity1.setAttribute('scale', '0.1 0.1 0.1');
-      entity1.setAttribute('position', '10 0 0');
-      document.querySelector('a-scene').appendChild(entity1);
-      // Green: 180 deg (0, 10)
-      let entity2 = document.createElement('a-entity');
-      entity2.setAttribute('geometry', 'primitive', 'sphere');
-      entity2.setAttribute('material', 'color', '#0f0');
-      entity2.setAttribute('scale', '0.1 0.1 0.1');
-      entity2.setAttribute('position', '0 0 10');
-      document.querySelector('a-scene').appendChild(entity2);
-      // Blue: 90 deg (-10, 0)
-      let entity3 = document.createElement('a-entity');
-      entity3.setAttribute('geometry', 'primitive', 'sphere');
-      entity3.setAttribute('material', 'color', '#00f');
-      entity3.setAttribute('scale', '0.1 0.1 0.1');
-      entity3.setAttribute('position', '-10 0 0');
-      document.querySelector('a-scene').appendChild(entity3);
-      // Grey: 0 deg (0, -10)
-      let entity4 = document.createElement('a-entity');
-      entity4.setAttribute('geometry', 'primitive', 'sphere');
-      entity4.setAttribute('material', 'color', '#aaa');
-      entity4.setAttribute('scale', '0.1 0.1 0.1');
-      entity4.setAttribute('position', '0 0 -10');
-      document.querySelector('a-scene').appendChild(entity4);
       // ~FOR TESTING
       
       // Save and emit our own positions when receiving updated coordinated from gps
       window.addEventListener('gps-camera-update-position', function (e) {
         let heading = document.querySelector('a-camera').getAttribute('rotation').y;
-        console.log('Heading: ' + heading); //testing
+        //console.log('Heading: ' + heading); //testing
         let properties = {
           latitude: e.detail.position.latitude,
           longitude: e.detail.position.longitude,
@@ -103,7 +75,7 @@ AFRAME.registerComponent('meeting', {
       });
       
       // Fire a rocket when touching the screen
-      document.addEventListener('touchstart', function(e) {
+      document.querySelector('a-scene').addEventListener('touchstart', function(e) {
         meeting.sendRocket();
       });
       
@@ -148,7 +120,7 @@ AFRAME.registerComponent('meeting', {
     // Receive various socket messages
     meeting.receiveUserLeft(data => {
       meeting.removeEntity(data.userId);
-      console.log('received user-left');
+      //console.log('received user-left');
       meeting.addMessage(`${meeting.getStyledName(data.userId)} left :(`);
     });
     meeting.receiveUserJoinedGroup(data => {
@@ -160,8 +132,8 @@ AFRAME.registerComponent('meeting', {
       console.log(data);
     });
     meeting.receiveInteractionJoined(data => {
-      console.log('received interaction-joined:');
-      console.log(data);
+      //console.log('received interaction-joined:');
+      //console.log(data);
       if (data.type == 'rocket') {
         meeting.addRocket(data);
       }
@@ -171,8 +143,8 @@ AFRAME.registerComponent('meeting', {
       console.log(data);
     });
     meeting.receiveRocketHitUser(data => {
-      console.log('received rocket-hit-user:');
-      console.log(data);
+      //console.log('received rocket-hit-user:');
+      //console.log(data);
       meeting.addMessage(`${meeting.getStyledName(data.fromUserId)} hit ${meeting.getStyledName(data.toUserId)}!`);
     });
     meeting.receiveAudioMessage(data => {
