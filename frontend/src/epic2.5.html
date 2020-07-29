@@ -13,61 +13,28 @@
       loading-screen="backgroundColor: black">
       <a id="myEnterARButton" href="#"></a>
         <a-assets timeout="50000">
-            <!-- <a-asset-item
-                id="mario_kart"
-                src="./gltf/mario_kart/scene.glb"
-                preload="auto">
-            </a-asset-item>
-            <a-asset-item
-                id="banana"
-                src="./gltf/banana/scene.glb"
-                preload="auto">
-            </a-asset-item> -->
             <a-asset-item
                 id="eiffel_tower"
                 src="./gltf/eiffel_tower/scene.glb"
                 preload="auto">
             </a-asset-item>
-            <!-- <a-asset-item
-                id="ho_oh"
-                src="./gltf/ho_oh/scene.glb"
-                preload="auto">
-            </a-asset-item> -->
             <a-asset-item
                 id="lookout_tower"
                 src="./gltf/lookout_tower/scene.glb"
                 preload="auto">
             </a-asset-item>
-            <!-- <a-asset>
-                <audio id="music" src="./audio/music.mp3" preload="auto"></audio>
-            </a-asset> -->
         </a-assets>
 
-        <!-- <a-entity
-          id="mario_kart_ent"
-          animation-mixer
-          animation-pauser
-          gps-object='object: #mario_kart; location: { "lat": 68.679069, "lng": 16.796574999999997 }; scale: 1.12'>
-        </a-entity>
-        <a-entity
-          id="banana_ent"
-          gps-object='object: #banana; location: { "lat": 68.679069, "lng": 16.796574999999997 }; scale: 1.12'>
-        </a-entity> -->
         <a-entity
           id="eiffel_tower_ent"
-          gps-object='object: #eiffel_tower; location: { "lat": 68.679069, "lng": 16.796574999999997 }; scale: 0.0693'>
+          gps-object='object: #eiffel_tower; location: { "lat": 68.677572, "lng": 16.774169 }; scale: 0.0693'>
         </a-entity>
-        <!-- <a-entity
-          id="ho_oh_ent"
-          animation-mixer
-          gps-object='object: #ho_oh; location: { "lat": 68.679069, "lng": 16.796574999999997 }; scale: 0.042'>
-        </a-entity> -->
         <a-entity
           id="lookout_tower_ent"
-          gps-object='object: #lookout_tower; offset: true; location: { "lat": 68.679103, "lng": 16.797319 }; scale: 0.043'>
+          gps-object='object: #lookout_tower; offset: false; location: { "lat": 68.67713499999999, "lng": 16.775226 }; scale: 0.043'>
         </a-entity>
 
-        <a-camera fixed-point-kalman-gps-camera="R: 1; Q: 1; logConsole: true; set_coords: [68.679069, 16.796574999999997]; radius: 2" rotation-reader look-controls position="0 0 0">
+        <a-camera fixed-point-kalman-gps-camera="R: 1; Q: 1; logConsole: true; radius: 30" rotation-reader look-controls position="0 0 0">
             <a-entity
                 cursor="fuse: false"
                 raycaster="interval: 20; objects: .cursor-interactive"

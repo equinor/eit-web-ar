@@ -19,7 +19,6 @@ AFRAME.registerComponent('fixed-point-kalman-gps-camera', {
     R: { type: 'float', default: 0.1 }, // MODIFICATION
     B: { type: 'float', default: 1 }, // MODIFICATION
     logConsole: { type: 'boolean', default: false }, // MODIFICATION
-    set_coord: { type: 'array', default: [0, 0] }, //POSITION TO SET
     radius: { type: 'float', default: 0}, //RADIUS OF MODEL AREA
     simulateLatitude: {
       type: 'number',
@@ -64,12 +63,47 @@ AFRAME.registerComponent('fixed-point-kalman-gps-camera', {
     }
   },
   init: function () {
-
-    let SetCoords = ((this.data.set_coords.replace('[','')).replace(']','')).split(',');
-    SetCoords[0] = parseFloat(SetCoords[0]);
-    SetCoords[1] = parseFloat(SetCoords[1]);
-
+    var SetCoords = [0, 0];
     let Radius = this.data.radius;
+
+    // When submitting gps coordinations through the app, do the following:
+    document.getElementById('submit_gps_coords').addEventListener('click', () => {
+      // Get submitted coords
+      const lat = parseFloat(document.getElementById('lat_pos').value);
+      const lng = parseFloat(document.getElementById('lng_pos').value);
+      
+      // Put element at the submitted coords
+      this.location = { "lat": lat, "lng": lng }
+
+      var newLocation = { "lat": this.location.lat + 0.000012*3, "lng": this.location.lng + 0.000248*3 }
+      document.getElementById('lookout_tower_ent').setAttribute('gps-object', `location: { "lat": ${newLocation.lat}, "lng": ${newLocation.lng} }`);
+      document.getElementById('eiffel_tower_ent').setAttribute('gps-object', `location: { "lat": ${this.location.lat}, "lng": ${this.location.lng} }`);
+      
+      SetCoords[0] = lat;
+      SetCoords[1] = lng;
+
+      this._updatePoiArray(SetCoords, this.globalCurrentPosition, Radius);
+    });
+
+    // When submitting your current gps position, do the following:
+    document.getElementById('submit_current_position').addEventListener('click', () => {
+      // Get current position
+      var currentPos = this.globalCurrentPosition;
+      //console.log(currentPos);
+      this.location = { "lat": currentPos.coords.latitude, "lng": currentPos.coords.longitude }
+      
+      var newLocation = { "lat": currentPos.coords.latitude + 0.000012*3, "lng": currentPos.coords.longitude + 0.000248*3 }
+      document.getElementById('lookout_tower_ent').setAttribute('gps-object', `location: { "lat": ${newLocation.lat}, "lng": ${newLocation.lng} }`);
+      document.getElementById('eiffel_tower_ent').setAttribute('gps-object', `location: { "lat": ${currentPos.coords.lat}, "lng": ${currentPos.coords.lng} }`);
+      // Set input fields to current pos
+      document.getElementById('lat_pos').value = currentPos.coords.latitude;
+      document.getElementById('lng_pos').value = currentPos.coords.longitude;
+
+      SetCoords[0] = currentPos.coords.latitude;
+      SetCoords[1] = currentPos.coords.longitude;
+
+      this._updatePoiArray(SetCoords, this.globalCurrentPosition, Radius);
+    });
 
     if (!this.el.components['look-controls']) {
       return;
@@ -136,7 +170,7 @@ AFRAME.registerComponent('fixed-point-kalman-gps-camera', {
           clearTimeout(timeout);
         });
       }
-    }
+    } 
 
     window.addEventListener(eventName, this._onDeviceOrientation, false);
 
@@ -149,81 +183,10 @@ AFRAME.registerComponent('fixed-point-kalman-gps-camera', {
         this.currentCoords = localPosition;
       }
       else {
-        // *** MODIFICATION
-        console.log('Det er her det skjer.');
-        //var _position = Object.create(position.coords);
-
-        //console.log(position.coords);
-        //console.log(_position);
-
-        //console.log(SetCoords);
-
-        this.currentCoords = {
-          latitude: position.coords.latitude,
-          longitude: position.coords.longitude,
-          altitude: 0
-          }
-        this.gpsVelocity = position.coords.speed;
-
-        var poi_array = new Array();
-        poi_array[0] = [SetCoords[0], SetCoords[1], 0];
-
-        var i;
-        var a = [1, 1, -1, -1];
-        var b = [1, -1, 1, -1];
-        var proximity = 0.00005;
-        var distances = new Array();
-        var closest_poi = [poi_array[0][0], poi_array[0][1], 0];
-        var closest_index = 0;
-        var closest_distance = this._distanceBetweenTwoGpsPoints(poi_array[0][0], poi_array[0][1], this.currentCoords.latitude, this.currentCoords.longitude);
-        var temp_distance = 0;
-        
-        distances[0] = closest_distance;
-        
-        for (i = 0; i < 6; i++) {
-          if (i == 4) {
-            poi_array[i+1] = [68.679230, 16.796461, 0];
-          } else if (i == 5) {
-            poi_array[i+1] = [poi_array[0][0] + 0.000012*3, poi_array[0][1] + 0.000248*3, 11];
-          } else {
-            poi_array[i+1] = [poi_array[0][0] + a[i]*proximity, poi_array[0][1] + b[i]*proximity, 0];
-          }
-          temp_distance = this._distanceBetweenTwoGpsPoints(poi_array[i+1][0], poi_array[i+1][1], this.currentCoords.latitude, this.currentCoords.longitude);
-          distances[i+1] = temp_distance;
-          if (temp_distance < closest_distance) {
-            closest_poi = poi_array[i+1];
-            closest_index = i+1;
-            closest_distance = temp_distance;
-          }
-        }
-
-        console.log(poi_array);
-        console.log(closest_distance);
-        console.log(closest_index);
-        console.log(distances);
-        
-
-        console.log(this.currentCoords);
-
-        if (closest_distance < Radius) {
-          this.currentCoords.latitude = closest_poi[0];
-          this.currentCoords.longitude = closest_poi[1];
-          this.currentCoords.altitude = closest_poi[2];
-        }
-
-        console.log(this.currentCoords);
-
-        //console.log(this.currentCoords);
-
-        if (this.gpsTimestampArray.length < 2) {
-          this.gpsTimestampArray.push(position.timestamp);
-        } else {
-          this.gpsTimestampArray[0] = this.gpsTimestampArray[1];
-          this.gpsTimestampArray[1] = position.timestamp;
-        }
-        // ***
+        //console.log(position);
+        this.globalCurrentPosition = position;
+        this._updatePoiArray(SetCoords, position, Radius);
       }
-
       this._updatePosition();
     }.bind(this));
   },
@@ -497,10 +460,12 @@ AFRAME.registerComponent('fixed-point-kalman-gps-camera', {
    */
   _onDeviceOrientation: function (event) {
     if (event.webkitCompassHeading !== undefined) {
+      //console.log(event.webkitCompassHeading);
+      //console.log(event.webkitCompassAccuracy);
       if (event.webkitCompassAccuracy < 50) {
         this.heading = event.webkitCompassHeading;
       } else {
-        //console.warn('webkitCompassAccuracy is event.webkitCompassAccuracy');
+        console.warn('webkitCompassAccuracy is event.webkitCompassAccuracy');
       }
     } else if (event.alpha !== null) {
       if (event.absolute === true || event.absolute === undefined) {
@@ -539,5 +504,83 @@ AFRAME.registerComponent('fixed-point-kalman-gps-camera', {
     var d = R * c; // in metres
   
     return d;
+  },
+
+  _updatePoiArray: function (SetCoords, position, Radius){
+    // *** MODIFICATION
+    console.log('Det er her det skjer.');
+    //var _position = Object.create(position.coords);
+
+    //console.log(position.coords);
+    //console.log(_position);
+
+    //console.log(SetCoords);
+
+    this.currentCoords = {
+      latitude: position.coords.latitude,
+      longitude: position.coords.longitude,
+      altitude: 0
+      }
+    this.gpsVelocity = position.coords.speed;
+
+    var poi_array = new Array();
+    poi_array[0] = [SetCoords[0], SetCoords[1], 0];
+
+    var i;
+    var a = [1, 1, -1, -1];
+    var b = [1, -1, 1, -1];
+    var proximity = 0.00005;
+    var distances = new Array();
+    var closest_poi = [poi_array[0][0], poi_array[0][1], 0];
+    var closest_index = 0;
+    var closest_distance = this._distanceBetweenTwoGpsPoints(poi_array[0][0], poi_array[0][1], this.currentCoords.latitude, this.currentCoords.longitude);
+    var temp_distance = 0;
+    
+    distances[0] = closest_distance;
+    
+    for (i = 0; i < 5; i++) {
+      if (i == 4) {
+        poi_array[i+1] = [poi_array[0][0] + 0.000012*3, poi_array[0][1] + 0.000248*3, 11];
+      } else {
+        poi_array[i+1] = [poi_array[0][0] + a[i]*proximity, poi_array[0][1] + b[i]*proximity, 0];
+      }
+      temp_distance = this._distanceBetweenTwoGpsPoints(poi_array[i+1][0], poi_array[i+1][1], this.currentCoords.latitude, this.currentCoords.longitude);
+      distances[i+1] = temp_distance;
+      if (temp_distance < closest_distance) {
+        closest_poi = poi_array[i+1];
+        closest_index = i+1;
+        closest_distance = temp_distance;
+      }
+    }
+
+    
+    /*
+    console.log(poi_array);
+    console.log(closest_distance);
+    console.log(closest_index);
+    console.log(distances);
+    console.log(this.currentCoords);
+    */
+    
+
+    if (closest_distance < Radius) {
+      this.currentCoords.latitude = closest_poi[0];
+      this.currentCoords.longitude = closest_poi[1];
+      this.currentCoords.altitude = closest_poi[2];
+    } else {
+      this.currentCoords = position.coords;
+    }
+
+    console.log(this.currentCoords);
+
+    //console.log(this.currentCoords);
+
+    if (this.gpsTimestampArray.length < 2) {
+      this.gpsTimestampArray.push(position.timestamp);
+    } else {
+      this.gpsTimestampArray[0] = this.gpsTimestampArray[1];
+      this.gpsTimestampArray[1] = position.timestamp;
+    }
+    // ***
   },
 });
