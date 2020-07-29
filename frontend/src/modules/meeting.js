@@ -367,40 +367,42 @@ module.exports = {
     entity.classList.add('rocket');
     entity.setAttribute('sphere-collider', 'objects', '.user');
     document.querySelector('a-scene').appendChild(entity);
-    let position0 = [
-      entity.getAttribute('position').x,
-      entity.getAttribute('position').z
-    ];
-    let cameraPosition = [
-      document.querySelector('a-camera').getAttribute('position').x,
-      document.querySelector('a-camera').getAttribute('position').z
-    ];
-    console.log('Position0: ' + position0);
-    console.log('Camera position: ' + cameraPosition);
-    position0 = [
-      position0[0] + cameraPosition[0],
-      position0[1] + cameraPosition[1]
-    ]
-    console.log('Position0_: ' + position0);
-    let position1 = getPointAtHeading(position0[0], position0[1], heading, distance);
-    console.log('Rocket going from: ' + position0 + ' --> ' + position1);
-    entity.setAttribute('animation', `property: position; from: ${position0[0]} 0 ${position0[1]}; to: ${position1[0]} 0 ${position1[1]}; loop: false; dur: ${animationTime}; autoplay: true;`);
     
-    var removeTimer = setTimeout(function() {
-      entity.parentNode.removeChild(entity);
-    }, removeTime)
-    
-    entity.addEventListener('hit', function(e) {
-      if (e.detail.el !== null) {
-        console.log(e);
-        entity.parentNode.removeChild(entity);
-        clearTimeout(removeTimer);
-        socket.emit('rocket-hit-user', {
-          fromUserId: fromUserId,
-          toUserId: e.detail.el.getAttribute('data-userId')
-        });
+    var findPositionInterval = setInterval(function() {
+      let position0 = [
+        entity.getAttribute('position').x,
+        entity.getAttribute('position').z
+      ];
+      if (position0 == [0, 0]) {
+        return;
       }
-    });
+      clearInterval(findPositionInterval);
+      
+      console.log('Position0: '+ position0);
+      
+      let position1 = getPointAtHeading(position0[0], position0[1], heading, distance);
+      console.log('Rocket going from: ' + position0 + ' --> ' + position1);
+      entity.setAttribute('animation', `property: position; from: ${position0[0]} 0 ${position0[1]}; to: ${position1[0]} 0 ${position1[1]}; loop: false; dur: ${animationTime}; autoplay: true;`);
+      
+      var removeTimer = setTimeout(function() {
+        entity.parentNode.removeChild(entity);
+      }, removeTime)
+      
+      entity.addEventListener('hit', function(e) {
+        if (e.detail.el !== null) {
+          let toUserId = e.detail.el.getAttribute('data-userId');
+          if (fromUserId == toUserId) return;
+          console.log(e);
+          clearTimeout(removeTimer);
+          entity.parentNode.removeChild(entity);
+          socket.emit('rocket-hit-user', {
+            fromUserId: fromUserId,
+            toUserId: toUserId
+          });
+        }
+      });
+      
+    }, 2);
   },
   
   getStyledName: function(userId) {
