@@ -4,15 +4,15 @@
   "description": "A demo of how to run a webpack dev environment in a docker container",
   "main": "index.js",
   "dependencies": {
+    "@tensorflow-models/handpose": "0.0.5",
+    "@tensorflow/tfjs-converter": "1.7.4",
+    "@tensorflow/tfjs-core": "1.7.4",
     "aframe": "^1.0.4",
     "aframe-extras": "^6.1.0",
     "axios": "^0.19.2",
     "fs": "0.0.1-security",
     "redis": "^3.0.2",
-    "socket.io": "^2.3.0",
-    "@tensorflow-models/handpose": "0.0.5",
-    "@tensorflow/tfjs-converter": "1.7.4",
-    "@tensorflow/tfjs-core": "1.7.4"
+    "socket.io": "^2.3.0"
   },
   "devDependencies": {
     "copy-webpack-plugin": "^5.1.1",

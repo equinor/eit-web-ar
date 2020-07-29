@@ -409,6 +409,42 @@ module.exports = {
     let name = this.getUserProperties(userId).name;
     let color = this.getUserProperties(userId).color;
     return `<span class="styledName" style="border-color: ${color}">${name}</span>`
+  },
+  
+  getRecorderElement: function() {
+    return document.getElementById('recordAudio');
+  },
+  
+  startRecording: function() {
+    var options = { mimeType: 'audio/webm' };
+    var recordedChunks = [];
+    var mediaRecorder;
+    var _this = this;
+    
+    navigator.mediaDevices.getUserMedia({ audio: true, video: false })
+      .then(function recordAudio(stream) {
+        mediaRecorder = new MediaRecorder(stream, options);
+        mediaRecorder.addEventListener('dataavailable', function(e) {
+          if (e.data.size > 0) {
+            recordedChunks.push(e.data);
+          }
+        });
+        mediaRecorder.start();
+        
+        mediaRecorder.addEventListener('stop', function() {
+          let blobUrl = URL.createObjectURL(new Blob(recordedChunks));
+          console.log('recording ended');
+          console.log(blobUrl);
+          //var recordedAudio = document.getElementById('recordedAudio');
+          //recordedAudio.setAttribute('src', blobUrl);
+          var audio = new Audio(blobUrl);
+          audio.play();
+        });
+        
+        _this.getRecorderElement().addEventListener('touchend', function(e) {
+          mediaRecorder.stop();
+        });
+      });
   }
 }
 

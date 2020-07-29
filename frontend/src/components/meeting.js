@@ -175,5 +175,10 @@ AFRAME.registerComponent('meeting', {
       console.log(data);
       meeting.addMessage(`${meeting.getStyledName(data.fromUserId)} hit ${meeting.getStyledName(data.toUserId)}!`);
     });
+    
+    // Audio recording
+    meeting.getRecorderElement().addEventListener('touchstart', function(e) {
+      meeting.startRecording();
+    });
   }
 });
