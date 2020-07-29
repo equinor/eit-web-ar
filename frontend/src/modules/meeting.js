@@ -121,6 +121,11 @@ module.exports = {
       callback(data);
     });
   },
+  receiveAudioMessage: function(callback) {
+    socket.on('audio-message', data => {
+      callback(data);
+    });
+  },
   getRandomColor: function() {
     let letters = '0123456789ABCDEF';
     let color = '#';
@@ -432,19 +437,31 @@ module.exports = {
         mediaRecorder.start();
         
         mediaRecorder.addEventListener('stop', function() {
-          let blobUrl = URL.createObjectURL(new Blob(recordedChunks));
-          console.log('recording ended');
-          console.log(blobUrl);
-          //var recordedAudio = document.getElementById('recordedAudio');
-          //recordedAudio.setAttribute('src', blobUrl);
-          var audio = new Audio(blobUrl);
-          audio.play();
+          let blob = new Blob(recordedChunks);
+          console.log('recording ended, emitting audio message');
+          
+          socket.emit('audio-message', {
+            userId: _this.getMyUserId(),
+            chunks: recordedChunks
+          });
         });
         
         _this.getRecorderElement().addEventListener('touchend', function(e) {
           mediaRecorder.stop();
         });
       });
+  },
+  
+  playAudio: function(data) {
+    if (data.userId == this.getMyUserId()) return;
+    console.log('playaudio');
+    let entity = document.querySelector(`[data-userId="${data.userId}"]`);
+    let blob = new Blob(data.chunks);
+    let blobUrl = URL.createObjectURL(blob);
+    entity.setAttribute('sound', 'src', blobUrl);
+    entity.components.sound.playSound();
+    //var audio = new Audio(blobUrl);
+    //audio.play();
   }
 }
 
