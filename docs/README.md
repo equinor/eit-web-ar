@@ -29,7 +29,7 @@
 ## User guides
 - [User guide for all epics](user-guide.md)
 
-## Reference
+## Reference for developers
 - [A-frame components](./components.md)
 - [The Game API](./game-api.md)
 - [The Game backend](./game-backend.md)
