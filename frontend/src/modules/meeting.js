@@ -121,6 +121,11 @@ module.exports = {
       callback(data);
     });
   },
+  receiveAudioMessage: function(callback) {
+    socket.on('audio-message', data => {
+      callback(data);
+    });
+  },
   getRandomColor: function() {
     let letters = '0123456789ABCDEF';
     let color = '#';
@@ -378,10 +383,10 @@ module.exports = {
       }
       clearInterval(findPositionInterval);
       
-      console.log('Position0: '+ position0);
+      //console.log('Position0: '+ position0);
       
       let position1 = getPointAtHeading(position0[0], position0[1], heading, distance);
-      console.log('Rocket going from: ' + position0 + ' --> ' + position1);
+      //console.log('Rocket going from: ' + position0 + ' --> ' + position1);
       entity.setAttribute('animation', `property: position; from: ${position0[0]} 0 ${position0[1]}; to: ${position1[0]} 0 ${position1[1]}; loop: false; dur: ${animationTime}; autoplay: true;`);
       
       var removeTimer = setTimeout(function() {
@@ -392,7 +397,7 @@ module.exports = {
         if (e.detail.el !== null) {
           let toUserId = e.detail.el.getAttribute('data-userId');
           if (fromUserId == toUserId) return;
-          console.log(e);
+          //console.log(e);
           clearTimeout(removeTimer);
           entity.parentNode.removeChild(entity);
           socket.emit('rocket-hit-user', {
@@ -409,6 +414,60 @@ module.exports = {
     let name = this.getUserProperties(userId).name;
     let color = this.getUserProperties(userId).color;
     return `<span class="styledName" style="border-color: ${color}">${name}</span>`
+  },
+  
+  getRecorderElement: function() {
+    return document.getElementById('recordAudio');
+  },
+  
+  startRecording: function() {
+    var options = { mimeType: 'audio/webm' };
+    var recordedChunks = [];
+    var mediaRecorder;
+    var _this = this;
+    
+    navigator.mediaDevices.getUserMedia({ audio: true, video: false })
+      .then(function recordAudio(stream) {
+        mediaRecorder = new MediaRecorder(stream, options);
+        mediaRecorder.addEventListener('dataavailable', function(e) {
+          if (e.data.size > 0) {
+            recordedChunks.push(e.data);
+          }
+        });
+        mediaRecorder.start();
+        
+        mediaRecorder.addEventListener('stop', function() {
+          let blob = new Blob(recordedChunks);
+          console.log('recording ended, emitting audio message');
+          
+          socket.emit('audio-message', {
+            userId: _this.getMyUserId(),
+            chunks: recordedChunks
+          });
+        });
+        
+        _this.getRecorderElement().addEventListener('touchend', function(e) {
+          mediaRecorder.stop();
+        });
+      });
+  },
+  
+  playAudio: function(data) {
+    if (data.userId == this.getMyUserId()) return;
+    console.log('playaudio');
+    let entity = document.querySelector(`[data-userId="${data.userId}"]`);
+    
+    entity.setAttribute('material', 'color', '#FFFF00');
+    setTimeout(function() {
+      entity.setAttribute('material', 'color', this.getUserProperties(data.userId).color);
+    }, 3000);
+    
+    let blob = new Blob(data.chunks);
+    let blobUrl = URL.createObjectURL(blob);
+    entity.setAttribute('sound', 'src', blobUrl);
+    entity.components.sound.playSound();
+    //var audio = new Audio(blobUrl);
+    //audio.play();
   }
 }
 

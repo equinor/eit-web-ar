@@ -21,6 +21,28 @@
   color: #fff;
 }
 
+#recordAudio {
+  width:50px;
+  height:50px;
+  border: 1px solid #fff;
+  border-radius:25px;
+  
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  margin-left:-25px;
+  margin-bottom:5px;
+  
+  color: #fff;
+  
+  background-image: url(./images/microphone.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 50%;
+  
+  z-index: 1;
+}
+
 #messages {
   width: 200px;
   position: fixed;

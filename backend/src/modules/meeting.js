@@ -84,7 +84,7 @@ function _savePosition(userId, latitude, longitude, heading) {
     if (!initialPositionExists) {      
       const latMeters = _random(-20, 20);
       const lngMeters = _random(-20, 20);
-      console.log('random: ' + latMeters + ', ' + lngMeters);
+      //console.log('random: ' + latMeters + ', ' + lngMeters);
       const fakeLatitude0 = 0 + _latitudePlusMeters(0, latMeters);
       const fakeLongitude0 = 0 + _longitudePlusMeters(fakeLatitude0, 0, lngMeters);
       storage.hmset(userHash, 'latitude0', latitude, 'longitude0', longitude, 'fakeLatitude0', fakeLatitude0, 'fakeLongitude0', fakeLongitude0);
@@ -149,11 +149,19 @@ module.exports = {
       socket.on('rocket-hit-user', data => {
         this.emitRocketHitUser(data);
       });
+      
+      socket.on('audio-message', data => {
+        this.emitAudioMessage(data);
+      });
     });
     
     setInterval(function() {
       _emitPositionUpdate();
     }, _emitPositionInterval);
+  },
+  
+  emitAudioMessage: function(data) {
+    _io.emit('audio-message', data);
   },
   
   emitRocketHitUser: function(data) {
