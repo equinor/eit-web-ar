@@ -15,7 +15,8 @@ Augmented Reality is a technology that fuses Virtual Reality with the real world
 
 - Open [this link](https://eit-web-ar.app.playground.radix.equinor.com/) on your mobile phone (https://eit-web-ar.app.playground.radix.equinor.com/) 
 
-## Epic 1: Can web AR enhance physical 3d printed models?
+## Epic 1
+_Can web AR enhance physical 3d printed models?_
 
 **URL: [Epic 1](https://eit-web-ar.app.playground.radix.equinor.com/epic1.html)**
 
@@ -49,7 +50,9 @@ For click events, point with the circular cursor on the middle of the screen, th
 1. Use "Generate a single marker image with code ___" with the codes specified in the table "Markers available in epic 1"
 
 
-## Epic 2: Can web AR provide users with a sense of true scale of industrial equipment?
+## Epic 2
+_Can web AR provide users with a sense of true scale of industrial equipment?_
+
 **URL: [Epic 2](https://eit-web-ar.app.playground.radix.equinor.com/epic2.html)**
 
 The main purpose of Epic 2 is to show that large 3D models can be used in the app, both placed by relative position and gps locations, and how to interact with them. 
@@ -77,7 +80,8 @@ Epic 2.5 is mainly an extension of Epic 2, introducing ways to manipulate GPS si
 | Lookout tower | When walking to the tower and being within a radius of 3 meters, the user will be placed on the top of the tower. Now the user can look at the Eiffel Tower from above. |
 
 
-## Epic 3: Can multiplayer be used in web AR?
+## Epic 3
+_Can multiplayer be used in web AR?_
 
 **URL: [Epic 3](https://eit-web-ar.app.playground.radix.equinor.com/game.html)**
 
@@ -96,8 +100,9 @@ See the [video](./docs/Videos/game.mp4) to see how it should work while playing.
 One round of the game ends when one of the players does not have any boxes left. Another round starts after five seconds.
 
 ## Epic 4
+_Can web AR be used for creating multiuser virtual meetings?_
 
-URL: app/meeting.html
+**URL: [Epic 4](https://eit-web-ar.app.playground.radix.equinor.com/meeting.html)****
 
 The purpose of Epic 4 is to implement a proof of concept virtual meeting. Users in the virtual meeting is displayed as 3d models. The concept is that each user will see the other users as if they were close by, even if they in reality is on the other side of Earth.
 
