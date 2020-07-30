@@ -46,9 +46,12 @@ By gaining easy availability we hope to be able to quickly explore use cases whe
 ## Technologies
 
 - [A-Frame JS](https://aframe.io/)  
-   Web VR library
+   Web VR library built on top of [three.js](https://threejs.org/)
    - [Experiment with AR and A-Frame](https://aframe.io/blog/webxr-ar-module/)
    - [Image Tracking and Location-Based AR with A-Frame and AR.js 3](https://aframe.io/blog/arjs3/)
+
+- [AR.js](https://ar-js-org.github.io/AR.js-Docs/)  
+  Web AR library that works well with A-frame.
 
 - [nginx](https://www.nginx.com/)  
   Simple web server for static content, handle public routing
