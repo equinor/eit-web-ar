@@ -493,7 +493,7 @@ this.el.sceneEl.addEventListener("handpose", function (e) {
 
 ## fixed-point-kalman-gps-camera
 
-A component based on the component `kalman-gps-camera` presented earlier (further developed). The `fixed-point-kalman-gps-camera` component has the same attributes and functionalities as `kalman-gps-camera`, but some new ones. The purpose of the component is to place gps points that will attach the app user to it if the user is within a given radius of the point. This is done by manipulating the gps position of the user, thus not using the measured gps position. These points are relative to the gps coordinate given in the attribute `set_coords`, and the radius is given by the attribute `radius`. To alter/add/remove such relative points one has to implement it in the `fixed-point-kalman-gps-camera.js` component script.
+A component based on the component `kalman-gps-camera` presented earlier (further developed). The `fixed-point-kalman-gps-camera` component has the same attributes and functionalities as `kalman-gps-camera`, but some new ones. The purpose of the component is to place gps points that will attach the app user to it if the user is within a given radius of the point. This is done by manipulating the gps position of the user, thus not using the measured gps position. These points are relative to an input GPS coordinate, and the radius is given by the attribute `radius`. To alter/add/remove such relative points one has to implement it in the `fixed-point-kalman-gps-camera.js` component script.
 ### Attributes
 
 - Q: float (non-negative). Measurement noise (how accurate is the measurement? use lower Q for more accurate)
@@ -501,11 +501,10 @@ A component based on the component `kalman-gps-camera` presented earlier (furthe
   - The important part is the **ratio** between R and Q. The ratio determines how much the kalman filter trusts the measure/model
 - B: float (non-negative). Scaling factor for the input (B\*u)
 - logConsole: bool.
-- set_coords: 1x2 array (float). GPS coordinates to place 3D model, eg. [68.679069, 16.796574999999997]
 - radius: float (non-negatve). Radius (in meters) around a GPS point, where the user GPS position is to be manipulated to the GPS point
 
 ### Example of implementation
 
 ´´´HTML
-<a-camera fixed-point-kalman-gps-camera="R: 1; Q: 0.12; logConsole: true; set_coords: [68.679069, 16.796574999999997]; radius: 2" rotation-reader look-controls position="0 0 0"></a-camera>
+<a-camera fixed-point-kalman-gps-camera="R: 1; Q: 0.12; logConsole: true; radius: 2" rotation-reader look-controls position="0 0 0"></a-camera>
 ´´´

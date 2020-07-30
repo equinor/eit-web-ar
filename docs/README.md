@@ -12,7 +12,7 @@
    - [What we learned with Epic 2](epic2.md)
    - [User guide](./user-guide.md#Epic-2)
    - [Video](./Videos/Epic2.mp4)
-   - [Video](./Videos/Epic2.5.mp4)
+   - [Video](https://drive.google.com/file/d/1d7EgDE9wp43lk-vgqNgFjKLFp0RlSh6N/view?usp=sharing)
 1. **Can multiplayer be used in web AR?** (Epic 3)
    - [Description](https://github.com/equinor/eit-web-ar/issues/151)
    - [What we learned with Epic 3](epic3.md)
