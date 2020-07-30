@@ -172,15 +172,22 @@ module.exports = {
     eye.setAttribute('geometry', 'primitive', 'sphere');
     eye.setAttribute('material', 'color', '#00f');
     eye.setAttribute('scale', '0.1 0.1 0.1');
-    eye.setAttribute('position', '0.6 0.6 -0.6');
+    eye.setAttribute('position', '0.5 0.6 -0.6');
     entity.appendChild(eye);
     
     let eye2 = document.createElement('a-entity');
     eye2.setAttribute('geometry', 'primitive', 'sphere');
     eye2.setAttribute('material', 'color', '#00f');
     eye2.setAttribute('scale', '0.1 0.1 0.1');
-    eye2.setAttribute('position', '-0.6 0.6 -0.6');
+    eye2.setAttribute('position', '-0.5 0.6 -0.6');
     entity.appendChild(eye2);
+    
+    let mouth = document.createElement('a-entity');
+    mouth.setAttribute('geometry', 'primitive', 'box');
+    mouth.setAttribute('material', 'color', '#00f');
+    mouth.setAttribute('scale', '1 0.1 0.3');
+    mouth.setAttribute('position', '0 -0.2 -0.8');
+    entity.appendChild(mouth);
       
     return entity;
   },

@@ -2,22 +2,38 @@
 
 Augmented Reality is a technology that fuses Virtual Reality with the real world to construct an enhanced experience. This web application is made to present its main functionalities and prove that this concept is a viable choice for Equinor both in terms of development complexity, cost and convenience. This application is divided into four parts, from now on referred to as Epic 1-4. For full functionality a mobile device is suggested.
 
-// Add instructions on how to open/start the application.
+## How to open the applications
+
+**Prerequisites:**
+
+- Android: Use Chrome browser
+  - You might have to enable _webXR_ flags in _chrome://flags_ (enter as url in Chrome)
+- iPhone: Use Safari
+  - You might have to download the _webXR Viewer_ app
+
+**Opening the web app:**
+
+- Open [this link](https://eit-web-ar.app.playground.radix.equinor.com/) on your mobile phone (https://eit-web-ar.app.playground.radix.equinor.com/) 
 
 ## Epic 1
+_Can web AR enhance physical 3d printed models?_
 
-_Can web AR enhance physical 3d printed models?_  
-URL: app/epic1.html
+**URL: [Epic 1](https://eit-web-ar.app.playground.radix.equinor.com/epic1.html)**
 
 The purpose of Epic 1 is to show that the app can react to barcode markers.  
-We printed the markers and put them on a guitar amplifier, but any box will do. For simple testing you can just point the camera at the markers without printing them and putting them on a box. Be aware that the markers do not work well on black/dark background. White background works fine. Choose to accept when the application asks to allow camera, geolocation and device motion sensors.
 
-### Markers available in epic 1
- 
+To the bottom left of the screen there is an info button. When clicking on it, there will appear a simple guide to how to use the app.
+
+- We printed the markers and put them on a guitar amplifier, but any box will do. 
+- Choose to accept when the application asks to allow camera, geolocation and device motion sensors.
+- For simple testing you can just point the camera at the markers without printing them and putting them on a box. 
+- Be aware that the markers do not work well on black/dark background. White background works fine. 
+
+### Markers for Epic 1
+ **Markers: [Markers 0-10 for testing](markers0-10.png).**
+
 The different possible scenarios are listed below, depending on the barcode the camera is pointing at.  
-For click events, point with the circular cursor on the middle of the screen.
-
-[Markers 0-10 for testing](markers0-10.png).
+For click events, point with the circular cursor on the middle of the screen, then click on the cursor.
 
 | Code | Interaction |
 | ---- | ------ |
@@ -35,40 +51,70 @@ For click events, point with the circular cursor on the middle of the screen.
 
 
 ## Epic 2
+_Can web AR provide users with a sense of true scale of industrial equipment?_
 
-_Can web AR provide users with a sense of true scale of industrial equipment?_  
-URL: app/epic2.html
+**URL: [Epic 2](https://eit-web-ar.app.playground.radix.equinor.com/epic2.html)**
 
-The main purpose of Epic 2 is to show that large 3D models can be used in the app, both placed by relative position and gps locations, and how to interact with them. First of all it is important to ensure that the gps coordinates stated in the epic2.html script are located close to the user. The thought is that the `eiffel_tower`, `mario_kart`, `banana`, `ho_oh` and `disco_ball` objects have the same coordinates, and that the four `sphere` objects are located close to, but not on top of, each other. The reason why will be clear shortly. Remember to point with the circular cursor in the middle of the screen.
+The main purpose of Epic 2 is to show that large 3D models can be used in the app, both placed by relative position and gps locations, and how to interact with them. 
 
-When pointing towards the Eiffel Tower, you will see:
+To the bottom left of the screen there is an info button. When clicking on it, there will appear a simple guide to how to use the app.
+
+- When opening the app, the user has to either state the desired GPS coordinates for the objects, or use the current GPS location of the device. This is done by using the user interface, where you first click the GPS icon to the bottom right side of the screen. Then you either push the button "Use current position", or fill in the text boxes and then push the button "Submit GPS coordinates". 
+- Remember to point with the circular cursor in the middle of the screen when interacting with the 3D objects. When looking around you will see:
 
 | Target | Interaction |
 | ------ | ----------- |
-| A rotating disco ball hanging from under the Eiffel Tower | When clicking on it a short music sample will start playing, and it will stop rotating. When clicking again it will start rotating again, and the same music will play |
-| A stationary banana peel | Super Mario driving in his signature kart around the Eiffel Tower, and slipping when hitting the banana peel. When clicking on Mario's start position (just under the disco ball), his animation will pause/unpause |
-| A Ho-Oh pokèmon (bird) hovering around the upper half of the Eiffel Tower | N/A |
-| Sphere | When clicking on one of the spheres, it will start an animation. This animation is defined by stating the start and end location in the html script, in addition to the duration time (in milliseconds). It is possible to add other animation properties, see documentation. When clicking on two spheres consecutively a straight red line will be drawn between them. Hence, for convenience we suggest that the spheres are located relatively close to, but not on top of, one another |
+| A rotating disco ball | (Look up to see the disco ball). When clicking on it a short music sample will start playing, and it will stop rotating. When clicking again it will start rotating again, and the same music will play |
+| Sphere | When clicking on one of the spheres, it will start an animation. When clicking on two spheres consecutively a straight red line will be drawn between them. The animation is defined by stating the start and end location in the html script, in addition to the duration time (in milliseconds). It is possible to add other animation properties, see documentation. |
 
 
 ## Epic 2.5
 
-*epic2.5.html*
+**URL: [Epic 2.5](https://eit-web-ar.app.playground.radix.equinor.com/epic2.5.html)**
 
-Epic 2.5 is mainly an extension of Epic 2, introducing ways to manipulate GPS signals from the user device. 
+Epic 2.5 is mainly an extension of Epic 2, introducing ways to manipulate GPS signals from the user device. This epic also shows how large 3D models can be experienced in an AR environment. When using the current GPS location of the device, the Eiffel Tower will appear right where you are so that you are standing under it. There will also be a lookout tower placed close to the Eiffel Tower. When walking to the lookout tower, the GPS signal will be manipulated so that the user is at the top of the lookout tower. This is done so that the user can look at the Eiffel Tower from a height, and to show that one can manipulate the location and altitude of the device. This way the user will experience that the models are more stable, eg. not moving around. When looking around you will see:
 
- **FYLL INN MER HER**
+| Target | Interaction |
+| ------ | ----------- |
+| The Eiffel Tower | There is no interaction, but it shows how a large 3D object is experiences in AR. |
+| Lookout tower | When walking to the tower and being within a radius of 3 meters, the user will be placed on the top of the tower. Now the user can look at the Eiffel Tower from above. |
 
 
 ## Epic 3
+_Can multiplayer be used in web AR?_
 
-URL: app/game.html
+**URL: [Epic 3](https://eit-web-ar.app.playground.radix.equinor.com/game.html)**
+
+**Game Board: [Game board](markers0-5.png)**
 
 The purpose of Epic 3 is to implement a proof of concept multiplayer app combined with AR. We implemented it as a multiplayer whack-a-mole game.
 
-When signing into the game, the player can enter a username. The player can also choose which figure and color their entities will have (instead of the default green box). The entity settings will persist when sending the entities to other players.
+- Open up the game board on your laptop (or better, print it out).
+- Sign in to the game by going to the URL on your phone.
+- When signing into the game, the player can enter a username and choose which figure and color their entities will have (instead of the default green box). The entity settings will persist when sending the entities to other players.
+- The game is started when two users have signed into the game. Each user will be assigned with three boxes (or other entities). The boxes are shown when pointing the camera on [the game board](markers0-5.png). 
+- A user can send a box to another player by pointing the cursor at the box and clicking on it. When a user clicks on a box, the box will disappear from the user's markers and appear in front of another (randomly selected) player.
+- One round of the game ends when one of the players does not have any boxes left. Another round starts after five seconds.
 
-
-The game is started when two users have signed into the game. Each user will be assigned with three boxes (or other entities). The boxes are shown when pointing the camera on [markers 0-5](markers0-5.png). A user can send a box to another player by pointing the cursor at the box and clicking on it. When a user clicks on a box, the box will disappear from the user's markers and appear in front of another (randomly selected) player.
-
+See the [video](./docs/Videos/game.mp4) to see how it should work while playing.
 One round of the game ends when one of the players does not have any boxes left. Another round starts after five seconds.
+
+## Epic 4
+_Can web AR be used for creating multiuser virtual meetings?_
+
+**URL: [Epic 4](https://eit-web-ar.app.playground.radix.equinor.com/meeting.html)****
+
+The purpose of Epic 4 is to implement a proof of concept virtual meeting. Users in the virtual meeting is displayed as 3d models. The concept is that each user will see the other users as if they were close by, even if they in reality is on the other side of Earth.
+
+The app is based on each user's gps positions. This means that when a users moves a little bit in reality, e.g. two meters to the right, this movement will be shown to the other users as if the user moved two meters in the virtual meeting. Rotation is also shown to the other users.
+
+Currently, each user is displayed as a sphere with "eyes" on. Their username is shown above the sphere.
+
+In the top right corner there is a map. The map shows other users who (in the virtual meeting) are within a close proximity of yourself. Up on the map equals the direction you look in the virtual world.
+
+You can interact with other users by throwing balls at them. To do this, you will have to point at a user and touch the screen.
+
+You can send audio messages to other users. Do this by holding the microphone button at the bottom of the screen. 1) Touch the button and hold. 2) Speak. 3) Release the button. The audio message will now be sent to the other users.
+
+
+<img src="./epic4-qr.png" alt="drawing" width="200"/>

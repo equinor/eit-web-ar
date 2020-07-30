@@ -38,6 +38,24 @@ Stores information about each group
 group:43 latitude 59.23223 longitude 10.32989 radius 5 users [1, 4, 2]
 ```
 
+### `lastInteractionId` int
+Stores the id of the last created interaction.
+
+### `interactions` set
+Stores interactionId's of all interactions.
+```
+3
+2
+1
+4
+```
+
+### `interaction:interactionId` hash
+Stores information about each interaction
+```
+interaction:5 type rocket fromUserId 3 toUserId 17
+```
+
 ## Socket messages
 
 ### Client -> Server: `connect-socket-to-user`
@@ -59,6 +77,8 @@ A user has changed position. Tell the server to update its information. Also, if
 ```
 
 ### Server -> Client: `position-update`
+Client received updated positions about all the other players. The coordinates received are manipulated to correspond to positions around the receiving user.
+
 ```json
 [
   {
@@ -110,3 +130,45 @@ A user has changed position. Tell the server to update its information. Also, if
   "groupId": 2
 }
 ```
+
+### Server -> Client: `interaction-joined`
+```json
+{
+  "type": "rocket",
+  "fromUserId": 4,
+  "toUserId": 7
+}
+```
+
+### Client -> Server: `rocket-hit-user`
+The user who spawns a rocket listens for collisions. If the rocket hits a user, this message will be sent to the server.
+
+A rocket is an interaction of type "rocket", therefore the rocket will have an `interactionId`.
+
+```json
+{
+  "interactionId": 3,
+  "fromUserId": 4,
+  "toUserId": 8
+}
+```
+
+### Server -> Client: `rocket-hit-user`
+When the server gets a message about a rocket hitting a user, it will pass the message along to all users.
+
+Same JSON data as above.
+
+### Client -> Server: `audio-message`
+This message is sent from the user who records the audio message.
+
+`userId` specifies the user who sends the audio message. `chunks` is an array with audio information. This array can be converted into a blob.
+```json
+{
+  "userId": 4,
+  "chunks": []
+}
+```
+### Server -> Client: `audio-message`
+This message is received by all users after a user have recorded an audio message.
+
+Same JSON data as above.
