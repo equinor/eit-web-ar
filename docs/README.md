@@ -23,6 +23,7 @@
    - [What we learned with Epic 4](epic4.md)
    - [Known bugs with Epic 4](epic4.md#known-bugs)
    - [User guide](./user-guide.md#Epic-4)
+   - [Video](./Videos/game.mp4)
 1. **Can web AR help humans identify robots and their actions?** (Epic 5)
    - [Description](https://github.com/equinor/eit-web-ar/issues/10)
    - [What we learned with Epic 5](epic5.md)
