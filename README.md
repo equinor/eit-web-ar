@@ -58,6 +58,9 @@ By gaining easy availability we hope to be able to quickly explore use cases whe
 
 - [NodeJS](https://nodejs.org/en/)  
   Serverside javascript
+  - [Express](https://expressjs.com/) for creating a REST API.
+  - [Socket.io](https://socket.io/) for WebSocket communication.
+  
 
 - [Redis](https://redis.io/)  
   Redis is an open source (BSD licensed), in-memory data structure store, used as a database, cache and message broker
