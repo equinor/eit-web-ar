@@ -563,10 +563,10 @@ AFRAME.registerComponent('fixed-point-kalman-gps-camera', {
     */
     
 
-    if (closest_distance < Radius) {
-      this.currentCoords.latitude = closest_poi[0];
-      this.currentCoords.longitude = closest_poi[1];
-      this.currentCoords.altitude = closest_poi[2];
+    if (distances[5] < Radius) {
+      this.currentCoords.latitude = poi_array[5][0];
+      this.currentCoords.longitude = poi_array[5][1];
+      this.currentCoords.altitude = poi_array[5][2];
     } else {
       this.currentCoords = position.coords;
     }
