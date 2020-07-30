@@ -33,6 +33,8 @@
 - [A-frame components](./components.md)
 - [The Game API](./game-api.md)
 - [The Game backend](./game-backend.md)
+- [The Meeting API](./meeting-api.md)
+- [The GaMeetingme backend](./meeting-backend.md)
 
 ## Misc
 - [Notes](./notes.md)
