@@ -2,22 +2,37 @@
 
 Augmented Reality is a technology that fuses Virtual Reality with the real world to construct an enhanced experience. This web application is made to present its main functionalities and prove that this concept is a viable choice for Equinor both in terms of development complexity, cost and convenience. This application is divided into four parts, from now on referred to as Epic 1-4. For full functionality a mobile device is suggested.
 
-// Add instructions on how to open/start the application.
+## How to open the applications
 
-## Epic 1
+**Prerequisites:**
 
-_Can web AR enhance physical 3d printed models?_  
-URL: app/epic1.html
+- Android: Use Chrome browser
+  - You might have to enable _webXR_ flags in _chrome://flags_ (enter as url in Chrome)
+- iPhone: Use Safari
+  - You might have to download the _webXR Viewer_ app
+
+**Opening the web app:**
+
+- Open [this link](https://eit-web-ar.app.playground.radix.equinor.com/) on your mobile phone (https://eit-web-ar.app.playground.radix.equinor.com/) 
+
+## Epic 1: Can web AR enhance physical 3d printed models?
+
+**URL: [Epic 1](https://eit-web-ar.app.playground.radix.equinor.com/epic1.html)**
 
 The purpose of Epic 1 is to show that the app can react to barcode markers.  
-We printed the markers and put them on a guitar amplifier, but any box will do. For simple testing you can just point the camera at the markers without printing them and putting them on a box. Be aware that the markers do not work well on black/dark background. White background works fine. Choose to accept when the application asks to allow camera, geolocation and device motion sensors.
 
-### Markers available in epic 1
- 
+To the bottom left of the screen there is an info button. When clicking on it, there will appear a simple guide to how to use the app.
+
+- We printed the markers and put them on a guitar amplifier, but any box will do. 
+- Choose to accept when the application asks to allow camera, geolocation and device motion sensors.
+- For simple testing you can just point the camera at the markers without printing them and putting them on a box. 
+- Be aware that the markers do not work well on black/dark background. White background works fine. 
+
+### Markers for Epic 1
+ **Markers: [Markers 0-10 for testing](markers0-10.png).**
+
 The different possible scenarios are listed below, depending on the barcode the camera is pointing at.  
-For click events, point with the circular cursor on the middle of the screen.
-
-[Markers 0-10 for testing](markers0-10.png).
+For click events, point with the circular cursor on the middle of the screen, then click on the cursor.
 
 | Code | Interaction |
 | ---- | ------ |
@@ -34,12 +49,15 @@ For click events, point with the circular cursor on the middle of the screen.
 1. Use "Generate a single marker image with code ___" with the codes specified in the table "Markers available in epic 1"
 
 
-## Epic 2
+## Epic 2: Can web AR provide users with a sense of true scale of industrial equipment?
+**URL: [Epic 2](https://eit-web-ar.app.playground.radix.equinor.com/epic2.html)**
 
-_Can web AR provide users with a sense of true scale of industrial equipment?_  
-URL: app/epic2.html
+The main purpose of Epic 2 is to show that large 3D models can be used in the app, both placed by relative position and gps locations, and how to interact with them. 
 
-The main purpose of Epic 2 is to show that large 3D models can be used in the app, both placed by relative position and gps locations, and how to interact with them. When opening the app, the user has to either state the desired GPS coordinates for the objects, or use the current GPS location of the device. This is done by using the user interface, where you first click the GPS icon to the bottom right side of the screen. Then you either push the button "Use current position", or fill in the text boxes and then push the button "Submit GPS coordinates". To the bottom left of the screen there is an info button. When clicking on it, there will appear a simple guide to how to use the app. Remember to point with the circular cursor in the middle of the screen when interacting with the 3D objects. When looking around you will see:
+To the bottom left of the screen there is an info button. When clicking on it, there will appear a simple guide to how to use the app.
+
+- When opening the app, the user has to either state the desired GPS coordinates for the objects, or use the current GPS location of the device. This is done by using the user interface, where you first click the GPS icon to the bottom right side of the screen. Then you either push the button "Use current position", or fill in the text boxes and then push the button "Submit GPS coordinates". 
+- Remember to point with the circular cursor in the middle of the screen when interacting with the 3D objects. When looking around you will see:
 
 | Target | Interaction |
 | ------ | ----------- |
