@@ -38,23 +38,29 @@ By gaining easy availability we hope to be able to quickly explore use cases whe
 ### For Equinor
 
 - Final report is available in the following formats  
-  - [docx](./docs/report/Case09_report.docx)
-  - [pdf](./docs/report/Case09_report.pdf)
+  - [docx](./docs/Report/Case09_report.docx)
+  - [pdf](./docs/Report/Case09_report.pdf)
 - [Documentation](./docs/README.md)
 
 
 ## Technologies
 
 - [A-Frame JS](https://aframe.io/)  
-   Web VR library
+   Web VR library built on top of [three.js](https://threejs.org/)
    - [Experiment with AR and A-Frame](https://aframe.io/blog/webxr-ar-module/)
    - [Image Tracking and Location-Based AR with A-Frame and AR.js 3](https://aframe.io/blog/arjs3/)
+
+- [AR.js](https://ar-js-org.github.io/AR.js-Docs/)  
+  Web AR library that works well with A-frame.
 
 - [nginx](https://www.nginx.com/)  
   Simple web server for static content, handle public routing
 
 - [NodeJS](https://nodejs.org/en/)  
   Serverside javascript
+  - [Express](https://expressjs.com/) for creating a REST API.
+  - [Socket.io](https://socket.io/) for WebSocket communication.
+  
 
 - [Redis](https://redis.io/)  
   Redis is an open source (BSD licensed), in-memory data structure store, used as a database, cache and message broker

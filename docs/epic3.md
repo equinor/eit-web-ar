@@ -5,7 +5,7 @@ In Epic 3 we wanted to see if we could create a multiplayer AR experience. To te
 The multiplayer interaction was enabled through the use of **Nodejs** and **expressjs** as backend and API, **redis** as storage, and **socketio** for real-time communication between frontend and backend.
 
 ## Experiences made during Epic 3
-After epic 1 and epic 2 we had begun to get a good unsterstanding of A-frame and could start playing around with creating a frontend UI and backend with storage. We had no experience with expressjs, redis and socketio. So the main challenge was to learn these technologies, figure out the architecture, and get everything to work. 
+After epic 1 and epic 2 we had begun to get a good unsterstanding of A-frame and could start playing around with creating a frontend UI and backend with storage. We had no experience with expressjs, redis and socketio. So the main challenge was to learn these technologies, figure out the architecture, and get everything to work together. 
 
 In the backend, most of the effort went into setting up a backend API and a system that stored game data and sent out events to players when new data was available. In the frontend, the A-frame AR scene was easy to manipulate on multiplayer requests, and we created custom A-frame components through vanilla javascript. We experienced some problems with Cross-Origin-Resource-Sharing and spent some time configuring nginx and expressjs to solve this.
 
@@ -24,3 +24,8 @@ Cons: Resetting the redis server will lose the data. This setup is thus only goo
 In our app you can only click on models if you aim the cursor at the object and click on the cursor. We wanted to be able to click on a model without a cursor (being able to click a model anywhere on the smartphone screen using touch), but were not able to figure it out.
 
 A-frame uses ray casting to register click events. A ray is sent from the cursor, straight forward, and if it connects to an object a click is registered. We think that the ray needs some sort of entity source (like the cursor entity), and that is why it is hard to implement clicking from different parts of the smartphone screen.
+
+## Known bugs
+- Using markers on a screen (instead of printed on paper) can be buggy, and the models are not always shown when they should.
+- When users leave the game, it is not detected by the server. Therefore, "ghost players" can still receive models from others.
+- When a new round starts, the player who lost the last round is still marked "inactive". That means that this user cannot receive models before he sends one. (Might be considered a feature though, giving the player who lost a little help in the following round :)).

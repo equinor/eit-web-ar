@@ -320,6 +320,8 @@ Hopefully this will provide a more stable experience while using location-based 
 
 ## gps-animation
 
+The documentation for this component is correct until [commit e66511](https://github.com/equinor/eit-web-ar/commit/e66511d5525f1362186c8b8ebf558a9abf3ca1ee).
+
 The `gps-animation` component makes it possible to animate the position of a gps placed entity (entity with the `gps-entity-place` component).
 The animation is initiated with the `animation` component. Use the usual attributes on `animation`.
 
