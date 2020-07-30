@@ -6,7 +6,7 @@
    - [Description](https://github.com/equinor/eit-web-ar/issues/4)
    - [What we learned with Epic 1](epic1.md)
    - [User guide](./user-guide.md#Epic-1)
-   - [Video](https://drive.google.com/file/d/1teWcL39Us8xr9aYBNlM7stuhZb1C4WGH/view?usp=sharing)
+   - [Video](./Videos/Epic1.mp4)
 1. **Can web AR provide users with a sense of true scale of industrial equipment?** (Epic 2)  
    - [Description](https://github.com/equinor/eit-web-ar/issues/7)
    - [What we learned with Epic 2](epic2.md)
