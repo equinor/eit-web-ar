@@ -20,10 +20,12 @@
 1. **Can web AR be used for creating multiuser virtual meetings?** (Epic 4)
    - [Description](https://github.com/equinor/eit-web-ar/issues/263)
    - [What we learned with Epic 4](epic4.md)
+   - [Known bugs with Epic 4](epic4.md#bugs)
    - [User guide](./user-guide.md#epic-4)
 1. **Can web AR help humans identify robots and their actions?** (Epic 5)
    - [Description](https://github.com/equinor/eit-web-ar/issues/10)
    - [What we learned with Epic 5](epic5.md)
+   - [Known bugs with Epic 5](epic5.md#bugs)
 
 
 ## User guides
