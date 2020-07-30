@@ -64,7 +64,8 @@ AFRAME.registerComponent('fixed-point-kalman-gps-camera', {
   },
   init: function () {
     var SetCoords = [0, 0];
-    let Radius = this.data.radius;
+    this.Radius = this.data.radius;
+    this.poi_distance = 99999;
 
     // When submitting gps coordinations through the app, do the following:
     document.getElementById('submit_gps_coords').addEventListener('click', () => {
@@ -82,7 +83,7 @@ AFRAME.registerComponent('fixed-point-kalman-gps-camera', {
       SetCoords[0] = lat;
       SetCoords[1] = lng;
 
-      this._updatePoiArray(SetCoords, this.globalCurrentPosition, Radius);
+      this._updatePoiArray(SetCoords, this.globalCurrentPosition, this.Radius);
     });
 
     // When submitting your current gps position, do the following:
@@ -92,7 +93,7 @@ AFRAME.registerComponent('fixed-point-kalman-gps-camera', {
       //console.log(currentPos);
       this.location = { "lat": currentPos.coords.latitude, "lng": currentPos.coords.longitude }
       
-      var newLocation = { "lat": currentPos.coords.latitude + 0.000012*3, "lng": currentPos.coords.longitude + 0.000248*3 }
+      var newLocation = { "lat": currentPos.coords.latitude + 0.000012*8, "lng": currentPos.coords.longitude + 0.000248*8 }
       document.getElementById('lookout_tower_ent').setAttribute('gps-object', `location: { "lat": ${newLocation.lat}, "lng": ${newLocation.lng} }`);
       document.getElementById('eiffel_tower_ent').setAttribute('gps-object', `location: { "lat": ${currentPos.coords.lat}, "lng": ${currentPos.coords.lng} }`);
       // Set input fields to current pos
@@ -102,7 +103,7 @@ AFRAME.registerComponent('fixed-point-kalman-gps-camera', {
       SetCoords[0] = currentPos.coords.latitude;
       SetCoords[1] = currentPos.coords.longitude;
 
-      this._updatePoiArray(SetCoords, this.globalCurrentPosition, Radius);
+      this._updatePoiArray(SetCoords, this.globalCurrentPosition, this.Radius);
     });
 
     if (!this.el.components['look-controls']) {
@@ -185,7 +186,7 @@ AFRAME.registerComponent('fixed-point-kalman-gps-camera', {
       else {
         //console.log(position);
         this.globalCurrentPosition = position;
-        this._updatePoiArray(SetCoords, position, Radius);
+        this._updatePoiArray(SetCoords, position, this.Radius);
       }
       this._updatePosition();
     }.bind(this));
@@ -365,11 +366,14 @@ AFRAME.registerComponent('fixed-point-kalman-gps-camera', {
 
     position.x = this.kalmanx.filter(gpsPos.x, u.x);
     position.z = this.kalmanz.filter(gpsPos.z, u.z);
-    if (distances[5] < Radius) {
+    if (this.poi_distance < this.Radius) {
       position.y = this.currentCoords.altitude;
     } else {
       position.y = 0;
     }
+
+    console.log(this.poi_distance);
+    console.log(position);
 
     // update position
     this.el.setAttribute('position', position);
@@ -544,7 +548,7 @@ AFRAME.registerComponent('fixed-point-kalman-gps-camera', {
     
     for (i = 0; i < 5; i++) {
       if (i == 4) {
-        poi_array[i+1] = [poi_array[0][0] + 0.000012*3, poi_array[0][1] + 0.000248*3, 11];
+        poi_array[i+1] = [poi_array[0][0] + 0.000012*8, poi_array[0][1] + 0.000248*8, 30];
       } else {
         poi_array[i+1] = [poi_array[0][0] + a[i]*proximity, poi_array[0][1] + b[i]*proximity, 0];
       }
@@ -557,6 +561,8 @@ AFRAME.registerComponent('fixed-point-kalman-gps-camera', {
       }
     }
 
+    this.poi_distance = distances[5];
+
     
     /*
     console.log(poi_array);
@@ -567,7 +573,7 @@ AFRAME.registerComponent('fixed-point-kalman-gps-camera', {
     */
     
 
-    if (distances[5] < Radius) {
+    if (this.poi_distance < this.Radius) {
       this.currentCoords.latitude = poi_array[5][0];
       this.currentCoords.longitude = poi_array[5][1];
       this.currentCoords.altitude = poi_array[5][2];
