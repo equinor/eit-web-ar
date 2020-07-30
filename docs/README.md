@@ -34,8 +34,9 @@
 - [The Game API](./game-api.md)
 - [The Game backend](./game-backend.md)
 - [The Meeting API](./meeting-api.md)
-- [The GaMeetingme backend](./meeting-backend.md)
+- [The Meeting backend](./meeting-backend.md)
 
 ## Misc
 - [Notes](./notes.md)
+- [Other technologies worth exploring](./other-technologies.md)
 - [Final demo agenda](./demo-agenda.md)
