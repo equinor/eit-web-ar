@@ -40,7 +40,6 @@ For click events, point with the circular cursor on the middle of the screen, th
 | 0 | Text will show over the marker as long as the app can see the marker |
 | 1 | A sound will play once when the app recognizes the marker. The sound will then play each time the marker is lost and then found again |
 | 2 | A 3d model (penguin) will show over the marker as long as the marker is seen by the app. Rotate and scale the penguin using normal touch gestures |
-| 3 | A 3d model (penguin) will show over the marker as long as the marker is seen by the app. Rotate and scale the penguin using normal touch gestures |
 | 4 | A 3d model (simple box) will show over the marker as long as the marker is seen by the app. Toggle the visibility of the box by clicking (by touch) on the box while aiming at it with the cursor |
 | 5, 6, 7 | A line will be drawn between two markers when two markers are clicked. To click a marker, you will have to click it while the cursor is over the marker. The line is shown as long as the two markers are seen by the app. The line will reappear if the markers are lost and then found. |
 
