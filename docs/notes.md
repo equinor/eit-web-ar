@@ -57,7 +57,7 @@ The flags we've enabled are the following:
 It seems that at least some AR functionality can still be accessed even though the device does not have full AR support.
 So far we have been able to use the following functionalities on phones without AR support:
 
-* Camera (Moto G5)
+* Camera, GPS, microphone (Moto G5)
 
 ## Tracking symbols
 AR.js comes with two tracking functionalities: Image Tracking and Marker Tracking. Images are like photos (very detailed), while markers are very simple symbols. After some testing and reading, it seems that using markers is better for tracking in terms of speed and stability.

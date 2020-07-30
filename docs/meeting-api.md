@@ -73,6 +73,9 @@ Delete the user and corresponding information
 #### 410 User does not exist
 
 ## GET `/group/:groupId`
+
+Be aware that the group functionality is a work in progress.
+
 Get information about a group and the players within the group
 ### Responses
 #### 200
@@ -125,7 +128,53 @@ Delete a group and remove information related to the group.
 #### 200 Group deleted
 #### 410 Group does not exist
 
-## GET `/meeting`
+## GET `/interaction/:interactionId`
+
+Get information about an interaction.
+### Responses
+#### 200
+```json
+{
+  "type": "rocket",
+  "fromUserId": 3,
+  "toUserId": 5
+}
+```
+
+#### 410 Interaction does not exist
+
+## POST `/interaction`
+Add new interaction.
+### Request
+```json
+{
+  "type": "rocket",
+  "fromUserId": 3,
+  "toUserId": 5
+}
+```
+### Responses
+#### 201 Interaction added
+
+## PUT `/interaction/:interactionId`
+Update interaction information
+### Request
+```json
+{
+  "radius": 4
+}
+```
+### Responses
+#### 200 Interaction updated
+#### 410 Interaction does not exist
+
+## DELETE `/interaction/:interactionId`
+Delete an interaction and remove information related to the interaction.
+### Responses
+#### 200 Interaction deleted
+#### 410 Interaction does not exist
+
+## GET `/meeting` (not implemented)
 Get all available information about everything
 ### Responses
 #### 200
