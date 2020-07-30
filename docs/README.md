@@ -33,5 +33,6 @@
 - [The Game API](./game-api.md)
 - [The Game backend](./game-backend.md)
 
-## General notes
+## Misc
 - [Notes](./notes.md)
+- [Final demo agenda](./demo-agenda.md)
