@@ -80,7 +80,8 @@ Epic 2.5 is mainly an extension of Epic 2, introducing ways to manipulate GPS si
 ## Epic 3: Can multiplayer be used in web AR?
 
 **URL: [Epic 3](https://eit-web-ar.app.playground.radix.equinor.com/game.html)**
-**Game Board**: [Game board](markers0-5.png)
+
+**Game Board: [Game board](markers0-5.png)**
 
 The purpose of Epic 3 is to implement a proof of concept multiplayer app combined with AR. We implemented it as a multiplayer whack-a-mole game.
 
