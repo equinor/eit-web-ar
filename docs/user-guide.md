@@ -115,3 +115,6 @@ In the top right corner there is a map. The map shows other users who (in the vi
 You can interact with other users by throwing balls at them. To do this, you will have to point at a user and touch the screen.
 
 You can send audio messages to other users. Do this by holding the microphone button at the bottom of the screen. 1) Touch the button and hold. 2) Speak. 3) Release the button. The audio message will now be sent to the other users.
+
+
+<img src="./epic4-qr.png" alt="drawing" width="200"/>
