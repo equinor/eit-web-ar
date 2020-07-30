@@ -27,9 +27,9 @@
    - [Description](https://github.com/equinor/eit-web-ar/issues/10)
    - [What we learned with Epic 5](epic5.md)
 
-**Conclusion**
-- [Conclusion](conclusion.md)
-- [Conclusion](conclusion.md#Summarizing-tables)
+- **Conclusion**
+   - [Conclusion](conclusion.md)
+   - [Summarizing tables](conclusion.md#Summarizing-tables)
 
 
 ## User guides

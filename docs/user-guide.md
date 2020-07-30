@@ -100,8 +100,9 @@ See the [video](./docs/Videos/game.mp4) to see how it should work while playing.
 One round of the game ends when one of the players does not have any boxes left. Another round starts after five seconds.
 
 ## Epic 4
+_Can web AR be used for creating multiuser virtual meetings?_
 
-URL: app/meeting.html
+**URL: [Epic 4](https://eit-web-ar.app.playground.radix.equinor.com/meeting.html)****
 
 The purpose of Epic 4 is to implement a proof of concept virtual meeting. Users in the virtual meeting is displayed as 3d models. The concept is that each user will see the other users as if they were close by, even if they in reality is on the other side of Earth.
 
