@@ -11,7 +11,8 @@
    - [Description](https://github.com/equinor/eit-web-ar/issues/7)
    - [What we learned with Epic 2](epic2.md)
    - [User guide](./user-guide.md#epic-2)
-   - [Video](https://drive.google.com/file/d/12KXkdVIaeG4T4l7JaiPhFnztpZU9T2MH/view?usp=sharing)
+   - [Video](https://drive.google.com/file/d/1VleizD6mTKahkKJq4HRaokWc4TpNVD0m/view?usp=sharing)
+   - [Video](https://drive.google.com/file/d/1irZhrcQekYCSneX6tuNo4ySYU8XtkIDF/view?usp=sharing)
 1. **Can multiplayer be used in web AR?** (Epic 3)
    - [Description](https://github.com/equinor/eit-web-ar/issues/151)
    - [What we learned with Epic 3](epic3.md)
@@ -33,5 +34,6 @@
 - [The Game API](./game-api.md)
 - [The Game backend](./game-backend.md)
 
-## General notes
+## Misc
 - [Notes](./notes.md)
+- [Final demo agenda](./demo-agenda.md)

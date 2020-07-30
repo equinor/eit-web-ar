@@ -95,18 +95,18 @@ By gaining easy availability we hope to be able to quickly explore use cases whe
 
 ### Core 
 
-- [**frontend**](./frontend/README.md)  
+- [**frontend**](./frontend)  
   A client side web app.  
   nginx acts as a "backend" in that it
   - Serve static js/css/html to the client
   - Route `/api` to the `backend` component
 
-- [**backend**](./backend/README.md)  
+- [**backend**](./backend)  
   Handle business logic for multiplayer scenarios.  
   It is a nodejs server running express to expose a REST api.  
   Dependent on component `storage` for, well, data storage.
 
-- [**storage**](./storage/README.md)   
+- [**storage**](./storage)   
   Storage is a simple redis container with no file storage or backup
 
 ### Additional components when app is available in Radix (public)
