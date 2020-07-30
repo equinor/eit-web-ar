@@ -97,3 +97,20 @@ The purpose of Epic 3 is to implement a proof of concept multiplayer app combine
 - One round of the game ends when one of the players does not have any boxes left. Another round starts after five seconds.
 
 See the [video](./docs/Videos/game.mp4) to see how it should work while playing.
+One round of the game ends when one of the players does not have any boxes left. Another round starts after five seconds.
+
+## Epic 4
+
+URL: app/meeting.html
+
+The purpose of Epic 4 is to implement a proof of concept virtual meeting. Users in the virtual meeting is displayed as 3d models. The concept is that each user will see the other users as if they were close by, even if they in reality is on the other side of Earth.
+
+The app is based on each user's gps positions. This means that when a users moves a little bit in reality, e.g. two meters to the right, this movement will be shown to the other users as if the user moved two meters in the virtual meeting. Rotation is also shown to the other users.
+
+Currently, each user is displayed as a sphere with "eyes" on. Their username is shown above the sphere.
+
+In the top right corner there is a map. The map shows other users who (in the virtual meeting) are within a close proximity of yourself. Up on the map equals the direction you look in the virtual world.
+
+You can interact with other users by throwing balls at them. To do this, you will have to point at a user and touch the screen.
+
+You can send audio messages to other users. Do this by holding the microphone button at the bottom of the screen. 1) Touch the button and hold. 2) Speak. 3) Release the button. The audio message will now be sent to the other users.
