@@ -39,7 +39,7 @@ For click events, point with the circular cursor on the middle of the screen.
 _Can web AR provide users with a sense of true scale of industrial equipment?_  
 URL: app/epic2.html
 
-The main purpose of Epic 2 is to show that large 3D models can be used in the app, both placed by relative position and gps locations, and how to interact with them. First of all it is important to ensure that the gps coordinates stated in the epic2.html script are located close to the user. The thought is that the `eiffel_tower`, `mario_kart`, `banana`, `ho_oh` and `disco_ball` objects have the same coordinates, and that the four `sphere` objects are located close to, but not on top of, each other. The reason why will be clear shortly. Remember to point with the circular cursor in the middle of the screen.
+The main purpose of Epic 2 is to show that large 3D models can be used in the app, both placed by relative position and gps locations, and how to interact with them. First of all it is important to ensure that the gps coordinates stated in the epic2.html script are located close to the user. The thought is that the `disco_ball` and that the three `sphere` objects are located close to, but not on top of, each other. Remember to point with the circular cursor in the middle of the screen.
 
 When pointing towards the Eiffel Tower, you will see:
 
@@ -47,7 +47,6 @@ When pointing towards the Eiffel Tower, you will see:
 | ------ | ----------- |
 | A rotating disco ball hanging from under the Eiffel Tower | When clicking on it a short music sample will start playing, and it will stop rotating. When clicking again it will start rotating again, and the same music will play |
 | A stationary banana peel | Super Mario driving in his signature kart around the Eiffel Tower, and slipping when hitting the banana peel. When clicking on Mario's start position (just under the disco ball), his animation will pause/unpause |
-| A Ho-Oh pokèmon (bird) hovering around the upper half of the Eiffel Tower | N/A |
 | Sphere | When clicking on one of the spheres, it will start an animation. This animation is defined by stating the start and end location in the html script, in addition to the duration time (in milliseconds). It is possible to add other animation properties, see documentation. When clicking on two spheres consecutively a straight red line will be drawn between them. Hence, for convenience we suggest that the spheres are located relatively close to, but not on top of, one another |
 
 
@@ -55,9 +54,7 @@ When pointing towards the Eiffel Tower, you will see:
 
 *epic2.5.html*
 
-Epic 2.5 is mainly an extension of Epic 2, introducing ways to manipulate GPS signals from the user device. 
-
- **FYLL INN MER HER**
+Epic 2.5 is mainly an extension of Epic 2, introducing ways to manipulate GPS signals from the user device. A user interface feature is added, where the user can place the Eiffel Tower. The user can either press the button "Use currrent position" to place the Eiffel Tower exactly where the device is located, or the button "Submit GPS coordinates" after typing in the wanted GPS coordinates. When walking to the lookout tower, which is located close to the Eiffel Tower, the GPS signal will be manipulated so that the user is at the top of the lookout tower.
 
 
 ## Epic 3
