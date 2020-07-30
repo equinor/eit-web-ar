@@ -365,7 +365,11 @@ AFRAME.registerComponent('fixed-point-kalman-gps-camera', {
 
     position.x = this.kalmanx.filter(gpsPos.x, u.x);
     position.z = this.kalmanz.filter(gpsPos.z, u.z);
-    position.y = this.currentCoords.altitude;
+    if (distances[5] < Radius) {
+      position.y = this.currentCoords.altitude;
+    } else {
+      position.y = 0;
+    }
 
     // update position
     this.el.setAttribute('position', position);
