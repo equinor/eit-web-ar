@@ -39,22 +39,24 @@ For click events, point with the circular cursor on the middle of the screen.
 _Can web AR provide users with a sense of true scale of industrial equipment?_  
 URL: app/epic2.html
 
-The main purpose of Epic 2 is to show that large 3D models can be used in the app, both placed by relative position and gps locations, and how to interact with them. First of all it is important to ensure that the gps coordinates stated in the epic2.html script are located close to the user. The thought is that the `disco_ball` and that the three `sphere` objects are located close to, but not on top of, each other. Remember to point with the circular cursor in the middle of the screen.
-
-When pointing towards the Eiffel Tower, you will see:
+The main purpose of Epic 2 is to show that large 3D models can be used in the app, both placed by relative position and gps locations, and how to interact with them. When opening the app, the user has to either state the desired GPS coordinates for the objects, or use the current GPS location of the device. This is done by using the user interface, where you first click the GPS icon to the bottom right side of the screen. Then you either push the button "Use current position", or fill in the text boxes and then push the button "Submit GPS coordinates". To the bottom left of the screen there is an info button. When clicking on it, there will appear a simple guide to how to use the app. Remember to point with the circular cursor in the middle of the screen when interacting with the 3D objects. When looking around you will see:
 
 | Target | Interaction |
 | ------ | ----------- |
-| A rotating disco ball hanging from under the Eiffel Tower | When clicking on it a short music sample will start playing, and it will stop rotating. When clicking again it will start rotating again, and the same music will play |
-| A stationary banana peel | Super Mario driving in his signature kart around the Eiffel Tower, and slipping when hitting the banana peel. When clicking on Mario's start position (just under the disco ball), his animation will pause/unpause |
-| Sphere | When clicking on one of the spheres, it will start an animation. This animation is defined by stating the start and end location in the html script, in addition to the duration time (in milliseconds). It is possible to add other animation properties, see documentation. When clicking on two spheres consecutively a straight red line will be drawn between them. Hence, for convenience we suggest that the spheres are located relatively close to, but not on top of, one another |
+| A rotating disco ball | When clicking on it a short music sample will start playing, and it will stop rotating. When clicking again it will start rotating again, and the same music will play |
+| Sphere | When clicking on one of the spheres, it will start an animation. When clicking on two spheres consecutively a straight red line will be drawn between them. The animation is defined by stating the start and end location in the html script, in addition to the duration time (in milliseconds). It is possible to add other animation properties, see documentation. |
 
 
 ## Epic 2.5
 
-*epic2.5.html*
+URL: app/epic2.5.html
 
-Epic 2.5 is mainly an extension of Epic 2, introducing ways to manipulate GPS signals from the user device. A user interface feature is added, where the user can place the Eiffel Tower. The user can either press the button "Use currrent position" to place the Eiffel Tower exactly where the device is located, or the button "Submit GPS coordinates" after typing in the wanted GPS coordinates. When walking to the lookout tower, which is located close to the Eiffel Tower, the GPS signal will be manipulated so that the user is at the top of the lookout tower.
+Epic 2.5 is mainly an extension of Epic 2, introducing ways to manipulate GPS signals from the user device. This epic also shows how large 3D models can be experienced in an AR environment. When using the current GPS location of the device, the Eiffel Tower will appear right where you are so that you are standing under it. There will also be a lookout tower placed close to the Eiffel Tower. When walking to the lookout tower, the GPS signal will be manipulated so that the user is at the top of the lookout tower. This is done so that the user can look at the Eiffel Tower from a height, and to show that one can manipulate the location and altitude of the device. This way the user will experience that the models are more stable, eg. not moving around. When looking around you will see:
+
+| Target | Interaction |
+| ------ | ----------- |
+| The Eiffel Tower | There is no interaction, but it shows how a large 3D object is experiences in AR. |
+| Lookout tower | When walking to the tower and being within a radius of 3 meters, the user will be placed on the top of the tower. Now the user can look at the Eiffel Tower from above. |
 
 
 ## Epic 3
