@@ -38,8 +38,8 @@ By gaining easy availability we hope to be able to quickly explore use cases whe
 ### For Equinor
 
 - Final report is available in the following formats  
-  - [docx](./docs/report/Case09_report.docx)
-  - [pdf](./docs/report/Case09_report.pdf)
+  - [docx](./docs/Report/Case09_report.docx)
+  - [pdf](./docs/Report/Case09_report.pdf)
 - [Documentation](./docs/README.md)
 
 
