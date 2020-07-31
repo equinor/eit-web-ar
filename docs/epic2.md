@@ -6,7 +6,7 @@ When loading the gltf models in the application, several of the objects in AR ap
 Using Blender for creating animations on gltf models had a lot of advantages. It is possible to make complex animations on large and detailed objects, making it valuable for comprehensive projects/applications. We only had the time to learn the basic tools and features of the program, but were able to make acceptable products. 
 
 ## Pros and cons with the approach
-The big downside with using the phone gps to anything at all is that the gps signal is not stable. In our case that means that when we place an object (e.g. eiffel tower) at a gps location, the object will drift around in a proximity to the gps location it was supposed to be stationary at. See [this video](https://drive.google.com/file/d/12KXkdVIaeG4T4l7JaiPhFnztpZU9T2MH/view?usp=sharing) for an example.
+The big downside with using the phone gps to anything at all is that the gps signal is not stable. In our case that means that when we place an object (e.g. eiffel tower) at a gps location, the object will drift around in a proximity to the gps location it was supposed to be stationary at. See [this video](https://drive.google.com/file/d/1d7EgDE9wp43lk-vgqNgFjKLFp0RlSh6N/view?usp=sharing) for an example.
 
 We found it hard to get the "true scale feeling" when placing large models in the AR world. One of the problems is that the objects are always placed in front of what is seen by the camera. It might be possible to solve this using height data and calculate whether the 3d model is in front of or behind the landscape and buildings. Placing the 3d model at a big open place with buildings at the sides could have made it feel more true scale.
 
